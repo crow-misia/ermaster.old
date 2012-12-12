@@ -67,7 +67,7 @@ public class ImportFromDBAction extends AbstractImportAction {
 				break;
 
 			} else if (step == 0) {
-				// �ڑ��̐ݒ�
+				// ・ｽﾚ托ｿｽ・ｽﾌ設抵ｿｽ
 				ImportDBSettingDialog settingDialog = new ImportDBSettingDialog(
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 								.getShell(), diagram);
@@ -85,7 +85,7 @@ public class ImportFromDBAction extends AbstractImportAction {
 					con = dbSetting.connect();
 
 					if (step == 1) {
-						// �X�L�[�}�̑I��
+						// ・ｽX・ｽL・ｽ[・ｽ}・ｽﾌ選・ｽ・ｽ
 						List<String> schemaList = manager
 								.getImportSchemaList(con);
 
@@ -104,7 +104,7 @@ public class ImportFromDBAction extends AbstractImportAction {
 						}
 
 					} else if (step == 2) {
-						// �I�u�W�F�N�g�̑I��
+						// ・ｽI・ｽu・ｽW・ｽF・ｽN・ｽg・ｽﾌ選・ｽ・ｽ
 						PreImportFromDBManager preTableImportManager = manager
 								.getPreTableImportManager();
 						preTableImportManager.init(con, this.dbSetting,

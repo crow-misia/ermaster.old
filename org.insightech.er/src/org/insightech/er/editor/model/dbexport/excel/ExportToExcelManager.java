@@ -135,7 +135,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 	}
 
 	/**
-	 * �f�[�^�x�[�X��`��G�N�Z���ɏ����o���܂��B
+	 * ・ｽf・ｽ[・ｽ^・ｽx・ｽ[・ｽX・ｽ・ｽ`・ｽ・ｽG・ｽN・ｽZ・ｽ・ｽ・ｽﾉ擾ｿｽ・ｽ・ｽ・ｽo・ｽ・ｽ・ｽﾜゑｿｽ・ｽB
 	 * 
 	 * @param editorPart
 	 * @param viewer
