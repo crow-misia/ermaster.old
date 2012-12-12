@@ -100,6 +100,17 @@ public class ExportJavaSetting implements Serializable, Cloneable {
 		return true;
 	}
 
+	@Override
+	public int hashCode() {
+		int h = 0;
+		h = h * 37 + (classNameSuffix == null ? 0 : classNameSuffix.hashCode());
+		h = h * 37 + (javaOutput == null ? 0 : javaOutput.hashCode());
+		h = h * 37 + (packageName == null ? 0 : packageName.hashCode());
+		h = h * 37 + (srcFileEncoding == null ? 0 : srcFileEncoding.hashCode());
+		h = h * 37 + (withHibernate ? 1231 : 1237);
+		return h;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

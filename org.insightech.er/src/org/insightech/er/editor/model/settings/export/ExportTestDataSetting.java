@@ -60,6 +60,15 @@ public class ExportTestDataSetting implements Serializable, Cloneable {
 		return true;
 	}
 
+	@Override
+	public int hashCode() {
+		int h = 0;
+		h = h * 37 + (exportFileEncoding == null ? 0 : exportFileEncoding.hashCode());
+		h = h * 37 + (exportFilePath == null ? 0 : exportFilePath.hashCode());
+		h = h * 37 + exportFormat;
+		return h;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

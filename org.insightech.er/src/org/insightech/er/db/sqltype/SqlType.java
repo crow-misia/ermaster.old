@@ -332,6 +332,11 @@ public class SqlType implements Serializable {
 
 		return this.name.equals(type.name);
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.name == null ? 0 : this.name.hashCode();
+	}
 
 	/**
 	 * {@inheritDoc}

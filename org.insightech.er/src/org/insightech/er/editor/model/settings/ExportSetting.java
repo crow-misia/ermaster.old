@@ -245,6 +245,23 @@ public class ExportSetting implements Serializable, Cloneable {
 		return true;
 	}
 
+	@Override
+	public int hashCode() {
+		int h = 0;
+		h = h * 37 + (categoryNameToExport == null ? 0 : categoryNameToExport.hashCode());
+		h = h * 37 + (ddlOutput == null ? 0 : ddlOutput.hashCode());
+		h = h * 37 + (ddlTarget == null ? 0 : ddlTarget.hashCode());
+		h = h * 37 + (excelOutput == null ? 0 : excelOutput.hashCode());
+		h = h * 37 + (excelTemplate == null ? 0 : excelTemplate.hashCode());
+		h = h * 37 + (exportJavaSetting == null ? 0 : exportJavaSetting.hashCode());
+		h = h * 37 + (exportTestDataSetting == null ? 0 : exportTestDataSetting.hashCode());
+		h = h * 37 + (imageOutput == null ? 0 : imageOutput.hashCode());
+		h = h * 37 + (openAfterSaved ? 1231 : 1237);
+		h = h * 37 + (putERDiagramOnExcel ? 1231 : 1237);
+		h = h * 37 + (useLogicalNameAsSheet ? 1231 : 1237);
+		return h;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

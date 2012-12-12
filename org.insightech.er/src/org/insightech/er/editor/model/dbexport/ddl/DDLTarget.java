@@ -105,6 +105,33 @@ public class DDLTarget implements Serializable, Cloneable {
 		return true;
 	}
 
+	@Override
+	public int hashCode() {
+		int h = 0;
+		h = h * 37 + (commentReplaceLineFeed ? 1231 : 1237);
+		h = h * 37 + (commentReplaceString == null ? 0 : commentReplaceString.hashCode());
+		h = h * 37 + (commentValueDescription ? 1231 : 1237);
+		h = h * 37 + (commentValueLogicalName ? 1231 : 1237);
+		h = h * 37 + (commentValueLogicalNameDescription ? 1231 : 1237);
+		h = h * 37 + (createComment ? 1231 : 1237);
+		h = h * 37 + (createForeignKey ? 1231 : 1237);
+		h = h * 37 + (createIndex ? 1231 : 1237);
+		h = h * 37 + (createSequence ? 1231 : 1237);
+		h = h * 37 + (createTable ? 1231 : 1237);
+		h = h * 37 + (createTablespace ? 1231 : 1237);
+		h = h * 37 + (createTrigger ? 1231 : 1237);
+		h = h * 37 + (createView ? 1231 : 1237);
+		h = h * 37 + (dropIndex ? 1231 : 1237);
+		h = h * 37 + (dropSequence ? 1231 : 1237);
+		h = h * 37 + (dropTable ? 1231 : 1237);
+		h = h * 37 + (dropTablespace ? 1231 : 1237);
+		h = h * 37 + (dropTrigger ? 1231 : 1237);
+		h = h * 37 + (dropView ? 1231 : 1237);
+		h = h * 37 + (inlineColumnComment ? 1231 : 1237);
+		h = h * 37 + (inlineTableComment ? 1231 : 1237);
+		return h;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

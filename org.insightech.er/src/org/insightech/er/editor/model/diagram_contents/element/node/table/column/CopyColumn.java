@@ -75,6 +75,11 @@ public class CopyColumn extends NormalColumn {
 		return originalColumn.equals(obj);
 	}
 
+	@Override
+	public int hashCode() {
+		return originalColumn.hashCode();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
