@@ -2,6 +2,7 @@ package org.insightech.er.editor.controller.editpart.outline.dictionary;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.settings.Settings;
@@ -47,9 +49,9 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 		List<ColumnGroup> wordHolderList3 = new ArrayList<ColumnGroup>();
 
 		ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
-		Word word = (Word) this.getModel();
+		UniqueWord word = (UniqueWord) this.getModel();
 
-		List<NormalColumn> normalColumns = diagram.getDiagramContents()
+		Collection<NormalColumn> normalColumns = diagram.getDiagramContents()
 				.getDictionary().getColumnList(word);
 
 		Category category = this.getCurrentCategory();

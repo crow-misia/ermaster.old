@@ -2,6 +2,7 @@ package org.insightech.er.editor.model.dbexport.html.page_generator.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.insightech.er.editor.model.dbexport.html.page_generator.AbstractHtmlR
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.ColumnHolder;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.util.Format;
@@ -31,7 +33,7 @@ public class WordHtmlReportPageGenerator extends
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getDictionary().getWordList();
+		List list = diagram.getDiagramContents().getDictionary().getUniqueWordList();
 
 		return list;
 	}
@@ -42,7 +44,7 @@ public class WordHtmlReportPageGenerator extends
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
-		Word word = (Word) object;
+		UniqueWord word = (UniqueWord) object;
 
 		String logicalName = word.getLogicalName();
 		String physicalName = word.getPhysicalName();
@@ -56,7 +58,7 @@ public class WordHtmlReportPageGenerator extends
 
 		List<TableView> usedTableList = new ArrayList<TableView>();
 
-		List<NormalColumn> normalColumnList = diagram.getDiagramContents()
+		Collection<NormalColumn> normalColumnList = diagram.getDiagramContents()
 				.getDictionary().getColumnList(word);
 		for (NormalColumn normalColumn : normalColumnList) {
 			ColumnHolder columnHolder = normalColumn.getColumnHolder();

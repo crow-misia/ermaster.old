@@ -14,6 +14,7 @@ import org.insightech.er.ResourceString;
 import org.insightech.er.editor.ERDiagramEditor;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.util.CsvWriter;
 import org.insightech.er.util.Format;
@@ -59,7 +60,7 @@ public class ExportToDictionaryAction extends AbstractExportAction {
 
 			String database = diagram.getDatabase();
 
-			List<Word> list = dictionary.getWordList();
+			List<UniqueWord> list = dictionary.getUniqueWordList();
 
 			Collections.sort(list);
 

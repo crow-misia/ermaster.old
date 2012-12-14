@@ -26,7 +26,7 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 		this.array = array;
 		this.arrayDimension = arrayDimension;
 		this.unsigned = unsigned;
-		this.args = args;
+		this.args = "".equals(args) ? null : args;
 	}
 
 	public Integer getLength() {
@@ -74,7 +74,7 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 	}
 
 	public void setArgs(String args) {
-		this.args = args;
+		this.args = "".equals(args) ? null : args;
 	}
 
 	public int compareTo(TypeData o) {

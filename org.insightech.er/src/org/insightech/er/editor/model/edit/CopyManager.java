@@ -2,6 +2,7 @@ package org.insightech.er.editor.model.edit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -413,7 +414,7 @@ public class CopyManager {
 	private void setWord(DiagramContents copyDiagramContents,
 			DiagramContents originalDiagramContents) {
 
-		Map<Word, Word> wordMap = new HashMap<Word, Word>();
+		Map<Word, Word> wordMap = new IdentityHashMap<Word, Word>();
 		Dictionary copyDictionary = copyDiagramContents.getDictionary();
 
 		for (Word word : originalDiagramContents.getDictionary().getWordList()) {

@@ -10,6 +10,7 @@ import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.controller.editpart.outline.AbstractOutlineEditPart;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.settings.Settings;
 
@@ -27,7 +28,7 @@ public class DictionaryOutlineEditPart extends AbstractOutlineEditPart {
 	@Override
 	protected List getModelChildren() {
 		Dictionary dictionary = (Dictionary) this.getModel();
-		List<Word> list = dictionary.getWordList();
+		List<UniqueWord> list = dictionary.getUniqueWordList();
 
 		if (this.getDiagram().getDiagramContents().getSettings()
 				.getViewOrderBy() == Settings.VIEW_MODE_LOGICAL) {

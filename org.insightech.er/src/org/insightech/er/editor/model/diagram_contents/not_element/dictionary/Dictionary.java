@@ -1,10 +1,14 @@
 package org.insightech.er.editor.model.diagram_contents.not_element.dictionary;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -16,10 +20,15 @@ public class Dictionary extends AbstractModel {
 
 	public static final String PROPERTY_CHANGE_DICTIONARY = "dictionary";
 
-	private Map<Word, List<NormalColumn>> wordMap;
+	private final Map<Word, Set<NormalColumn>> wordMap;
+	private final Map<UniqueWord, Set<NormalColumn>> uniqueWordMap;
+	
+	private final Map<Word, UniqueWord> cache;
 
 	public Dictionary() {
-		this.wordMap = new HashMap<Word, List<NormalColumn>>();
+		this.wordMap = new IdentityHashMap<Word, Set<NormalColumn>>();
+		this.uniqueWordMap = new HashMap<UniqueWord, Set<NormalColumn>>();
+		this.cache = new IdentityHashMap<Word, UniqueWord>();
 	}
 
 	public void add(NormalColumn column) {
@@ -28,17 +37,17 @@ public class Dictionary extends AbstractModel {
 		if (word == null) {
 			return;
 		}
-
-		List<NormalColumn> useColumns = this.wordMap.get(word);
-
+		
+		// for Word
+		Set<NormalColumn> useColumns = this.wordMap.get(word);
 		if (useColumns == null) {
-			useColumns = new ArrayList<NormalColumn>();
+			useColumns = new HashSet<NormalColumn>();
 			this.wordMap.put(word, useColumns);
 		}
+		useColumns.add(column);
 
-		if (!useColumns.contains(column)) {
-			useColumns.add(column);
-		}
+		// for UniqueWord
+		createUniqueWordMap();
 
 		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
 	}
@@ -49,15 +58,19 @@ public class Dictionary extends AbstractModel {
 		if (word == null) {
 			return;
 		}
-
-		List<NormalColumn> useColumns = this.wordMap.get(word);
-
+		
+		// for Word
+		Set<NormalColumn> useColumns = this.wordMap.get(word);
 		if (useColumns != null) {
 			useColumns.remove(column);
 			if (useColumns.isEmpty()) {
 				this.wordMap.remove(word);
+				this.cache.remove(word);
 			}
 		}
+		
+		// for UniqueWord
+		createUniqueWordMap();
 
 		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
 	}
@@ -67,9 +80,30 @@ public class Dictionary extends AbstractModel {
 			this.remove(normalColumn);
 		}
 	}
+	
+	private void createUniqueWordMap() {
+		Set<NormalColumn> useColumns;
+		this.uniqueWordMap.clear();
+		for (final Map.Entry<Word, Set<NormalColumn>> entry : this.wordMap.entrySet()) {
+			final UniqueWord key = createUniqueWord(cache, entry.getKey(), false);
+			useColumns = this.uniqueWordMap.get(key);
+			if (useColumns == null) {
+				useColumns = new HashSet<NormalColumn>(entry.getValue());
+				this.uniqueWordMap.put(key, useColumns);
+			} else {
+				useColumns.addAll(entry.getValue());
+			}
+		}
+	}
 
 	public void clear() {
 		this.wordMap.clear();
+		this.uniqueWordMap.clear();
+		this.cache.clear();
+	}
+
+	public List<UniqueWord> getUniqueWordList() {
+		return new ArrayList<UniqueWord>(this.uniqueWordMap.keySet());
 	}
 
 	public List<Word> getWordList() {
@@ -80,11 +114,25 @@ public class Dictionary extends AbstractModel {
 		return list;
 	}
 
-	public List<NormalColumn> getColumnList(Word word) {
+	public Collection<NormalColumn> getColumnList(Word word) {
+		if (word instanceof UniqueWord) {
+			return this.uniqueWordMap.get(word);
+		}
 		return this.wordMap.get(word);
 	}
 
 	public void copyTo(Word from, Word to) {
 		from.copyTo(to);
+	}
+	
+	private static UniqueWord createUniqueWord(final Map<Word, UniqueWord> map, final Word word, final boolean cache) {
+		UniqueWord retval = map.get(word);
+		if (retval == null) {
+			retval = new UniqueWord(word);
+			if (cache) {
+				map.put(word, retval);
+			}
+		}
+		return retval;
 	}
 }

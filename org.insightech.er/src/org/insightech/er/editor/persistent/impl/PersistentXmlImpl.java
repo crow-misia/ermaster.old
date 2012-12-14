@@ -40,7 +40,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.unique
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.properties.ViewProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
-import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
@@ -87,7 +87,7 @@ public class PersistentXmlImpl extends Persistent {
 
 		private Map<NodeElement, Integer> nodeElementMap = new HashMap<NodeElement, Integer>();
 
-		private Map<Word, Integer> wordMap = new HashMap<Word, Integer>();
+		private Map<UniqueWord, Integer> wordMap = new HashMap<UniqueWord, Integer>();
 
 		private Map<Tablespace, Integer> tablespaceMap = new HashMap<Tablespace, Integer>();
 
@@ -152,7 +152,7 @@ public class PersistentXmlImpl extends Persistent {
 		}
 
 		int wordCount = 0;
-		for (Word word : diagramContents.getDictionary().getWordList()) {
+		for (UniqueWord word : diagramContents.getDictionary().getUniqueWordList()) {
 			context.wordMap.put(word, new Integer(wordCount));
 			wordCount++;
 		}
@@ -1343,7 +1343,7 @@ public class PersistentXmlImpl extends Persistent {
 		Integer wordId = null;
 
 		if (context != null) {
-			wordId = context.wordMap.get(normalColumn.getWord());
+			wordId = context.wordMap.get(new UniqueWord(normalColumn.getWord()));
 			if (wordId != null) {
 				xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
 			}
@@ -1754,7 +1754,7 @@ public class PersistentXmlImpl extends Persistent {
 
 		xml.append("<dictionary>\n");
 
-		for (Word word : dictionary.getWordList()) {
+		for (UniqueWord word : dictionary.getUniqueWordList()) {
 			xml.append(tab(this.createXML(word, context)));
 		}
 
@@ -1763,7 +1763,7 @@ public class PersistentXmlImpl extends Persistent {
 		return xml.toString();
 	}
 
-	private String createXML(Word word, PersistentContext context) {
+	private String createXML(UniqueWord word, PersistentContext context) {
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<word>\n");
