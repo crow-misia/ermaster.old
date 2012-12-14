@@ -24,7 +24,7 @@ public class ReplaceManager {
 			SearchResultRow.TYPE_COLUMN_PHYSICAL_NAME,
 			SearchResultRow.TYPE_COLUMN_GROUP_COLUMN_PHYSICAL_NAME };
 
-	private static final int[] DEGIT_TYPES = new int[] {
+	private static final int[] DIGIT_TYPES = new int[] {
 			SearchResultRow.TYPE_WORD_LENGTH,
 			SearchResultRow.TYPE_WORD_DECIMAL,
 			SearchResultRow.TYPE_COLUMN_LENGTH,
@@ -59,7 +59,7 @@ public class ReplaceManager {
 		}
 
 		checkAlphabet(type, replaceWord);
-		checkDegit(type, replaceWord);
+		checkDigit(type, replaceWord);
 
 		if (type == SearchResultRow.TYPE_RELATION_NAME) {
 			Relation relation = (Relation) object;
@@ -339,13 +339,13 @@ public class ReplaceManager {
 		return true;
 	}
 
-	private static boolean checkDegit(int type, String str) {
+	private static boolean checkDigit(int type, String str) {
 		if (str == null || str.equals("")) {
 			return true;
 		}
 
-		for (int degitType : DEGIT_TYPES) {
-			if (type == degitType) {
+		for (int digitType : DIGIT_TYPES) {
+			if (type == digitType) {
 				try {
 					int len = Integer.parseInt(str);
 					if (len < 0) {

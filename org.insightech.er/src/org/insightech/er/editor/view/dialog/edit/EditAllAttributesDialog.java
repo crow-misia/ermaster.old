@@ -717,7 +717,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 						}
 
 					} catch (NumberFormatException e) {
-						this.errorMessage = "error.column.length.degit";
+						this.errorMessage = "error.column.length.digit";
 						return;
 					}
 
@@ -748,7 +748,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 						}
 
 					} catch (NumberFormatException e) {
-						this.errorMessage = "error.column.decimal.degit";
+						this.errorMessage = "error.column.decimal.digit";
 						return;
 					}
 				}
