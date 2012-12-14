@@ -12,7 +12,6 @@ public abstract class BaseRule implements Rule {
 
 	public BaseRule() {
 		this.errorList = new ArrayList<ValidateResult>();
-		Validator.addRule(this);
 	}
 
 	protected void addError(ValidateResult errorMessage) {

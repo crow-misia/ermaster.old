@@ -21,16 +21,16 @@ public class EclipseDBManagerFactory {
 	private static final List<EclipseDBManager> DB_LIST = new ArrayList<EclipseDBManager>();
 
 	static {
-		new StandardSQLEclipseDBManager();
-		new DB2EclipseDBManager();
-		new HSQLDBEclipseDBManager();
-		new AccessEclipseDBManager();
-		new MySQLEclipseDBManager();
-		new OracleEclipseDBManager();
-		new PostgresEclipseDBManager();
-		new SQLiteEclipseDBManager();
-		new SqlServerEclipseDBManager();
-		new SqlServer2008EclipseDBManager();
+		addDB(new StandardSQLEclipseDBManager());
+		addDB(new DB2EclipseDBManager());
+		addDB(new HSQLDBEclipseDBManager());
+		addDB(new AccessEclipseDBManager());
+		addDB(new MySQLEclipseDBManager());
+		addDB(new OracleEclipseDBManager());
+		addDB(new PostgresEclipseDBManager());
+		addDB(new SQLiteEclipseDBManager());
+		addDB(new SqlServerEclipseDBManager());
+		addDB(new SqlServer2008EclipseDBManager());
 	}
 
 	static void addDB(EclipseDBManager manager) {

@@ -26,26 +26,26 @@ public class Validator {
 
 	static {
 		// 全体に対するルール
-		new DuplicatedPhysicalNameRule();
-		new ReservedNameRule();
+		addRule(new DuplicatedPhysicalNameRule());
+		addRule(new ReservedNameRule());
 
 		// テーブルに対するルール
-		new NoTableNameRule();
-		new NoColumnRule();
-		new DuplicatedColumnNameRule();
-		new ReservedWordTableNameRule();
-		new FullTextIndexRule();
+		addRule(new NoTableNameRule());
+		addRule(new NoColumnRule());
+		addRule(new DuplicatedColumnNameRule());
+		addRule(new ReservedWordTableNameRule());
+		addRule(new FullTextIndexRule());
 
 		// ビューに対するルール
-		new NoViewNameRule();
-		new ReservedWordViewNameRule();
-		new NoViewSqlRule();
+		addRule(new NoViewNameRule());
+		addRule(new ReservedWordViewNameRule());
+		addRule(new NoViewSqlRule());
 
 		// 列に対するルール
-		new NoColumnNameRule();
-		new NoColumnTypeRule();
-		new ReservedWordColumnNameRule();
-		new UninputTablespaceRule();
+		addRule(new NoColumnNameRule());
+		addRule(new NoColumnTypeRule());
+		addRule(new ReservedWordColumnNameRule());
+		addRule(new UninputTablespaceRule());
 	}
 
 	public static void addRule(Rule rule) {

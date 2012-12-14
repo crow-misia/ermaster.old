@@ -31,8 +31,6 @@ public abstract class DBManagerBase implements DBManager {
 	private Map<String, ClassLoader> loaderMap;
 
 	public DBManagerBase() {
-		DBManagerFactory.addDB(this);
-
 		this.reservedWords = this.getReservedWords();
 
 		this.loaderMap = new HashMap<String, ClassLoader>();
