@@ -182,7 +182,8 @@ public class SequenceDialog extends AbstractDialog {
 
 			if (!text.equals("")) {
 				try {
-					new BigDecimal(text);
+					@SuppressWarnings("unused")
+					BigDecimal tmp = new BigDecimal(text);
 
 				} catch (NumberFormatException e) {
 					return "error.sequence.maxValue.degit";

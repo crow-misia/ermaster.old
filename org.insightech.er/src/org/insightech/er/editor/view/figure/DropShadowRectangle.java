@@ -2,6 +2,7 @@ package org.insightech.er.editor.view.figure;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -20,6 +21,7 @@ public class DropShadowRectangle extends RoundedRectangle {
 		Insets shadowInset = new Insets(0, 0, SHADOW_INSET, SHADOW_INSET);
 		f = shrink(f, shadowInset);
 		this.drawShadow(f, graphics);
+		final Dimension corner = getCornerDimensions();
 		graphics.fillRoundRectangle(f, corner.width,
 				corner.height);
 	}
@@ -51,6 +53,7 @@ public class DropShadowRectangle extends RoundedRectangle {
 		Insets shadowInset = new Insets(getLineWidth() / 2, getLineWidth() / 2, getLineWidth()
 				+ SHADOW_INSET, getLineWidth() + SHADOW_INSET);
 		shrink(f, shadowInset);
+		final Dimension corner = getCornerDimensions();
 		graphics.drawRoundRectangle(f, corner.width, corner.height);
 	}
 
@@ -76,6 +79,7 @@ public class DropShadowRectangle extends RoundedRectangle {
 		Rectangle shadowLayer = new Rectangle(rectangle);
 		shadowLayer.x += offset;
 		shadowLayer.y += offset;
+		final Dimension corner = getCornerDimensions();
 		graphics.fillRoundRectangle(shadowLayer, corner.width,
 				corner.height);
 		// Restore the start of the graphics object

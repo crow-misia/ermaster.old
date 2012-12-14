@@ -7,7 +7,6 @@ import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.ERDiagramEditor;
-import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.view.action.AbstractBaseAction;
 
 public class GridSnapAction extends AbstractBaseAction {
@@ -25,8 +24,7 @@ public class GridSnapAction extends AbstractBaseAction {
 	 */
 	@Override
 	public void execute(Event event) {
-		ERDiagram diagram = this.getDiagram();
-
+		this.getDiagram();
 	}
 
 	public static class GridSnapRetargetAction extends LabelRetargetAction {

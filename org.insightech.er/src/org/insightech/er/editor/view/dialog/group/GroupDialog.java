@@ -53,7 +53,7 @@ public class GroupDialog extends AbstractDialog implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	protected void initialize(Composite composite) {
 		this.groupNameText = CompositeFactory.createText(this, composite,
 				"label.group.name", 1, 200, true);

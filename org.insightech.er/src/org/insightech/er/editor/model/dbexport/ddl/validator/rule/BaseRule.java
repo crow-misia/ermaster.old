@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.insightech.er.editor.model.dbexport.ddl.validator.ValidateResult;
-import org.insightech.er.editor.model.dbexport.ddl.validator.Validator;
 
 public abstract class BaseRule implements Rule {
 
