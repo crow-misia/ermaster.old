@@ -430,7 +430,7 @@ public class CopyManager {
 					Word newWord = wordMap.get(oldWord);
 					normalColumn.setWord(newWord);
 
-					copyDictionary.add(normalColumn);
+					copyDictionary.add(normalColumn, false);
 				}
 			}
 		}
@@ -442,11 +442,12 @@ public class CopyManager {
 					Word newWord = wordMap.get(oldWord);
 					normalColumn.setWord(newWord);
 
-					copyDictionary.add(normalColumn);
+					copyDictionary.add(normalColumn, false);
 				}
 			}
 		}
 
+		copyDictionary.setDirty();
 	}
 
 	private void setTablespace(DiagramContents copyDiagramContents,

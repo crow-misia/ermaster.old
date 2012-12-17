@@ -11,6 +11,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.NodeSet;
 import org.insightech.er.editor.model.diagram_contents.element.node.category.Category;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GlobalGroupSet;
 import org.insightech.er.editor.model.settings.DBSetting;
 import org.insightech.er.editor.model.settings.PageSetting;
@@ -99,12 +100,14 @@ public class ERDiagram extends ViewableModel {
 			}
 		}
 
+		final Dictionary dictionary = this.getDiagramContents().getDictionary();
 		if (element instanceof TableView) {
 			for (NormalColumn normalColumn : ((TableView) element)
 					.getNormalColumns()) {
-				this.getDiagramContents().getDictionary().add(normalColumn);
+				dictionary.add(normalColumn, false);
 			}
 		}
+		dictionary.setDirty();
 
 		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
 	}

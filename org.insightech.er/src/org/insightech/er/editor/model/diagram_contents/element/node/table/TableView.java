@@ -259,7 +259,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		to.setDescription(this.getDescription());
 
 		for (NormalColumn toColumn : to.getNormalColumns()) {
-			dictionary.remove(toColumn);
+			dictionary.remove(toColumn, false);
 		}
 
 		List<Column> columns = new ArrayList<Column>();
@@ -293,12 +293,14 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 					newPrimaryKeyColumns.add(restructuredColumn);
 				}
 
-				dictionary.add(restructuredColumn);
+				dictionary.add(restructuredColumn, false);
 
 			} else {
 				columns.add(fromColumn);
 			}
 		}
+
+		dictionary.setDirty();
 
 		this.setTargetTableRelation(to, newPrimaryKeyColumns);
 

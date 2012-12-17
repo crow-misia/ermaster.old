@@ -65,11 +65,10 @@ public class DeleteRelationCommand extends DeleteConnectionCommand {
 	protected void doUndo() {
 		super.doUndo();
 
+		Dictionary dictionary = this.oldTargetTable.getDiagram().getDiagramContents().getDictionary();
 		for (NormalColumn foreignKey : this.referencedColumnMap.keySet()) {
 			if (!this.removeForeignKey) {
-				Dictionary dictionary = this.oldTargetTable.getDiagram()
-						.getDiagramContents().getDictionary();
-				dictionary.remove(foreignKey);
+				dictionary.remove(foreignKey, false);
 			}
 
 			foreignKey.addReference(this.referencedColumnMap.get(foreignKey),
@@ -77,6 +76,7 @@ public class DeleteRelationCommand extends DeleteConnectionCommand {
 		}
 
 		this.oldTargetCopyTable.restructureData(this.oldTargetTable);
+		dictionary.setDirty();
 	}
 
 	@Override

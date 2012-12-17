@@ -161,9 +161,10 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 				}
 
 			} else {
-				dictionary.add(foreignKeyColumn);
+				dictionary.add(foreignKeyColumn, false);
 			}
 		}
+		dictionary.setDirty();
 	}
 
 	public List<NormalColumn> getForeignKeyColumns() {

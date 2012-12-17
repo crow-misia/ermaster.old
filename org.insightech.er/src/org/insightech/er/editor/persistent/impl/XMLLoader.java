@@ -1055,7 +1055,7 @@ public class XMLLoader {
 		}
 
 		if (!isForeignKey) {
-			context.dictionary.add(normalColumn);
+			context.dictionary.add(normalColumn, true);
 		}
 
 		context.columnMap.put(id, normalColumn);

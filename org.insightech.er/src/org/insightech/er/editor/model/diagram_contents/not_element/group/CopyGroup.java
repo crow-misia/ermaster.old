@@ -48,7 +48,7 @@ public class CopyGroup extends ColumnGroup {
 		if (diagram != null) {
 			dictionary = diagram.getDiagramContents().getDictionary();
 			for (NormalColumn toColumn : to.getColumns()) {
-				dictionary.remove(toColumn);
+				dictionary.remove(toColumn, false);
 			}
 		}
 
@@ -96,9 +96,13 @@ public class CopyGroup extends ColumnGroup {
 			columns.add(restructuredColumn);
 
 			if (dictionary != null) {
-				dictionary.add(restructuredColumn);
+				dictionary.add(restructuredColumn, false);
 			}
 
+		}
+
+		if (dictionary != null) {
+			dictionary.setDirty();
 		}
 
 		to.setColumns(columns);

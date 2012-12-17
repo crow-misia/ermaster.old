@@ -632,7 +632,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 				int index = ((Combo) control).getSelectionIndex();
 
 				Dictionary dictionary = this.diagramContents.getDictionary();
-				dictionary.remove(targetColumn);
+				dictionary.remove(targetColumn, false);
 
 				if (index == 0) {
 					word = new Word(word);
@@ -646,7 +646,9 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 				}
 
 				targetColumn.setWord(word);
-				dictionary.add(targetColumn);
+				dictionary.add(targetColumn, false);
+
+				dictionary.setDirty();
 
 				this.resetNormalColumn(targetColumn);
 

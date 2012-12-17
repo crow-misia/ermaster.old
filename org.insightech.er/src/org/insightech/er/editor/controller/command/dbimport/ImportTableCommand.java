@@ -20,6 +20,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
@@ -237,17 +238,18 @@ public class ImportTableCommand extends AbstractCommand {
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
 
+		final Dictionary dictionary = this.diagram.getDiagramContents().getDictionary();
 		for (NodeElement nodeElement : this.nodeElementList) {
 			this.diagram.removeContent(nodeElement);
 
 			if (nodeElement instanceof TableView) {
 				for (NormalColumn normalColumn : ((TableView) nodeElement)
 						.getNormalColumns()) {
-					this.diagram.getDiagramContents().getDictionary().remove(
-							normalColumn);
+					dictionary.remove(normalColumn, false);
 				}
 			}
 		}
+		dictionary.setDirty();
 
 		for (Sequence sequence : sequences) {
 			this.sequenceSet.remove(sequence);

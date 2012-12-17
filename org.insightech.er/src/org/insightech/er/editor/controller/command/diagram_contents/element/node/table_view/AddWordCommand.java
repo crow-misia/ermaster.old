@@ -36,7 +36,7 @@ public class AddWordCommand extends AbstractCommand {
 	@Override
 	protected void doExecute() {
 		this.tableView.addColumn(this.index, this.column);
-		this.dictionary.add(this.column);
+		this.dictionary.add(this.column, true);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class AddWordCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		this.tableView.removeColumn(this.column);
-		this.dictionary.remove(this.column);
+		this.dictionary.remove(this.column, true);
 	}
 
 }

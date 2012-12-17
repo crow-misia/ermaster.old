@@ -31,7 +31,7 @@ public class Dictionary extends AbstractModel {
 		this.cache = new IdentityHashMap<Word, UniqueWord>();
 	}
 
-	public void add(NormalColumn column) {
+	public void add(NormalColumn column, final boolean fire) {
 		Word word = column.getWord();
 
 		if (word == null) {
@@ -49,10 +49,12 @@ public class Dictionary extends AbstractModel {
 		// for UniqueWord
 		createUniqueWordMap();
 
-		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public void remove(NormalColumn column) {
+	public void remove(NormalColumn column, final boolean fire) {
 		Word word = column.getWord();
 
 		if (word == null) {
@@ -72,13 +74,20 @@ public class Dictionary extends AbstractModel {
 		// for UniqueWord
 		createUniqueWordMap();
 
-		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	public void remove(TableView tableView) {
 		for (NormalColumn normalColumn : tableView.getNormalColumns()) {
-			this.remove(normalColumn);
+			this.remove(normalColumn, false);
 		}
+		setDirty();
+	}
+	
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
 	}
 	
 	private void createUniqueWordMap() {

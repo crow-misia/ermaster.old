@@ -12,6 +12,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
@@ -56,12 +57,13 @@ public class ChangeGroupCommand extends AbstractCommand {
 		this.groupSet.clear();
 		this.oldColumnListMap.clear();
 
+		final Dictionary dictionary = diagram.getDiagramContents().getDictionary();
 		for (CopyGroup oldCopyColumnGroup : oldCopyGroups) {
 			for (NormalColumn column : oldCopyColumnGroup.getColumns()) {
-				diagram.getDiagramContents().getDictionary().remove(
-						((CopyColumn) column).getOriginalColumn());
+				dictionary.remove(((CopyColumn) column).getOriginalColumn(), false);
 			}
 		}
+		dictionary.setDirty();
 
 		for (CopyGroup newCopyColumnGroup : newGroups) {
 			this.groupSet.add(newCopyColumnGroup.restructure(diagram));
@@ -97,12 +99,13 @@ public class ChangeGroupCommand extends AbstractCommand {
 
 		this.groupSet.clear();
 
+		final Dictionary dictionary = diagram.getDiagramContents().getDictionary();
 		for (CopyGroup newCopyColumnGroup : newGroups) {
 			for (NormalColumn column : newCopyColumnGroup.getColumns()) {
-				diagram.getDiagramContents().getDictionary().remove(
-						((CopyColumn) column).getOriginalColumn());
+				dictionary.remove(((CopyColumn) column).getOriginalColumn(), false);
 			}
 		}
+		dictionary.setDirty();
 
 		for (CopyGroup copyGroup : oldCopyGroups) {
 			ColumnGroup group = copyGroup.restructure(diagram);

@@ -14,6 +14,7 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Relati
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.view.dialog.element.relation.RelationByExistingColumnsDialog;
 
@@ -44,12 +45,12 @@ public class CreateRelationByExistingColumnsCommand extends
 		this.relation.setSource(sourceTable);
 		this.relation.setTargetWithoutForeignKey(targetTable);
 
+		final Dictionary dictionary = sourceTable.getDiagram().getDiagramContents().getDictionary();
 		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {
 			NormalColumn foreignKeyColumn = foreignKeyColumnList.get(i);
 			this.wordList.add(foreignKeyColumn.getWord());
 
-			sourceTable.getDiagram().getDiagramContents().getDictionary()
-					.remove(foreignKeyColumn);
+			dictionary.remove(foreignKeyColumn, false);
 
 			foreignKeyColumn.addReference(referencedColumnList.get(i),
 					this.relation);
@@ -57,6 +58,7 @@ public class CreateRelationByExistingColumnsCommand extends
 		}
 
 		targetTable.setDirty();
+		dictionary.setDirty();
 	}
 
 	/**
@@ -70,16 +72,17 @@ public class CreateRelationByExistingColumnsCommand extends
 		this.relation.setSource(null);
 		this.relation.setTargetWithoutForeignKey(null);
 
+		final Dictionary dictionary = sourceTable.getDiagram().getDiagramContents().getDictionary();
 		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {
 			NormalColumn foreignKeyColumn = foreignKeyColumnList.get(i);
 			foreignKeyColumn.removeReference(this.relation);
 			foreignKeyColumn.setWord(wordList.get(i));
 
-			sourceTable.getDiagram().getDiagramContents().getDictionary().add(
-					foreignKeyColumn);
+			dictionary.add(foreignKeyColumn, false);
 		}
 
 		targetTable.setDirty();
+		dictionary.setDirty();
 	}
 
 	public boolean selectColumns() {
