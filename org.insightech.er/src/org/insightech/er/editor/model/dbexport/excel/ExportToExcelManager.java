@@ -165,11 +165,12 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		this.createSheetFromTemplate(monitor, workbook, diagram,
 				useLogicalNameAsSheetName);
 
-		for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+		final int sheetNums = workbook.getNumberOfSheets();
+		for (int i = 0; i < sheetNums; i++) {
 			workbook.getSheetAt(i).setSelected(false);
 		}
 
-		if (workbook.getNumberOfSheets() > 0) {
+		if (sheetNums > 0) {
 			workbook.getSheetAt(0).setSelected(true);
 			workbook.setActiveSheet(0);
 			workbook.setFirstVisibleTab(0);
@@ -215,7 +216,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 	}
 
 	private void initLoopDefinitionMap(HSSFSheet loopsSheet) {
-		for (int i = 2; i <= loopsSheet.getLastRowNum(); i++) {
+		for (int i = 2, n = loopsSheet.getLastRowNum(); i <= n; i++) {
 			String templateSheetName = POIUtils.getCellValue(loopsSheet, i, 0);
 			if (templateSheetName == null) {
 				break;
@@ -323,7 +324,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 	private int countSheetFromTemplate(HSSFWorkbook workbook, ERDiagram diagram) {
 		int count = 0;
 
-		for (int sheetNo = 0; sheetNo < workbook.getNumberOfSheets(); sheetNo++) {
+		for (int sheetNo = 0, n = workbook.getNumberOfSheets(); sheetNo < n; sheetNo++) {
 			String templateSheetName = workbook.getSheetName(sheetNo);
 
 			AbstractSheetGenerator sheetGenerator = this

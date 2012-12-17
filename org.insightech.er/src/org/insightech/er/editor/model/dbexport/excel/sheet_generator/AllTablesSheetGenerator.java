@@ -68,8 +68,7 @@ public class AllTablesSheetGenerator extends TableSheetGenerator {
 		}
 
 		if (first) {
-			for (int i = loopDefinition.startLine - 1; i <= newSheet
-					.getLastRowNum(); i++) {
+			for (int i = loopDefinition.startLine - 1, n = newSheet.getLastRowNum(); i <= n; i++) {
 				HSSFRow row = newSheet.getRow(i);
 				if (row != null) {
 					newSheet.removeRow(row);

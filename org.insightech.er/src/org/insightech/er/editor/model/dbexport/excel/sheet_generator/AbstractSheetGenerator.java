@@ -376,7 +376,7 @@ public abstract class AbstractSheetGenerator {
 		HSSFRow row = templateSheet.getRow(location.r);
 		HSSFRow bottomRow = templateSheet.getRow(location.r + 1);
 
-		for (int colNum = row.getFirstCellNum(); colNum <= row.getLastCellNum(); colNum++) {
+		for (int colNum = row.getFirstCellNum(), n = row.getLastCellNum(); colNum <= n; colNum++) {
 
 			HSSFCell cell = row.getCell(colNum);
 
@@ -429,10 +429,10 @@ public abstract class AbstractSheetGenerator {
 		HSSFRow bottomRowTemplate = sheet.getRow(firstRowNum + rowSize + 1);
 		sheet.removeRow(bottomRowTemplate);
 
-		for (int r = firstRowNum + 1; r < firstRowNum + rowSize; r++) {
+		for (int r = firstRowNum + 1, n = firstRowNum + rowSize; r < n; r++) {
 			HSSFRow row = sheet.getRow(r);
 
-			for (int i = 0, n = columnTemplate.middleRowCellStyleList.size(); i < n; i++) {
+			for (int i = 0, m = columnTemplate.middleRowCellStyleList.size(); i < m; i++) {
 				HSSFCell cell = row.getCell(firstColNum + i);
 				if (cell != null) {
 					HSSFCellStyle style = columnTemplate.middleRowCellStyleList.get(i);
@@ -490,7 +490,7 @@ public abstract class AbstractSheetGenerator {
 		List<CellRangeAddress> regionList = POIUtils.getMergedRegionList(sheet,
 				firstRowNum);
 
-		for (int r = firstRowNum + 1; r < firstRowNum + rowSize; r++) {
+		for (int r = firstRowNum + 1, n = firstRowNum + rowSize; r < n; r++) {
 			POIUtils.copyMergedRegion(sheet, regionList, r);
 		}
 	}

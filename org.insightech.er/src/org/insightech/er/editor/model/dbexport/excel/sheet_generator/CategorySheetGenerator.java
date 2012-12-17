@@ -66,15 +66,11 @@ public class CategorySheetGenerator extends TableSheetGenerator {
 			}
 
 			if (first) {
-				int rowIndex = loopDefinition.startLine - 1;
-
-				while (rowIndex <= newSheet.getLastRowNum()) {
-					HSSFRow row = newSheet.getRow(rowIndex);
+				for (int i = loopDefinition.startLine - 1, n = newSheet.getLastRowNum(); i < n; i++) {
+					HSSFRow row = newSheet.getRow(i);
 					if (row != null) {
 						newSheet.removeRow(row);
 					}
-					
-					rowIndex++;
 				}
 			}
 
