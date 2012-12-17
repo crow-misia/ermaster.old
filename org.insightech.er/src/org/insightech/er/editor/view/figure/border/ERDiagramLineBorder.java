@@ -22,7 +22,7 @@ public class ERDiagramLineBorder extends LineBorder {
 		}
 
 		tempRect.setBounds(getPaintRectangle(figure, insets));
-		if (getWidth() % 2 == 1) {
+		if ((getWidth() & 1) == 1) {
 			tempRect.width--;
 			tempRect.height--;
 		}

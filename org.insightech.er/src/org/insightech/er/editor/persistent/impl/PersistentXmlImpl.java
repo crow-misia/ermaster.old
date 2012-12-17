@@ -1104,6 +1104,8 @@ public class PersistentXmlImpl extends Persistent {
 			} else if (content instanceof InsertedImage) {
 				subxml = this.createXML((InsertedImage) content, context);
 
+			} else {
+				continue;
 			}
 
 			xml.append(tab(subxml));

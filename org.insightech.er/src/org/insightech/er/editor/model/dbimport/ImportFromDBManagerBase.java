@@ -1226,10 +1226,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		while (fromTokenizer.hasMoreTokens()) {
 			String tableName = fromTokenizer.nextToken().trim();
 
-			tableName.replaceAll(" AS", "");
-			tableName.replaceAll(" as", "");
-			tableName.replaceAll(" As", "");
-			tableName.replaceAll(" aS", "");
+			// テーブル名 AS エリアス名 の「 AS」部を削除する
+			tableName = tableName.replaceAll(" [Aa][Ss]", "");
 
 			String tableAlias = null;
 

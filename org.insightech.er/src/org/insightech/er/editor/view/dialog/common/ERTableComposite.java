@@ -621,6 +621,8 @@ public class ERTableComposite extends Composite {
 			column2 = this.columnList.remove(index2);
 			this.columnList.add(index1 - 1, column2);
 			this.columnList.add(index2, column1);
+		} else {
+			return;
 		}
 
 		TableItem[] tableItems = this.table.getItems();

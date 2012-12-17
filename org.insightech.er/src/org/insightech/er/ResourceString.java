@@ -28,7 +28,7 @@ public class ResourceString {
 		}
 	}
 
-	public static Map getResources(String prefix) {
+	public static Map<String, String> getResources(String prefix) {
 		Map<String, String> props = new TreeMap<String, String>(Collections
 				.reverseOrder());
 		Enumeration keys = resource.getKeys();

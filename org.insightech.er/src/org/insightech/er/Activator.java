@@ -52,6 +52,11 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
+	}
+
+	@Override
+	public void start(final BundleContext context) throws Exception {
+		super.start(context);
 		plugin = this;
 	}
 

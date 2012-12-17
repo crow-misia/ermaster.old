@@ -251,6 +251,8 @@ public class ExportToTestDataDialog extends AbstractDialog {
 		} else if (format == TestData.EXPORT_FORMT_DBUNIT_XLS) {
 			testDataCreator = new DBUnitXLSTestDataCreator();
 
+		} else {
+			throw new InputException("error.output.dir.can.not.be.made");
 		}
 
 		testDataCreator.init(testData);

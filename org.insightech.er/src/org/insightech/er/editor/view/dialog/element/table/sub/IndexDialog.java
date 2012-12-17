@@ -509,6 +509,8 @@ public class IndexDialog extends AbstractDialog {
 			column2 = selectedColumns.remove(index2);
 			selectedColumns.add(index1 - 1, column2);
 			selectedColumns.add(index2, column1);
+		} else {
+			return;
 		}
 
 		boolean desc1 = this.descCheckBoxMap.get(column1).getSelection();

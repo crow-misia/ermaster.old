@@ -99,6 +99,6 @@ public class SqlTypeFactory {
 	}
 
 	public static void main(String[] args) {
-		SqlType.main((String[]) null);
+		SqlType.main(new String[0]);
 	}
 }

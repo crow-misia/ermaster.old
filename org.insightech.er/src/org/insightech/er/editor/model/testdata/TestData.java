@@ -1,11 +1,14 @@
 package org.insightech.er.editor.model.testdata;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 
-public class TestData implements Cloneable, Comparable<TestData> {
+public class TestData implements Serializable, Cloneable, Comparable<TestData> {
+
+    private static final long serialVersionUID = -2177225581096782696L;
 
 	public static final int EXPORT_FORMT_SQL = 0;
 

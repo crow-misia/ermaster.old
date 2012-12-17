@@ -369,9 +369,9 @@ public class NormalColumn extends Column {
 			}
 
 			this.word = temp.getWord();
-			if (this.getPhysicalName() != this.word.getPhysicalName()
-					|| this.getLogicalName() != this.word.getLogicalName()
-					|| this.getDescription() != this.word.getDescription()) {
+			if (!this.getPhysicalName().equals(this.word.getPhysicalName())
+					|| !this.getLogicalName().equals(this.word.getLogicalName())
+					|| !this.getDescription().equals(this.word.getDescription())) {
 				this.word = new Word(this.word);
 
 				this.word.setPhysicalName(this.getPhysicalName());

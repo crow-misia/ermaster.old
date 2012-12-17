@@ -1,5 +1,6 @@
 package org.insightech.er.editor.model.diagram_contents;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigg
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.model.testdata.TestData;
 
-public class DiagramContents {
+public class DiagramContents implements Serializable {
+
+    private static final long serialVersionUID = 7748876614142736716L;
 
 	private Settings settings;
 

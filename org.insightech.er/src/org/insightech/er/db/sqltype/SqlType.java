@@ -90,6 +90,10 @@ public class SqlType implements Serializable {
 
 		@Override
 		public boolean equals(Object obj) {
+			if (obj == null) {
+				return false;
+			}
+
 			TypeKey other = (TypeKey) obj;
 
 			if (this.alias == null) {

@@ -21,8 +21,6 @@ public class ExportToImageManager {
 
 	private String saveFilePath;
 
-	private String formatName;
-
 	public ExportToImageManager(Image img, int format, String saveFilePath) {
 		this.img = img;
 		this.format = format;
@@ -33,8 +31,10 @@ public class ExportToImageManager {
 		if (format == SWT.IMAGE_JPEG || format == SWT.IMAGE_BMP) {
 			writeJPGorBMP(img, saveFilePath, format);
 
-		} else if (format == SWT.IMAGE_PNG || format == SWT.IMAGE_GIF) {
-			writePNGorGIF(img, saveFilePath, formatName);
+		} else if (format == SWT.IMAGE_PNG) {
+			writePNGorGIF(img, saveFilePath, "PNG");
+		} else if (format == SWT.IMAGE_GIF) {
+			writePNGorGIF(img, saveFilePath, "GIF");
 		}
 	}
 
@@ -77,10 +77,12 @@ public class ExportToImageManager {
 
 		ImageData data = image.getImageData();
 
-		for (int i = 0; i < image.getBounds().width; i++) {
+		final int width = image.getBounds().width;
+		final int height = image.getBounds().height;
+		for (int i = 0; i < width; i++) {
 
-			for (int j = 0; j < image.getBounds().height; j++) {
-				int tmp = 4 * (j * image.getBounds().width + i);
+			for (int j = 0; j < height; j++) {
+				int tmp = 4 * (j * width + i);
 
 				if (data.data.length > tmp + 2) {
 					int r = 0xff & data.data[tmp + 2];

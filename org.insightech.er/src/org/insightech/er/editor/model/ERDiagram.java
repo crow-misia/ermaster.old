@@ -32,7 +32,7 @@ public class ERDiagram extends ViewableModel {
 
 	private DiagramContents diagramContents;
 
-	private ERDiagramMultiPageEditor editor;
+	private transient ERDiagramMultiPageEditor editor;
 
 	private int[] defaultColor;
 

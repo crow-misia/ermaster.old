@@ -30,7 +30,7 @@ import org.insightech.er.util.io.IOUtils;
 
 public class ExportToHtmlManager {
 
-	private static final Map PROPERTIES = ResourceString
+	private static final Map<String, String> PROPERTIES = ResourceString
 			.getResources("html.report.");
 
 	private static final String[] FIX_FILES = { "help-doc.html", "index.html",
