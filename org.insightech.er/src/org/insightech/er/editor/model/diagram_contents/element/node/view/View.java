@@ -34,7 +34,7 @@ public class View extends TableView implements ObjectModel, ColumnHolder {
 	}
 
 	@Override
-	public void addColumn(Column column) {
+	public void addColumn(Column column, final boolean fire) {
 		if (column instanceof NormalColumn) {
 			NormalColumn normalColumn = (NormalColumn) column;
 			normalColumn.setAutoIncrement(false);
@@ -46,7 +46,9 @@ public class View extends TableView implements ObjectModel, ColumnHolder {
 		this.columns.add(column);
 		column.setColumnHolder(this);
 
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	@Override

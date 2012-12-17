@@ -281,7 +281,7 @@ public class CopyManager {
 		}
 
 		// 複製後のテーブルに、複製後の列一覧を設定します。
-		to.setColumns(cloneColumns);
+		to.setColumns(cloneColumns, true);
 	}
 
 	private static void copyComplexUniqueKey(ERTable from, ERTable to,
@@ -407,7 +407,7 @@ public class CopyManager {
 				}
 			}
 
-			tableView.setColumns(newColumns);
+			tableView.setColumns(newColumns, true);
 		}
 	}
 

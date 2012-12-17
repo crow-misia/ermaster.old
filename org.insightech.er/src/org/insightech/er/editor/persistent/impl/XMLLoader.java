@@ -1428,7 +1428,7 @@ public class XMLLoader {
 		table.setOption(this.getStringValue(element, "option"));
 
 		List<Column> columns = this.loadColumns(element, context);
-		table.setColumns(columns);
+		table.setColumns(columns, true);
 
 		List<Index> indexes = this.loadIndexes(element, table, context);
 		table.setIndexes(indexes);
@@ -1456,7 +1456,7 @@ public class XMLLoader {
 		view.setSql(this.getStringValue(element, "sql"));
 
 		List<Column> columns = this.loadColumns(element, context);
-		view.setColumns(columns);
+		view.setColumns(columns, true);
 
 		this.loadViewProperties((ViewProperties) view.getTableViewProperties(),
 				element, context);

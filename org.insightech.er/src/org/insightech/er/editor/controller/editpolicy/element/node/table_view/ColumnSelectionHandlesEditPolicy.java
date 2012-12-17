@@ -348,7 +348,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			for (NormalColumn column : copyOldTableView.getNormalColumns()) {
 				CopyColumn copyColumn = (CopyColumn) column;
 				if (copyColumn.getOriginalColumn() == oldColumn) {
-					copyOldTableView.removeColumn(copyColumn);
+					copyOldTableView.removeColumn(copyColumn, true);
 					break;
 				}
 			}
@@ -360,7 +360,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			TableView copyNewTableView = newTableView.copyData();
 			CopyColumn copyColumn = new CopyColumn(oldColumn);
 			copyColumn.setWord(new CopyWord(oldColumn.getWord()));
-			copyNewTableView.addColumn(index, copyColumn);
+			copyNewTableView.addColumn(index, copyColumn, true);
 			ChangeTableViewPropertyCommand targetTableCommand = new ChangeTableViewPropertyCommand(
 					newTableView, copyNewTableView);
 			command.add(targetTableCommand);
@@ -389,7 +389,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		TableView copyOldTableView = oldTableView.copyData();
 		for (Column column : copyOldTableView.getColumns()) {
 			if (column == columnGroup) {
-				copyOldTableView.removeColumn(column);
+				copyOldTableView.removeColumn(column, true);
 				break;
 			}
 		}

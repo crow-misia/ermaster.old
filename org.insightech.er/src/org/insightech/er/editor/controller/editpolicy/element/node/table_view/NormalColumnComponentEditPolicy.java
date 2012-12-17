@@ -36,7 +36,7 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 									.getNormalColumns()) {
 								CopyColumn targetColumn = (CopyColumn) copyColumn;
 								if (targetColumn.getOriginalColumn() == normalColumn) {
-									newCopyTable.removeColumn(targetColumn);
+									newCopyTable.removeColumn(targetColumn, true);
 									break;
 								}
 							}
@@ -59,7 +59,7 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 
 						for (Column copyColumn : newCopyTable.getColumns()) {
 							if (copyColumn == columnGroup) {
-								newCopyTable.removeColumn(copyColumn);
+								newCopyTable.removeColumn(copyColumn, true);
 								break;
 							}
 						}
@@ -82,7 +82,7 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 
 					for (Column copyColumn : newCopyTable.getColumns()) {
 						if (copyColumn == columnGroup) {
-							newCopyTable.removeColumn(copyColumn);
+							newCopyTable.removeColumn(copyColumn, true);
 							break;
 						}
 					}

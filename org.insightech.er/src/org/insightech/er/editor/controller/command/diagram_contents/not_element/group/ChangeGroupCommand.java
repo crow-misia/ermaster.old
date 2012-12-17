@@ -86,7 +86,7 @@ public class ChangeGroupCommand extends AbstractCommand {
 				}
 			}
 
-			tableView.setColumns(columns);
+			tableView.setColumns(columns, true);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class ChangeGroupCommand extends AbstractCommand {
 
 		for (TableView tableView : this.oldColumnListMap.keySet()) {
 			List<Column> oldColumns = this.oldColumnListMap.get(tableView);
-			tableView.setColumns(oldColumns);
+			tableView.setColumns(oldColumns, true);
 		}
 	}
 }

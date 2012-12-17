@@ -187,36 +187,45 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		return this.columns.get(index);
 	}
 
-	public void setColumns(List<Column> columns) {
+	public void setColumns(List<Column> columns, final boolean fire) {
 		this.columns = columns;
 
 		for (Column column : columns) {
 			column.setColumnHolder(this);
 		}
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	public void setDirty() {
 		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
 	}
 
-	public void addColumn(Column column) {
+	public void addColumn(Column column, final boolean fire) {
 		this.columns.add(column);
 		column.setColumnHolder(this);
 
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public void addColumn(int index, Column column) {
+	public void addColumn(int index, Column column, final boolean fire) {
 		this.columns.add(index, column);
 		column.setColumnHolder(this);
 
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public void removeColumn(Column column) {
+	public void removeColumn(Column column, final boolean fire) {
 		this.columns.remove(column);
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	public TableView copyTableViewData(TableView to) {
@@ -225,10 +234,12 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		to.setPhysicalName(this.getPhysicalName());
 		to.setLogicalName(this.getLogicalName());
 		to.setDescription(this.getDescription());
+		
+		final List<Column> sources = this.getColumns();
 
-		List<Column> columns = new ArrayList<Column>();
+		List<Column> columns = new ArrayList<Column>(sources.size());
 
-		for (Column fromColumn : this.getColumns()) {
+		for (Column fromColumn : sources) {
 			if (fromColumn instanceof NormalColumn) {
 				NormalColumn normalColumn = (NormalColumn) fromColumn;
 				NormalColumn copyColumn = new CopyColumn(normalColumn);
@@ -242,7 +253,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 			}
 		}
 
-		to.setColumns(columns);
+		to.setColumns(columns, true);
 
 		to.setOutgoing(this.getOutgoings());
 		to.setIncoming(this.getIncomings());
@@ -304,7 +315,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		this.setTargetTableRelation(to, newPrimaryKeyColumns);
 
-		to.setColumns(columns);
+		to.setColumns(columns, true);
 	}
 
 	private void setTargetTableRelation(TableView sourceTable,
@@ -360,7 +371,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 								primaryKeyColumn, primaryKeyColumn, relation,
 								isPrimary);
 
-						targetTable.addColumn(foreignKeyColumn);
+						targetTable.addColumn(foreignKeyColumn, false);
 					}
 				}
 
@@ -368,7 +379,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 					if (removedColumn.isPrimaryKey()) {
 						isPrimaryChanged = true;
 					}
-					targetTable.removeColumn(removedColumn);
+					targetTable.removeColumn(removedColumn, false);
 				}
 
 				if (isPrimaryChanged) {

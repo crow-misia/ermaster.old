@@ -45,8 +45,9 @@ public class TestDataEditTest {
 				null, MySQLDBManager.ID);
 		NormalColumn column2 = new NormalColumn(word2, true, true, true, true,
 				null, null, null, null, null);
-		table.addColumn(column1);
-		table.addColumn(column2);
+		table.addColumn(column1, false);
+		table.addColumn(column2, false);
+		table.setDirty();
 
 		diagram.addContent(table);
 

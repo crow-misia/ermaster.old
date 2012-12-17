@@ -462,7 +462,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		List<Column> columns = this.getColumns(tableNameWithSchema, tableName,
 				schema, indexes, primaryKeys, autoIncrementColumnName);
 
-		table.setColumns(columns);
+		table.setColumns(columns, true);
 		table.setIndexes(indexes);
 
 		this.tableMap.put(tableNameWithSchema, table);
@@ -1174,7 +1174,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				view.getTableViewProperties().setSchema(schema);
 
 				List<Column> columnList = this.getViewColumnList(definitionSQL);
-				view.setColumns(columnList);
+				view.setColumns(columnList, true);
 
 				return view;
 			}

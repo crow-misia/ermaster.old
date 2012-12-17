@@ -26,13 +26,13 @@ public class TableSet extends AbstractModel implements ObjectListModel,
 
 	public void add(ERTable table) {
 		this.tableList.add(table);
-		this.firePropertyChange(PROPERTY_CHANGE_TABLE_SET, null, null);
+		setDirty();
 	}
 
 	public int remove(ERTable table) {
 		int index = this.tableList.indexOf(table);
 		this.tableList.remove(index);
-		this.firePropertyChange(PROPERTY_CHANGE_TABLE_SET, null, null);
+		setDirty();
 
 		return index;
 	}
