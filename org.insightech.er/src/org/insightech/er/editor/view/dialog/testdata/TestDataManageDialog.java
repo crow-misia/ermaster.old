@@ -259,7 +259,7 @@ public class TestDataManageDialog extends AbstractDialog {
 
 			this.initTestDataList();
 
-			for (int i = 0; i < this.testDataList.size(); i++) {
+			for (int i = 0, n = this.testDataList.size(); i < n; i++) {
 				TestData testData = this.testDataList.get(i);
 
 				if (testData == newTestData) {
@@ -308,7 +308,7 @@ public class TestDataManageDialog extends AbstractDialog {
 
 			this.initTestDataList();
 
-			for (int i = 0; i < this.testDataList.size(); i++) {
+			for (int i = 0, n = this.testDataList.size(); i < n; i++) {
 				TestData testData = this.testDataList.get(i);
 
 				if (testData == newTestData) {
@@ -335,7 +335,7 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.initTestDataList();
 
-		for (int i = 0; i < this.testDataList.size(); i++) {
+		for (int i = 0, n = this.testDataList.size(); i < n; i++) {
 			TestData testData = this.testDataList.get(i);
 
 			if (testData == copyTestData) {

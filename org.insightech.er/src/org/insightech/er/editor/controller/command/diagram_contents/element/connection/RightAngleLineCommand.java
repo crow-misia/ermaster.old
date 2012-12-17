@@ -50,14 +50,14 @@ public class RightAngleLineCommand extends AbstractCommand {
 				int x = -1;
 				int y = -1;
 
-				for (int i = 0; i < oldBendpointList.size(); i++) {
+				for (int i = 0, n = oldBendpointList.size(); i < n; i++) {
 					Bendpoint bendpoint = oldBendpointList.get(i);
 
 					if (Math.abs(prevX - bendpoint.getX()) <= Math.abs(prevY
 							- bendpoint.getY())) {
 						x = prevX;
 
-						if (i == oldBendpointList.size() - 1) {
+						if (i == n - 1) {
 							y = targetY;
 							if (x == targetX) {
 								break;
@@ -70,7 +70,7 @@ public class RightAngleLineCommand extends AbstractCommand {
 					} else {
 						y = prevY;
 
-						if (i == oldBendpointList.size() - 1) {
+						if (i == n - 1) {
 							x = targetX;
 							if (y == targetY) {
 								break;

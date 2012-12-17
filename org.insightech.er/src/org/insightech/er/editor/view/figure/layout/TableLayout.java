@@ -48,10 +48,10 @@ public class TableLayout extends AbstractHintLayout {
 		int x = rect.x + 1;
 		int y = rect.y + 1;
 
-		for (int i = 0; i < table.size(); i++) {
+		for (int i = 0, n = table.size(); i < n; i++) {
 			List<IFigure> tableRow = table.get(i);
 
-			for (int j = 0; j < tableRow.size(); j++) {
+			for (int j = 0, m = tableRow.size(); j < m; j++) {
 				Rectangle childRect = new Rectangle(x, y, columnWidth[j],
 						rowHeight[i]);
 

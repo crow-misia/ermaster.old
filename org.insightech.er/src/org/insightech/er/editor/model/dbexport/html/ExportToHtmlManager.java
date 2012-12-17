@@ -116,7 +116,7 @@ public class ExportToHtmlManager {
 		this.writeOut("overview-summary.html", overviewSummary);
 
 		// オブジェクトタイプ毎の階層
-		for (int i = 0; i < htmlReportPageGeneratorList.size(); i++) {
+		for (int i = 0, n = htmlReportPageGeneratorList.size(); i < n; i++) {
 
 			HtmlReportPageGenerator pageGenerator = (HtmlReportPageGenerator) htmlReportPageGeneratorList
 					.get(i);
@@ -127,7 +127,7 @@ public class ExportToHtmlManager {
 							.get(i - 1);
 				}
 				HtmlReportPageGenerator nextPageGenerator = null;
-				if (i != htmlReportPageGeneratorList.size() - 1) {
+				if (i != n - 1) {
 					nextPageGenerator = (HtmlReportPageGenerator) htmlReportPageGeneratorList
 							.get(i + 1);
 				}
@@ -142,7 +142,7 @@ public class ExportToHtmlManager {
 				this.writeOut(type + "/package-summary.html", template);
 
 				List<Object> objectList = pageGenerator.getObjectList(diagram);
-				for (int j = 0; j < objectList.size(); j++) {
+				for (int j = 0, m = objectList.size(); j < m; j++) {
 					Object object = objectList.get(j);
 
 					this.doPreTask(pageGenerator, object);
@@ -152,7 +152,7 @@ public class ExportToHtmlManager {
 						prevObject = (Object) objectList.get(j - 1);
 					}
 					Object nextObject = null;
-					if (j != objectList.size() - 1) {
+					if (j != m - 1) {
 						nextObject = (Object) objectList.get(j + 1);
 					}
 

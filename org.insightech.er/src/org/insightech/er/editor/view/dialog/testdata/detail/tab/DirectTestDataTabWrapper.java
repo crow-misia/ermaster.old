@@ -110,7 +110,7 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 			for (int row = 0; row < this.editColumnTable.getItemCount() - 1; row++) {
 				Map<NormalColumn, String> data = new HashMap<NormalColumn, String>();
 
-				for (int column = 0; column < normalColumnList.size(); column++) {
+				for (int column = 0, n = normalColumnList.size(); column < n; column++) {
 					NormalColumn normalColumn = normalColumnList.get(column);
 					String value = (String) this.editColumnTable.getValueAt(
 							row, column);
@@ -163,7 +163,7 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 
 		String[] values = new String[columns.size()];
 
-		for (int i = 0; i < columns.size(); i++) {
+		for (int i = 0, n = columns.size(); i < n; i++) {
 			values[i] = data.get(columns.get(i));
 		}
 

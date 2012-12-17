@@ -1,7 +1,6 @@
 package org.insightech.er.editor.view.action.edit;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
@@ -100,10 +99,11 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected List getSelectedObjects() {
-		List objects = new ArrayList(super.getSelectedObjects());
-		for (Iterator iter = objects.iterator(); iter.hasNext();) {
-			if (iter.next() instanceof NormalColumnEditPart) {
-				iter.remove();
+		List objs = super.getSelectedObjects();
+		List objects = new ArrayList(objs.size());
+		for (Object obj : objs) {
+			if (!(obj instanceof NormalColumnEditPart)) {
+				objects.add(obj);
 			}
 		}
 		return objects;
@@ -139,7 +139,7 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 
 		CompoundCommand command = new CompoundCommand();
 
-		for (int i = 0; i < objects.size(); i++) {
+		for (int i = 0, n = objects.size(); i < n; i++) {
 			GraphicalEditPart part = (GraphicalEditPart) objects.get(i);
 			command.add(new ChangeBackgroundColorCommand((ViewableModel) part
 					.getModel(), rgb.red, rgb.green, rgb.blue));

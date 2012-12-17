@@ -393,7 +393,7 @@ public abstract class AbstractSheetGenerator {
 		columnTemplate.bottomRowCellStyleList = POIUtils.copyCellStyle(
 				workbook, row);
 
-		for (short i = 0; i < columnTemplate.middleRowCellStyleList.size(); i++) {
+		for (int i = 0, n = columnTemplate.middleRowCellStyleList.size(); i < n; i++) {
 			HSSFCellStyle middleRowCellStyle = columnTemplate.middleRowCellStyleList
 					.get(i);
 			if (middleRowCellStyle != null) {
@@ -432,12 +432,13 @@ public abstract class AbstractSheetGenerator {
 		for (int r = firstRowNum + 1; r < firstRowNum + rowSize; r++) {
 			HSSFRow row = sheet.getRow(r);
 
-			for (int i = 0; i < columnTemplate.middleRowCellStyleList.size(); i++) {
+			for (int i = 0, n = columnTemplate.middleRowCellStyleList.size(); i < n; i++) {
 				HSSFCell cell = row.getCell(firstColNum + i);
-				if (cell != null
-						&& columnTemplate.middleRowCellStyleList.get(i) != null) {
-					cell.setCellStyle(columnTemplate.middleRowCellStyleList
-							.get(i));
+				if (cell != null) {
+					HSSFCellStyle style = columnTemplate.middleRowCellStyleList.get(i);
+					if (style != null) {
+						cell.setCellStyle(style);
+					}
 				}
 			}
 		}
@@ -445,25 +446,24 @@ public abstract class AbstractSheetGenerator {
 		if (rowSize > 0) {
 			HSSFRow topRow = sheet.getRow(firstRowNum);
 
-			for (int i = 0; i < columnTemplate.topRowCellStyleList.size(); i++) {
+			for (int i = 0, n = columnTemplate.topRowCellStyleList.size(); i < n; i++) {
 				HSSFCell cell = topRow.getCell(firstColNum + i);
 				if (cell != null) {
-					if (columnTemplate.topRowCellStyleList.get(i) != null) {
-						cell.setCellStyle(columnTemplate.topRowCellStyleList
-								.get(i));
+					HSSFCellStyle style = columnTemplate.topRowCellStyleList.get(i);
+					if (style != null) {
+						cell.setCellStyle(style);
 					}
 				}
 			}
 
 			HSSFRow bottomRow = sheet.getRow(firstRowNum + rowSize - 1);
 
-			for (int i = 0; i < columnTemplate.bottomRowCellStyleList.size(); i++) {
+			for (int i = 0, n = columnTemplate.bottomRowCellStyleList.size(); i < n; i++) {
 				HSSFCell bottomRowCell = bottomRow.getCell(firstColNum + i);
 				if (bottomRowCell != null) {
-					if (columnTemplate.bottomRowCellStyleList.get(i) != null) {
-						bottomRowCell
-								.setCellStyle(columnTemplate.bottomRowCellStyleList
-										.get(i));
+					HSSFCellStyle style = columnTemplate.bottomRowCellStyleList.get(i);
+					if (style != null) {
+						bottomRowCell.setCellStyle(style);
 					}
 				}
 			}
@@ -472,17 +472,15 @@ public abstract class AbstractSheetGenerator {
 			HSSFRow bottomRow = sheet.getRow(firstRowNum - 1);
 
 			if (bottomRow != null) {
-				for (int i = 0; i < columnTemplate.bottomRowCellStyleList
-						.size(); i++) {
+				for (int i = 0, n = columnTemplate.bottomRowCellStyleList.size(); i < n; i++) {
 					HSSFCell bottomRowCell = bottomRow.getCell(firstColNum + i);
 
 					if (bottomRowCell != null) {
-						HSSFCellStyle bottomRowCellStyle = bottomRowCell
-								.getCellStyle();
-						if (columnTemplate.bottomRowCellStyleList.get(i) != null) {
+						HSSFCellStyle bottomRowCellStyle = bottomRowCell.getCellStyle();
+						HSSFCellStyle style = columnTemplate.bottomRowCellStyleList.get(i);
+						if (style != null) {
 							bottomRowCellStyle
-									.setBorderBottom(columnTemplate.bottomRowCellStyleList
-											.get(i).getBorderBottom());
+									.setBorderBottom(style.getBorderBottom());
 						}
 					}
 				}

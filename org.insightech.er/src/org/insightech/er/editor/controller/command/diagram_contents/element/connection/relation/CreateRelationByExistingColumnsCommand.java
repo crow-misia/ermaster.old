@@ -44,7 +44,7 @@ public class CreateRelationByExistingColumnsCommand extends
 		this.relation.setSource(sourceTable);
 		this.relation.setTargetWithoutForeignKey(targetTable);
 
-		for (int i = 0; i < foreignKeyColumnList.size(); i++) {
+		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {
 			NormalColumn foreignKeyColumn = foreignKeyColumnList.get(i);
 			this.wordList.add(foreignKeyColumn.getWord());
 
@@ -70,7 +70,7 @@ public class CreateRelationByExistingColumnsCommand extends
 		this.relation.setSource(null);
 		this.relation.setTargetWithoutForeignKey(null);
 
-		for (int i = 0; i < foreignKeyColumnList.size(); i++) {
+		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {
 			NormalColumn foreignKeyColumn = foreignKeyColumnList.get(i);
 			foreignKeyColumn.removeReference(this.relation);
 			foreignKeyColumn.setWord(wordList.get(i));

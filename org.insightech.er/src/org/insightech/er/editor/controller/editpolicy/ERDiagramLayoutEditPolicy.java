@@ -116,7 +116,7 @@ public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 					List<Bendpoint> bendpointList = connectionElement
 							.getBendpoints();
 
-					for (int index = 0; index < bendpointList.size(); index++) {
+					for (int index = 0, n = bendpointList.size(); index < n; index++) {
 						Bendpoint bendPoint = bendpointList.get(index);
 
 						if (bendPoint.isRelative()) {

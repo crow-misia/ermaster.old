@@ -765,7 +765,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 			this.resetNormalColumn(targetColumn);
 
 		} else {
-			for (int i = 0; i < this.columnList.size(); i++) {
+			for (int i = 0, n = this.columnList.size(); i < n; i++) {
 				Column column = this.columnList.get(i);
 				if (column instanceof NormalColumn) {
 					NormalColumn normalColumn = (NormalColumn) column;
@@ -778,7 +778,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 	}
 
 	private void resetNormalColumn(NormalColumn normalColumn) {
-		for (int i = 0; i < this.columnList.size(); i++) {
+		for (int i = 0, n = this.columnList.size(); i < n; i++) {
 			if (this.columnList.get(i) == normalColumn) {
 				TableItem tableItem = this.attributeTable.getItem(i);
 				this.column2TableItem(null, normalColumn, tableItem);

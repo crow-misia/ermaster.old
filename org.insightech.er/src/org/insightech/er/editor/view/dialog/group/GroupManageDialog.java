@@ -499,12 +499,12 @@ public class GroupManageDialog extends AbstractDialog implements
 						setGroupEditEnabled(false);
 						initGroupList();
 
-						for (int i = 0; i < copyGroups.size(); i++) {
+						for (int i = 0, n = copyGroups.size(); i < n; i++) {
 							ColumnGroup columnGroup = copyGroups.get(i);
 
 							if (columnGroup == copyData) {
 								groupList.setSelection(i);
-								copyData = new CopyGroup(copyGroups.get(i));
+								copyData = new CopyGroup(columnGroup);
 								initColumnGroup();
 								setButtonEnabled(true);
 								break;

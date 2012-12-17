@@ -190,7 +190,7 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 
 		TableItem radioTableItem = new TableItem(this.indexTable, SWT.NONE);
 
-		for (int i = 0; i < indexes.size(); i++) {
+		for (int i = 0, n = indexes.size(); i < n; i++) {
 			TableColumn tableColumn = new TableColumn(this.indexTable,
 					SWT.CENTER);
 			tableColumn.setWidth(60);
@@ -225,11 +225,11 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 			TableItem tableItem = new TableItem(this.indexTable, SWT.NONE);
 			tableItem.setText(0, Format.null2blank(normalColumn.getName()));
 
-			for (int i = 0; i < indexes.size(); i++) {
+			for (int i = 0, n = indexes.size(); i < n; i++) {
 				Index index = indexes.get(i);
 
 				List<NormalColumn> indexColumns = index.getColumns();
-				for (int j = 0; j < indexColumns.size(); j++) {
+				for (int j = 0, m = indexColumns.size(); j < m; j++) {
 					NormalColumn indexColumn = indexColumns.get(j);
 
 					if (normalColumn.equals(indexColumn)) {
@@ -246,7 +246,7 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 	public void addIndexData(Index index, boolean add) {
 		int selectedIndex = -1;
 
-		for (int i = 0; i < this.checkButtonList.size(); i++) {
+		for (int i = 0, n = this.checkButtonList.size(); i < n; i++) {
 			Button checkButton = this.checkButtonList.get(i);
 			if (checkButton.getSelection()) {
 				selectedIndex = i;
@@ -272,7 +272,7 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 	public void removeIndex() {
 		int selectedIndex = -1;
 
-		for (int i = 0; i < this.checkButtonList.size(); i++) {
+		for (int i = 0, n = this.checkButtonList.size(); i < n; i++) {
 			Button checkButton = this.checkButtonList.get(i);
 			if (checkButton.getSelection()) {
 				selectedIndex = i;
@@ -340,7 +340,7 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 	public Index getTargetIndex() {
 		int selectedIndex = -1;
 
-		for (int i = 0; i < this.checkButtonList.size(); i++) {
+		for (int i = 0, n = this.checkButtonList.size(); i < n; i++) {
 			Button checkButton = this.checkButtonList.get(i);
 			if (checkButton.getSelection()) {
 				selectedIndex = i;

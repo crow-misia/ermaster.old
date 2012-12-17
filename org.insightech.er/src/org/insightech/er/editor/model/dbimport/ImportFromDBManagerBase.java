@@ -592,7 +592,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			if (indexColumns.size() == primaryKeys.size()) {
 				boolean equals = true;
 
-				for (int i = 0; i < indexColumns.size(); i++) {
+				for (int i = 0, n = indexColumns.size(); i < n; i++) {
 					if (!indexColumns.get(i).equals(
 							primaryKeys.get(i).columnName)) {
 						equals = false;

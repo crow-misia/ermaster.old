@@ -12,6 +12,8 @@ import org.insightech.er.editor.model.ERDiagram;
 public class ERDiagramPropertySource implements IPropertySource {
 
 	public static final String PROPERTY_INIT_DATABASE = "initDatabase";
+	
+	private static final Integer ZERO = Integer.valueOf(0);
 
 	private ERDiagram diagram;
 
@@ -35,13 +37,13 @@ public class ERDiagramPropertySource implements IPropertySource {
 		if (id.equals("database")) {
 			List<String> dbList = DBManagerFactory.getAllDBList();
 
-			for (int i = 0; i < dbList.size(); i++) {
+			for (int i = 0, n = dbList.size(); i < n; i++) {
 				if (dbList.get(i).equals(this.diagram.getDatabase())) {
-					return new Integer(i);
+					return Integer.valueOf(i);
 				}
 			}
 
-			return new Integer(0);
+			return ZERO;
 		}
 
 		return null;

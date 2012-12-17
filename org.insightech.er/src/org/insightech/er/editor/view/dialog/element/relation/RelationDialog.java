@@ -308,7 +308,7 @@ public class RelationDialog extends AbstractDialog {
 			this.columnCombo.select(0);
 
 		} else if (this.relation.getReferencedComplexUniqueKey() != null) {
-			for (int i = 0; i < sourceTable.getComplexUniqueKeyList().size(); i++) {
+			for (int i = 0, n = sourceTable.getComplexUniqueKeyList().size(); i < n; i++) {
 				if (sourceTable.getComplexUniqueKeyList().get(i) == this.relation
 						.getReferencedComplexUniqueKey()) {
 					this.columnCombo.select(i
@@ -318,7 +318,7 @@ public class RelationDialog extends AbstractDialog {
 			}
 
 		} else {
-			for (int i = 0; i < this.columnComboInfo.candidateColumns.size(); i++) {
+			for (int i = 0, n = this.columnComboInfo.candidateColumns.size(); i < n; i++) {
 				if (this.columnComboInfo.candidateColumns.get(i) == this.relation
 						.getReferencedColumn()) {
 					this.columnCombo.select(i

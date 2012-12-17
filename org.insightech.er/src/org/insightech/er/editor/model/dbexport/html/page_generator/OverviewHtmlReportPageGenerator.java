@@ -152,9 +152,7 @@ public class OverviewHtmlReportPageGenerator {
 		String template = ExportToHtmlManager
 				.getTemplate("allclasses_row_template.html");
 
-		for (int i = 0; i < htmlReportPageGeneratorList.size(); i++) {
-			HtmlReportPageGenerator pageGenerator = htmlReportPageGeneratorList
-					.get(i);
+		for (HtmlReportPageGenerator pageGenerator : htmlReportPageGeneratorList) {
 
 			for (Object object : pageGenerator.getObjectList(diagram)) {
 				Object[] args = {
@@ -174,9 +172,7 @@ public class OverviewHtmlReportPageGenerator {
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList) {
 		int count = 0;
 
-		for (int i = 0; i < htmlReportPageGeneratorList.size(); i++) {
-			HtmlReportPageGenerator pageGenerator = htmlReportPageGeneratorList
-					.get(i);
+		for (HtmlReportPageGenerator pageGenerator : htmlReportPageGeneratorList) {
 			count += pageGenerator.getObjectList(diagram).size();
 		}
 

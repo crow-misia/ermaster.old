@@ -2,7 +2,6 @@ package org.insightech.er.editor.view.action.line;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -57,7 +56,7 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 	public static final String ID_ALIGN_TOP = GEFActionConstants.ALIGN_TOP;
 	private int alignment;
 
-	private List operationSet;
+	private List<EditPart> operationSet;
 
 	private static final AlignmentAction ALIGNMENT_ACTION_LEFT = new AlignmentAction(
 			(IWorkbenchPart) null, PositionConstants.LEFT);
@@ -109,7 +108,7 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 	 * @return the alignment rectangle
 	 */
 	protected Rectangle calculateAlignmentRectangle(Request request) {
-		List editparts = getOperationSet(request);
+		List<?> editparts = getOperationSet(request);
 		if (editparts == null || editparts.isEmpty())
 			return null;
 		GraphicalEditPart part = (GraphicalEditPart) editparts.get(editparts
@@ -136,7 +135,7 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 				RequestConstants.REQ_ALIGN);
 		request.setAlignmentRectangle(calculateAlignmentRectangle(request));
 		request.setAlignment(alignment);
-		List editparts = getOperationSet(request);
+		List<?> editparts = getOperationSet(request);
 		if (editparts.size() < 2)
 			return null;
 
@@ -166,29 +165,29 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 	 * @return the list of parts which will be aligned
 	 */
 	@SuppressWarnings("unchecked")
-	protected List getOperationSet(Request request) {
+    protected List<EditPart> getOperationSet(Request request) {
 		if (operationSet != null)
 			return operationSet;
-		List editparts = new ArrayList(getSelectedObjects());
-		for (Iterator iter = editparts.iterator(); iter.hasNext();) {
-			if (iter.next() instanceof NormalColumnEditPart) {
-				iter.remove();
+		List<Object> objs = getSelectedObjects();
+		List<EditPart> editparts = new ArrayList<EditPart>(objs.size());
+		for (Object obj : objs) {
+			if (!(obj instanceof NormalColumnEditPart)) {
+				editparts.add((EditPart) obj);
 			}
 		}
 
 		if (editparts.isEmpty()
 				|| !(editparts.get(0) instanceof GraphicalEditPart))
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		Object primary = editparts.get(editparts.size() - 1);
 		editparts = ToolUtilities.getSelectionWithoutDependants(editparts);
 		ToolUtilities.filterEditPartsUnderstanding(editparts, request);
 		if (editparts.size() < 2 || !editparts.contains(primary))
-			return Collections.EMPTY_LIST;
-		EditPart parent = ((EditPart) editparts.get(0)).getParent();
-		for (int i = 1; i < editparts.size(); i++) {
-			EditPart part = (EditPart) editparts.get(i);
+			return Collections.emptyList();
+		EditPart parent = (editparts.get(0)).getParent();
+		for (EditPart part : editparts) {
 			if (part.getParent() != parent)
-				return Collections.EMPTY_LIST;
+				return Collections.emptyList();
 		}
 		return editparts;
 	}
