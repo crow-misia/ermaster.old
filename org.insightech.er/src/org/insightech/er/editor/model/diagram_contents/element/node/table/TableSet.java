@@ -59,7 +59,7 @@ public class TableSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public TableSet clone() {
 		TableSet tableSet = (TableSet) super.clone();
-		List<ERTable> newTableList = new ArrayList<ERTable>();
+		List<ERTable> newTableList = new ArrayList<ERTable>(this.tableList.size());
 
 		for (ERTable table : this.tableList) {
 			ERTable newTable = (ERTable) table.clone();

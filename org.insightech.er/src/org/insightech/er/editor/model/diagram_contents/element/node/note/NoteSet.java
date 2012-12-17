@@ -56,7 +56,7 @@ public class NoteSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public NoteSet clone() {
 		NoteSet noteSet = (NoteSet) super.clone();
-		List<Note> newNoteList = new ArrayList<Note>();
+		List<Note> newNoteList = new ArrayList<Note>(noteList.size());
 
 		for (Note note : this.noteList) {
 			Note newNote = (Note) note.clone();

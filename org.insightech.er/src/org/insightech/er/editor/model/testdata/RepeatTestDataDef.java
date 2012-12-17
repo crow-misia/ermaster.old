@@ -114,13 +114,12 @@ public class RepeatTestDataDef implements Cloneable {
 
 			if (this.selects != null) {
 				clone.selects = new String[this.selects.length];
-				for (int i = 0; i < clone.selects.length; i++) {
+				for (int i = 0, n = clone.selects.length; i < n; i++) {
 					clone.selects[i] = this.selects[i];
 				}
 			}
 
-			clone.modifiedValues = new HashMap<Integer, String>();
-			clone.modifiedValues.putAll(this.modifiedValues);
+			clone.modifiedValues = new HashMap<Integer, String>(this.modifiedValues);
 
 			return clone;
 

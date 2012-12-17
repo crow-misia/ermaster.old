@@ -34,8 +34,7 @@ public class FileUtils {
 		if (files == null)
 			throw new IOException("Failed to list contents of " + directory);
 		IOException exception = null;
-		for (int i = 0; i < files.length; i++) {
-			File file = files[i];
+		for (File file : files) {
 			try {
 				forceDelete(file);
 			} catch (IOException ioe) {
@@ -43,10 +42,10 @@ public class FileUtils {
 			}
 		}
 
-		if (null != exception)
-			throw exception;
-		else
+		if (null == exception)
 			return;
+
+		throw exception;
 	}
 
 	public static void forceDelete(File file) throws IOException {

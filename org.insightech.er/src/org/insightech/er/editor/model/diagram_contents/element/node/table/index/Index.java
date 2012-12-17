@@ -120,19 +120,9 @@ public class Index extends AbstractModel implements ObjectModel,
 	public Index clone() {
 		Index clone = (Index) super.clone();
 
-		List<Boolean> cloneDescs = new ArrayList<Boolean>();
-		for (Boolean desc : this.descs) {
-			cloneDescs.add(desc);
-		}
+		clone.descs = new ArrayList<Boolean>(this.descs);
 
-		clone.descs = cloneDescs;
-
-		List<String> cloneColumnNames = new ArrayList<String>();
-		for (String columnName : this.columnNames) {
-			cloneColumnNames.add(columnName);
-		}
-
-		clone.columnNames = cloneColumnNames;
+		clone.columnNames = new ArrayList<String>(this.columnNames);
 
 		return clone;
 	}

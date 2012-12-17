@@ -68,9 +68,10 @@ public class EnvironmentSetting implements Serializable, Cloneable {
 		try {
 			EnvironmentSetting setting = (EnvironmentSetting) super.clone();
 
-			setting.environments = new ArrayList<Environment>();
+			final int nums = this.environments.size();
+			setting.environments = new ArrayList<Environment>(nums);
 
-			Map<Environment, Environment> oldNewMap = new HashMap<Environment, Environment>();
+			Map<Environment, Environment> oldNewMap = new HashMap<Environment, Environment>(nums);
 
 			for (Environment environment : this.environments) {
 				Environment newEnvironment = environment.clone();

@@ -129,7 +129,7 @@ public abstract class ConnectionElement extends AbstractModel {
 	public ConnectionElement clone() {
 		ConnectionElement clone = (ConnectionElement) super.clone();
 
-		List<Bendpoint> cloneBendPoints = new ArrayList<Bendpoint>();
+		List<Bendpoint> cloneBendPoints = new ArrayList<Bendpoint>(bendPoints.size());
 		for (Bendpoint bendPoint : bendPoints) {
 			cloneBendPoints.add((Bendpoint) bendPoint.clone());
 		}

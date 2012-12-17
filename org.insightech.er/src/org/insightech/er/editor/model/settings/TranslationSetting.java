@@ -102,11 +102,7 @@ public class TranslationSetting implements Serializable, Cloneable {
 	public Object clone() {
 		try {
 			TranslationSetting settings = (TranslationSetting) super.clone();
-			settings.selectedTranslations = new ArrayList<String>();
-
-			for (String selectedTranslation : this.selectedTranslations) {
-				settings.selectedTranslations.add(selectedTranslation);
-			}
+			settings.selectedTranslations = new ArrayList<String>(this.selectedTranslations);
 
 			return settings;
 

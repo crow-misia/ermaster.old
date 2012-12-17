@@ -79,7 +79,7 @@ public class SequenceSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public SequenceSet clone() {
 		SequenceSet sequenceSet = (SequenceSet) super.clone();
-		List<Sequence> newSequenceList = new ArrayList<Sequence>();
+		List<Sequence> newSequenceList = new ArrayList<Sequence>(sequenceList.size());
 
 		for (Sequence sequence : sequenceList) {
 			Sequence newSequence = (Sequence) sequence.clone();

@@ -63,9 +63,10 @@ public class HorizontalLineAction extends AbstractBaseSelectionAction {
 	private Command createCommand() {
 		Command command = null;
 
-		List<NodeElementEditPart> list = new ArrayList<NodeElementEditPart>();
+		final List objects = this.getSelectedObjects();
+		List<NodeElementEditPart> list = new ArrayList<NodeElementEditPart>(objects.size());
 
-		for (Object object : this.getSelectedObjects()) {
+		for (Object object : objects) {
 			if (object instanceof ERTableEditPart
 					|| object instanceof NoteEditPart) {
 				list.add((NodeElementEditPart) object);

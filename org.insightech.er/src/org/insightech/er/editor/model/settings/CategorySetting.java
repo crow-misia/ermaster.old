@@ -118,8 +118,9 @@ public class CategorySetting implements Serializable, Cloneable {
 	public Object clone() {
 		try {
 			CategorySetting settings = (CategorySetting) super.clone();
-			settings.allCategories = new ArrayList<Category>();
-			settings.selectedCategories = new ArrayList<Category>();
+			final int nums = allCategories.size();
+			settings.allCategories = new ArrayList<Category>(nums);
+			settings.selectedCategories = new ArrayList<Category>(nums);
 
 			for (Category category : this.allCategories) {
 				Category clone = category.clone();

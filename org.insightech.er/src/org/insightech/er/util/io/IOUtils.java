@@ -12,18 +12,20 @@ import java.io.Writer;
 public class IOUtils {
 
 	public static void closeQuietly(InputStream input) {
-		try {
-			if (input != null)
+		if (input != null) {
+			try {
 				input.close();
-		} catch (IOException ioe) {
+			} catch (IOException ioe) {
+			}
 		}
 	}
 
 	public static void closeQuietly(OutputStream output) {
-		try {
-			if (output != null)
+		if (output != null) {
+			try {
 				output.close();
-		} catch (IOException ioe) {
+			} catch (IOException ioe) {
+			}
 		}
 	}
 

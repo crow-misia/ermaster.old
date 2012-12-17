@@ -107,7 +107,7 @@ public class ModelProperties extends NodeElement implements Cloneable {
 	public ModelProperties clone() {
 		ModelProperties clone = (ModelProperties) super.clone();
 
-		List<NameValue> list = new ArrayList<NameValue>();
+		List<NameValue> list = new ArrayList<NameValue>(this.properties.size());
 
 		for (NameValue nameValue : this.properties) {
 			list.add(nameValue.clone());

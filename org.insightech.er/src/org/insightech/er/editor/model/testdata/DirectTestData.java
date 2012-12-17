@@ -32,10 +32,7 @@ public class DirectTestData implements Cloneable {
 		DirectTestData clone = new DirectTestData();
 
 		for (Map<NormalColumn, String> data : this.dataList) {
-			Map<NormalColumn, String> cloneData = new HashMap<NormalColumn, String>();
-			for (Map.Entry<NormalColumn, String> entry : data.entrySet()) {
-				cloneData.put(entry.getKey(), entry.getValue());
-			}
+			Map<NormalColumn, String> cloneData = new HashMap<NormalColumn, String>(data);
 
 			clone.dataList.add(cloneData);
 		}

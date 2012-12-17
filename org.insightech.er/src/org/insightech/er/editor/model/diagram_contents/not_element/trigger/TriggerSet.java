@@ -79,7 +79,7 @@ public class TriggerSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public TriggerSet clone() {
 		TriggerSet triggerSet = (TriggerSet) super.clone();
-		List<Trigger> newTriggerList = new ArrayList<Trigger>();
+		List<Trigger> newTriggerList = new ArrayList<Trigger>(triggerList.size());
 
 		for (Trigger trigger : triggerList) {
 			Trigger newTrigger = (Trigger) trigger.clone();

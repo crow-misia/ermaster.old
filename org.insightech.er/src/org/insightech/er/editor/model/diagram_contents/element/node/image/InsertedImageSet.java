@@ -55,7 +55,7 @@ public class InsertedImageSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public InsertedImageSet clone() {
 		InsertedImageSet insertedImageSet = (InsertedImageSet) super.clone();
-		List<InsertedImage> newInsertedImageList = new ArrayList<InsertedImage>();
+		List<InsertedImage> newInsertedImageList = new ArrayList<InsertedImage>(this.insertedImageList.size());
 
 		for (InsertedImage insertedImage : this.insertedImageList) {
 			InsertedImage newInsertedImage = (InsertedImage) insertedImage

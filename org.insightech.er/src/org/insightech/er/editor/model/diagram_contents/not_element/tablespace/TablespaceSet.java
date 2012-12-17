@@ -67,7 +67,7 @@ public class TablespaceSet extends AbstractModel implements
 	@Override
 	public TablespaceSet clone() {
 		TablespaceSet tablespaceSet = (TablespaceSet) super.clone();
-		List<Tablespace> newTablespaceList = new ArrayList<Tablespace>();
+		List<Tablespace> newTablespaceList = new ArrayList<Tablespace>(tablespaceList.size());
 
 		for (Tablespace tablespace : tablespaceList) {
 			Tablespace newTablespace = (Tablespace) tablespace.clone();

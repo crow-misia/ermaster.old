@@ -102,7 +102,7 @@ public class ColumnGroup extends Column implements ObjectModel,
 	public ColumnGroup clone() {
 		ColumnGroup clone = (ColumnGroup) super.clone();
 
-		List<NormalColumn> cloneColumns = new ArrayList<NormalColumn>();
+		List<NormalColumn> cloneColumns = new ArrayList<NormalColumn>(this.columns.size());
 
 		for (NormalColumn column : this.columns) {
 			NormalColumn cloneColumn = (NormalColumn) column.clone();

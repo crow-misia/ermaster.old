@@ -62,7 +62,7 @@ public class ViewSet extends AbstractModel implements ObjectListModel,
 	@Override
 	public ViewSet clone() {
 		ViewSet viewSet = (ViewSet) super.clone();
-		List<View> newViewList = new ArrayList<View>();
+		List<View> newViewList = new ArrayList<View>(viewList.size());
 
 		for (View view : viewList) {
 			View newView = (View) view.clone();
