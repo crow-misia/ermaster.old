@@ -1,7 +1,7 @@
 package org.insightech.er.preference.jdbc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -197,7 +197,7 @@ public class JDBCPreferencePage extends
 			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				List<JDBCDriverSetting> otherDriverSettingList = getOtherDriverSettingList(-1);
+				Set<JDBCDriverSetting> otherDriverSettingList = getOtherDriverSettingList(-1);
 
 				JDBCPathDialog dialog = new JDBCPathDialog(PlatformUI
 						.getWorkbench().getActiveWorkbenchWindow().getShell(),
@@ -258,10 +258,11 @@ public class JDBCPreferencePage extends
 		});
 	}
 
-	private List<JDBCDriverSetting> getOtherDriverSettingList(int index) {
-		List<JDBCDriverSetting> list = new ArrayList<JDBCDriverSetting>();
+	private Set<JDBCDriverSetting> getOtherDriverSettingList(int index) {
+		int n = this.table.getItemCount();
+		Set<JDBCDriverSetting> list = new HashSet<JDBCDriverSetting>(n);
 
-		for (int i = 0; i < this.table.getItemCount(); i++) {
+		for (int i = 0; i < n; i++) {
 			if (i != index) {
 				TableItem tableItem = this.table.getItem(i);
 
@@ -287,7 +288,7 @@ public class JDBCPreferencePage extends
 
 			TableItem item = table.getItem(index);
 
-			List<JDBCDriverSetting> otherDriverSettingList = getOtherDriverSettingList(index);
+			Set<JDBCDriverSetting> otherDriverSettingList = getOtherDriverSettingList(index);
 
 			JDBCPathDialog dialog = new JDBCPathDialog(PlatformUI
 					.getWorkbench().getActiveWorkbenchWindow().getShell(), item

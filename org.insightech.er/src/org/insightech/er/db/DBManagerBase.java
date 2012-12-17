@@ -9,6 +9,7 @@ import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,54 +53,54 @@ public abstract class DBManagerBase implements DBManager {
 		String path = null;
 		Class clazz = null;
 
-		try {
-			if (driverClassName.equals("sun.jdbc.odbc.JdbcOdbcDriver")) {
-				return (Class<Driver>) Class
-						.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+		do {
+			try {
+				if (driverClassName.equals("sun.jdbc.odbc.JdbcOdbcDriver")) {
+					return (Class<Driver>) Class
+							.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
-			} else {
-				path = PreferenceInitializer.getJDBCDriverPath(this.getId(),
-						driverClassName);
+				} else {
+					path = PreferenceInitializer.getJDBCDriverPath(this.getId(),
+							driverClassName);
 
-				// Cash the class loader to map.
-				// Because if I use the another loader with the driver using native library(.dll)
-				// next error occur.
-				// 
-				// java.lang.UnsatisfiedLinkError: Native Library xxx.dll already loaded in another classloader
-				//
-				ClassLoader loader = this.loaderMap.get(path);
-				if (loader == null) {
-					loader = this.getClassLoader(path);
-					this.loaderMap.put(path, loader);
-				}
+					// Cash the class loader to map.
+					// Because if I use the another loader with the driver using native library(.dll)
+					// next error occur.
+					// 
+					// java.lang.UnsatisfiedLinkError: Native Library xxx.dll already loaded in another classloader
+					//
+					ClassLoader loader = this.loaderMap.get(path);
+					if (loader == null) {
+						loader = this.getClassLoader(path);
+						this.loaderMap.put(path, loader);
+					}
 				
-				clazz = loader.loadClass(driverClassName);				
-			}
-
-		} catch (Exception e) {
-			JDBCPathDialog dialog = new JDBCPathDialog(PlatformUI
-					.getWorkbench().getActiveWorkbenchWindow().getShell(), this
-					.getId(), driverClassName, path,
-					new ArrayList<JDBCDriverSetting>(), false);
-
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				JDBCDriverSetting newDriverSetting = new JDBCDriverSetting(this
-						.getId(), dialog.getDriverClassName(), dialog.getPath());
-
-				List<JDBCDriverSetting> driverSettingList = PreferenceInitializer
-						.getJDBCDriverSettingList();
-
-				if (driverSettingList.contains(newDriverSetting)) {
-					driverSettingList.remove(newDriverSetting);
+					clazz = loader.loadClass(driverClassName);				
 				}
-				driverSettingList.add(newDriverSetting);
 
-				PreferenceInitializer
+			} catch (Exception e) {
+				JDBCPathDialog dialog = new JDBCPathDialog(PlatformUI
+						.getWorkbench().getActiveWorkbenchWindow().getShell(), this
+						.getId(), driverClassName, path,
+						Collections.<JDBCDriverSetting>emptySet(), false);
+
+				if (dialog.open() == IDialogConstants.OK_ID) {
+					JDBCDriverSetting newDriverSetting = new JDBCDriverSetting(this
+							.getId(), dialog.getDriverClassName(), dialog.getPath());
+
+					Set<JDBCDriverSetting> driverSettingList = PreferenceInitializer
+							.getJDBCDriverSettingList();
+
+					if (driverSettingList.contains(newDriverSetting)) {
+						driverSettingList.remove(newDriverSetting);
+					}
+					driverSettingList.add(newDriverSetting);
+
+					PreferenceInitializer
 						.saveJDBCDriverSettingList(driverSettingList);
-
-				clazz = this.getDriverClass(dialog.getDriverClassName());
+				}
 			}
-		}
+		} while (clazz == null);
 
 		return clazz;
 	}

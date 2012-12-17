@@ -1,6 +1,6 @@
 package org.insightech.er.preference.jdbc;
 
-import java.util.List;
+import java.util.Set;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -34,13 +34,13 @@ public class JDBCPathDialog extends AbstractDialog {
 
 	private String path;
 
-	private List<JDBCDriverSetting> otherDriverSettingList;
+	private Set<JDBCDriverSetting> otherDriverSettingList;
 
 	private boolean editable;
 	
 	public JDBCPathDialog(Shell parentShell, String database,
 			String driverClassName, String path,
-			List<JDBCDriverSetting> otherDriverSettingList, boolean editable) {
+			Set<JDBCDriverSetting> otherDriverSettingList, boolean editable) {
 		super(parentShell, 3);
 
 		this.database = database;

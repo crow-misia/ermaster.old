@@ -186,11 +186,7 @@ public class DBSettingListDialog extends AbstractDialog {
 	private void selectTable(int index) {
 		this.settingTable.select(index);
 
-		if (index >= 0) {
-			this.setButtonEnabled(true);
-		} else {
-			this.setButtonEnabled(false);
-		}
+		this.setButtonEnabled(index >= 0);
 	}
 
 	@Override
