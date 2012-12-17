@@ -15,6 +15,8 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 
 	private static final long serialVersionUID = 4456694342537711599L;
 
+	public static final String PROPERTY_CHANGE_RELEATION = "target";
+
 	private String name;
 
 	private String onUpdateAction;
@@ -70,18 +72,20 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 		return (TableView) this.getTarget();
 	}
 
-	public void setTargetTableView(TableView target) {
-		this.setTargetTableView(target, null);
+	public void setTargetTableView(TableView target, final boolean fire, final boolean connectionFire) {
+		this.setTargetTableView(target, null, fire, connectionFire);
 	}
 
 	public void setTargetTableView(TableView target,
-			List<NormalColumn> foreignKeyColumnList) {
+			List<NormalColumn> foreignKeyColumnList,
+			final boolean fire,
+			final boolean connectionFire) {
 
 		if (this.getTargetTableView() != null) {
 			removeAllForeignKey();
 		}
 
-		super.setTarget(target);
+		super.setTarget(target, connectionFire);
 
 		if (target != null) {
 			TableView sourceTable = (TableView) this.getSource();
@@ -118,10 +122,12 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 					}
 				}
 			}
+			target.setDirty();
 		}
-		target.setDirty();
 
-		this.firePropertyChange("target", null, target);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	private NormalColumn createForeiKeyColumn(NormalColumn referencedColumn,
@@ -137,17 +143,25 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 		return foreignKeyColumn;
 	}
 
-	public void setTargetWithoutForeignKey(TableView target) {
-		super.setTarget(target);
+	public void setTargetWithoutForeignKey(TableView target, final boolean connectionFire) {
+		super.setTarget(target, connectionFire);
 	}
 
 	public void setTargetTableWithExistingColumns(ERTable target,
 			List<NormalColumn> referencedColumnList,
-			List<NormalColumn> foreignKeyColumnList) {
+			List<NormalColumn> foreignKeyColumnList,
+			final boolean fire,
+			final boolean connectionFire) {
 
-		super.setTarget(target);
+		super.setTarget(target, connectionFire);
 
-		this.firePropertyChange("target", null, target);
+		if (fire) {
+			setDirty();
+		}
+	}
+
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_RELEATION, null, target);
 	}
 
 	public void delete(boolean removeForeignKey, Dictionary dictionary) {

@@ -22,19 +22,27 @@ public class TriggerSet extends AbstractModel implements ObjectListModel,
 		this.triggerList = new ArrayList<Trigger>();
 	}
 
-	public void addTrigger(Trigger trigger) {
+	public void addTrigger(Trigger trigger, final boolean fire) {
 		this.triggerList.add(trigger);
 		Collections.sort(this.triggerList);
 
-		this.firePropertyChange(PROPERTY_CHANGE_TRIGGER_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public int remove(Trigger trigger) {
+	public int remove(Trigger trigger, final boolean fire) {
 		int index = this.triggerList.indexOf(trigger);
 		this.triggerList.remove(index);
-		this.firePropertyChange(PROPERTY_CHANGE_TRIGGER_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 
 		return index;
+	}
+
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_TRIGGER_SET, null, null);
 	}
 
 	public boolean contains(String name) {

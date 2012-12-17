@@ -49,7 +49,7 @@ public class TestDataEditTest {
 		table.addColumn(column2, false);
 		table.setDirty();
 
-		diagram.addContent(table);
+		diagram.addContent(table, true);
 
 		TestDataDialog dialog = new TestDataDialog(shell, diagram,
 				new TestData());

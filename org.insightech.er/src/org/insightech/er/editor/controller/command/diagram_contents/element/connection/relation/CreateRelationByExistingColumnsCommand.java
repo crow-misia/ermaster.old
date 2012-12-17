@@ -42,8 +42,8 @@ public class CreateRelationByExistingColumnsCommand extends
 		ERTable sourceTable = (ERTable) this.source.getModel();
 		TableView targetTable = (TableView) this.target.getModel();
 
-		this.relation.setSource(sourceTable);
-		this.relation.setTargetWithoutForeignKey(targetTable);
+		this.relation.setSource(sourceTable, false);
+		this.relation.setTargetWithoutForeignKey(targetTable, true);
 
 		final Dictionary dictionary = sourceTable.getDiagram().getDiagramContents().getDictionary();
 		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {
@@ -69,8 +69,8 @@ public class CreateRelationByExistingColumnsCommand extends
 		ERTable sourceTable = (ERTable) source.getModel();
 		ERTable targetTable = (ERTable) target.getModel();
 
-		this.relation.setSource(null);
-		this.relation.setTargetWithoutForeignKey(null);
+		this.relation.setSource(null, false);
+		this.relation.setTargetWithoutForeignKey(null, true);
 
 		final Dictionary dictionary = sourceTable.getDiagram().getDiagramContents().getDictionary();
 		for (int i = 0, n = foreignKeyColumnList.size(); i < n; i++) {

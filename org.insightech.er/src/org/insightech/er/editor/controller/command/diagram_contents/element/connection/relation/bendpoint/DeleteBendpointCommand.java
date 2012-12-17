@@ -23,7 +23,7 @@ public class DeleteBendpointCommand extends AbstractCommand {
 	@Override
 	protected void doExecute() {
 		this.oldBendpoint = this.connection.getBendpoints().get(index);
-		this.connection.removeBendpoint(index);
+		this.connection.removeBendpoint(index, true);
 	}
 
 	/**
@@ -31,6 +31,6 @@ public class DeleteBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.connection.addBendpoint(index, oldBendpoint);
+		this.connection.addBendpoint(index, oldBendpoint, true);
 	}
 }

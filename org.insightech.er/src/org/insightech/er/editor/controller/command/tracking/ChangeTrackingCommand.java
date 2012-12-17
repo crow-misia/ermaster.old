@@ -39,7 +39,7 @@ public class ChangeTrackingCommand extends AbstractCommand {
 		// 描画更新をとめます。
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.diagram.replaceContents(newDiagramContents);
+		this.diagram.replaceContents(newDiagramContents, true);
 
 		// 描画更新を再開します。
 		ERDiagramEditPart.setUpdateable(true);
@@ -55,7 +55,7 @@ public class ChangeTrackingCommand extends AbstractCommand {
 		// 描画更新をとめます。
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.diagram.replaceContents(oldDiagramContents);
+		this.diagram.replaceContents(oldDiagramContents, true);
 
 		// 描画更新を再開します。
 		ERDiagramEditPart.setUpdateable(true);

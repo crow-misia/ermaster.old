@@ -42,7 +42,7 @@ public class DefaultLineCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.connection.setBendpoints(new ArrayList<Bendpoint>());
+		this.connection.setBendpoints(new ArrayList<Bendpoint>(), true);
 		if (connection instanceof Relation) {
 			Relation relation = (Relation) connection;
 
@@ -57,7 +57,7 @@ public class DefaultLineCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.connection.setBendpoints(this.oldBendpointList);
+		this.connection.setBendpoints(this.oldBendpointList, true);
 		if (connection instanceof Relation) {
 			Relation relation = (Relation) connection;
 

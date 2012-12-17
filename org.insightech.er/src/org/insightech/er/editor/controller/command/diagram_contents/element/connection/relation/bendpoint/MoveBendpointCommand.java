@@ -30,7 +30,7 @@ public class MoveBendpointCommand extends AbstractCommand {
 		ConnectionElement connection = (ConnectionElement) editPart.getModel();
 
 		this.oldBendpoint = connection.getBendpoints().get(index);
-		connection.replaceBendpoint(index, this.bendPoint);
+		connection.replaceBendpoint(index, this.bendPoint, true);
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class MoveBendpointCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		ConnectionElement connection = (ConnectionElement) editPart.getModel();
-		connection.replaceBendpoint(index, this.oldBendpoint);
+		connection.replaceBendpoint(index, this.oldBendpoint, true);
 	}
 
 }

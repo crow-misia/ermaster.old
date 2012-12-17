@@ -228,7 +228,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 
 		try {
 			diagram.getDiagramContents().getSettings().getModelProperties()
-					.setUpdatedDate(new Date());
+					.setUpdatedDate(new Date(), true);
 
 			InputStream source = persistent.createInputStream(this.diagram);
 

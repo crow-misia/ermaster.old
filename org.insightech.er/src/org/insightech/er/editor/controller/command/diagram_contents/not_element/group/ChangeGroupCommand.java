@@ -66,8 +66,9 @@ public class ChangeGroupCommand extends AbstractCommand {
 		dictionary.setDirty();
 
 		for (CopyGroup newCopyColumnGroup : newGroups) {
-			this.groupSet.add(newCopyColumnGroup.restructure(diagram));
+			this.groupSet.add(newCopyColumnGroup.restructure(diagram), false);
 		}
+		this.groupSet.setDirty();
 
 		for (TableView tableView : this.diagram.getDiagramContents()
 				.getContents().getTableViewList()) {
@@ -109,8 +110,9 @@ public class ChangeGroupCommand extends AbstractCommand {
 
 		for (CopyGroup copyGroup : oldCopyGroups) {
 			ColumnGroup group = copyGroup.restructure(diagram);
-			this.groupSet.add(group);
+			this.groupSet.add(group, false);
 		}
+		this.groupSet.setDirty();
 
 		for (TableView tableView : this.oldColumnListMap.keySet()) {
 			List<Column> oldColumns = this.oldColumnListMap.get(tableView);

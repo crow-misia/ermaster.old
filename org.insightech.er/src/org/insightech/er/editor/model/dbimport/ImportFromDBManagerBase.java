@@ -1062,8 +1062,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		Relation relation = new Relation(referenceForPK,
 				referencedComplexUniqueKey, referencedColumn);
 		relation.setName(representativeData.name);
-		relation.setSource(source);
-		relation.setTargetWithoutForeignKey(target);
+		relation.setSource(source, false);
+		relation.setTargetWithoutForeignKey(target, true);
 
 		String onUpdateAction = null;
 		if (representativeData.updateRule == DatabaseMetaData.importedKeyCascade) {

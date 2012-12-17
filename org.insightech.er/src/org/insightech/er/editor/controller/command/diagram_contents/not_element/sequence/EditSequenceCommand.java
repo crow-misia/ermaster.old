@@ -25,8 +25,8 @@ public class EditSequenceCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.sequenceSet.remove(this.oldSequence);
-		this.sequenceSet.addSequence(this.newSequence);
+		this.sequenceSet.remove(this.oldSequence, false);
+		this.sequenceSet.addSequence(this.newSequence, true);
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class EditSequenceCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.sequenceSet.remove(this.newSequence);
-		this.sequenceSet.addSequence(this.oldSequence);
+		this.sequenceSet.remove(this.newSequence, false);
+		this.sequenceSet.addSequence(this.oldSequence, true);
 	}
 }

@@ -40,7 +40,7 @@ public class NodeSet extends AbstractModel implements Iterable<NodeElement> {
 		this.nodeElementList = new ArrayList<NodeElement>();
 	}
 
-	public void addNodeElement(NodeElement nodeElement) {
+	public void addNodeElement(NodeElement nodeElement, final boolean fire) {
 		if (nodeElement instanceof ERTable) {
 			this.tableSet.add((ERTable) nodeElement);
 
@@ -48,19 +48,21 @@ public class NodeSet extends AbstractModel implements Iterable<NodeElement> {
 			this.viewSet.add((View) nodeElement);
 
 		} else if (nodeElement instanceof Note) {
-			this.noteSet.add((Note) nodeElement);
+			this.noteSet.add((Note) nodeElement, true);
 
 		} else if (nodeElement instanceof InsertedImage) {
-			this.insertedImageSet.add((InsertedImage) nodeElement);
+			this.insertedImageSet.add((InsertedImage) nodeElement, true);
 
 		}
 
 		this.nodeElementList.add(nodeElement);
 
-		this.firePropertyChange(PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public void remove(NodeElement nodeElement) {
+	public void remove(NodeElement nodeElement, final boolean fire) {
 		if (nodeElement instanceof ERTable) {
 			this.tableSet.remove((ERTable) nodeElement);
 
@@ -68,15 +70,21 @@ public class NodeSet extends AbstractModel implements Iterable<NodeElement> {
 			this.viewSet.remove((View) nodeElement);
 
 		} else if (nodeElement instanceof Note) {
-			this.noteSet.remove((Note) nodeElement);
+			this.noteSet.remove((Note) nodeElement, true);
 
 		} else if (nodeElement instanceof InsertedImage) {
-			this.insertedImageSet.remove((InsertedImage) nodeElement);
+			this.insertedImageSet.remove((InsertedImage) nodeElement, true);
 
 		}
 
 		this.nodeElementList.remove(nodeElement);
 
+		if (fire) {
+			setDirty();
+		}
+	}
+
+	public void setDirty() {
 		this.firePropertyChange(PROPERTY_CHANGE_CONTENTS, null, null);
 	}
 

@@ -428,7 +428,7 @@ public class GroupManageDialog extends AbstractDialog implements
 
 							GroupSet columnGroups = GlobalGroupSet.load();
 
-							columnGroups.add(columnGroup);
+							columnGroups.add(columnGroup, true);
 
 							GlobalGroupSet.save(columnGroups);
 						}

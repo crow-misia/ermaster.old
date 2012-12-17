@@ -24,20 +24,24 @@ public class ViewSet extends AbstractModel implements ObjectListModel,
 
 	public void add(View view) {
 		this.viewList.add(view);
-		this.firePropertyChange(PROPERTY_CHANGE_VIEW_SET, null, null);
+		setDirty();
 	}
 
 	public void add(int index, View view) {
 		this.viewList.add(index, view);
-		this.firePropertyChange(PROPERTY_CHANGE_VIEW_SET, null, null);
+		setDirty();
 	}
 
 	public int remove(View view) {
 		int index = this.viewList.indexOf(view);
 		this.viewList.remove(index);
-		this.firePropertyChange(PROPERTY_CHANGE_VIEW_SET, null, null);
+		setDirty();
 
 		return index;
+	}
+	
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_VIEW_SET, null, null);
 	}
 
 	public List<View> getList() {

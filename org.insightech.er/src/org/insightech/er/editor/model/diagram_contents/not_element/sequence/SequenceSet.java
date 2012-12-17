@@ -22,19 +22,27 @@ public class SequenceSet extends AbstractModel implements ObjectListModel,
 		this.sequenceList = new ArrayList<Sequence>();
 	}
 
-	public void addSequence(Sequence sequence) {
+	public void addSequence(Sequence sequence, final boolean fire) {
 		this.sequenceList.add(sequence);
 		Collections.sort(this.sequenceList);
 
-		this.firePropertyChange(PROPERTY_CHANGE_SEQUENCE_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public int remove(Sequence sequence) {
+	public int remove(Sequence sequence, final boolean fire) {
 		int index = this.sequenceList.indexOf(sequence);
 		this.sequenceList.remove(index);
-		this.firePropertyChange(PROPERTY_CHANGE_SEQUENCE_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 
 		return index;
+	}
+
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_SEQUENCE_SET, null, null);
 	}
 
 	public boolean contains(String name) {

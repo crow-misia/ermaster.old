@@ -69,20 +69,24 @@ public class ModelProperties extends NodeElement implements Cloneable {
 		return updatedDate;
 	}
 
-	public void setUpdatedDate(Date updatedDate) {
+	public void setUpdatedDate(Date updatedDate, final boolean fire) {
 		this.updatedDate = updatedDate;
 
-		this.firePropertyChange(PROPERTY_CHANGE_MODEL_PROPERTIES, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	public boolean isDisplay() {
 		return display;
 	}
 
-	public void setDisplay(boolean display) {
+	public void setDisplay(boolean display, final boolean fire) {
 		this.display = display;
 
-		this.firePropertyChange(PROPERTY_CHANGE_MODEL_PROPERTIES, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	/**
@@ -114,10 +118,12 @@ public class ModelProperties extends NodeElement implements Cloneable {
 		return clone;
 	}
 
-	public void setProperties(List<NameValue> properties) {
+	public void setProperties(List<NameValue> properties, final boolean fire) {
 		this.properties = properties;
 
-		this.firePropertyChange(PROPERTY_CHANGE_MODEL_PROPERTIES, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
 	public String getDescription() {
@@ -130,5 +136,9 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	public String getObjectType() {
 		return "model_properties";
+	}
+
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_MODEL_PROPERTIES, null, null);
 	}
 }

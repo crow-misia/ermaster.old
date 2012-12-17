@@ -17,8 +17,9 @@ public class CreateConnectionCommand extends AbstractCreateConnectionCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		connection.setSource((NodeElement) source.getModel());
-		connection.setTarget((NodeElement) target.getModel());
+		connection.setSource((NodeElement) source.getModel(), false);
+		connection.setTarget((NodeElement) target.getModel(), false);
+		connection.setDirtyForConnection();
 	}
 
 	/**
@@ -26,8 +27,9 @@ public class CreateConnectionCommand extends AbstractCreateConnectionCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		connection.setSource(null);
-		connection.setTarget(null);
+		connection.setSource(null, false);
+		connection.setTarget(null, false);
+		connection.setDirtyForConnection();
 	}
 
 	/**

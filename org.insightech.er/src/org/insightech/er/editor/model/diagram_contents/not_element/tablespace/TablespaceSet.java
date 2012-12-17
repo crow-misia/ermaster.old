@@ -20,19 +20,27 @@ public class TablespaceSet extends AbstractModel implements
 		this.tablespaceList = new ArrayList<Tablespace>();
 	}
 
-	public void addTablespace(Tablespace tablespace) {
+	public void addTablespace(Tablespace tablespace, final boolean fire) {
 		this.tablespaceList.add(tablespace);
 		Collections.sort(this.tablespaceList);
 
-		this.firePropertyChange(PROPERTY_CHANGE_TABLESPACE_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public int remove(Tablespace tablespace) {
+	public int remove(Tablespace tablespace, final boolean fire) {
 		int index = this.tablespaceList.indexOf(tablespace);
 		this.tablespaceList.remove(index);
-		this.firePropertyChange(PROPERTY_CHANGE_TABLESPACE_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 
 		return index;
+	}
+
+	public void setDirty() {
+		this.firePropertyChange(PROPERTY_CHANGE_TABLESPACE_SET, null, null);
 	}
 
 	public boolean contains(String name) {

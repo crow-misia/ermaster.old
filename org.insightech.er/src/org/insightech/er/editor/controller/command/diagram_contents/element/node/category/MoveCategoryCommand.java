@@ -151,13 +151,14 @@ public class MoveCategoryCommand extends MoveElementCommand {
 
 					Bendpoint newBendpoint = new Bendpoint(oldBendPoint.getX()
 							+ this.diffX, oldBendPoint.getY() + this.diffY);
-					connectionElement.replaceBendpoint(index, newBendpoint);
+					connectionElement.replaceBendpoint(index, newBendpoint, false);
 
 					oldBendpointList.add(oldBendPoint);
 				}
 
 				this.bendpointListMap.put(connectionElement, oldBendpointList);
 			}
+			connectionElement.setDirtyForBendpoint();
 		}
 	}
 
@@ -168,9 +169,9 @@ public class MoveCategoryCommand extends MoveElementCommand {
 					.get(connectionElement);
 
 			for (int index = 0, n = oldBendpointList.size(); index < n; index++) {
-				connectionElement.replaceBendpoint(index, oldBendpointList
-						.get(index));
+				connectionElement.replaceBendpoint(index, oldBendpointList.get(index), false);
 			}
+			connectionElement.setDirtyForBendpoint();
 		}
 	}
 

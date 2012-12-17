@@ -27,7 +27,7 @@ public class ChangeStampCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.modelProperties.setDisplay(this.newStamp);
+		this.modelProperties.setDisplay(this.newStamp, true);
 		this.diagram.changeAll();
 	}
 
@@ -36,7 +36,7 @@ public class ChangeStampCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.modelProperties.setDisplay(this.oldStamp);
+		this.modelProperties.setDisplay(this.oldStamp, true);
 		this.diagram.changeAll();
 	}
 }

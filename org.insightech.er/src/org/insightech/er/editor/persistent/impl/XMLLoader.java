@@ -153,7 +153,7 @@ public class XMLLoader {
 				String id = this.connectionSourceMap.get(connection);
 
 				NodeElement nodeElement = this.nodeElementMap.get(id);
-				connection.setSource(nodeElement);
+				connection.setSource(nodeElement, true);
 			}
 
 			for (ConnectionElement connection : this.connectionTargetMap
@@ -161,7 +161,7 @@ public class XMLLoader {
 				String id = this.connectionTargetMap.get(connection);
 
 				NodeElement nodeElement = this.nodeElementMap.get(id);
-				connection.setTarget(nodeElement);
+				connection.setTarget(nodeElement, true);
 			}
 
 			for (Relation relation : this.referencedColumnMap.keySet()) {
@@ -528,12 +528,13 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("sequence");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element sequenceElemnt = (Element) nodeList.item(i);
 				Sequence sequence = this.loadSequence(sequenceElemnt);
 
-				sequenceSet.addSequence(sequence);
+				sequenceSet.addSequence(sequence, false);
 			}
+			sequenceSet.setDirty();
 		}
 	}
 
@@ -562,12 +563,13 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("trigger");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element triggerElemnt = (Element) nodeList.item(i);
 				Trigger trigger = this.loadTrigger(triggerElemnt);
 
-				triggerSet.addTrigger(trigger);
+				triggerSet.addTrigger(trigger, false);
 			}
+			triggerSet.setDirty();
 		}
 	}
 
@@ -589,14 +591,15 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("tablespace");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element tablespaceElemnt = (Element) nodeList.item(i);
 				Tablespace tablespace = this.loadTablespace(tablespaceElemnt,
 						context);
 				if (tablespace != null) {
-					tablespaceSet.addTablespace(tablespace);
+					tablespaceSet.addTablespace(tablespace, false);
 				}
 			}
+			tablespaceSet.setDirty();
 		}
 	}
 
@@ -756,7 +759,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getElementsByTagName("column_group");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element columnGroupElement = (Element) nodeList.item(i);
 
 			ColumnGroup columnGroup = new ColumnGroup();
@@ -770,12 +773,12 @@ public class XMLLoader {
 				columnGroup.addColumn((NormalColumn) column);
 			}
 
-			columnGroups.add(columnGroup);
+			columnGroups.add(columnGroup, false);
 
 			String id = this.getStringValue(columnGroupElement, "id");
 			context.columnGroupMap.put(id, columnGroup);
 		}
-
+		columnGroups.setDirty();
 	}
 
 	private void loadTestDataList(List<TestData> testDataList, Element parent,
@@ -1343,15 +1346,13 @@ public class XMLLoader {
 		this.loadLocation(modelProperties, element);
 		this.loadColor(modelProperties, element);
 
-		modelProperties.setDisplay(this.getBooleanValue(element, "display"));
-		modelProperties.setCreationDate(this.getDateValue(element,
-				"creation_date"));
-		modelProperties.setUpdatedDate(this.getDateValue(element,
-				"updated_date"));
+		modelProperties.setDisplay(this.getBooleanValue(element, "display"), false);
+		modelProperties.setCreationDate(this.getDateValue(element, "creation_date"));
+		modelProperties.setUpdatedDate(this.getDateValue(element, "updated_date"), false);
 
 		NodeList nodeList = element.getElementsByTagName("model_property");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element propertyElement = (Element) nodeList.item(i);
 
 			NameValue nameValue = new NameValue(this.getStringValue(
@@ -1360,6 +1361,7 @@ public class XMLLoader {
 
 			modelProperties.addProperty(nameValue);
 		}
+		modelProperties.setDirty();
 	}
 
 	private void loadLocation(NodeElement nodeElement, Element element) {
@@ -1386,7 +1388,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getChildNodes();
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1395,22 +1397,23 @@ public class XMLLoader {
 
 			if ("table".equals(node.getNodeName())) {
 				ERTable table = this.loadTable((Element) node, context);
-				contents.addNodeElement(table);
+				contents.addNodeElement(table, false);
 
 			} else if ("view".equals(node.getNodeName())) {
 				View view = this.loadView((Element) node, context);
-				contents.addNodeElement(view);
+				contents.addNodeElement(view, false);
 
 			} else if ("note".equals(node.getNodeName())) {
 				Note note = this.loadNote((Element) node, context);
-				contents.addNodeElement(note);
+				contents.addNodeElement(note, false);
 
 			} else if ("image".equals(node.getNodeName())) {
 				InsertedImage insertedImage = this.loadInsertedImage(
 						(Element) node, context);
-				contents.addNodeElement(insertedImage);
+				contents.addNodeElement(insertedImage, false);
 			}
 		}
+		contents.setDirty();
 	}
 
 	private ERTable loadTable(Element element, LoadContext context) {
@@ -1758,7 +1761,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getElementsByTagName("bendpoint");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element bendPointElement = (Element) nodeList.item(i);
 
 			Bendpoint bendpoint = new Bendpoint(this.getIntValue(
@@ -1768,8 +1771,9 @@ public class XMLLoader {
 			bendpoint.setRelative(this.getBooleanValue(bendPointElement,
 					"relative"));
 
-			connection.addBendpoint(i, bendpoint);
+			connection.addBendpoint(i, bendpoint, false);
 		}
+		connection.setDirtyForBendpoint();
 	}
 
 	private void loadDBSetting(ERDiagram diagram, Element element) {

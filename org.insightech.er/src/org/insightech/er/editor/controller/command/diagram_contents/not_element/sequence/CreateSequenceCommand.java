@@ -21,7 +21,7 @@ public class CreateSequenceCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.sequenceSet.addSequence(this.sequence);
+		this.sequenceSet.addSequence(this.sequence, true);
 	}
 
 	/**
@@ -29,6 +29,6 @@ public class CreateSequenceCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.sequenceSet.remove(this.sequence);
+		this.sequenceSet.remove(this.sequence, true);
 	}
 }

@@ -61,13 +61,13 @@ public class CreateSelfRelationCommand extends AbstractCreateRelationCommand {
 		relation.setSourceLocationp(100, yp);
 		relation.setTargetLocationp(xp, 100);
 
-		relation.addBendpoint(0, bendpoint0);
+		relation.addBendpoint(0, bendpoint0, true);
 
-		relation.setSource((ERTable) sourceTable);
+		relation.setSource((ERTable) sourceTable, false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
-		relation.setTargetTableView((ERTable) this.target.getModel());
+		relation.setTargetTableView((ERTable) this.target.getModel(), true, true);
 
 		sourceTable.setDirty();
 	}
@@ -79,13 +79,13 @@ public class CreateSelfRelationCommand extends AbstractCreateRelationCommand {
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
 
-		relation.setSource(null);
+		relation.setSource(null, false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
-		relation.setTargetTableView(null);
+		relation.setTargetTableView(null, true, true);
 
-		this.relation.removeBendpoint(0);
+		this.relation.removeBendpoint(0, true);
 		
 		ERTable targetTable = (ERTable) this.target.getModel();
 		targetTable.setDirty();

@@ -24,6 +24,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
+import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceSet;
 import org.insightech.er.editor.model.settings.Settings;
@@ -85,7 +86,7 @@ public class CopyManager {
 
 			// ノードを複製して、コピー情報に追加します
 			NodeElement cloneNodeElement = (NodeElement) nodeElement.clone();
-			copyList.addNodeElement(cloneNodeElement);
+			copyList.addNodeElement(cloneNodeElement, false);
 
 			nodeElementMap.put(nodeElement, cloneNodeElement);
 
@@ -197,6 +198,7 @@ public class CopyManager {
 
 			}
 		}
+		copyList.setDirty();
 
 		return copyList;
 	}
@@ -387,12 +389,14 @@ public class CopyManager {
 
 		Map<ColumnGroup, ColumnGroup> columnGroupMap = new HashMap<ColumnGroup, ColumnGroup>();
 
+		final GroupSet groupSet = copyDiagramContents.getGroups();
 		for (ColumnGroup columnGroup : originalDiagramContents.getGroups()) {
 			ColumnGroup newColumnGroup = (ColumnGroup) columnGroup.clone();
-			copyDiagramContents.getGroups().add(newColumnGroup);
+			groupSet.add(newColumnGroup, false);
 
 			columnGroupMap.put(columnGroup, newColumnGroup);
 		}
+		groupSet.setDirty();
 
 		for (TableView tableView : copyDiagramContents.getContents()
 				.getTableViewList()) {
@@ -461,8 +465,9 @@ public class CopyManager {
 			Tablespace newTablespace = (Tablespace) tablespace.clone();
 			tablespaceMap.put(tablespace, newTablespace);
 
-			copyTablespaceSet.addTablespace(newTablespace);
+			copyTablespaceSet.addTablespace(newTablespace, false);
 		}
+		copyTablespaceSet.setDirty();
 
 		for (TableView tableView : copyDiagramContents.getContents()
 				.getTableViewList()) {

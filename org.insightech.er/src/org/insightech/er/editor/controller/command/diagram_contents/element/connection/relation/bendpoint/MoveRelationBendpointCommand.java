@@ -43,11 +43,11 @@ public class MoveRelationBendpointCommand extends AbstractCommand {
 
 			relation.setParentMove();
 
-			relation.replaceBendpoint(0, this.bendPoint);
+			relation.replaceBendpoint(0, this.bendPoint, true);
 
 		} else {
 			this.oldBendpoint = relation.getBendpoints().get(index);
-			relation.replaceBendpoint(index, this.bendPoint);
+			relation.replaceBendpoint(index, this.bendPoint, true);
 		}
 	}
 
@@ -68,10 +68,10 @@ public class MoveRelationBendpointCommand extends AbstractCommand {
 
 			relation.setParentMove();
 
-			relation.replaceBendpoint(0, this.oldBendpoint);
+			relation.replaceBendpoint(0, this.oldBendpoint, true);
 
 		} else {
-			relation.replaceBendpoint(index, this.oldBendpoint);
+			relation.replaceBendpoint(index, this.oldBendpoint, true);
 		}
 	}
 

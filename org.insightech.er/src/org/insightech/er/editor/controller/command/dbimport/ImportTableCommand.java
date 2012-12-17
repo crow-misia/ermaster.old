@@ -156,14 +156,15 @@ public class ImportTableCommand extends AbstractCommand {
 	protected void doExecute() {
 		if (this.columnGroups != null) {
 			for (ColumnGroup columnGroup : columnGroups) {
-				this.columnGroupSet.add(columnGroup);
+				this.columnGroupSet.add(columnGroup, false);
 			}
+			this.columnGroupSet.setDirty();
 		}
 
 		ERDiagramEditPart.setUpdateable(false);
 
 		for (NodeElement nodeElement : this.nodeElementList) {
-			this.diagram.addNewContent(nodeElement);
+			this.diagram.addNewContent(nodeElement, false);
 
 			if (nodeElement instanceof TableView) {
 				for (NormalColumn normalColumn : ((TableView) nodeElement)
@@ -178,18 +179,22 @@ public class ImportTableCommand extends AbstractCommand {
 				}
 			}
 		}
+		this.diagram.setDirtyForContent();
 
 		for (Sequence sequence : sequences) {
-			this.sequenceSet.addSequence(sequence);
+			this.sequenceSet.addSequence(sequence, false);
 		}
+		this.sequenceSet.setDirty();
 
 		for (Trigger trigger : triggers) {
-			this.triggerSet.addTrigger(trigger);
+			this.triggerSet.addTrigger(trigger, false);
 		}
+		this.triggerSet.setDirty();
 
 		for (Tablespace tablespace : tablespaces) {
-			this.tablespaceSet.addTablespace(tablespace);
+			this.tablespaceSet.addTablespace(tablespace, false);
 		}
+		this.tablespaceSet.setDirty();
 
 		ERDiagramEditPart.setUpdateable(true);
 
@@ -228,7 +233,7 @@ public class ImportTableCommand extends AbstractCommand {
 		relation.setSourceLocationp(100, yp);
 		relation.setTargetLocationp(xp, 100);
 
-		relation.addBendpoint(0, bendpoint0);
+		relation.addBendpoint(0, bendpoint0, true);
 	}
 
 	/**
@@ -240,7 +245,7 @@ public class ImportTableCommand extends AbstractCommand {
 
 		final Dictionary dictionary = this.diagram.getDiagramContents().getDictionary();
 		for (NodeElement nodeElement : this.nodeElementList) {
-			this.diagram.removeContent(nodeElement);
+			this.diagram.removeContent(nodeElement, false);
 
 			if (nodeElement instanceof TableView) {
 				for (NormalColumn normalColumn : ((TableView) nodeElement)
@@ -249,24 +254,29 @@ public class ImportTableCommand extends AbstractCommand {
 				}
 			}
 		}
+		this.diagram.setDirtyForContent();
 		dictionary.setDirty();
 
 		for (Sequence sequence : sequences) {
-			this.sequenceSet.remove(sequence);
+			this.sequenceSet.remove(sequence, false);
 		}
+		this.sequenceSet.setDirty();
 
 		for (Trigger trigger : triggers) {
-			this.triggerSet.remove(trigger);
+			this.triggerSet.remove(trigger, false);
 		}
+		this.triggerSet.setDirty();
 
 		for (Tablespace tablespace : tablespaces) {
-			this.tablespaceSet.remove(tablespace);
+			this.tablespaceSet.remove(tablespace, false);
 		}
+		this.tablespaceSet.setDirty();
 
 		if (this.columnGroups != null) {
 			for (ColumnGroup columnGroup : columnGroups) {
-				this.columnGroupSet.remove(columnGroup);
+				this.columnGroupSet.remove(columnGroup, false);
 			}
+			this.columnGroupSet.setDirty();
 		}
 
 		ERDiagramEditPart.setUpdateable(true);

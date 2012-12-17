@@ -21,7 +21,7 @@ public class CreateTriggerCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.triggerSet.addTrigger(this.trigger);
+		this.triggerSet.addTrigger(this.trigger, true);
 	}
 
 	/**
@@ -29,6 +29,6 @@ public class CreateTriggerCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.triggerSet.remove(this.trigger);
+		this.triggerSet.remove(this.trigger, true);
 	}
 }

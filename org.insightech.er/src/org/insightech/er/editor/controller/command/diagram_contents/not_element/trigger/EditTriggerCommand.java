@@ -25,8 +25,8 @@ public class EditTriggerCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.triggerSet.remove(this.oldTrigger);
-		this.triggerSet.addTrigger(this.newTrigger);
+		this.triggerSet.remove(this.oldTrigger, false);
+		this.triggerSet.addTrigger(this.newTrigger, true);
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class EditTriggerCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.triggerSet.remove(this.newTrigger);
-		this.triggerSet.addTrigger(this.oldTrigger);
+		this.triggerSet.remove(this.newTrigger, false);
+		this.triggerSet.addTrigger(this.oldTrigger, true);
 	}
 }

@@ -63,7 +63,7 @@ public class PasteCommand extends AbstractCommand {
 						if (!diagram.getDiagramContents().getGroups().contains(
 								group)) {
 							// 対象のグループ列に追加します。
-							columnGroups.add(group);
+							columnGroups.add(group, true);
 						}
 					}
 				}
@@ -83,13 +83,15 @@ public class PasteCommand extends AbstractCommand {
 
 		// 図にノードを追加します。
 		for (NodeElement nodeElement : this.nodeElements) {
-			this.diagram.addContent(nodeElement);
+			this.diagram.addContent(nodeElement, false);
 		}
+		this.diagram.setDirtyForContent();
 
 		// グループ列を追加します。
 		for (ColumnGroup columnGroup : this.columnGroups) {
-			columnGroupSet.add(columnGroup);
+			columnGroupSet.add(columnGroup, false);
 		}
+		columnGroupSet.setDirty();
 
 		// 描画更新を再開します。
 		ERDiagramEditPart.setUpdateable(true);
@@ -112,13 +114,15 @@ public class PasteCommand extends AbstractCommand {
 
 		// 図からノードを削除します。
 		for (NodeElement nodeElement : this.nodeElements) {
-			this.diagram.removeContent(nodeElement);
+			this.diagram.removeContent(nodeElement, false);
 		}
+		this.diagram.setDirtyForContent();
 
 		// グループ列を削除します。
 		for (ColumnGroup columnGroup : this.columnGroups) {
-			columnGroupSet.remove(columnGroup);
+			columnGroupSet.remove(columnGroup, false);
 		}
+		columnGroupSet.setDirty();
 
 		// 描画更新を再開します。
 		ERDiagramEditPart.setUpdateable(true);

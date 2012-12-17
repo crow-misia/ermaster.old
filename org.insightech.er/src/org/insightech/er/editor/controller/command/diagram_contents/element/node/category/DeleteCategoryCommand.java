@@ -37,7 +37,7 @@ public class DeleteCategoryCommand extends AbstractCommand {
 		this.oldSelectedCategories = new ArrayList<Category>(
 				this.categorySettings.getSelectedCategories());
 
-		this.diagram.removeCategory(category);
+		this.diagram.removeCategory(category, true);
 	}
 
 	/**
@@ -47,6 +47,6 @@ public class DeleteCategoryCommand extends AbstractCommand {
 	protected void doUndo() {
 		this.categorySettings.setAllCategories(oldAllCategories);
 		this.categorySettings.setSelectedCategories(oldSelectedCategories);
-		this.diagram.restoreCategories();
+		this.diagram.restoreCategories(true);
 	}
 }

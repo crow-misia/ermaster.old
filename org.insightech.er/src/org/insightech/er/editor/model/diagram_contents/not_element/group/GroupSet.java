@@ -21,16 +21,24 @@ public class GroupSet extends AbstractModel implements Iterable<ColumnGroup> {
 		this.groups = new ArrayList<ColumnGroup>();
 	}
 
-	public void add(ColumnGroup group) {
+	public void add(ColumnGroup group, final boolean fire) {
 		this.groups.add(group);
 		Collections.sort(this.groups);
 
-		this.firePropertyChange(PROPERTY_CHANGE_GROUP_SET, null, null);
+		if (fire) {
+			setDirty();
+		}
 	}
 
-	public void remove(ColumnGroup group) {
+	public void remove(ColumnGroup group, final boolean fire) {
 		this.groups.remove(group);
 
+		if (fire) {
+			setDirty();
+		}
+	}
+
+	public void setDirty() {
 		this.firePropertyChange(PROPERTY_CHANGE_GROUP_SET, null, null);
 	}
 

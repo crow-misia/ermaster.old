@@ -28,7 +28,7 @@ public class CreateBendpointCommand extends AbstractCommand {
 	@Override
 	protected void doExecute() {
 		Bendpoint bendpoint = new Bendpoint(this.x, this.y);
-		connection.addBendpoint(index, bendpoint);
+		connection.addBendpoint(index, bendpoint, true);
 	}
 
 	/**
@@ -36,6 +36,6 @@ public class CreateBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		connection.removeBendpoint(index);
+		connection.removeBendpoint(index, true);
 	}
 }

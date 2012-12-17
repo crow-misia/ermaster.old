@@ -92,9 +92,10 @@ public class CopyAction extends SelectionAction {
 				NodeElementEditPart editPart = (NodeElementEditPart) object;
 
 				NodeElement nodeElement = (NodeElement) editPart.getModel();
-				nodeElementList.addNodeElement(nodeElement);
+				nodeElementList.addNodeElement(nodeElement, false);
 			}
 		}
+		nodeElementList.setDirty();
 
 		CopyManager.copy(nodeElementList);
 	}

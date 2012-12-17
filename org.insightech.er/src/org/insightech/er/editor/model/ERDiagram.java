@@ -79,19 +79,19 @@ public class ERDiagram extends ViewableModel {
 		settings.getModelProperties().init();
 	}
 
-	public void addNewContent(NodeElement element) {
+	public void addNewContent(NodeElement element, final boolean fire) {
 		element.setColor(this.defaultColor[0], this.defaultColor[1],
 				this.defaultColor[2]);
 		element.setFontName(this.getFontName());
 		element.setFontSize(this.getFontSize());
 
-		this.addContent(element);
+		this.addContent(element, fire);
 	}
 
-	public void addContent(NodeElement element) {
+	public void addContent(NodeElement element, final boolean fire) {
 		element.setDiagram(this);
 
-		this.diagramContents.getContents().addNodeElement(element);
+		this.diagramContents.getContents().addNodeElement(element, true);
 
 		if (this.editor != null) {
 			Category category = this.editor.getCurrentPageCategory();
@@ -109,11 +109,13 @@ public class ERDiagram extends ViewableModel {
 		}
 		dictionary.setDirty();
 
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
-	public void removeContent(NodeElement element) {
-		this.diagramContents.getContents().remove(element);
+	public void removeContent(NodeElement element, final boolean fire) {
+		this.diagramContents.getContents().remove(element, true);
 
 		if (element instanceof TableView) {
 			this.diagramContents.getDictionary().remove((TableView) element);
@@ -124,12 +126,16 @@ public class ERDiagram extends ViewableModel {
 			category.getContents().remove(element);
 		}
 
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
-	public void replaceContents(DiagramContents newDiagramContents) {
+	public void replaceContents(DiagramContents newDiagramContents, final boolean fire) {
 		this.diagramContents = newDiagramContents;
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
 	public void changeAll() {
@@ -160,37 +166,45 @@ public class ERDiagram extends ViewableModel {
 		this.getDiagramContents().getSettings().setDatabase(str);
 	}
 
-	public void setSettings(Settings settings) {
+	public void setSettings(Settings settings, final boolean fire) {
 		this.getDiagramContents().setSettings(settings);
 		this.editor.initCategoryPages();
 
-		this.firePropertyChange(PROPERTY_CHANGE_SETTINGS, null, null);
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		change();
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
 	public void setCurrentCategoryPageName() {
 		this.editor.setCurrentCategoryPageName();
 	}
 	
-	public void addCategory(Category category) {
+	public void addCategory(Category category, final boolean fire) {
 		category.setColor(this.defaultColor[0], this.defaultColor[1],
 				this.defaultColor[2]);
 		this.getDiagramContents().getSettings().getCategorySetting()
 				.addCategoryAsSelected(category);
 		this.editor.initCategoryPages();
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
-	public void removeCategory(Category category) {
+	public void removeCategory(Category category, final boolean fire) {
 		this.getDiagramContents().getSettings().getCategorySetting()
 				.removeCategory(category);
 		this.editor.initCategoryPages();
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
-	public void restoreCategories() {
+	public void restoreCategories(final boolean fire) {
 		this.editor.initCategoryPages();
-		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+		if (fire) {
+			setDirtyForContent();
+		}
 	}
 
 	public void change() {
@@ -347,4 +361,7 @@ public class ERDiagram extends ViewableModel {
 		this.disableSelectColumn = disableSelectColumn;
 	}
 
+	public void setDirtyForContent() {
+		this.firePropertyChange(NodeSet.PROPERTY_CHANGE_CONTENTS, null, null);
+	}
 }

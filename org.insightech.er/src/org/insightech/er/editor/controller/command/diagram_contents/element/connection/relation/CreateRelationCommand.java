@@ -31,12 +31,12 @@ public class CreateRelationCommand extends AbstractCreateRelationCommand {
 	protected void doExecute() {
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.relation.setSource((TableView) source.getModel());
+		this.relation.setSource((TableView) source.getModel(), false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
 		this.relation.setTargetTableView((TableView) target.getModel(),
-				this.foreignKeyColumnList);
+				this.foreignKeyColumnList, true, true);
 
 	}
 
@@ -47,11 +47,11 @@ public class CreateRelationCommand extends AbstractCreateRelationCommand {
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.relation.setSource(null);
+		this.relation.setSource(null, false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
-		this.relation.setTargetTableView(null);
+		this.relation.setTargetTableView(null, true, true);
 
 		TableView targetTable = (TableView) this.target.getModel();
 		targetTable.setDirty();

@@ -53,14 +53,14 @@ public class CreateElementCommand extends AbstractCommand {
 	@Override
 	protected void doExecute() {
 		if (!(this.element instanceof Category)) {
-			this.diagram.addNewContent(this.element);
+			this.diagram.addNewContent(this.element, true);
 
 		} else {
 			Category category = (Category) this.element;
 			category
 					.setName(ResourceString.getResourceString("label.category"));
 			category.setContents(this.enclosedElementList);
-			this.diagram.addCategory(category);
+			this.diagram.addCategory(category, true);
 		}
 	}
 
@@ -70,12 +70,12 @@ public class CreateElementCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		if (!(this.element instanceof Category)) {
-			this.diagram.removeContent(this.element);
+			this.diagram.removeContent(this.element, true);
 
 		} else {
 			Category category = (Category) this.element;
 			category.getContents().clear();
-			this.diagram.removeCategory(category);
+			this.diagram.removeCategory(category, true);
 		}
 	}
 

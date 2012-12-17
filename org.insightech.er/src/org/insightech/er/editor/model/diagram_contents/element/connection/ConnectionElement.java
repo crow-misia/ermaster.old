@@ -27,18 +27,18 @@ public abstract class ConnectionElement extends AbstractModel {
 		return source;
 	}
 
-	public void setSource(NodeElement source) {
-		if (this.source != null) {
+	public void setSource(NodeElement source, final boolean connectionFire) {
+		if (this.source == null) {
+			this.source = null;
+		} else {
 			this.source.removeOutgoing(this);
-		}
-
-		this.source = source;
-
-		if (this.source != null) {
+			this.source = source;
 			this.source.addOutgoing(this);
 		}
 
-		this.firePropertyChange(PROPERTY_CHANGE_CONNECTION, null, source);
+		if (connectionFire) {
+			setDirtyForConnection();
+		}
 	}
 
 	public void setSourceAndTarget(NodeElement source, NodeElement target) {
@@ -46,17 +46,21 @@ public abstract class ConnectionElement extends AbstractModel {
 		this.target = target;
 	}
 
-	public void setTarget(NodeElement target) {
-		if (this.target != null) {
+	public void setTarget(NodeElement target, final boolean connectionFire) {
+		if (this.target == null) {
+			this.target = null;
+		} else {
 			this.target.removeIncoming(this);
-		}
-
-		this.target = target;
-
-		if (this.target != null) {
+			this.target = target;
 			this.target.addIncoming(this);
 		}
 
+		if (connectionFire) {
+			setDirtyForConnection();
+		}
+	}
+
+	public void setDirtyForConnection() {
 		this.firePropertyChange(PROPERTY_CHANGE_CONNECTION, null, source);
 	}
 
@@ -78,28 +82,40 @@ public abstract class ConnectionElement extends AbstractModel {
 		}
 	}
 
-	public void addBendpoint(int index, Bendpoint point) {
+	public void addBendpoint(int index, Bendpoint point, final boolean bendpointFire) {
 		bendPoints.add(index, point);
-		firePropertyChange(PROPERTY_CHANGE_BEND_POINT, null, null);
+		if (bendpointFire) {
+			setDirtyForBendpoint();
+		}
 	}
 
-	public void setBendpoints(List<Bendpoint> points) {
+	public void setBendpoints(List<Bendpoint> points, final boolean bendpointFire) {
 		bendPoints = points;
-		firePropertyChange(PROPERTY_CHANGE_BEND_POINT, null, null);
+		if (bendpointFire) {
+			setDirtyForBendpoint();
+		}
 	}
 
 	public List<Bendpoint> getBendpoints() {
 		return bendPoints;
 	}
 
-	public void removeBendpoint(int index) {
+	public void removeBendpoint(int index, final boolean bendpointFire) {
 		bendPoints.remove(index);
-		firePropertyChange(PROPERTY_CHANGE_BEND_POINT, null, null);
+		if (bendpointFire) {
+			setDirtyForBendpoint();
+		}
 	}
 
-	public void replaceBendpoint(int index, Bendpoint point) {
+	public void replaceBendpoint(int index, Bendpoint point, final boolean bendpointFire) {
 		bendPoints.set(index, point);
-		firePropertyChange(PROPERTY_CHANGE_BEND_POINT, null, null);
+		if (bendpointFire) {
+			setDirtyForBendpoint();
+		}
+	}
+
+	public void setDirtyForBendpoint() {
+		this.firePropertyChange(PROPERTY_CHANGE_BEND_POINT, null, null);
 	}
 
 	public void setParentMove() {

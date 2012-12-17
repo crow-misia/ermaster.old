@@ -61,8 +61,9 @@ public class PreferencePage extends org.eclipse.jface.preference.PreferencePage
 					columnGroups.clear();
 
 					for (CopyGroup copyColumnGroup : newColumnGroups) {
-						columnGroups.add(copyColumnGroup.restructure(null));
+						columnGroups.add(copyColumnGroup.restructure(null), false);
 					}
+					columnGroups.setDirty();
 
 					GlobalGroupSet.save(columnGroups);
 				}

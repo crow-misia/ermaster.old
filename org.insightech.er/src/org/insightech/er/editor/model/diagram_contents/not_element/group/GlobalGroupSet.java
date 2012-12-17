@@ -80,8 +80,9 @@ public class GlobalGroupSet {
 						columnGroup.addColumn(column);
 					}
 
-					columnGroups.add(columnGroup);
+					columnGroups.add(columnGroup, false);
 				}
+				columnGroups.setDirty();
 			}
 		} catch (IOException e) {
 			Activator.showExceptionDialog(e);

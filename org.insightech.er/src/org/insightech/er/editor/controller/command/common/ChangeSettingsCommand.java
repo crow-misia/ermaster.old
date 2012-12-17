@@ -23,7 +23,7 @@ public class ChangeSettingsCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.diagram.setSettings(settings);
+		this.diagram.setSettings(settings, true);
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class ChangeSettingsCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.diagram.setSettings(oldSettings);
+		this.diagram.setSettings(oldSettings, true);
 	}
 
 }

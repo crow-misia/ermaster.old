@@ -29,7 +29,7 @@ public class ChangeModelPropertiesCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.modelProperties.setProperties(newProperties);
+		this.modelProperties.setProperties(newProperties, true);
 
 	}
 
@@ -38,7 +38,7 @@ public class ChangeModelPropertiesCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.modelProperties.setProperties(oldProperties);
+		this.modelProperties.setProperties(oldProperties, true);
 	}
 
 }

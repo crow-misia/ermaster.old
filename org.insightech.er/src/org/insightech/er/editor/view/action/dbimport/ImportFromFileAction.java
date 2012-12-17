@@ -305,8 +305,9 @@ public class ImportFromFileAction extends AbstractImportAction {
 				}
 			}
 
-			selectedNodeSet.addNodeElement(nodeElement);
+			selectedNodeSet.addNodeElement(nodeElement, false);
 		}
+		selectedNodeSet.setDirty();
 
 		for (NodeElement nodeElement : selectedNodeSet) {
 			if (nodeElement instanceof TableView) {
