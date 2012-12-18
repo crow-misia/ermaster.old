@@ -13,7 +13,8 @@ public class SequenceTest {
 	private Display display = new Display();
 	private Shell shell = new Shell(display);
 
-	public static void main(String[] args) throws Exception {
+	@SuppressWarnings("unused")
+    public static void main(String[] args) throws Exception {
 		new Activator();
 		new SequenceTest();
 	}
