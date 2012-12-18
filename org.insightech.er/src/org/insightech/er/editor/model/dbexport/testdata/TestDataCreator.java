@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -27,6 +28,25 @@ public abstract class TestDataCreator {
 	protected TestData testData;
 
 	protected Map<NormalColumn, List<String>> valueListMap;
+
+	private static final ThreadLocal<SimpleDateFormat> DATETIMEFORMAT = new ThreadLocal<SimpleDateFormat>() {
+		@Override
+		protected SimpleDateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		}
+	};
+	private static final ThreadLocal<SimpleDateFormat> DATETIME2FORMAT = new ThreadLocal<SimpleDateFormat>() {
+		@Override
+		protected SimpleDateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		}
+	};
+	private static final ThreadLocal<SimpleDateFormat> DATEFORMAT = new ThreadLocal<SimpleDateFormat>() {
+		@Override
+		protected SimpleDateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd");
+		}
+	};
 
 	public TestDataCreator() {
 	}
@@ -104,30 +124,27 @@ public abstract class TestDataCreator {
 			String value = null;
 
 			if (decimalPlaces == 0) {
-				value = template.replaceAll("%", String.valueOf(num));
+				value = StringUtils.replace(template, "%", String.valueOf(num));
 
 			} else {
-				value = template.replaceAll("%", String.valueOf(num
+				value = StringUtils.replace(template, "%", String.valueOf(num
 						/ Math.pow(10, decimalPlaces)));
 			}
 
 			if (column.getType() != null && column.getType().isTimestamp()) {
-				SimpleDateFormat format1 = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss.SSS");
+				SimpleDateFormat format1 = DATETIMEFORMAT.get();
 
 				try {
 					value = format1.format(format1.parse(value));
 
 				} catch (ParseException e1) {
-					SimpleDateFormat format2 = new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat format2 = DATETIME2FORMAT.get();
 
 					try {
 						value = format2.format(format2.parse(value));
 
 					} catch (ParseException e2) {
-						SimpleDateFormat format3 = new SimpleDateFormat(
-								"yyyy-MM-dd");
+						SimpleDateFormat format3 = DATEFORMAT.get();
 
 						try {
 							value = format3.format(format3.parse(value));

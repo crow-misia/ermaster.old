@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -89,9 +90,8 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 
 					} else {
 						if (KEYWORD_DATE.equals(template)) {
-							DateFormat format = new SimpleDateFormat(
-									this.keywordsValueMap
-											.get(KEYWORD_DATE_FORMAT));
+							FastDateFormat format = FastDateFormat.getInstance(
+									this.keywordsValueMap.get(KEYWORD_DATE_FORMAT));
 							try {
 								value = format.format(changeTracking
 										.getUpdatedDate());

@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
@@ -16,6 +15,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.TextAction;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 import org.insightech.er.ResourceString;
@@ -24,6 +24,8 @@ public class CustomCellEditor extends DefaultCellEditor implements
 		TableCellEditor {
 
 	private static final long serialVersionUID = 1715411332743091739L;
+
+	private static final FastDateFormat DATETIME = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss.SSS");
 
 	public CustomCellEditor(final JTable table) {
 		super(new JTextField());
@@ -37,9 +39,7 @@ public class CustomCellEditor extends DefaultCellEditor implements
 			public void keyPressed(KeyEvent e) {
 				if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) {
 					if (e.getKeyCode() == ';') {
-						SimpleDateFormat format = new SimpleDateFormat(
-								"yyyy-MM-dd HH:mm:ss.SSS");
-						component.setText(format.format(new Date()));
+						component.setText(DATETIME.format(new Date()));
 
 					} else if (e.getKeyCode() == 'v' || e.getKeyCode() == 'V') {
 						component.paste();

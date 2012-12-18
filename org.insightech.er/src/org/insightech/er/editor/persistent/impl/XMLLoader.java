@@ -3,6 +3,7 @@ package org.insightech.er.editor.persistent.impl;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -92,6 +93,13 @@ public class XMLLoader {
 	private ERDiagram diagram;
 
 	private String database;
+
+	private static final ThreadLocal<SimpleDateFormat> DATEFORMAT = new ThreadLocal<SimpleDateFormat>() {
+		@Override
+		protected SimpleDateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		}
+	};
 
 	private class LoadContext {
 		private Map<String, NodeElement> nodeElementMap;
@@ -425,8 +433,7 @@ public class XMLLoader {
 		String value = node.getFirstChild().getNodeValue();
 
 		try {
-			return PersistentXmlImpl.DATE_FORMAT.parse(value);
-
+			return DATEFORMAT.get().parse(value);
 		} catch (ParseException e) {
 			return null;
 		}

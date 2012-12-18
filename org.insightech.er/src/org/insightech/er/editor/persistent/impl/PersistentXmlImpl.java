@@ -4,12 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.db.impl.mysql.MySQLTableProperties;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
@@ -73,8 +72,7 @@ import org.insightech.er.util.NameValue;
 
 public class PersistentXmlImpl extends Persistent {
 
-	public static final DateFormat DATE_FORMAT = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
+	public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
 	private class PersistentContext {
 		private Map<ColumnGroup, Integer> columnGroupMap = new HashMap<ColumnGroup, Integer>();

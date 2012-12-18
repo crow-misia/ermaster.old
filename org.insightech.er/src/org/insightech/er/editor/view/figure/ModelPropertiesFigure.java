@@ -1,10 +1,9 @@
 package org.insightech.er.editor.view.figure;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
@@ -19,8 +18,7 @@ import org.insightech.er.util.NameValue;
 
 public class ModelPropertiesFigure extends RectangleFigure {
 
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
-			"yyyy/MM/dd HH:mm:ss");
+	private static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy/MM/dd HH:mm:ss");
 
 	private Color foregroundColor;
 

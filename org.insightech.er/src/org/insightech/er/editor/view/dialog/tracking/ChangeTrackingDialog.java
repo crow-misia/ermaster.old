@@ -1,8 +1,6 @@
 package org.insightech.er.editor.view.dialog.tracking;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
+import org.apache.commons.lang.time.FastDateFormat;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.Dialog;
@@ -37,8 +35,7 @@ import org.insightech.er.util.Check;
 
 public class ChangeTrackingDialog extends Dialog {
 
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
-			"yyyy/MM/dd HH:mm:ss");
+	private static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy/MM/dd HH:mm:ss");
 
 	private Table changeTrackingTable;
 

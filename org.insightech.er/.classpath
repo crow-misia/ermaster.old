@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="template"/>
 	<classpathentry kind="src" path="resources"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-3.9-20121203.jar"/>
 	<classpathentry exported="true" kind="lib" path="icons/"/>
