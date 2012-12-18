@@ -3,6 +3,7 @@ package org.insightech.er.db.impl.oracle;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.db.impl.oracle.tablespace.OracleTablespaceProperties;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
@@ -38,7 +39,7 @@ public class OracleDDLCreator extends DDLCreator {
 			ddl.append(filter(table.getNameWithSchema(this.getDiagram()
 					.getDatabase())));
 			ddl.append(" IS '");
-			ddl.append(tableComment.replaceAll("'", "''"));
+			ddl.append(StringUtils.replace(tableComment, "'", "''"));
 			ddl.append("'");
 			if (this.semicolon) {
 				ddl.append(";");
@@ -63,7 +64,7 @@ public class OracleDDLCreator extends DDLCreator {
 					ddl.append(".");
 					ddl.append(filter(normalColumn.getPhysicalName()));
 					ddl.append(" IS '");
-					ddl.append(comment.replaceAll("'", "''"));
+					ddl.append(StringUtils.replace(comment, "'", "''"));
 					ddl.append("'");
 					if (this.semicolon) {
 						ddl.append(";");
@@ -89,7 +90,7 @@ public class OracleDDLCreator extends DDLCreator {
 						ddl.append(".");
 						ddl.append(filter(normalColumn.getPhysicalName()));
 						ddl.append(" IS '");
-						ddl.append(comment.replaceAll("'", "''"));
+						ddl.append(StringUtils.replace(comment, "'", "''"));
 						ddl.append("'");
 						if (this.semicolon) {
 							ddl.append(";");
@@ -286,7 +287,7 @@ public class OracleDDLCreator extends DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 

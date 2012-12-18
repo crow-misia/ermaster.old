@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.tools.ant.util.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ObjectModel;
@@ -208,7 +209,7 @@ public abstract class AbstractSheetGenerator {
 		String str = template;
 
 		for (String keyword : KEYWORDS_OF_COLUMN) {
-			str = str.replaceAll("\\" + keyword, this.getKeywordValue(
+			str = StringUtils.replace(str, keyword, this.getKeywordValue(
 					keywordsValueMap, normalColumn, tableView, keyword));
 		}
 

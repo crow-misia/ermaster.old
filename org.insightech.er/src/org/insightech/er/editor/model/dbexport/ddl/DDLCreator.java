@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
@@ -278,7 +279,7 @@ public abstract class DDLCreator {
 				if (this.semicolon && !Check.isEmpty(description)
 						&& this.ddlTarget.inlineTableComment) {
 					ddl.append("-- ");
-					ddl.append(description.replaceAll("\n", "\n-- "));
+					ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 					ddl.append("\r\n");
 				}
 
@@ -505,7 +506,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(tableDescription)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(tableDescription.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(tableDescription, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 		ddl.append("CREATE TABLE ");
@@ -570,7 +571,7 @@ public abstract class DDLCreator {
 
 		String constraint = Format.null2blank(table.getConstraint()).trim();
 		if (!"".equals(constraint)) {
-			constraint = constraint.replaceAll("\r\n", "\r\n\t");
+			constraint = StringUtils.replace(constraint, "\r\n", "\r\n\t");
 
 			ddl.append(",\r\n");
 			ddl.append("\t");
@@ -641,7 +642,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineColumnComment) {
 			ddl.append("\t-- ");
-			ddl.append(description.replaceAll("\n", "\n\t-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n\t-- "));
 			ddl.append("\r\n");
 		}
 
@@ -743,7 +744,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 
@@ -866,7 +867,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 
@@ -894,7 +895,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 
@@ -918,7 +919,7 @@ public abstract class DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 
@@ -1117,12 +1118,10 @@ public abstract class DDLCreator {
 		}
 
 		if (ddlTarget.commentReplaceLineFeed) {
-			comment = comment.replaceAll("\r\n",
-					Format.null2blank(ddlTarget.commentReplaceString));
-			comment = comment.replaceAll("\r",
-					Format.null2blank(ddlTarget.commentReplaceString));
-			comment = comment.replaceAll("\n",
-					Format.null2blank(ddlTarget.commentReplaceString));
+			final String nl = Format.null2blank(ddlTarget.commentReplaceString);
+			comment = StringUtils.replace(comment, "\r\n", nl);
+			comment = StringUtils.replace(comment, "\r", nl);
+			comment = StringUtils.replace(comment, "\n", nl);
 		}
 
 		return comment;

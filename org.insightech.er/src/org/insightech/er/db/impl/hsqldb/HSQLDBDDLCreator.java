@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.hsqldb;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
@@ -25,7 +26,7 @@ public class HSQLDBDDLCreator extends DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 

@@ -2,6 +2,7 @@ package org.insightech.er.db.impl.mysql;
 
 import java.util.List;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
@@ -59,7 +60,7 @@ public class MySQLDDLCreator extends DDLCreator {
 
 			if (!Check.isEmpty(comment)) {
 				postDDL.append(" COMMENT = '");
-				postDDL.append(comment.replaceAll("'", "''"));
+				postDDL.append(StringUtils.replace(comment, "'", "''"));
 				postDDL.append("'");
 			}
 		}
@@ -90,7 +91,7 @@ public class MySQLDDLCreator extends DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineColumnComment) {
 			ddl.append("\t-- ");
-			ddl.append(description.replaceAll("\n", "\n\t-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n\t-- "));
 			ddl.append("\r\n");
 		}
 
@@ -157,7 +158,7 @@ public class MySQLDDLCreator extends DDLCreator {
 
 			if (!Check.isEmpty(comment)) {
 				ddl.append(" COMMENT '");
-				ddl.append(comment.replaceAll("'", "''"));
+				ddl.append(StringUtils.replace(comment, "'", "''"));
 				ddl.append("'");
 			}
 		}
@@ -237,12 +238,10 @@ public class MySQLDDLCreator extends DDLCreator {
 		}
 
 		if (ddlTarget.commentReplaceLineFeed) {
-			comment = comment.replaceAll("\r\n",
-					Format.null2blank(ddlTarget.commentReplaceString));
-			comment = comment.replaceAll("\r",
-					Format.null2blank(ddlTarget.commentReplaceString));
-			comment = comment.replaceAll("\n",
-					Format.null2blank(ddlTarget.commentReplaceString));
+			final String nl = Format.null2blank(ddlTarget.commentReplaceString);
+			comment = StringUtils.replace(comment, "\r\n", nl);
+			comment = StringUtils.replace(comment, "\r", nl);
+			comment = StringUtils.replace(comment, "\n", nl);
 		}
 
 		int maxLength = 60;
@@ -266,7 +265,7 @@ public class MySQLDDLCreator extends DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 

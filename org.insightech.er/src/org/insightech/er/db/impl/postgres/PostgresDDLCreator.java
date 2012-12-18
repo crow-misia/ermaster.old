@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.db.impl.postgres.tablespace.PostgresTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -72,7 +73,7 @@ public class PostgresDDLCreator extends DDLCreator {
 			ddl.append(filter(table.getNameWithSchema(this.getDiagram()
 					.getDatabase())));
 			ddl.append(" IS '");
-			ddl.append(tableComment.replaceAll("'", "''"));
+			ddl.append(StringUtils.replace(tableComment, "'", "''"));
 			ddl.append("'");
 			if (this.semicolon) {
 				ddl.append(";");
@@ -97,7 +98,7 @@ public class PostgresDDLCreator extends DDLCreator {
 					ddl.append(".");
 					ddl.append(filter(normalColumn.getPhysicalName()));
 					ddl.append(" IS '");
-					ddl.append(comment.replaceAll("'", "''"));
+					ddl.append(StringUtils.replace(comment, "'", "''"));
 					ddl.append("'");
 					if (this.semicolon) {
 						ddl.append(";");
@@ -123,7 +124,7 @@ public class PostgresDDLCreator extends DDLCreator {
 						ddl.append(".");
 						ddl.append(filter(normalColumn.getPhysicalName()));
 						ddl.append(" IS '");
-						ddl.append(comment.replaceAll("'", "''"));
+						ddl.append(StringUtils.replace(comment, "'", "''"));
 						ddl.append("'");
 						if (this.semicolon) {
 							ddl.append(";");

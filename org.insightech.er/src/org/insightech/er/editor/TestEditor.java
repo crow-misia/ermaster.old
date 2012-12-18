@@ -570,8 +570,9 @@ public class TestEditor extends EditorPart {
 			fSourceViewer = null;
 		}
 
-		if (fConfiguration != null)
+		if (fConfiguration != null) {
 			fConfiguration = null;
+		}
 
 		IOperationHistory history = OperationHistoryFactory
 				.getOperationHistory();

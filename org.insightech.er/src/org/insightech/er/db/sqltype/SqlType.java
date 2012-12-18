@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.util.Format;
@@ -204,7 +205,7 @@ public class SqlType implements Serializable {
 
 		if (sqlType == null) {
 			alias = alias.replaceAll("\\(.*\\)", "");
-			alias = alias.replaceAll(" UNSIGNED", "");
+			alias = StringUtils.replace(alias, " UNSIGNED", "");
 
 			typeKey = new TypeKey(alias, size);
 			sqlType = sqlTypeMap.get(typeKey);

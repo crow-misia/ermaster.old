@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.editor.model.settings.JDBCDriverSetting;
@@ -38,13 +39,9 @@ public abstract class DBManagerBase implements DBManager {
 	}
 
 	public String getURL(String serverName, String dbName, int port) {
-		String temp = serverName.replaceAll("\\\\", "\\\\\\\\");
-		String url = this.getURL().replaceAll("<SERVER NAME>", temp);
-		url = url.replaceAll("<PORT>", String.valueOf(port));
-
-		temp = dbName.replaceAll("\\\\", "\\\\\\\\");
-		url = url.replaceAll("<DB NAME>", temp);
-
+		String url = StringUtils.replace(this.getURL(), "<SERVER NAME>", serverName);
+		url = StringUtils.replace(url, "<PORT>", String.valueOf(port));
+		url = StringUtils.replace(url, "<DB NAME>", dbName);
 		return url;
 	}
 
@@ -113,7 +110,7 @@ public abstract class DBManagerBase implements DBManager {
 
 		URL[] urls = new URL[count];
 
-		for (int i = 0; i < urls.length; i++) {
+		for (int i = 0, n = urls.length; i < n; i++) {
 			urls[i] = new URL("file", "", tokenizer.nextToken());
 		}
 

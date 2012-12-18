@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.db.impl.mysql.MySQLTableProperties;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
@@ -206,8 +207,8 @@ public class PersistentXmlImpl extends Persistent {
 	}
 
 	private static String tab(String str) {
-		str = str.replaceAll("\n\t", "\n\t\t");
-		str = str.replaceAll("\n<", "\n\t<");
+		str = StringUtils.replace(str, "\n\t", "\n\t\t");
+		str = StringUtils.replace(str, "\n<", "\n\t<");
 
 		return "\t" + str;
 	}

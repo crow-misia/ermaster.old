@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.db2;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
@@ -112,7 +113,7 @@ public class DB2DDLCreator extends DDLCreator {
 		if (this.semicolon && !Check.isEmpty(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
-			ddl.append(description.replaceAll("\n", "\n-- "));
+			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
 			ddl.append("\r\n");
 		}
 
@@ -123,7 +124,7 @@ public class DB2DDLCreator extends DDLCreator {
 		if (!Check.isEmpty(sequence.getDataType())) {
 			ddl.append(" AS ");
 			String dataType = sequence.getDataType();
-			dataType = dataType.replaceAll("\\(p\\)", "("
+			dataType = StringUtils.replace(dataType, "(p)", "("
 					+ Format.toString(sequence.getDecimalSize() + ")"));
 			ddl.append(dataType);
 		}

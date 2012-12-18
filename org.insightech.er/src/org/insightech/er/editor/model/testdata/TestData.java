@@ -26,7 +26,7 @@ public class TestData implements Serializable, Cloneable, Comparable<TestData> {
 
 	private int exportOrder;
 	
-	private Map<ERTable, TableTestData> tableTestDataMap;
+	private transient Map<ERTable, TableTestData> tableTestDataMap;
 
 	public TestData() {
 		this.tableTestDataMap = new LinkedHashMap<ERTable, TableTestData>();

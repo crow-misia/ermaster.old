@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -104,8 +105,7 @@ public class ExportToJavaManager {
 
 	public ExportToJavaManager(ExportJavaSetting exportJavaSetting,
 			ERDiagram diagram) {
-		this.packageDir = exportJavaSetting.getPackageName().replaceAll("\\.",
-				"\\/");
+		this.packageDir = StringUtils.replace(exportJavaSetting.getPackageName(), ".", "/");
 
 		this.exportJavaSetting = exportJavaSetting;
 		this.diagram = diagram;
@@ -223,7 +223,7 @@ public class ExportToJavaManager {
 			String content = IOUtils.toString(in);
 
 			for (String keyword : KEYWORDS) {
-				content = content.replaceAll(keyword, ResourceString
+				content = StringUtils.replace(content, keyword, ResourceString
 						.getResourceString(keyword));
 			}
 
@@ -248,8 +248,8 @@ public class ExportToJavaManager {
 		content = this.replaceHashCodeEqualsInfo(content, table,
 				compositeIdClassName);
 
-		String classDescription = ResourceString.getResourceString(
-				"java.template.class.description").replaceAll(
+		String classDescription = StringUtils.replace(ResourceString.getResourceString(
+				"java.template.class.description"),
 				"@LogicalTableName", table.getLogicalName());
 
 		content = this.replaceClassInfo(content, classDescription, this
@@ -275,8 +275,8 @@ public class ExportToJavaManager {
 				.getPrimaryKeys(), null, null);
 		content = this.replaceHashCodeEqualsInfo(content, table, null);
 
-		String classDescription = ResourceString.getResourceString(
-				"java.template.composite.id.class.description").replaceAll(
+		String classDescription = StringUtils.replace(ResourceString.getResourceString(
+				"java.template.composite.id.class.description"),
 				"@LogicalTableName", table.getLogicalName());
 
 		content = this.replaceClassInfo(content, classDescription,
@@ -330,8 +330,8 @@ public class ExportToJavaManager {
 			}
 		}
 
-		content = content.replaceAll("@properties\r\n", properties.toString());
-		content = content.replaceAll("@setter_getter\r\n", setterGetters
+		content = StringUtils.replace(content, "@properties\r\n", properties.toString());
+		content = StringUtils.replace(content, "@setter_getter\r\n", setterGetters
 				.toString());
 
 		return content;
@@ -349,12 +349,12 @@ public class ExportToJavaManager {
 					compositeIdClassName, table);
 
 			String hashCodeEquals = HASHCODE_EQUALS;
-			hashCodeEquals = hashCodeEquals.replaceAll("@hashCode logic\r\n",
+			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@hashCode logic\r\n",
 					hashCodes.toString());
-			hashCodeEquals = hashCodeEquals.replaceAll("@equals logic\r\n",
+			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@equals logic\r\n",
 					equals.toString());
 
-			content = content.replaceAll("@hashCode_equals\r\n", hashCodeEquals
+			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals
 					.toString());
 
 		} else if (table.getPrimaryKeySize() > 0) {
@@ -367,16 +367,16 @@ public class ExportToJavaManager {
 			}
 
 			String hashCodeEquals = HASHCODE_EQUALS;
-			hashCodeEquals = hashCodeEquals.replaceAll("@hashCode logic\r\n",
+			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@hashCode logic\r\n",
 					hashCodes.toString());
-			hashCodeEquals = hashCodeEquals.replaceAll("@equals logic\r\n",
+			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@equals logic\r\n",
 					equals.toString());
 
-			content = content.replaceAll("@hashCode_equals\r\n", hashCodeEquals
+			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals
 					.toString());
 
 		} else {
-			content = content.replaceAll("@hashCode_equals\r\n", "");
+			content = StringUtils.replace(content, "@hashCode_equals\r\n", "");
 		}
 
 		return content;
@@ -385,32 +385,32 @@ public class ExportToJavaManager {
 	private String replaceClassInfo(String content, String classDescription,
 			String className, String classNameSufix) {
 		if (Check.isEmptyTrim(this.exportJavaSetting.getPackageName())) {
-			content = content.replaceAll("package @package;\r\n\r\n", "");
+			content = StringUtils.replace(content, "package @package;\r\n\r\n", "");
 
 		} else {
-			content = content.replaceAll("@package", this.exportJavaSetting
+			content = StringUtils.replace(content, "@package", this.exportJavaSetting
 					.getPackageName());
 		}
 
-		content = content.replaceAll("@classDescription", classDescription);
-		content = content.replaceAll("@PhysicalTableName", className);
-		content = content.replaceAll("@suffix", this.getCamelCaseName(
+		content = StringUtils.replace(content, "@classDescription", classDescription);
+		content = StringUtils.replace(content, "@PhysicalTableName", className);
+		content = StringUtils.replace(content, "@suffix", this.getCamelCaseName(
 				classNameSufix, true));
-		content = content.replaceAll("@version", "@version \\$Id\\$");
+		content = StringUtils.replace(content, "@version", "@version $Id$");
 
 		return content;
 	}
 
 	private String replaceExtendInfo(String content) throws IOException {
 		if (Check.isEmpty(this.exportJavaSetting.getExtendsClass())) {
-			content = content.replaceAll("@import extends\r\n", "");
-			content = content.replaceAll("@extends ", "");
+			content = StringUtils.replace(content, "@import extends\r\n", "");
+			content = StringUtils.replace(content, "@extends ", "");
 
 		} else {
 			this.importClasseNames
 					.add(this.exportJavaSetting.getExtendsClass());
 
-			content = content.replaceAll("@extends", EXTENDS);
+			content = StringUtils.replace(content, "@extends", EXTENDS);
 
 			int index = this.exportJavaSetting.getExtendsClass().lastIndexOf(
 					".");
@@ -426,9 +426,9 @@ public class ExportToJavaManager {
 						.getExtendsClass().substring(index + 1);
 			}
 
-			content = content.replaceAll("@extendsClassWithoutPackage",
+			content = StringUtils.replace(content, "@extendsClassWithoutPackage",
 					extendsClassWithoutPackage);
-			content = content.replaceAll("@extendsClass",
+			content = StringUtils.replace(content, "@extendsClass",
 					this.exportJavaSetting.getExtendsClass());
 		}
 
@@ -443,7 +443,7 @@ public class ExportToJavaManager {
 			imports.append(";\r\n");
 		}
 
-		content = content.replaceAll("@import\r\n", imports.toString());
+		content = StringUtils.replace(content, "@import\r\n", imports.toString());
 
 		return content;
 	}
@@ -460,8 +460,8 @@ public class ExportToJavaManager {
 			constructor.append(">();\r\n");
 		}
 
-		content = content
-				.replaceAll("@constructor\r\n", constructor.toString());
+		content = StringUtils.replace(content,
+				"@constructor\r\n", constructor.toString());
 
 		return content;
 	}
@@ -479,31 +479,31 @@ public class ExportToJavaManager {
 					.getColumnHolder();
 			String className = this.getClassName(referencedTable);
 
-			value = template.replaceAll("@type", className);
-			value = value.replaceAll("@logicalColumnName", referencedTable
+			value = StringUtils.replace(template, "@type", className);
+			value = StringUtils.replace(value, "@logicalColumnName", referencedTable
 					.getName());
 
 			String physicalName = normalColumn.getPhysicalName().toLowerCase();
-			physicalName = physicalName.replaceAll(referencedColumn
+			physicalName = StringUtils.replace(physicalName, referencedColumn
 					.getPhysicalName().toLowerCase(), "");
 			if (physicalName.indexOf(referencedTable.getPhysicalName()
 					.toLowerCase()) == -1) {
 				physicalName = physicalName + referencedTable.getPhysicalName();
 			}
 
-			value = value.replaceAll("@physicalColumnName", this
+			value = StringUtils.replace(value, "@physicalColumnName", this
 					.getCamelCaseName(physicalName, false));
-			value = value.replaceAll("@PhysicalColumnName", this
+			value = StringUtils.replace(value, "@PhysicalColumnName", this
 					.getCamelCaseName(physicalName, true));
 
 		} else {
-			value = template.replaceAll("@type", this.getClassName(normalColumn
+			value = StringUtils.replace(template, "@type", this.getClassName(normalColumn
 					.getType()));
-			value = value.replaceAll("@logicalColumnName", normalColumn
+			value = StringUtils.replace(value, "@logicalColumnName", normalColumn
 					.getLogicalName());
-			value = value.replaceAll("@physicalColumnName", this
+			value = StringUtils.replace(value, "@physicalColumnName", this
 					.getCamelCaseName(normalColumn.getPhysicalName(), false));
-			value = value.replaceAll("@PhysicalColumnName", this
+			value = StringUtils.replace(value, "@PhysicalColumnName", this
 					.getCamelCaseName(normalColumn.getPhysicalName(), true));
 
 		}
@@ -520,19 +520,19 @@ public class ExportToJavaManager {
 		this.importClasseNames.add("java.util.Set");
 		this.importClasseNames.add("java.util.HashSet");
 
-		value = value.replaceAll("@setType", "Set<"
+		value = StringUtils.replace(value, "@setType", "Set<"
 				+ this.getCamelCaseName(tableView.getPhysicalName(), true)
 				+ this.getCamelCaseName(this.exportJavaSetting
 						.getClassNameSuffix(), true) + ">");
-		value = value.replaceAll("@type", this.getCamelCaseName(tableView
+		value = StringUtils.replace(value, "@type", this.getCamelCaseName(tableView
 				.getPhysicalName(), true)
 				+ this.getCamelCaseName(this.exportJavaSetting
 						.getClassNameSuffix(), true));
-		value = value.replaceAll("@logicalColumnName", tableView.getName());
+		value = StringUtils.replace(value, "@logicalColumnName", tableView.getName());
 
-		value = value.replaceAll("@physicalColumnName", this.getCamelCaseName(
+		value = StringUtils.replace(value, "@physicalColumnName", this.getCamelCaseName(
 				tableView.getPhysicalName(), false));
-		value = value.replaceAll("@PhysicalColumnName", this.getCamelCaseName(
+		value = StringUtils.replace(value, "@PhysicalColumnName", this.getCamelCaseName(
 				tableView.getPhysicalName(), true));
 
 		contents.append(value);
@@ -546,18 +546,17 @@ public class ExportToJavaManager {
 				.toLowerCase()
 				+ compositeIdClassName.substring(1);
 
-		String propertyDescription = ResourceString.getResourceString(
-				"java.template.composite.id.property.description").replaceAll(
+		String propertyDescription = StringUtils.replace(ResourceString.getResourceString(
+				"java.template.composite.id.property.description"),
 				"@LogicalTableName", table.getLogicalName());
 
 		String value = template;
 
-		value = value.replaceAll("@type", compositeIdClassName);
-		value = value.replaceAll("@logicalColumnName", propertyDescription);
+		value = StringUtils.replace(value, "@type", compositeIdClassName);
+		value = StringUtils.replace(value, "@logicalColumnName", propertyDescription);
 
-		value = value
-				.replaceAll("@physicalColumnName", compositeIdPropertyName);
-		value = value.replaceAll("@PhysicalColumnName", compositeIdClassName);
+		value = StringUtils.replace(value, "@physicalColumnName", compositeIdPropertyName);
+		value = StringUtils.replace(value, "@PhysicalColumnName", compositeIdClassName);
 
 		contents.append(value);
 		contents.append("\r\n");
@@ -602,26 +601,26 @@ public class ExportToJavaManager {
 			String compositeIdClassName) throws IOException {
 		String content = HIBERNATE_TEMPLATE;
 
-		content = content.replaceAll("@package", this.exportJavaSetting
+		content = StringUtils.replace(content, "@package", this.exportJavaSetting
 				.getPackageName());
-		content = content.replaceAll("@PhysicalTableName", this
+		content = StringUtils.replace(content, "@PhysicalTableName", this
 				.getCamelCaseName(table));
-		content = content.replaceAll("@suffix", Format
+		content = StringUtils.replace(content, "@suffix", Format
 				.null2blank(this.exportJavaSetting.getClassNameSuffix()));
-		content = content.replaceAll("@realTableName", table.getPhysicalName());
+		content = StringUtils.replace(content, "@realTableName", table.getPhysicalName());
 
 		StringBuilder properties = new StringBuilder();
 
 		if (table.getPrimaryKeySize() == 1) {
 			for (NormalColumn column : table.getPrimaryKeys()) {
 				String property = HIBERNATE_ID;
-				property = property.replaceAll("@physicalColumnName", this
+				property = StringUtils.replace(property, "@physicalColumnName", this
 						.getCamelCaseName(column.getPhysicalName(), false));
-				property = property.replaceAll("@realColumnName", column
+				property = StringUtils.replace(property, "@realColumnName", column
 						.getPhysicalName());
-				property = property.replaceAll("@type", this
+				property = StringUtils.replace(property, "@type", this
 						.getFullClassName(column.getType()));
-				property = property.replaceAll("@generator", "assigned");
+				property = StringUtils.replace(property, "@generator", "assigned");
 
 				properties.append(property);
 			}
@@ -633,11 +632,11 @@ public class ExportToJavaManager {
 
 			for (NormalColumn column : table.getPrimaryKeys()) {
 				String key = HIBERNATE_COMPOSITE_ID_KEY;
-				key = key.replaceAll("@physicalColumnName", this
+				key = StringUtils.replace(key, "@physicalColumnName", this
 						.getCamelCaseName(column.getPhysicalName(), false));
-				key = key.replaceAll("@realColumnName", column
+				key = StringUtils.replace(key, "@realColumnName", column
 						.getPhysicalName());
-				key = key.replaceAll("@type", this.getFullClassName(column
+				key = StringUtils.replace(key, "@type", this.getFullClassName(column
 						.getType()));
 
 				keys.append(key);
@@ -647,11 +646,11 @@ public class ExportToJavaManager {
 					1).toLowerCase()
 					+ compositeIdClassName.substring(1);
 
-			property = property.replaceAll("@compositeIdPropertyName",
+			property = StringUtils.replace(property, "@compositeIdPropertyName",
 					compositeIdPropertyName);
-			property = property.replaceAll("@compositeIdClassName",
+			property = StringUtils.replace(property, "@compositeIdClassName",
 					compositeIdClassName);
-			property = property.replaceAll("@key_properties", keys.toString());
+			property = StringUtils.replace(property, "@key_properties", keys.toString());
 
 			properties.append(property);
 		}
@@ -659,20 +658,20 @@ public class ExportToJavaManager {
 		for (NormalColumn column : table.getExpandedColumns()) {
 			if (!column.isPrimaryKey()) {
 				String property = HIBERNATE_PROPERTY;
-				property = property.replaceAll("@physicalColumnName", this
+				property = StringUtils.replace(property, "@physicalColumnName", this
 						.getCamelCaseName(column.getPhysicalName(), false));
-				property = property.replaceAll("@realColumnName", column
+				property = StringUtils.replace(property, "@realColumnName", column
 						.getPhysicalName());
-				property = property.replaceAll("@type", this
+				property = StringUtils.replace(property, "@type", this
 						.getFullClassName(column.getType()));
-				property = property.replaceAll("@not-null", String
+				property = StringUtils.replace(property, "@not-null", String
 						.valueOf(column.isNotNull()));
 
 				properties.append(property);
 			}
 		}
 
-		content = content.replaceAll("@properties\r\n", properties.toString());
+		content = StringUtils.replace(content, "@properties\r\n", properties.toString());
 
 		return content;
 	}
