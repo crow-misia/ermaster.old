@@ -153,7 +153,7 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 	 */
 	@Override
 	public void dispose() {
-		operationSet = Collections.EMPTY_LIST;
+		operationSet = Collections.emptyList();
 		super.dispose();
 	}
 
@@ -171,7 +171,8 @@ public class ERDiagramAlignmentAction extends SelectionAction {
 		List<Object> objs = getSelectedObjects();
 		List<EditPart> editparts = new ArrayList<EditPart>(objs.size());
 		for (Object obj : objs) {
-			if (!(obj instanceof NormalColumnEditPart)) {
+			if (!(obj instanceof NormalColumnEditPart) &&
+					obj instanceof EditPart) {
 				editparts.add((EditPart) obj);
 			}
 		}
