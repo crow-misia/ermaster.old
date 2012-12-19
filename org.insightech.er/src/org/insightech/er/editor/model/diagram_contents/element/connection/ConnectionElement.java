@@ -28,11 +28,13 @@ public abstract class ConnectionElement extends AbstractModel {
 	}
 
 	public void setSource(NodeElement source, final boolean connectionFire) {
-		if (this.source == null) {
-			this.source = null;
-		} else {
+		if (this.source != null) {
 			this.source.removeOutgoing(this);
-			this.source = source;
+		}
+
+		this.source = source;
+
+		if (this.source != null) {
 			this.source.addOutgoing(this);
 		}
 
@@ -47,11 +49,13 @@ public abstract class ConnectionElement extends AbstractModel {
 	}
 
 	public void setTarget(NodeElement target, final boolean connectionFire) {
-		if (this.target == null) {
-			this.target = null;
-		} else {
+		if (this.target != null) {
 			this.target.removeIncoming(this);
-			this.target = target;
+		}
+
+		this.target = target;
+		
+		if (this.target != null) {
 			this.target.addIncoming(this);
 		}
 
