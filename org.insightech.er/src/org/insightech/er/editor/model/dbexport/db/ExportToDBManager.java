@@ -13,7 +13,7 @@ import org.insightech.er.ResourceString;
 
 public class ExportToDBManager implements IRunnableWithProgress {
 
-	private static Logger logger = Logger.getLogger(ExportToDBManager.class
+	private static final Logger logger = Logger.getLogger(ExportToDBManager.class
 			.getName());
 
 	protected Connection con;

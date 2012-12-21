@@ -8,9 +8,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class ResourceString {
+public final class ResourceString {
 
-	private static ResourceBundle resource = ResourceBundle
+	private static final ResourceBundle resource = ResourceBundle
 			.getBundle("org.insightech.er.ERDiagram");;
 
 	public static String getResourceString(String key) {
@@ -41,5 +41,9 @@ public class ResourceString {
 		}
 
 		return props;
+	}
+
+	private ResourceString() {
+		// nothing.
 	}
 }

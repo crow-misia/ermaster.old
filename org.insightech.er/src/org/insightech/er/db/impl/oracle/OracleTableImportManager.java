@@ -22,7 +22,7 @@ import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigg
 
 public class OracleTableImportManager extends ImportFromDBManagerBase {
 
-	private static Logger logger = Logger
+	private static final Logger logger = Logger
 			.getLogger(OracleTableImportManager.class.getName());
 
 	private static final Pattern INTERVAL_YEAR_TO_MONTH_PATTERN = Pattern

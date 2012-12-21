@@ -10,7 +10,7 @@ import org.insightech.er.Resources;
 
 public class DropShadowRectangle extends RoundedRectangle {
 
-	public static int SHADOW_INSET = 5;
+	public static final int SHADOW_INSET = 5;
 
 	/**
 	 * {@inheritDoc}

@@ -8,7 +8,7 @@ import org.insightech.er.editor.persistent.impl.PersistentXmlImpl;
 
 public abstract class Persistent {
 
-	private static Persistent persistent = new PersistentXmlImpl();
+	private static final Persistent persistent = new PersistentXmlImpl();
 
 	public static Persistent getInstance() {
 		return persistent;

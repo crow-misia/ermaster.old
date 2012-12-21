@@ -15,7 +15,7 @@ import org.insightech.er.editor.model.settings.DBSetting;
 
 public abstract class PreImportFromDBManager {
 
-	private static Logger logger = Logger
+	private static final Logger logger = Logger
 			.getLogger(PreImportFromDBManager.class.getName());
 
 	protected Connection con;

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class Debug {
 
-	private static Logger logger = Logger.getLogger(Debug.class.getName());
+	private static final Logger logger = Logger.getLogger(Debug.class.getName());
 
 	public static String getStackTrace(Exception e) {
 		StringWriter writer = new StringWriter();

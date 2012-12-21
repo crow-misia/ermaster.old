@@ -18,7 +18,7 @@ import org.insightech.er.editor.model.settings.CategorySetting;
 public abstract class ERDiagramConnectionEditPart extends
 		AbstractConnectionEditPart implements PropertyChangeListener {
 
-	private static Logger logger = Logger
+	private static final Logger logger = Logger
 			.getLogger(ERDiagramConnectionEditPart.class.getName());
 
 	private static final boolean DEBUG = false;

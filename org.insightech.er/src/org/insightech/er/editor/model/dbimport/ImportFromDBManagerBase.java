@@ -51,7 +51,7 @@ import org.insightech.er.util.Format;
 public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		IRunnableWithProgress {
 
-	private static Logger logger = Logger
+	private static final Logger logger = Logger
 			.getLogger(ImportFromDBManagerBase.class.getName());
 
 	private static final boolean LOG_SQL_TYPE = false;

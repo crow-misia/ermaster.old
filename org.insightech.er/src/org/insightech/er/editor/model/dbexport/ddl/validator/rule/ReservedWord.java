@@ -9,7 +9,7 @@ import org.insightech.er.Activator;
 
 public class ReservedWord {
 
-	private static Set<String> reservedWords = new HashSet<String>();
+	private static final Set<String> reservedWords = new HashSet<String>();
 
 	static {
 		ResourceBundle bundle = ResourceBundle.getBundle(Activator.PLUGIN_ID

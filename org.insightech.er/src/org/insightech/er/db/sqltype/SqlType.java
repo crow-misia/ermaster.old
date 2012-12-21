@@ -21,7 +21,7 @@ import org.insightech.er.util.Format;
 
 public class SqlType implements Serializable {
 
-	private static Logger logger = Logger.getLogger(SqlType.class.getName());
+	private static final Logger logger = Logger.getLogger(SqlType.class.getName());
 
 	private static final long serialVersionUID = -8273043043893517634L;
 

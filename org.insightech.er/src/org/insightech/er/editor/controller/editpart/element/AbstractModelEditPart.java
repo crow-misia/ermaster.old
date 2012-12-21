@@ -15,7 +15,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.category.Cat
 public abstract class AbstractModelEditPart extends AbstractGraphicalEditPart
 		implements PropertyChangeListener {
 
-	private static Logger logger = Logger.getLogger(AbstractModelEditPart.class
+	private static final Logger logger = Logger.getLogger(AbstractModelEditPart.class
 			.getName());
 
 	private static final boolean DEBUG = false;

@@ -38,16 +38,13 @@ import org.insightech.er.editor.view.action.outline.trigger.CreateTriggerAction;
 
 public class ERDiagramOutlinePopupMenuManager extends MenuManager {
 
-	private static Map<Class, String> ACTION_MAP = new HashMap<Class, String>();
-
+	private static final Map<Class, String> ACTION_MAP = new HashMap<Class, String>();
 	static {
-		ACTION_MAP.put(SequenceSetOutlineEditPart.class,
-				CreateSequenceAction.ID);
+		ACTION_MAP.put(SequenceSetOutlineEditPart.class, CreateSequenceAction.ID);
 		ACTION_MAP.put(TriggerSetOutlineEditPart.class, CreateTriggerAction.ID);
 		ACTION_MAP.put(GroupSetOutlineEditPart.class, GroupManageAction.ID);
 		ACTION_MAP.put(TableOutlineEditPart.class, CreateIndexAction.ID);
-		ACTION_MAP.put(TablespaceSetOutlineEditPart.class,
-				CreateTablespaceAction.ID);
+		ACTION_MAP.put(TablespaceSetOutlineEditPart.class, CreateTablespaceAction.ID);
 	}
 
 	private ActionRegistry actionRegistry;

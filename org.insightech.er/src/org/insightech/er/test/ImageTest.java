@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class ImageTest {
 
-	private static Shell shell = new Shell();
+	private static final Shell shell = new Shell();
 
 	private static Image image;
 
