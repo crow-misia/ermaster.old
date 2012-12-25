@@ -14,6 +14,13 @@ public class GroupColumnDialog extends AbstractRealColumnDialog {
 	}
 
 	@Override
+	protected void setWordData() {
+		super.setWordData();
+		
+		super.setEnabledBySqlType();
+	}
+	
+	@Override
 	protected String getTitle() {
 		return "dialog.title.group.column";
 	}
