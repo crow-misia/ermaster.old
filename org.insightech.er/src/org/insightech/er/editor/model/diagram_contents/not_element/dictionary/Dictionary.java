@@ -79,11 +79,13 @@ public class Dictionary extends AbstractModel {
 		}
 	}
 
-	public void remove(TableView tableView) {
+	public void remove(TableView tableView, final boolean fire) {
 		for (NormalColumn normalColumn : tableView.getNormalColumns()) {
 			this.remove(normalColumn, false);
 		}
-		setDirty();
+		if (fire) {
+			setDirty();
+		}
 	}
 	
 	public void setDirty() {

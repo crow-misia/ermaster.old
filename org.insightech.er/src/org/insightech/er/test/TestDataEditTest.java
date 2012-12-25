@@ -32,8 +32,8 @@ public class TestDataEditTest {
 	private void initialize(Composite parent) {
 		ERDiagram diagram = new ERDiagram(MySQLDBManager.ID);
 		ERTable table = new ERTable();
-		table.setPhysicalName("table1");
-		table.setLogicalName("table1");
+		table.setPhysicalName("table1", false);
+		table.setLogicalName("table1", false);
 		TypeData typeData = new TypeData(null, null, false, null, false, null);
 
 		Word word1 = new Word("a", "a", SqlType.valueOfId("bigint"), typeData,
@@ -50,7 +50,7 @@ public class TestDataEditTest {
 		table.addColumn(column2, false);
 		table.setDirty();
 
-		diagram.addContent(table, true);
+		diagram.addContent(table, true, true);
 
 		TestDataDialog dialog = new TestDataDialog(shell, diagram,
 				new TestData());

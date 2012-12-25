@@ -20,7 +20,7 @@ public class DeleteElementCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.container.removeContent(this.element, true);
+		this.container.removeContent(this.element, true, true);
 	}
 
 	/**
@@ -28,6 +28,6 @@ public class DeleteElementCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.container.addContent(this.element, true);
+		this.container.addContent(this.element, true, true);
 	}
 }

@@ -164,7 +164,7 @@ public class ImportTableCommand extends AbstractCommand {
 		ERDiagramEditPart.setUpdateable(false);
 
 		for (NodeElement nodeElement : this.nodeElementList) {
-			this.diagram.addNewContent(nodeElement, false);
+			this.diagram.addNewContent(nodeElement, false, false);
 
 			if (nodeElement instanceof TableView) {
 				for (NormalColumn normalColumn : ((TableView) nodeElement)
@@ -180,6 +180,7 @@ public class ImportTableCommand extends AbstractCommand {
 			}
 		}
 		this.diagram.setDirtyForContent();
+		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		for (Sequence sequence : sequences) {
 			this.sequenceSet.addSequence(sequence, false);
@@ -245,7 +246,7 @@ public class ImportTableCommand extends AbstractCommand {
 
 		final Dictionary dictionary = this.diagram.getDiagramContents().getDictionary();
 		for (NodeElement nodeElement : this.nodeElementList) {
-			this.diagram.removeContent(nodeElement, false);
+			this.diagram.removeContent(nodeElement, false, false);
 
 			if (nodeElement instanceof TableView) {
 				for (NormalColumn normalColumn : ((TableView) nodeElement)

@@ -32,17 +32,17 @@ public class CopyGroup extends ColumnGroup {
 		}
 	}
 
-	public ColumnGroup restructure(ERDiagram diagram) {
+	public ColumnGroup restructure(ERDiagram diagram, final boolean dictionaryFire) {
 		if (this.original == null) {
 			this.original = new ColumnGroup();
 		}
 
-		this.restructure(diagram, this.original);
+		this.restructure(diagram, this.original, dictionaryFire);
 
 		return this.original;
 	}
 
-	private void restructure(ERDiagram diagram, ColumnGroup to) {
+	private void restructure(ERDiagram diagram, ColumnGroup to, final boolean dictionaryFire) {
 		Dictionary dictionary = null;
 
 		if (diagram != null) {
@@ -65,7 +65,7 @@ public class CopyGroup extends ColumnGroup {
 				Word originalWord = copyColumn.getOriginalWord();
 
 				if (dictionary != null) {
-					dictionary.copyTo(copyWord, originalWord);
+					Dictionary.copyTo(copyWord, originalWord);
 
 				} else {
 					while (originalWord instanceof CopyWord) {
@@ -101,7 +101,7 @@ public class CopyGroup extends ColumnGroup {
 
 		}
 
-		if (dictionary != null) {
+		if (dictionaryFire && dictionary != null) {
 			dictionary.setDirty();
 		}
 

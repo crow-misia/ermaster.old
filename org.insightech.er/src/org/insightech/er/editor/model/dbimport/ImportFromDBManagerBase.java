@@ -445,8 +445,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				.getTableViewProperties(this.dbSetting.getDbsystem());
 		tableProperties.setSchema(schema);
 
-		table.setPhysicalName(tableName);
-		table.setLogicalName(this.translationResources.translate(tableName));
+		table.setPhysicalName(tableName, false);
+		table.setLogicalName(this.translationResources.translate(tableName), false);
 
 		table.setDescription(this.tableCommentMap.get(tableNameWithSchema));
 
@@ -462,7 +462,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		List<Column> columns = this.getColumns(tableNameWithSchema, tableName,
 				schema, indexes, primaryKeys, autoIncrementColumnName);
 
-		table.setColumns(columns, true);
+		table.setColumns(columns, false);
 		table.setIndexes(indexes);
 
 		this.tableMap.put(tableNameWithSchema, table);
@@ -470,6 +470,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		for (Index index : indexes) {
 			this.setIndexColumn(table, index);
 		}
+
+		table.setDirty();
 
 		return table;
 	}
@@ -503,7 +505,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			rs = stmt.executeQuery("SELECT * FROM " + tableNameWithSchema);
 			ResultSetMetaData md = rs.getMetaData();
 
-			for (int i = 0; i < md.getColumnCount(); i++) {
+			for (int i = 0, n = md.getColumnCount(); i < n; i++) {
 				if (md.isAutoIncrement(i + 1)) {
 					autoIncrementColumnName = md.getColumnName(i + 1);
 					break;
@@ -1166,15 +1168,17 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			if (rs.next()) {
 				View view = new View();
 
-				view.setPhysicalName(viewName);
+				view.setPhysicalName(viewName, false);
 				view.setLogicalName(this.translationResources
-						.translate(viewName));
+						.translate(viewName), false);
 				String definitionSQL = rs.getString(1);
 				view.setSql(definitionSQL);
 				view.getTableViewProperties().setSchema(schema);
 
 				List<Column> columnList = this.getViewColumnList(definitionSQL);
-				view.setColumns(columnList, true);
+				view.setColumns(columnList, false);
+
+				view.setDirty();
 
 				return view;
 			}

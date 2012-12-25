@@ -1429,8 +1429,8 @@ public class XMLLoader {
 		table.setDiagram(this.diagram);
 
 		this.loadNodeElement(table, element, context);
-		table.setPhysicalName(this.getStringValue(element, "physical_name"));
-		table.setLogicalName(this.getStringValue(element, "logical_name"));
+		table.setPhysicalName(this.getStringValue(element, "physical_name"), false);
+		table.setLogicalName(this.getStringValue(element, "logical_name"), false);
 		table.setDescription(this.getStringValue(element, "description"));
 		table.setConstraint(this.getStringValue(element, "constraint"));
 		table.setPrimaryKeyName(this
@@ -1438,7 +1438,7 @@ public class XMLLoader {
 		table.setOption(this.getStringValue(element, "option"));
 
 		List<Column> columns = this.loadColumns(element, context);
-		table.setColumns(columns, true);
+		table.setColumns(columns, false);
 
 		List<Index> indexes = this.loadIndexes(element, table, context);
 		table.setIndexes(indexes);
@@ -1451,6 +1451,8 @@ public class XMLLoader {
 				(TableProperties) table.getTableViewProperties(), element,
 				context);
 
+		table.setDirty();
+
 		return table;
 	}
 
@@ -1460,13 +1462,15 @@ public class XMLLoader {
 		view.setDiagram(this.diagram);
 
 		this.loadNodeElement(view, element, context);
-		view.setPhysicalName(this.getStringValue(element, "physical_name"));
-		view.setLogicalName(this.getStringValue(element, "logical_name"));
+		view.setPhysicalName(this.getStringValue(element, "physical_name"), false);
+		view.setLogicalName(this.getStringValue(element, "logical_name"), false);
 		view.setDescription(this.getStringValue(element, "description"));
 		view.setSql(this.getStringValue(element, "sql"));
 
 		List<Column> columns = this.loadColumns(element, context);
-		view.setColumns(columns, true);
+		view.setColumns(columns, false);
+
+		view.setDirty();
 
 		this.loadViewProperties((ViewProperties) view.getTableViewProperties(),
 				element, context);

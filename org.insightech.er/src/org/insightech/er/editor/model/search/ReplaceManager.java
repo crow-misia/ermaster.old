@@ -145,7 +145,7 @@ public class ReplaceManager {
 				return null;
 			}
 
-			table.setPhysicalName(str);
+			table.setPhysicalName(str, true);
 
 			return new ReplaceResult(original);
 
@@ -159,7 +159,7 @@ public class ReplaceManager {
 				return null;
 			}
 
-			table.setLogicalName(str);
+			table.setLogicalName(str, true);
 
 			return new ReplaceResult(original);
 
@@ -423,12 +423,12 @@ public class ReplaceManager {
 		} else if (type == SearchResultRow.TYPE_TABLE_PHYSICAL_NAME) {
 			ERTable table = (ERTable) object;
 
-			table.setPhysicalName(str);
+			table.setPhysicalName(str, true);
 
 		} else if (type == SearchResultRow.TYPE_TABLE_LOGICAL_NAME) {
 			ERTable table = (ERTable) object;
 
-			table.setLogicalName(str);
+			table.setLogicalName(str, true);
 
 		} else if (type == SearchResultRow.TYPE_COLUMN_PHYSICAL_NAME
 				|| type == SearchResultRow.TYPE_COLUMN_GROUP_COLUMN_PHYSICAL_NAME) {

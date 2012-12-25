@@ -126,7 +126,7 @@ public class TableDialog extends AbstractDialog {
 	}
 
 	@Override
-	protected void perfomeOK() throws InputException {
+	protected void perfomeOK() {
 	}
 
 	@Override

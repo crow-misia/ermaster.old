@@ -124,7 +124,7 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 	@Override
 	public void validatePage() throws InputException {
 		String text = logicalNameText.getText().trim();
-		this.copyData.setLogicalName(text);
+		this.copyData.setLogicalName(text, true);
 
 		if (text.equals("")) {
 			throw new InputException("error.table.logical.name.empty");
@@ -138,7 +138,7 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 						"error.table.physical.name.not.alphabet");
 			}
 		}
-		this.copyData.setPhysicalName(text);
+		this.copyData.setPhysicalName(text, true);
 	}
 
 	private void createFooter(Composite parent) {

@@ -83,9 +83,10 @@ public class PasteCommand extends AbstractCommand {
 
 		// 図にノードを追加します。
 		for (NodeElement nodeElement : this.nodeElements) {
-			this.diagram.addContent(nodeElement, false);
+			this.diagram.addContent(nodeElement, false, false);
 		}
 		this.diagram.setDirtyForContent();
+		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		// グループ列を追加します。
 		for (ColumnGroup columnGroup : this.columnGroups) {
@@ -114,9 +115,10 @@ public class PasteCommand extends AbstractCommand {
 
 		// 図からノードを削除します。
 		for (NodeElement nodeElement : this.nodeElements) {
-			this.diagram.removeContent(nodeElement, false);
+			this.diagram.removeContent(nodeElement, false, false);
 		}
 		this.diagram.setDirtyForContent();
+		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		// グループ列を削除します。
 		for (ColumnGroup columnGroup : this.columnGroups) {

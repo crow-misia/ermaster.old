@@ -491,7 +491,7 @@ public class GroupManageDialog extends AbstractDialog implements
 
 						} else {
 							copyGroups.remove(editTargetIndex);
-							copyData = (CopyGroup) copyData.restructure(null);
+							copyData = (CopyGroup) copyData.restructure(null, true);
 
 							copyGroups.add(editTargetIndex, copyData);
 						}

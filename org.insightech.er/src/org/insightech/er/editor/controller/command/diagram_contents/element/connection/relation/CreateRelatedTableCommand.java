@@ -69,7 +69,7 @@ public class CreateRelatedTableCommand extends AbstractCreateRelationCommand {
 
 		this.init();
 
-		this.diagram.addNewContent(this.relatedTable, true);
+		this.diagram.addNewContent(this.relatedTable, true, true);
 
 		this.relation1.setSource((ERTable) this.source.getModel(), false);
 		this.relation1.setTargetTableView(this.relatedTable, true, true);
@@ -90,7 +90,7 @@ public class CreateRelatedTableCommand extends AbstractCreateRelationCommand {
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.diagram.removeContent(this.relatedTable, true);
+		this.diagram.removeContent(this.relatedTable, true, true);
 
 		this.relation1.setSource(null, false);
 		this.relation1.setTargetTableView(null, true, true);
@@ -119,8 +119,8 @@ public class CreateRelatedTableCommand extends AbstractCreateRelationCommand {
 				(this.sourceY + this.targetY - ERTable.DEFAULT_HEIGHT) / 2,
 				ERTable.DEFAULT_WIDTH, ERTable.DEFAULT_HEIGHT));
 
-		this.relatedTable.setLogicalName(ERTable.NEW_LOGICAL_NAME);
-		this.relatedTable.setPhysicalName(ERTable.NEW_PHYSICAL_NAME);
+		this.relatedTable.setLogicalName(ERTable.NEW_LOGICAL_NAME, false);
+		this.relatedTable.setPhysicalName(ERTable.NEW_PHYSICAL_NAME, false);
 
 	}
 

@@ -61,23 +61,26 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		return physicalName;
 	}
 
-	public void setPhysicalName(String physicalName) {
+	public void setPhysicalName(String physicalName, boolean fire) {
 		String old = this.physicalName;
 		this.physicalName = physicalName;
 
-		this.firePropertyChange(PROPERTY_CHANGE_PHYSICAL_NAME, old,
-				physicalName);
+		if (fire) {
+			this.firePropertyChange(PROPERTY_CHANGE_PHYSICAL_NAME, old, physicalName);
+		}
 	}
 
 	public String getLogicalName() {
 		return logicalName;
 	}
 
-	public void setLogicalName(String logicalName) {
+	public void setLogicalName(String logicalName, boolean fire) {
 		String old = this.logicalName;
 		this.logicalName = logicalName;
 
-		this.firePropertyChange(PROPERTY_CHANGE_LOGICAL_NAME, old, logicalName);
+		if (fire) {
+			this.firePropertyChange(PROPERTY_CHANGE_LOGICAL_NAME, old, logicalName);
+		}
 	}
 
 	public String getName() {
@@ -231,8 +234,8 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 	public TableView copyTableViewData(TableView to) {
 		to.setDiagram(this.getDiagram());
 
-		to.setPhysicalName(this.getPhysicalName());
-		to.setLogicalName(this.getLogicalName());
+		to.setPhysicalName(this.getPhysicalName(), false);
+		to.setLogicalName(this.getLogicalName(), false);
 		to.setDescription(this.getDescription());
 		
 		final List<Column> sources = this.getColumns();
@@ -253,7 +256,9 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 			}
 		}
 
-		to.setColumns(columns, true);
+		to.setColumns(columns, false);
+
+		to.setDirty();
 
 		to.setOutgoing(this.getOutgoings());
 		to.setIncoming(this.getIncomings());
@@ -265,17 +270,18 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		Dictionary dictionary = this.getDiagram().getDiagramContents()
 				.getDictionary();
 
-		to.setPhysicalName(this.getPhysicalName());
-		to.setLogicalName(this.getLogicalName());
+		to.setPhysicalName(this.getPhysicalName(), false);
+		to.setLogicalName(this.getLogicalName(), false);
 		to.setDescription(this.getDescription());
 
 		for (NormalColumn toColumn : to.getNormalColumns()) {
 			dictionary.remove(toColumn, false);
 		}
 
-		List<Column> columns = new ArrayList<Column>();
+		final List<Column> oldColumns = this.getColumns();
+		final List<Column> newColumns = new ArrayList<Column>(oldColumns.size());
 
-		List<NormalColumn> newPrimaryKeyColumns = new ArrayList<NormalColumn>();
+		final List<NormalColumn> newPrimaryKeyColumns = new ArrayList<NormalColumn>();
 
 		for (Column fromColumn : this.getColumns()) {
 			if (fromColumn instanceof NormalColumn) {
@@ -298,7 +304,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 				if (copyWord == null) {
 					restructuredColumn.setWord(null);
 				}
-				columns.add(restructuredColumn);
+				newColumns.add(restructuredColumn);
 
 				if (restructuredColumn.isPrimaryKey()) {
 					newPrimaryKeyColumns.add(restructuredColumn);
@@ -307,7 +313,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 				dictionary.add(restructuredColumn, false);
 
 			} else {
-				columns.add(fromColumn);
+				newColumns.add(fromColumn);
 			}
 		}
 
@@ -315,7 +321,9 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		this.setTargetTableRelation(to, newPrimaryKeyColumns);
 
-		to.setColumns(columns, true);
+		to.setColumns(newColumns, false);
+
+		to.setDirty();
 	}
 
 	private void setTargetTableRelation(TableView sourceTable,

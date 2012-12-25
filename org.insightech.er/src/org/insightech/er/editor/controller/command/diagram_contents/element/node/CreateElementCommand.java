@@ -35,13 +35,13 @@ public class CreateElementCommand extends AbstractCommand {
 
 		if (element instanceof ERTable) {
 			ERTable table = (ERTable) element;
-			table.setLogicalName(ERTable.NEW_LOGICAL_NAME);
-			table.setPhysicalName(ERTable.NEW_PHYSICAL_NAME);
+			table.setLogicalName(ERTable.NEW_LOGICAL_NAME, true);
+			table.setPhysicalName(ERTable.NEW_PHYSICAL_NAME, true);
 
 		} else if (element instanceof View) {
 			View view = (View) element;
-			view.setLogicalName(View.NEW_LOGICAL_NAME);
-			view.setPhysicalName(View.NEW_PHYSICAL_NAME);
+			view.setLogicalName(View.NEW_LOGICAL_NAME, true);
+			view.setPhysicalName(View.NEW_PHYSICAL_NAME, true);
 		}
 		
 		this.enclosedElementList = enclosedElementList;
@@ -53,7 +53,7 @@ public class CreateElementCommand extends AbstractCommand {
 	@Override
 	protected void doExecute() {
 		if (!(this.element instanceof Category)) {
-			this.diagram.addNewContent(this.element, true);
+			this.diagram.addNewContent(this.element, true, true);
 
 		} else {
 			Category category = (Category) this.element;
@@ -70,7 +70,7 @@ public class CreateElementCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		if (!(this.element instanceof Category)) {
-			this.diagram.removeContent(this.element, true);
+			this.diagram.removeContent(this.element, true, true);
 
 		} else {
 			Category category = (Category) this.element;

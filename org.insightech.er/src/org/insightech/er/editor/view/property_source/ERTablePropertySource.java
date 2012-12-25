@@ -53,10 +53,10 @@ public class ERTablePropertySource implements IPropertySource {
 
 	public void setPropertyValue(Object id, Object value) {
 		if (id.equals("physicalName")) {
-			this.table.setPhysicalName(String.valueOf(value));
+			this.table.setPhysicalName(String.valueOf(value), true);
 
 		} else if (id.equals("logicalName")) {
-			this.table.setLogicalName(String.valueOf(value));
+			this.table.setLogicalName(String.valueOf(value), true);
 		}
 	}
 

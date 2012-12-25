@@ -79,16 +79,16 @@ public class ERDiagram extends ViewableModel {
 		settings.getModelProperties().init();
 	}
 
-	public void addNewContent(NodeElement element, final boolean fire) {
+	public void addNewContent(NodeElement element, final boolean contentFire, final boolean dictionaryFire) {
 		element.setColor(this.defaultColor[0], this.defaultColor[1],
 				this.defaultColor[2]);
 		element.setFontName(this.getFontName());
 		element.setFontSize(this.getFontSize());
 
-		this.addContent(element, fire);
+		this.addContent(element, contentFire, dictionaryFire);
 	}
 
-	public void addContent(NodeElement element, final boolean fire) {
+	public void addContent(NodeElement element, final boolean contentFire, final boolean dictionaryFire) {
 		element.setDiagram(this);
 
 		this.diagramContents.getContents().addNodeElement(element, true);
@@ -107,18 +107,20 @@ public class ERDiagram extends ViewableModel {
 				dictionary.add(normalColumn, false);
 			}
 		}
-		dictionary.setDirty();
+		if (dictionaryFire) {
+			dictionary.setDirty();
+		}
 
-		if (fire) {
+		if (contentFire) {
 			setDirtyForContent();
 		}
 	}
 
-	public void removeContent(NodeElement element, final boolean fire) {
+	public void removeContent(NodeElement element, final boolean contentFire, final boolean dictionaryFire) {
 		this.diagramContents.getContents().remove(element, true);
 
 		if (element instanceof TableView) {
-			this.diagramContents.getDictionary().remove((TableView) element);
+			this.diagramContents.getDictionary().remove((TableView) element, dictionaryFire);
 		}
 
 		for (Category category : this.diagramContents.getSettings()
@@ -126,7 +128,7 @@ public class ERDiagram extends ViewableModel {
 			category.getContents().remove(element);
 		}
 
-		if (fire) {
+		if (contentFire) {
 			setDirtyForContent();
 		}
 	}

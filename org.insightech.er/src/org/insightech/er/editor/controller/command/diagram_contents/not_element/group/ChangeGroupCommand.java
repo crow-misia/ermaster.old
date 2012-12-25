@@ -63,12 +63,13 @@ public class ChangeGroupCommand extends AbstractCommand {
 				dictionary.remove(((CopyColumn) column).getOriginalColumn(), false);
 			}
 		}
-		dictionary.setDirty();
 
 		for (CopyGroup newCopyColumnGroup : newGroups) {
-			this.groupSet.add(newCopyColumnGroup.restructure(diagram), false);
+			this.groupSet.add(newCopyColumnGroup.restructure(diagram, false), false);
 		}
 		this.groupSet.setDirty();
+
+		dictionary.setDirty();
 
 		for (TableView tableView : this.diagram.getDiagramContents()
 				.getContents().getTableViewList()) {
@@ -106,13 +107,14 @@ public class ChangeGroupCommand extends AbstractCommand {
 				dictionary.remove(((CopyColumn) column).getOriginalColumn(), false);
 			}
 		}
-		dictionary.setDirty();
 
 		for (CopyGroup copyGroup : oldCopyGroups) {
-			ColumnGroup group = copyGroup.restructure(diagram);
+			ColumnGroup group = copyGroup.restructure(diagram, false);
 			this.groupSet.add(group, false);
 		}
 		this.groupSet.setDirty();
+
+		dictionary.setDirty();
 
 		for (TableView tableView : this.oldColumnListMap.keySet()) {
 			List<Column> oldColumns = this.oldColumnListMap.get(tableView);

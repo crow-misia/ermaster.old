@@ -16,6 +16,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -336,17 +337,20 @@ public class ERTableComposite extends Composite {
 	}
 
 	private void disposeCheckBox(Column column) {
-		TableEditor[] oldEditors = this.columnNotNullCheckMap.get(column);
+		TableEditor[] oldEditors = this.columnNotNullCheckMap.remove(column);
 
+		disposeCheckBox(oldEditors);
+	}
+
+	private static void disposeCheckBox(TableEditor[] oldEditors) {
 		if (oldEditors != null) {
 			for (TableEditor oldEditor : oldEditors) {
-				if (oldEditor.getEditor() != null) {
-					oldEditor.getEditor().dispose();
-					oldEditor.dispose();
+				final Control button = oldEditor.getEditor();
+				if (button != null) {
+					button.dispose();
 				}
+				oldEditor.dispose();
 			}
-
-			this.columnNotNullCheckMap.remove(column);
 		}
 	}
 
@@ -436,7 +440,7 @@ public class ERTableComposite extends Composite {
 			}
 		}
 
-		this.columnNotNullCheckMap.put(normalColumn, editors);
+		disposeCheckBox(this.columnNotNullCheckMap.put(normalColumn, editors));
 
 		if (this.checkboxEnabled) {
 			notNullCheckButton.addSelectionListener(new SelectionAdapter() {
@@ -557,7 +561,7 @@ public class ERTableComposite extends Composite {
 
 		this.disposeCheckBox(column);
 
-		for (int i = index; i < this.table.getItemCount(); i++) {
+		for (int i = index, n = this.table.getItemCount(); i < n; i++) {
 			TableItem tableItem = this.table.getItem(i);
 			column = this.columnList.get(i);
 
