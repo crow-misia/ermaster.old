@@ -1,6 +1,7 @@
 package org.insightech.er.editor.controller.editpart.element.node;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
@@ -43,14 +44,14 @@ public class ViewEditPart extends TableViewEditPart {
 				copyView, diagram.getDiagramContents().getGroups());
 
 		if (dialog.open() == IDialogConstants.OK_ID) {
-			CompoundCommand command = createChangeViewPropertyCommand(diagram,
+			Command command = createChangeViewPropertyCommand(diagram,
 					view, copyView);
 
-			this.executeCommand(command.unwrap());
+			this.executeCommand(command);
 		}
 	}
 
-	public static CompoundCommand createChangeViewPropertyCommand(
+	public static Command createChangeViewPropertyCommand(
 			ERDiagram diagram, View view, View copyView) {
 		CompoundCommand command = new CompoundCommand();
 
@@ -58,7 +59,7 @@ public class ViewEditPart extends TableViewEditPart {
 				view, copyView);
 		command.add(changeViewPropertyCommand);
 
-		return command;
+		return command.unwrap();
 	}
 
 }

@@ -7,6 +7,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.tools.SelectEditPartTracker;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -57,11 +58,11 @@ public class ViewOutlineEditPart extends AbstractOutlineEditPart implements
 					copyView, diagram.getDiagramContents().getGroups());
 
 			if (dialog.open() == IDialogConstants.OK_ID) {
-				CompoundCommand command = ViewEditPart
+				Command command = ViewEditPart
 						.createChangeViewPropertyCommand(diagram, view,
 								copyView);
 
-				this.execute(command.unwrap());
+				this.execute(command);
 			}
 		}
 

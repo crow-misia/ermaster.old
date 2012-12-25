@@ -132,7 +132,7 @@ public class Dictionary extends AbstractModel {
 		return this.wordMap.get(word);
 	}
 
-	public void copyTo(Word from, Word to) {
+	public static void copyTo(Word from, Word to) {
 		from.copyTo(to);
 	}
 	
