@@ -97,42 +97,52 @@ public class ExportToImageAction extends AbstractExportAction {
 			return -1;
 		}
 
-		Image img = null;
+		double scale = 1.0;
+		int retryCount = 5;
+		do {
+			Image img = null;
 
-		try {
-			img = createImage(viewer);
+			try {
+				img = createImage(viewer, scale);
 
-			ExportToImageWithProgressManager exportToImageManager = new ExportToImageWithProgressManager(
-					img, format, saveFilePath);
+				ExportToImageWithProgressManager exportToImageManager = new ExportToImageWithProgressManager(
+						img, format, saveFilePath);
 
-			monitor.run(true, true, exportToImageManager);
+				monitor.run(true, true, exportToImageManager);
 
-			Exception exception = exportToImageManager.getException();
-			if (exception != null) {
-				throw exception;
-			}
+				Exception exception = exportToImageManager.getException();
+				if (exception != null) {
+					throw exception;
+				}
 
-		} catch (InterruptedException e) {
-			throw e;
+				return format;
 
-		} catch (Exception e) {
-			if (e.getCause() instanceof OutOfMemoryError) {
-				Activator
+			} catch (InterruptedException e) {
+				throw e;
+
+			} catch (Exception e) {
+				if (e.getCause() instanceof OutOfMemoryError) {
+					// メモリ不足の場合、画像サイズを小さくし、再トライする
+					if (retryCount-- > 0) {
+						scale *= 0.8;
+						continue;
+					}
+
+					Activator
 						.showMessageDialog("dialog.message.export.image.out.of.memory");
 
-			} else {
-				Activator.showExceptionDialog(e);
+				} else {
+					Activator.showExceptionDialog(e);
+				}
+
+				return -1;
+
+			} finally {
+				if (img != null) {
+					img.dispose();
+				}
 			}
-
-			return -1;
-
-		} finally {
-			if (img != null) {
-				img.dispose();
-			}
-		}
-
-		return format;
+		} while (true);
 	}
 
 	public static int getFormatType(String saveFilePath) {
@@ -160,7 +170,7 @@ public class ExportToImageAction extends AbstractExportAction {
 		return format;
 	}
 
-	public static Image createImage(GraphicalViewer viewer) {
+	public static Image createImage(GraphicalViewer viewer, double scale) {
 		Image img = null;
 
 		GC figureCanvasGC = null;
@@ -183,8 +193,11 @@ public class ExportToImageAction extends AbstractExportAction {
 			Control figureCanvas = viewer.getControl();
 			figureCanvasGC = new GC(figureCanvas);
 
-			img = new Image(Display.getCurrent(), rootFigureBounds.width + 20,
-					rootFigureBounds.height + 20);
+			final int x = (int) (rootFigureBounds.x * scale);
+			final int y = (int) (rootFigureBounds.y * scale);
+			final int width = (int) (rootFigureBounds.width * scale);
+			final int height = (int) (rootFigureBounds.height * scale);
+			img = new Image(Display.getCurrent(), width + 20, height + 20);
 			imageGC = new GC(img);
 
 			imageGC.setBackground(figureCanvasGC.getBackground());
@@ -192,16 +205,20 @@ public class ExportToImageAction extends AbstractExportAction {
 			imageGC.setFont(figureCanvasGC.getFont());
 			imageGC.setLineStyle(figureCanvasGC.getLineStyle());
 			imageGC.setLineWidth(figureCanvasGC.getLineWidth());
-			imageGC.setAntialias(SWT.OFF);
-			// imageGC.setInterpolation(SWT.HIGH);
+
+			if (Double.compare(scale, 1.0) != 0) {
+				imageGC.setAntialias(SWT.ON);
+				imageGC.setInterpolation(SWT.HIGH);
+			} else {
+				imageGC.setAntialias(SWT.OFF);
+			}
 
 			Graphics imgGraphics = new SWTGraphics(imageGC);
+			imgGraphics.scale(scale);
 			imgGraphics.setBackgroundColor(figureCanvas.getBackground());
-			imgGraphics.fillRectangle(0, 0, rootFigureBounds.width + 20,
-					rootFigureBounds.height + 20);
+			imgGraphics.fillRectangle(0, 0, width + 20, height + 20);
 
-			imgGraphics.translate(translateX(rootFigureBounds.x),
-					translateY(rootFigureBounds.y));
+			imgGraphics.translate(translateX(x), translateY(y));
 
 			rootFigure.paint(imgGraphics);
 

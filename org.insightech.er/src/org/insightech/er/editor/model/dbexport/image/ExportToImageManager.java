@@ -72,29 +72,31 @@ public class ExportToImageManager {
 		}
 	}
 
-	private void drawAtBufferedImage(BufferedImage bimg, Image image, int x,
-			int y) throws InterruptedException {
+	private void drawAtBufferedImage(BufferedImage bimg, Image image, int offsetX,
+			int offsetY) throws InterruptedException {
 
 		ImageData data = image.getImageData();
 
 		final int width = image.getBounds().width;
 		final int height = image.getBounds().height;
-		for (int i = 0; i < width; i++) {
+		
+		final int n = Math.min(width * height * 4, data.data.length);
+		
+		int x = 0;
+		int y = 0;
+		for (int i = 0; i < n; i += 4) {
+			int r = 0xff & data.data[i + 2];
+			int g = 0xff & data.data[i + 1];
+			int b = 0xff & data.data[i];
 
-			for (int j = 0; j < height; j++) {
-				int tmp = 4 * (j * width + i);
-
-				if (data.data.length > tmp + 2) {
-					int r = 0xff & data.data[tmp + 2];
-					int g = 0xff & data.data[tmp + 1];
-					int b = 0xff & data.data[tmp];
-
-					bimg.setRGB(i + x, j + y, 0xFF << 24 | r << 16 | g << 8
-							| b << 0);
-				}
-
-				this.doPostTask();
+			x++;
+			if (x >= width) {
+				x = 0;
+				y++;
 			}
+			bimg.setRGB(x + offsetX, y + offsetY, 0xFF << 24 | r << 16 | g << 8 | b << 0);
+
+			this.doPostTask();
 		}
 	}
 
