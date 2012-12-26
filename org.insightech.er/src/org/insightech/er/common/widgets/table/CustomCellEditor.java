@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 import org.insightech.er.ResourceString;
 
-public class CustomCellEditor extends DefaultCellEditor implements
+public final class CustomCellEditor extends DefaultCellEditor implements
 		TableCellEditor {
 
 	private static final long serialVersionUID = 1715411332743091739L;

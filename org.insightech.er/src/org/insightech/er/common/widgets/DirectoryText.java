@@ -10,11 +10,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.Activator;
 
-public class DirectoryText {
+public final class DirectoryText {
 
-	private Text text;
+	private final Text text;
 
-	private Button openBrowseButton;
+	private final Button openBrowseButton;
 
 	public DirectoryText(Composite parent, int style) {
 		this.text = new Text(parent, style);

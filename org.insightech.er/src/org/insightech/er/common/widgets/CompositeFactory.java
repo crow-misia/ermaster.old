@@ -31,7 +31,7 @@ import org.insightech.er.ResourceString;
 import org.insightech.er.Resources;
 import org.insightech.er.common.dialog.AbstractDialog;
 
-public class CompositeFactory {
+public final class CompositeFactory {
 
 	public static SpinnerWithScale createSpinnerWithScale(
 			AbstractDialog dialog, Composite composite, String title,
@@ -468,5 +468,9 @@ public class CompositeFactory {
 		panel.add(table);
 
 		return table;
+	}
+
+	private CompositeFactory() {
+		// do nothing.
 	}
 }

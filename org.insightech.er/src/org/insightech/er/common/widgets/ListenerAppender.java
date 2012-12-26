@@ -34,7 +34,7 @@ import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.view.dialog.common.EditableTable;
 
-public class ListenerAppender {
+public final class ListenerAppender {
 
 	public static void addTextAreaListener(final Text text,
 			final AbstractDialog dialog, boolean selectAll, boolean imeOn) {
@@ -356,5 +356,9 @@ public class ListenerAppender {
 
 			});
 		}
+	}
+
+	private ListenerAppender() {
+		// do nothing.
 	}
 }

@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class FileUtils {
+public final class FileUtils {
 
 	public static void deleteDirectory(File directory) throws IOException {
 		if (!directory.exists())
@@ -146,5 +146,9 @@ public class FileUtils {
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+	
+	private FileUtils() {
+		// do nothing.
 	}
 }

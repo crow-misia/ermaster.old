@@ -63,18 +63,18 @@ import org.insightech.er.common.widgets.table.HeaderClickListener;
 import org.insightech.er.common.widgets.table.PanelCellEditor;
 import org.insightech.er.util.Format;
 
-public class RowHeaderTable extends JScrollPane implements ClipboardOwner {
+public final class RowHeaderTable extends JScrollPane implements ClipboardOwner {
 
 	private static final long serialVersionUID = 1L;
 
 	private DefaultListModel listModel;
-	private DefaultTableModel tableModel;
-	private JTable table;
-	private MultiLineHeaderRenderer headerRenderer;
-	private MultiLineHeaderRenderer selectedHeaderRenderer;
+	private final DefaultTableModel tableModel;
+	private final JTable table;
+	private final MultiLineHeaderRenderer headerRenderer;
+	private final MultiLineHeaderRenderer selectedHeaderRenderer;
 
 	private CellEditWorker cellEditWorker;
-	private Map<Integer, PanelCellEditor> cellEditorMap = new HashMap<Integer, PanelCellEditor>();
+	private final Map<Integer, PanelCellEditor> cellEditorMap = new HashMap<Integer, PanelCellEditor>();
 
 	private boolean clipbordOn = true;
 
@@ -82,9 +82,9 @@ public class RowHeaderTable extends JScrollPane implements ClipboardOwner {
 
 	private int mouseOverColumn = -1;
 
-	private boolean editable;
+	private final boolean editable;
 
-	private Color MODIFIED_COLOR = new Color(0xc7, 0xff, 0xb7);
+	private static final Color MODIFIED_COLOR = new Color(0xc7, 0xff, 0xb7);
 
 	public RowHeaderTable(int width, int height, final int rowHeaderWidth,
 			int rowHeight, boolean iconEnable, final boolean editable) {

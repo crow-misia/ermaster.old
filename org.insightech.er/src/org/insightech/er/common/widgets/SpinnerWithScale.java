@@ -3,13 +3,13 @@ package org.insightech.er.common.widgets;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Spinner;
 
-public class SpinnerWithScale {
+public final class SpinnerWithScale {
 
-	private Spinner spinner;
+	private final Spinner spinner;
 
-	private Scale scale;
+	private final Scale scale;
 
-	private int diff;
+	private final int diff;
 
 	public SpinnerWithScale(Spinner spinner, Scale scale, int diff) {
 		this.spinner = spinner;

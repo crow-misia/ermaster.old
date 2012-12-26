@@ -10,13 +10,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.Activator;
 
-public class FileText {
+public final class FileText {
 
-	private Text text;
+	private final Text text;
 
-	private Button openBrowseButton;
+	private final Button openBrowseButton;
 
-	private String[] filterExtensions;
+	private final String[] filterExtensions;
 
 	public FileText(Composite parent, int style) {
 		this(parent, style, new String[0]);
@@ -71,10 +71,6 @@ public class FileText {
 
 	public void addModifyListener(ModifyListener listener) {
 		this.text.addModifyListener(listener);
-	}
-
-	public void setFilterExtension(String filterExtension) {
-		this.filterExtensions = new String[] { filterExtension };
 	}
 
 }

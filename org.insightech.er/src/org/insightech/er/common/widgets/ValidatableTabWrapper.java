@@ -9,9 +9,9 @@ import org.insightech.er.common.exception.InputException;
 
 public abstract class ValidatableTabWrapper extends Composite {
 
-	protected TabItem tabItem;
+	protected final TabItem tabItem;
 
-	protected AbstractDialog dialog;
+	protected final AbstractDialog dialog;
 
 	public ValidatableTabWrapper(AbstractDialog dialog, TabFolder parent,
 			int style, String title) {

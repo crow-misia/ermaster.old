@@ -24,7 +24,7 @@ public abstract class AbstractDialog extends Dialog {
 
 	private CLabel errorMessageText = null;
 
-	private int numColumns;
+	private final int numColumns;
 
 	private boolean enabledOkButton = true;
 

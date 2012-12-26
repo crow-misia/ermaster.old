@@ -13,9 +13,9 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.insightech.er.db.sqltype.SqlType.TypeKey;
 import org.insightech.er.util.Check;
 import org.insightech.er.util.POIUtils;
+import org.insightech.er.util.io.IOUtils;
 
-public class SqlTypeFactory {
-
+public final class SqlTypeFactory {
 	public static void load() throws IOException, ClassNotFoundException {
 		InputStream in = SqlTypeFactory.class
 				.getResourceAsStream("/SqlType.xls");
@@ -93,12 +93,16 @@ public class SqlTypeFactory {
 			}
 
 		} finally {
-			in.close();
+			IOUtils.closeQuietly(in);
 		}
 
 	}
-
+	
 	public static void main(String[] args) {
 		SqlType.main(new String[0]);
+	}
+
+	private SqlTypeFactory() {
+		// do nothing.
 	}
 }

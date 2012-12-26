@@ -1,6 +1,7 @@
 package org.insightech.er.util.io;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,21 +10,12 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 
-public class IOUtils {
+public final class IOUtils {
 
-	public static void closeQuietly(InputStream input) {
-		if (input != null) {
+	public static void closeQuietly(Closeable s) {
+		if (s != null) {
 			try {
-				input.close();
-			} catch (IOException ioe) {
-			}
-		}
-	}
-
-	public static void closeQuietly(OutputStream output) {
-		if (output != null) {
-			try {
-				output.close();
+				s.close();
 			} catch (IOException ioe) {
 			}
 		}
@@ -83,5 +75,9 @@ public class IOUtils {
 				write(data, output);
 			else
 				output.write(data.getBytes(encoding));
+	}
+	
+	private IOUtils() {
+		// do nothing.
 	}
 }

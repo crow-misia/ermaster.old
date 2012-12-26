@@ -7,24 +7,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.tools.ant.util.StringUtils;
 import org.insightech.er.Activator;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.settings.TranslationSetting;
 import org.insightech.er.preference.PreferenceInitializer;
+import org.insightech.er.util.io.IOUtils;
 
 public class TranslationResources {
 
-	private Map<String, String> translationMap;
+	private final Map<String, String> translationMap;
+	private final Map<String, Pattern> cache;
 
 	public TranslationResources(TranslationSetting translationSettings) {
 		this.translationMap = new TreeMap<String, String>(
 				new TranslationResourcesComparator());
+		this.cache = new HashMap<String, Pattern>();
 
 		String defaultFileName = ResourceString
 				.getResourceString("label.translation.default");
@@ -47,13 +52,7 @@ public class TranslationResources {
 							Activator.showExceptionDialog(e);
 
 						} finally {
-							if (in != null) {
-								try {
-									in.close();
-								} catch (IOException e) {
-									Activator.showExceptionDialog(e);
-								}
-							}
+							IOUtils.closeQuietly(in);
 						}
 					}
 
@@ -70,11 +69,7 @@ public class TranslationResources {
 					Activator.showExceptionDialog(e);
 
 				} finally {
-					try {
-						in.close();
-					} catch (IOException e) {
-						Activator.showExceptionDialog(e);
-					}
+					IOUtils.closeQuietly(in);
 				}
 
 			}
@@ -100,12 +95,19 @@ public class TranslationResources {
 
 			String value = line.substring(index + 1).trim();
 			this.translationMap.put(key, value);
+			this.cache.put(key, getPattern(key));
 
 			key = key.replaceAll("[aiueo]", "");
 			if (key.length() > 1) {
 				this.translationMap.put(key, value);
+				this.cache.put(key, getPattern(key));
 			}
 		}
+	}
+	
+	private static Pattern getPattern(final String key) {
+		return Pattern.compile("_*" + Pattern.quote(key) + "_*",
+				Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
@@ -120,8 +122,10 @@ public class TranslationResources {
 			String key = entry.getKey();
 			String value = entry.getValue();
 
-			Pattern p = Pattern.compile("_*" + Pattern.quote(key) + "_*",
-					Pattern.CASE_INSENSITIVE);
+			Pattern p = cache.get(key);
+			if (p == null) {
+				p = getPattern(key);
+			}
 			Matcher m = p.matcher(str);
 			str = m.replaceAll(value);
 		}
@@ -136,15 +140,15 @@ public class TranslationResources {
 	/**
 	 * 長い順に並べる。同じ長さなら辞書順。ただし [A-Z] より [_] を優先する。
 	 */
-	private class TranslationResourcesComparator implements Comparator<String> {
+	private static class TranslationResourcesComparator implements Comparator<String> {
 
 		public int compare(String o1, String o2) {
 			int diff = o2.length() - o1.length();
 			if (diff != 0) {
 				return diff;
-			} else {
-				return o1.replace('_', ' ').compareTo(o2.replace('_', ' '));
 			}
+			return StringUtils.replace(o1, "_", " ")
+					.compareTo(StringUtils.replace(o2, "_", " "));
 		}
 	}
 }

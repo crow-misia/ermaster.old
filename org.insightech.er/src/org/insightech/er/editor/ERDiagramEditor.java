@@ -190,9 +190,12 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 	 */
 	@Override
 	public void dispose() {
-		this.getSelectionSynchronizer().removeViewer(
-				this.outlinePage.getViewer());
-		super.dispose();
+		try {
+			this.getSelectionSynchronizer().removeViewer(
+					this.outlinePage.getViewer());
+		} finally {
+			super.dispose();
+		}
 	}
 
 	/**

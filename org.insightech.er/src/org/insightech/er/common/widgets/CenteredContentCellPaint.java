@@ -8,8 +8,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-public class CenteredContentCellPaint implements Listener {
-	private int colIndex;
+public final class CenteredContentCellPaint implements Listener {
+	private final int colIndex;
 
 	public CenteredContentCellPaint(Table tbl, int colIndex) {
 		this.colIndex = colIndex;

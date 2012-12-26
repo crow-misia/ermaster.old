@@ -18,7 +18,7 @@ public abstract class PanelCellEditor extends AbstractCellEditor implements
 
 	private static final long serialVersionUID = -3646026286712349658L;
 
-	private JPanel editPanel;
+	private final JPanel editPanel;
 
 	public PanelCellEditor() {
 		this.editPanel = new JPanel();
