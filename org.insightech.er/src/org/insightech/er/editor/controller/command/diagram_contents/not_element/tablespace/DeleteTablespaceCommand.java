@@ -5,11 +5,11 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceSet;
 
-public class DeleteTablespaceCommand extends AbstractCommand {
+public final class DeleteTablespaceCommand extends AbstractCommand {
 
-	private TablespaceSet tablespaceSet;
+	private final TablespaceSet tablespaceSet;
 
-	private Tablespace tablespace;
+	private final Tablespace tablespace;
 
 	public DeleteTablespaceCommand(ERDiagram diagram, Tablespace tablespace) {
 		this.tablespaceSet = diagram.getDiagramContents().getTablespaceSet();

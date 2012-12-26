@@ -3,13 +3,13 @@ package org.insightech.er.editor.controller.command.diagram_contents.element.nod
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 
-public class ChangeTableViewPropertyCommand extends AbstractCommand {
+public final class ChangeTableViewPropertyCommand extends AbstractCommand {
 
-	private TableView oldCopyTableView;
+	private final TableView oldCopyTableView;
 
-	private TableView tableView;
+	private final TableView tableView;
 
-	private TableView newCopyTableView;
+	private final TableView newCopyTableView;
 
 	public ChangeTableViewPropertyCommand(TableView tableView,
 			TableView newCopyTableView) {

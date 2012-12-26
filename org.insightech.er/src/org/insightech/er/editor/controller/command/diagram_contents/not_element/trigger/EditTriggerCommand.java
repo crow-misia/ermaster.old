@@ -5,13 +5,13 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.TriggerSet;
 
-public class EditTriggerCommand extends AbstractCommand {
+public final class EditTriggerCommand extends AbstractCommand {
 
-	private TriggerSet triggerSet;
+	private final TriggerSet triggerSet;
 
-	private Trigger oldTrigger;
+	private final Trigger oldTrigger;
 
-	private Trigger newTrigger;
+	private final Trigger newTrigger;
 
 	public EditTriggerCommand(ERDiagram diagram, Trigger oldTrigger,
 			Trigger newTrigger) {

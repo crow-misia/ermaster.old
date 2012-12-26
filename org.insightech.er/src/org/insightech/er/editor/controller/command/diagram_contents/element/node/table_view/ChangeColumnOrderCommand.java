@@ -4,25 +4,26 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 
-public class ChangeColumnOrderCommand extends AbstractCommand {
+public final class ChangeColumnOrderCommand extends AbstractCommand {
 
-	private TableView tableView;
+	private final TableView tableView;
 
-	private Column column;
+	private final Column column;
 
-	private int newIndex;
+	private final int newIndex;
 	
-	private int oldIndex;
+	private final int oldIndex;
 
 	public ChangeColumnOrderCommand(TableView tableView, Column column,
 			int index) {
 		this.tableView = tableView;
 		this.column = column;
-		this.newIndex = index;
 		this.oldIndex = this.tableView.getColumns().indexOf(column);
 		
-		if (this.oldIndex < this.newIndex) {
-			this.newIndex--;
+		if (this.oldIndex < index) {
+			this.newIndex = index - 1;
+		} else {
+			this.newIndex = index;
 		}
 	}
 

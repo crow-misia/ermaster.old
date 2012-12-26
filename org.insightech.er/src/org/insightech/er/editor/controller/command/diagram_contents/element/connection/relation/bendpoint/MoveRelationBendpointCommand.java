@@ -5,21 +5,30 @@ import org.insightech.er.editor.controller.editpart.element.connection.RelationE
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 
-public class MoveRelationBendpointCommand extends AbstractCommand {
+public final class MoveRelationBendpointCommand extends AbstractCommand {
 
-	private RelationEditPart editPart;
+	private final Relation relation;
 
-	private Bendpoint bendPoint;
+	private final Bendpoint bendPoint;
 
-	private Bendpoint oldBendpoint;
+	private final Bendpoint oldBendpoint;
 
-	private int index;
+	private final int index;
+
+	private final boolean relative;
 
 	public MoveRelationBendpointCommand(RelationEditPart editPart, int x,
 			int y, int index) {
-		this.editPart = editPart;
+		this.relation = (Relation) editPart.getModel();
 		this.bendPoint = new Bendpoint(x, y);
 		this.index = index;
+		this.relative = relation.getBendpoints().get(0).isRelative();
+
+		if (relative) {
+			this.oldBendpoint = relation.getBendpoints().get(0);
+		} else {
+			this.oldBendpoint = relation.getBendpoints().get(index);
+		}
 	}
 
 	/**
@@ -27,12 +36,7 @@ public class MoveRelationBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		Relation relation = (Relation) editPart.getModel();
-		boolean relative = relation.getBendpoints().get(0).isRelative();
-
 		if (relative) {
-			this.oldBendpoint = relation.getBendpoints().get(0);
-
 			this.bendPoint.setRelative(true);
 
 			float rateX = (100f - (bendPoint.getX() / 2)) / 100;
@@ -46,7 +50,6 @@ public class MoveRelationBendpointCommand extends AbstractCommand {
 			relation.replaceBendpoint(0, this.bendPoint, true);
 
 		} else {
-			this.oldBendpoint = relation.getBendpoints().get(index);
 			relation.replaceBendpoint(index, this.bendPoint, true);
 		}
 	}
@@ -56,9 +59,6 @@ public class MoveRelationBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		Relation relation = (Relation) editPart.getModel();
-		boolean relative = relation.getBendpoints().get(0).isRelative();
-
 		if (relative) {
 			float rateX = (100f - (this.oldBendpoint.getX() / 2)) / 100;
 			float rateY = (100f - (this.oldBendpoint.getY() / 2)) / 100;

@@ -5,17 +5,15 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
-public class EditWordCommand extends AbstractCommand {
+public final class EditWordCommand extends AbstractCommand {
 
-	private Word oldWord;
+	private final Word oldWord;
 
-	private Word word;
+	private final Word word;
 
-	private Word newWord;
+	private final Word newWord;
 
-	private ERDiagram diagram;
-
-	private Dictionary dictionary;
+	private final ERDiagram diagram;
 
 	public EditWordCommand(Word word, Word newWord, ERDiagram diagram) {
 		this.oldWord = new Word(word.getPhysicalName(), word.getLogicalName(),
@@ -24,8 +22,6 @@ public class EditWordCommand extends AbstractCommand {
 		this.diagram = diagram;
 		this.word = word;
 		this.newWord = newWord;
-
-		this.dictionary = this.diagram.getDiagramContents().getDictionary();
 	}
 
 	/**
@@ -33,7 +29,7 @@ public class EditWordCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.dictionary.copyTo(newWord, word);
+		Dictionary.copyTo(newWord, word);
 		this.diagram.changeAll();
 	}
 
@@ -42,7 +38,7 @@ public class EditWordCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		this.dictionary.copyTo(oldWord, word);
+		Dictionary.copyTo(oldWord, word);
 		this.diagram.changeAll();
 	}
 

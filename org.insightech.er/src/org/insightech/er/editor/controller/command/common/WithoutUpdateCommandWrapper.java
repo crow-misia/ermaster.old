@@ -4,11 +4,11 @@ import org.eclipse.gef.commands.Command;
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
 import org.insightech.er.editor.model.ERDiagram;
 
-public class WithoutUpdateCommandWrapper extends Command {
+public final class WithoutUpdateCommandWrapper extends Command {
 
-	private Command command;
+	private final Command command;
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
 	public WithoutUpdateCommandWrapper(Command command, ERDiagram diagram) {
 		this.command = command;

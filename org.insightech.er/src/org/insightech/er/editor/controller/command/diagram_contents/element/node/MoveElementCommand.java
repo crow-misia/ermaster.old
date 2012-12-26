@@ -16,33 +16,33 @@ public class MoveElementCommand extends AbstractCommand {
 
 	protected int x;
 
-	protected int oldX;
+	protected final int oldX;
 
 	protected int y;
 
-	protected int oldY;
+	protected final int oldY;
 
 	protected int width;
 
-	protected int oldWidth;
+	protected final int oldWidth;
 
 	protected int height;
 
-	protected int oldHeight;
+	protected final int oldHeight;
 
-	private NodeElement element;
+	private final NodeElement element;
 
-	private Map<Category, Rectangle> oldCategoryRectangleMap;
+	private final Map<Category, Rectangle> oldCategoryRectangleMap;
 
-	private Map<Category, Rectangle> newCategoryRectangleMap;
+	private final Map<Category, Rectangle> newCategoryRectangleMap;
 
-	private List<Category> removedCategories;
+	private final List<Category> removedCategories;
 
-	private List<Category> addCategories;
+	private final List<Category> addCategories;
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private Rectangle bounds;
+	private final Rectangle bounds;
 
 	public MoveElementCommand(ERDiagram diagram, Rectangle bounds, int x,
 			int y, int width, int height, NodeElement element) {

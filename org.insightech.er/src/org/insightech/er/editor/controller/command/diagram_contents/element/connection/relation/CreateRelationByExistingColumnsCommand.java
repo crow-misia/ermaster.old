@@ -18,7 +18,7 @@ import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Di
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.view.dialog.element.relation.RelationByExistingColumnsDialog;
 
-public class CreateRelationByExistingColumnsCommand extends
+public final class CreateRelationByExistingColumnsCommand extends
 		AbstractCreateRelationCommand {
 
 	private Relation relation;
@@ -27,7 +27,7 @@ public class CreateRelationByExistingColumnsCommand extends
 
 	private List<NormalColumn> foreignKeyColumnList;
 
-	private List<Word> wordList;
+	private final List<Word> wordList;
 
 	public CreateRelationByExistingColumnsCommand() {
 		super();

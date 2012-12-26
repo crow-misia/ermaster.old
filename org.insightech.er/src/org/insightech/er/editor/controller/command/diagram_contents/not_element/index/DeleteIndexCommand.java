@@ -8,13 +8,13 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
 
-public class DeleteIndexCommand extends AbstractCommand {
+public final class DeleteIndexCommand extends AbstractCommand {
 
-	private ERTable table;
+	private final ERTable table;
 
-	private List<Index> oldIndexList;
+	private final List<Index> oldIndexList;
 
-	private List<Index> newIndexList;
+	private final List<Index> newIndexList;
 
 	public DeleteIndexCommand(ERDiagram diagram, Index index) {
 		this.table = index.getTable();

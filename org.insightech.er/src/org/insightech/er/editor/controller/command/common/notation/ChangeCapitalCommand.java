@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeCapitalCommand extends AbstractCommand {
+public final class ChangeCapitalCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private boolean oldCapital;
+	private final boolean oldCapital;
 
-	private boolean newCapital;
+	private final boolean newCapital;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeCapitalCommand(ERDiagram diagram, boolean isCapital) {
 		this.diagram = diagram;

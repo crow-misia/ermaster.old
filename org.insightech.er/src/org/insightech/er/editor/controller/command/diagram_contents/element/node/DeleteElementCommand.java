@@ -4,11 +4,11 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 
-public class DeleteElementCommand extends AbstractCommand {
+public final class DeleteElementCommand extends AbstractCommand {
 
-	private ERDiagram container;
+	private final ERDiagram container;
 
-	private NodeElement element;
+	private final NodeElement element;
 
 	public DeleteElementCommand(ERDiagram container, NodeElement element) {
 		this.container = container;

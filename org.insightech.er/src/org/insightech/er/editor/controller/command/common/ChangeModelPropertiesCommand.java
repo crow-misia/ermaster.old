@@ -7,13 +7,13 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.model_properties.ModelProperties;
 import org.insightech.er.util.NameValue;
 
-public class ChangeModelPropertiesCommand extends AbstractCommand {
+public final class ChangeModelPropertiesCommand extends AbstractCommand {
 
-	private List<NameValue> oldProperties;
+	private final List<NameValue> oldProperties;
 
-	private List<NameValue> newProperties;
+	private final List<NameValue> newProperties;
 
-	private ModelProperties modelProperties;
+	private final ModelProperties modelProperties;
 
 	public ChangeModelPropertiesCommand(ERDiagram diagram,
 			ModelProperties properties) {

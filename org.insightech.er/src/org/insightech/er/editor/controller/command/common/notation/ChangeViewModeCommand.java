@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeViewModeCommand extends AbstractCommand {
+public final class ChangeViewModeCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private int oldViewMode;
+	private final int oldViewMode;
 
-	private int newViewMode;
+	private final int newViewMode;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeViewModeCommand(ERDiagram diagram, int viewMode) {
 		this.diagram = diagram;

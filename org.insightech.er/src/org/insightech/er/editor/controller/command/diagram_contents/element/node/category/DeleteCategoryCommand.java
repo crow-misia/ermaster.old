@@ -8,23 +8,27 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.category.Category;
 import org.insightech.er.editor.model.settings.CategorySetting;
 
-public class DeleteCategoryCommand extends AbstractCommand {
+public final class DeleteCategoryCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private CategorySetting categorySettings;
+	private final CategorySetting categorySettings;
 
-	private Category category;
+	private final Category category;
 
-	private List<Category> oldAllCategories;
+	private final List<Category> oldAllCategories;
 
-	private List<Category> oldSelectedCategories;
+	private final List<Category> oldSelectedCategories;
 
 	public DeleteCategoryCommand(ERDiagram diagram, Category category) {
 		this.diagram = diagram;
 		this.categorySettings = diagram.getDiagramContents().getSettings()
 				.getCategorySetting();
 		this.category = category;
+		this.oldAllCategories = new ArrayList<Category>(this.categorySettings
+				.getAllCategories());
+		this.oldSelectedCategories = new ArrayList<Category>(
+				this.categorySettings.getSelectedCategories());
 	}
 
 	/**
@@ -32,11 +36,6 @@ public class DeleteCategoryCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.oldAllCategories = new ArrayList<Category>(this.categorySettings
-				.getAllCategories());
-		this.oldSelectedCategories = new ArrayList<Category>(
-				this.categorySettings.getSelectedCategories());
-
 		this.diagram.removeCategory(category, true);
 	}
 

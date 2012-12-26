@@ -6,13 +6,13 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.testdata.TestData;
 
-public class ChangeTestDataCommand extends AbstractCommand {
+public final class ChangeTestDataCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private List<TestData> oldTestDataList;
+	private final List<TestData> oldTestDataList;
 
-	private List<TestData> newTestDataList;
+	private final List<TestData> newTestDataList;
 
 	public ChangeTestDataCommand(ERDiagram diagram,
 			List<TestData> newTestDataList) {

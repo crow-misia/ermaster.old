@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.CategorySetting;
 
-public class ChangeShowReferredTablesCommand extends AbstractCommand {
+public final class ChangeShowReferredTablesCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private boolean oldShowReferredTables;
+	private final boolean oldShowReferredTables;
 
-	private boolean newShowReferredTables;
+	private final boolean newShowReferredTables;
 
-	private CategorySetting categorySettings;
+	private final CategorySetting categorySettings;
 
 	public ChangeShowReferredTablesCommand(ERDiagram diagram,
 			boolean isShowReferredTables) {

@@ -3,21 +3,27 @@ package org.insightech.er.editor.controller.command.common;
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ViewableModel;
 
-public class ChangeBackgroundColorCommand extends AbstractCommand {
+public final class ChangeBackgroundColorCommand extends AbstractCommand {
 
-	private ViewableModel model;
+	private final ViewableModel model;
 
-	private int red;
+	private final int red;
 
-	private int green;
+	private final int green;
 
-	private int blue;
+	private final int blue;
 
-	private int[] oldColor;
+	private final int[] oldColor;
 
 	public ChangeBackgroundColorCommand(ViewableModel model, int red,
 			int green, int blue) {
 		this.model = model;
+
+		int[] color = model.getColor();
+		if (color == null) {
+			color = new int[] { 255, 255, 255, };
+		}
+		this.oldColor = color;
 
 		this.red = red;
 		this.green = green;
@@ -29,8 +35,6 @@ public class ChangeBackgroundColorCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.oldColor = this.model.getColor();
-
 		this.model.setColor(red, green, blue);
 	}
 
@@ -39,13 +43,6 @@ public class ChangeBackgroundColorCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		if (this.oldColor == null) {
-			this.oldColor = new int[3];
-			this.oldColor[0] = 255;
-			this.oldColor[1] = 255;
-			this.oldColor[2] = 255;
-		}
-
 		this.model.setColor(this.oldColor[0], this.oldColor[1],
 				this.oldColor[2]);
 	}

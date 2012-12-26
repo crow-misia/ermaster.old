@@ -2,9 +2,13 @@ package org.insightech.er.editor.controller.command.common;
 
 import org.insightech.er.editor.controller.command.AbstractCommand;
 
-public class NothingToDoCommand extends AbstractCommand {
+public final class NothingToDoCommand extends AbstractCommand {
+	
+	/** インスタンス */
+	public static final NothingToDoCommand INSTANCE = new NothingToDoCommand();
 
-	public NothingToDoCommand() {
+	private NothingToDoCommand() {
+		// do nothing.
 	}
 
 	/**
@@ -12,6 +16,7 @@ public class NothingToDoCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
+		// do nothing.
 	}
 
 	/**
@@ -19,5 +24,6 @@ public class NothingToDoCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
+		// do nothing.
 	}
 }

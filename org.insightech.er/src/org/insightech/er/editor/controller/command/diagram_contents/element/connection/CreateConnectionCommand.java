@@ -5,7 +5,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 
 public class CreateConnectionCommand extends AbstractCreateConnectionCommand {
 
-	private ConnectionElement connection;
+	private final ConnectionElement connection;
 
 	public CreateConnectionCommand(ConnectionElement connection) {
 		super();

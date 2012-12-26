@@ -4,13 +4,13 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 
-public class AddColumnGroupCommand extends AbstractCommand {
+public final class AddColumnGroupCommand extends AbstractCommand {
 
-	private TableView tableView;
+	private final TableView tableView;
 
-	private ColumnGroup columnGroup;
+	private final ColumnGroup columnGroup;
 
-	private int index;
+	private final int index;
 
 	public AddColumnGroupCommand(TableView tableView, ColumnGroup columnGroup,
 			int index) {

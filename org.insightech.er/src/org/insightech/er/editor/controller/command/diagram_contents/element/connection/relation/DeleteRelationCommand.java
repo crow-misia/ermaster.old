@@ -13,7 +13,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 
-public class DeleteRelationCommand extends DeleteConnectionCommand {
+public final class DeleteRelationCommand extends DeleteConnectionCommand {
 
 	private TableView oldTargetCopyTable;
 

@@ -9,7 +9,7 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpo
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 
-public class DefaultLineCommand extends AbstractCommand {
+public final class DefaultLineCommand extends AbstractCommand {
 
 	private int sourceXp;
 
@@ -19,9 +19,9 @@ public class DefaultLineCommand extends AbstractCommand {
 
 	private int targetYp;
 
-	private ConnectionElement connection;
+	private final ConnectionElement connection;
 
-	private List<Bendpoint> oldBendpointList;
+	private final List<Bendpoint> oldBendpointList;
 
 	public DefaultLineCommand(ERDiagram diagram, ConnectionElement connection) {
 		if (connection instanceof Relation) {

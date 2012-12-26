@@ -6,17 +6,17 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
-public class AddWordCommand extends AbstractCommand {
+public final class AddWordCommand extends AbstractCommand {
 
-	private TableView tableView;
+	private final TableView tableView;
 
-	private Dictionary dictionary;
+	private final Dictionary dictionary;
 
-	private Word word;
+	private final Word word;
 
-	private NormalColumn column;
+	private final NormalColumn column;
 
-	private int index;
+	private final int index;
 
 	public AddWordCommand(TableView tableView, Word word, int index) {
 		this.tableView = tableView;

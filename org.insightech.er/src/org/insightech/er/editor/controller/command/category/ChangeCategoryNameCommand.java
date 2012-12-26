@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.category.Category;
 
-public class ChangeCategoryNameCommand extends AbstractCommand {
+public final class ChangeCategoryNameCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private String oldName;
+	private final String oldName;
 
-	private String newName;
+	private final String newName;
 
-	private Category category;
+	private final Category category;
 
 	public ChangeCategoryNameCommand(ERDiagram diagram, Category category,
 			String newName) {

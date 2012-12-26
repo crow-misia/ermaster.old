@@ -30,29 +30,29 @@ import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Ta
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.TriggerSet;
 
-public class ImportTableCommand extends AbstractCommand {
+public final class ImportTableCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private SequenceSet sequenceSet;
+	private final SequenceSet sequenceSet;
 
-	private TriggerSet triggerSet;
+	private final TriggerSet triggerSet;
 
-	private TablespaceSet tablespaceSet;
+	private final TablespaceSet tablespaceSet;
 
-	private GroupSet columnGroupSet;
+	private final GroupSet columnGroupSet;
 
-	private List<NodeElement> nodeElementList;
+	private final List<NodeElement> nodeElementList;
 
-	private List<Sequence> sequences;
+	private final List<Sequence> sequences;
 
-	private List<Trigger> triggers;
+	private final List<Trigger> triggers;
 
-	private List<Tablespace> tablespaces;
+	private final List<Tablespace> tablespaces;
 
-	private List<ColumnGroup> columnGroups;
+	private final List<ColumnGroup> columnGroups;
 
-	private DirectedGraph graph = new DirectedGraph();
+	private final DirectedGraph graph;
 
 	private static final int AUTO_GRAPH_LIMIT = 100;
 
@@ -82,13 +82,13 @@ public class ImportTableCommand extends AbstractCommand {
 		this.tablespaceSet = diagramContents.getTablespaceSet();
 		this.columnGroupSet = diagramContents.getGroups();
 
+		this.graph = new DirectedGraph();
+
 		this.decideLocation();
 	}
 
 	@SuppressWarnings("unchecked")
 	private void decideLocation() {
-		this.graph = new DirectedGraph();
-
 		if (this.nodeElementList.size() < AUTO_GRAPH_LIMIT) {
 			Map<NodeElement, Node> nodeElementNodeMap = new HashMap<NodeElement, Node>();
 

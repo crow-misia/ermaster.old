@@ -7,11 +7,11 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Relati
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
-public class CreateRelationCommand extends AbstractCreateRelationCommand {
+public final class CreateRelationCommand extends AbstractCreateRelationCommand {
 
-	private Relation relation;
+	private final Relation relation;
 
-	private List<NormalColumn> foreignKeyColumnList;
+	private final List<NormalColumn> foreignKeyColumnList;
 
 	public CreateRelationCommand(Relation relation) {
 		this(relation, null);

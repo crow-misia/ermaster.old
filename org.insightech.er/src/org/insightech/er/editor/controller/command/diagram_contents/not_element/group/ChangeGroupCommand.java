@@ -17,17 +17,17 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnG
 import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
 
-public class ChangeGroupCommand extends AbstractCommand {
+public final class ChangeGroupCommand extends AbstractCommand {
 
-	private GroupSet groupSet;
+	private final GroupSet groupSet;
 
-	private List<CopyGroup> oldCopyGroups;
+	private final List<CopyGroup> oldCopyGroups;
 
-	private List<CopyGroup> newGroups;
+	private final List<CopyGroup> newGroups;
 
-	private Map<TableView, List<Column>> oldColumnListMap;
+	private final Map<TableView, List<Column>> oldColumnListMap;
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
 	public ChangeGroupCommand(ERDiagram diagram, GroupSet groupSet,
 			List<CopyGroup> newGroups) {

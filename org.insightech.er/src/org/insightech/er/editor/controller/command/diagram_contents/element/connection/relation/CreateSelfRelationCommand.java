@@ -6,9 +6,9 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpo
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 
-public class CreateSelfRelationCommand extends AbstractCreateRelationCommand {
+public final class CreateSelfRelationCommand extends AbstractCreateRelationCommand {
 
-	private Relation relation;
+	private final Relation relation;
 
 	public CreateSelfRelationCommand(Relation relation) {
 		super();

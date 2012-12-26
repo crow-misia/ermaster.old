@@ -5,15 +5,15 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeNotationExpandGroupCommand extends AbstractCommand {
+public final class ChangeNotationExpandGroupCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private boolean oldNotationExpandGroup;
+	private final boolean oldNotationExpandGroup;
 
-	private boolean newNotationExpandGroup;
+	private final boolean newNotationExpandGroup;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeNotationExpandGroupCommand(ERDiagram diagram,
 			boolean notationExpandGroup) {

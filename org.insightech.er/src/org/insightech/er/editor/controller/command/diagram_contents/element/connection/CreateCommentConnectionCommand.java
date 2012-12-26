@@ -3,7 +3,7 @@ package org.insightech.er.editor.controller.command.diagram_contents.element.con
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.note.Note;
 
-public class CreateCommentConnectionCommand extends CreateConnectionCommand {
+public final class CreateCommentConnectionCommand extends CreateConnectionCommand {
 
 	public CreateCommentConnectionCommand(ConnectionElement connection) {
 		super(connection);

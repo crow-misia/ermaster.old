@@ -3,17 +3,17 @@ package org.insightech.er.editor.controller.command.common;
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ViewableModel;
 
-public class ChangeFontCommand extends AbstractCommand {
+public final class ChangeFontCommand extends AbstractCommand {
 
-	private ViewableModel viewableModel;
+	private final ViewableModel viewableModel;
 
-	private String oldFontName;
+	private final String oldFontName;
 
-	private String newFontName;
+	private final String newFontName;
 
-	private int oldFontSize;
+	private final int oldFontSize;
 
-	private int newFontSize;
+	private final int newFontSize;
 
 	public ChangeFontCommand(ViewableModel viewableModel, String fontName,
 			int fontSize) {

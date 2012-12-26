@@ -8,13 +8,13 @@ import org.insightech.er.editor.model.diagram_contents.DiagramContents;
 /**
  * 変更履歴の置換コマンド
  */
-public class ChangeTrackingCommand extends AbstractCommand {
+public final class ChangeTrackingCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private DiagramContents oldDiagramContents;
+	private final DiagramContents oldDiagramContents;
 
-	private DiagramContents newDiagramContents;
+	private final DiagramContents newDiagramContents;
 
 	/**
 	 * 置換コマンドを作成します。

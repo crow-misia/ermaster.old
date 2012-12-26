@@ -3,13 +3,13 @@ package org.insightech.er.editor.controller.command.diagram_contents.element.nod
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.note.Note;
 
-public class NoteEditCommand extends AbstractCommand {
+public final class NoteEditCommand extends AbstractCommand {
 
-	private String oldText;
+	private final String oldText;
 
-	private String text;
+	private final String text;
 
-	private Note note;
+	private final Note note;
 
 	public NoteEditCommand(Note note, String text) {
 		this.note = note;

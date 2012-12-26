@@ -8,13 +8,13 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
 
-public class ChangeIndexCommand extends AbstractCommand {
+public final class ChangeIndexCommand extends AbstractCommand {
 
-	private ERTable table;
+	private final ERTable table;
 
-	private List<Index> oldIndexList;
+	private final List<Index> oldIndexList;
 
-	private List<Index> newIndexList;
+	private final List<Index> newIndexList;
 
 	public ChangeIndexCommand(ERDiagram diagram, Index oldIndex, Index newIndex) {
 		this.table = oldIndex.getTable();

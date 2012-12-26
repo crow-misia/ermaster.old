@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.CategorySetting;
 
-public class ChangeFreeLayoutCommand extends AbstractCommand {
+public final class ChangeFreeLayoutCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private boolean oldFreeLayout;
+	private final boolean oldFreeLayout;
 
-	private boolean newFreeLayout;
+	private final boolean newFreeLayout;
 
-	private CategorySetting categorySettings;
+	private final CategorySetting categorySettings;
 
 	public ChangeFreeLayoutCommand(ERDiagram diagram, boolean isFreeLayout) {
 		this.diagram = diagram;

@@ -5,11 +5,11 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.TriggerSet;
 
-public class CreateTriggerCommand extends AbstractCommand {
+public final class CreateTriggerCommand extends AbstractCommand {
 
-	private TriggerSet triggerSet;
+	private final TriggerSet triggerSet;
 
-	private Trigger trigger;
+	private final Trigger trigger;
 
 	public CreateTriggerCommand(ERDiagram diagram, Trigger trigger) {
 		this.triggerSet = diagram.getDiagramContents().getTriggerSet();

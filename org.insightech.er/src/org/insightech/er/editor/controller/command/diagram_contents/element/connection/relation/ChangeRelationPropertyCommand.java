@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 
-public class ChangeRelationPropertyCommand extends AbstractCommand {
+public final class ChangeRelationPropertyCommand extends AbstractCommand {
 
-	private Relation oldCopyRelation;
+	private final Relation oldCopyRelation;
 
-	private Relation newCopyRelation;
+	private final Relation newCopyRelation;
 
-	private Relation relation;
+	private final Relation relation;
 
-	private TableView oldTargetTable;
+	private final TableView oldTargetTable;
 
 	public ChangeRelationPropertyCommand(Relation relation,
 			Relation newCopyRelation) {

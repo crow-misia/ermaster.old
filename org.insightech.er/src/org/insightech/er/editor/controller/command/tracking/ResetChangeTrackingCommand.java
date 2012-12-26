@@ -7,12 +7,12 @@ import org.insightech.er.editor.model.tracking.ChangeTrackingList;
 /**
  * 変更履歴計算コマンド
  */
-public class ResetChangeTrackingCommand extends AbstractCommand {
+public final class ResetChangeTrackingCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
-	private ChangeTrackingList changeTrackingList;
+	private final ERDiagram diagram;
+	private final ChangeTrackingList changeTrackingList;
 
-	private boolean oldCalculated;
+	private final boolean oldCalculated;
 
 	public ResetChangeTrackingCommand(ERDiagram diagram) {
 		this.diagram = diagram;

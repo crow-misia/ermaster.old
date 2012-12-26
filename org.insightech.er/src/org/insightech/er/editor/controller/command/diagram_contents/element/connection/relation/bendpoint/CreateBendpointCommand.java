@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 
-public class CreateBendpointCommand extends AbstractCommand {
+public final class CreateBendpointCommand extends AbstractCommand {
 
-	private ConnectionElement connection;
+	private final ConnectionElement connection;
 
-	int x;
+	private final int x;
 
-	int y;
+	private final int y;
 
-	private int index;
+	private final int index;
 
 	public CreateBendpointCommand(ConnectionElement connection, int x, int y,
 			int index) {

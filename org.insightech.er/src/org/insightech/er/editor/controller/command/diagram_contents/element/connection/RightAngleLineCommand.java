@@ -10,22 +10,22 @@ import org.insightech.er.editor.controller.editpart.element.node.NodeElementEdit
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 
-public class RightAngleLineCommand extends AbstractCommand {
+public final class RightAngleLineCommand extends AbstractCommand {
 
 	private static final int SPACE = 20;
-	private int sourceX;
+	private final int sourceX;
 
-	private int sourceY;
+	private final int sourceY;
 
-	private int targetX;
+	private final int targetX;
 
-	private int targetY;
+	private final int targetY;
 
-	private ConnectionElement connection;
+	private final ConnectionElement connection;
 
-	private List<Bendpoint> oldBendpointList;
+	private final List<Bendpoint> oldBendpointList;
 
-	private List<Bendpoint> newBendpointList;
+	private final List<Bendpoint> newBendpointList;
 
 	public RightAngleLineCommand(int sourceX, int sourceY, int targetX,
 			int targetY, ConnectionEditPart connectionEditPart) {

@@ -147,7 +147,7 @@ public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 				compoundCommand.add(changeConstraintCommand);
 
 			} else {
-				compoundCommand.add(new NothingToDoCommand());
+				compoundCommand.add(NothingToDoCommand.INSTANCE);
 			}
 
 			for (Command command : bendpointMoveCommandList) {

@@ -14,17 +14,17 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
 
-public class PasteCommand extends AbstractCommand {
+public final class PasteCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private GraphicalViewer viewer;
+	private final GraphicalViewer viewer;
 
 	// 貼り付け対象の一覧
-	private NodeSet nodeElements;
+	private final NodeSet nodeElements;
 
 	// 貼り付け時に追加するグループ列の一覧
-	private GroupSet columnGroups;
+	private final GroupSet columnGroups;
 
 	/**
 	 * 貼り付けコマンドを作成します。

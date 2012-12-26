@@ -5,13 +5,13 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.SequenceSet;
 
-public class EditSequenceCommand extends AbstractCommand {
+public final class EditSequenceCommand extends AbstractCommand {
 
-	private SequenceSet sequenceSet;
+	private final SequenceSet sequenceSet;
 
-	private Sequence oldSequence;
+	private final Sequence oldSequence;
 
-	private Sequence newSequence;
+	private final Sequence newSequence;
 
 	public EditSequenceCommand(ERDiagram diagram, Sequence oldSequence,
 			Sequence newSequence) {

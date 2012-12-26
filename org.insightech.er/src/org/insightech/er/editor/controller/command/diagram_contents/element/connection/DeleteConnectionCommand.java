@@ -5,7 +5,7 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Connec
 
 public class DeleteConnectionCommand extends AbstractCommand {
 
-	private ConnectionElement connection;
+	private final ConnectionElement connection;
 
 	public DeleteConnectionCommand(ConnectionElement connection) {
 		this.connection = connection;

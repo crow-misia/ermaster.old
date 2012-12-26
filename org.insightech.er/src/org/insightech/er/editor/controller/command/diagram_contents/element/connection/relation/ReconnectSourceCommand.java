@@ -3,23 +3,25 @@ package org.insightech.er.editor.controller.command.diagram_contents.element.con
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 
-public class ReconnectSourceCommand extends AbstractCommand {
+public final class ReconnectSourceCommand extends AbstractCommand {
 
 	private Relation relation;
 
-	int xp;
+	private final int xp;
 
-	int yp;
+	private final int yp;
 
-	int oldXp;
+	private int oldXp;
 
-	int oldYp;
+	private int oldYp;
 
 	public ReconnectSourceCommand(Relation relation, int xp, int yp) {
 		this.relation = relation;
 
 		this.xp = xp;
 		this.yp = yp;
+		this.oldXp = relation.getSourceXp();
+		this.oldYp = relation.getSourceYp();
 	}
 
 	/**
@@ -27,9 +29,6 @@ public class ReconnectSourceCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		this.oldXp = relation.getSourceXp();
-		this.oldYp = relation.getSourceYp();
-
 		relation.setSourceLocationp(this.xp, this.yp);
 		relation.setParentMove();
 	}

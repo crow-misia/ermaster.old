@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeOutlineViewOrderByCommand extends AbstractCommand {
+public final class ChangeOutlineViewOrderByCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private int oldViewOrderBy;
+	private final int oldViewOrderBy;
 
-	private int newViewOrderBy;
+	private final int newViewOrderBy;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeOutlineViewOrderByCommand(ERDiagram diagram, int viewOrderBy) {
 		this.diagram = diagram;

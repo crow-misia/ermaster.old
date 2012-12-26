@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeDesignCommand extends AbstractCommand {
+public final class ChangeDesignCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private String oldDesign;
+	private final String oldDesign;
 
-	private String newDesign;
+	private final String newDesign;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeDesignCommand(ERDiagram diagram, String design) {
 		this.diagram = diagram;

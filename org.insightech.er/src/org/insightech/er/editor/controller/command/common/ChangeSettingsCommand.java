@@ -4,13 +4,13 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeSettingsCommand extends AbstractCommand {
+public final class ChangeSettingsCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private Settings oldSettings;
+	private final Settings oldSettings;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeSettingsCommand(ERDiagram diagram, Settings settings) {
 		this.diagram = diagram;

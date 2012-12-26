@@ -12,13 +12,13 @@ import org.insightech.er.editor.model.diagram_contents.element.node.category.Cat
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 
-public class CreateElementCommand extends AbstractCommand {
+public final class CreateElementCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private NodeElement element;
+	private final NodeElement element;
 
-	private List<NodeElement> enclosedElementList;
+	private final List<NodeElement> enclosedElementList;
 
 	public CreateElementCommand(ERDiagram diagram, NodeElement element, int x,
 			int y, Dimension size, List<NodeElement> enclosedElementList) {

@@ -7,14 +7,14 @@ import org.insightech.er.editor.model.tracking.ChangeTracking;
 /**
  * 変更履歴削除コマンド
  */
-public class DeleteChangeTrackingCommand extends AbstractCommand {
+public final class DeleteChangeTrackingCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
 	// 変更履歴
-	private ChangeTracking changeTracking;
+	private final ChangeTracking changeTracking;
 
-	private int index;
+	private final int index;
 
 	/**
 	 * 変更履歴削除コマンドを作成します。

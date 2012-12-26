@@ -15,15 +15,15 @@ import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.category.Category;
 
-public class MoveCategoryCommand extends MoveElementCommand {
+public final class MoveCategoryCommand extends MoveElementCommand {
 
-	private boolean move;
+	private final boolean move;
 
-	private List<NodeElement> nodeElementList;
+	private final List<NodeElement> nodeElementList;
 
 	private Map<NodeElement, Rectangle> nodeElementOldLocationMap;
 
-	private Category category;
+	private final Category category;
 
 	private int diffX;
 

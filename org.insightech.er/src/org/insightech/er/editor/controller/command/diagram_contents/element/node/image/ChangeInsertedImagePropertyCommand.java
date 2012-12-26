@@ -4,13 +4,13 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.image.InsertedImage;
 
-public class ChangeInsertedImagePropertyCommand extends AbstractCommand {
+public final class ChangeInsertedImagePropertyCommand extends AbstractCommand {
 
-	protected InsertedImage insertedImage;
+	private final InsertedImage insertedImage;
 
-	protected InsertedImage oldInsertedImage;
+	private final InsertedImage oldInsertedImage;
 
-	protected InsertedImage newInsertedImage;
+	private final InsertedImage newInsertedImage;
 
 	public ChangeInsertedImagePropertyCommand(ERDiagram diagram,
 			InsertedImage insertedImage, InsertedImage newInsertedImage, InsertedImage oldInsertedImage) {

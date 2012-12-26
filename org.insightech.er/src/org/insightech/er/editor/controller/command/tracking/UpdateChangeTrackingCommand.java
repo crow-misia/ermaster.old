@@ -6,14 +6,14 @@ import org.insightech.er.editor.model.tracking.ChangeTracking;
 /**
  * 変更履歴更新コマンド
  */
-public class UpdateChangeTrackingCommand extends AbstractCommand {
+public final class UpdateChangeTrackingCommand extends AbstractCommand {
 
 	// 変更履歴
-	private ChangeTracking changeTracking;
+	private final ChangeTracking changeTracking;
 
-	private String oldComment;
+	private final String oldComment;
 
-	private String newComment;
+	private final String newComment;
 
 	/**
 	 * 変更履歴更新コマンドを作成します。

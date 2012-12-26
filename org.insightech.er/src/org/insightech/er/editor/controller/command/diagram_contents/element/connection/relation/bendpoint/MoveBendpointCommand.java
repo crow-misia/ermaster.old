@@ -5,21 +5,22 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 
-public class MoveBendpointCommand extends AbstractCommand {
+public final class MoveBendpointCommand extends AbstractCommand {
 
-	private ConnectionEditPart editPart;
+	private final ConnectionElement connection;
 
-	private Bendpoint bendPoint;
+	private final Bendpoint bendPoint;
 
-	private Bendpoint oldBendpoint;
+	private final Bendpoint oldBendpoint;
 
-	private int index;
+	private final int index;
 
 	public MoveBendpointCommand(ConnectionEditPart editPart, int x, int y,
 			int index) {
-		this.editPart = editPart;
 		this.bendPoint = new Bendpoint(x, y);
 		this.index = index;
+		this.connection = (ConnectionElement) editPart.getModel();
+		this.oldBendpoint = connection.getBendpoints().get(index);
 	}
 
 	/**
@@ -27,9 +28,6 @@ public class MoveBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		ConnectionElement connection = (ConnectionElement) editPart.getModel();
-
-		this.oldBendpoint = connection.getBendpoints().get(index);
 		connection.replaceBendpoint(index, this.bendPoint, true);
 	}
 
@@ -38,7 +36,6 @@ public class MoveBendpointCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		ConnectionElement connection = (ConnectionElement) editPart.getModel();
 		connection.replaceBendpoint(index, this.oldBendpoint, true);
 	}
 

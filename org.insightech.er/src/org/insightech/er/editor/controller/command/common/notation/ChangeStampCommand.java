@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.model_properties.ModelProperties;
 
-public class ChangeStampCommand extends AbstractCommand {
+public final class ChangeStampCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private boolean oldStamp;
+	private final boolean oldStamp;
 
-	private boolean newStamp;
+	private final boolean newStamp;
 
-	private ModelProperties modelProperties;
+	private final ModelProperties modelProperties;
 
 	public ChangeStampCommand(ERDiagram diagram, boolean isDisplay) {
 		this.diagram = diagram;

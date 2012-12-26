@@ -5,11 +5,11 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.SequenceSet;
 
-public class DeleteSequenceCommand extends AbstractCommand {
+public final class DeleteSequenceCommand extends AbstractCommand {
 
-	private SequenceSet sequenceSet;
+	private final SequenceSet sequenceSet;
 
-	private Sequence sequence;
+	private final Sequence sequence;
 
 	public DeleteSequenceCommand(ERDiagram diagram, Sequence sequence) {
 		this.sequenceSet = diagram.getDiagramContents().getSequenceSet();

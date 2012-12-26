@@ -13,19 +13,19 @@ import org.insightech.er.editor.model.tracking.UpdatedNodeElement;
 /**
  * 変更履歴計算コマンド
  */
-public class CalculateChangeTrackingCommand extends AbstractCommand {
+public final class CalculateChangeTrackingCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private NodeSet comparison;
+	private final NodeSet comparison;
 
-	private ChangeTrackingList changeTrackingList;
+	private final ChangeTrackingList changeTrackingList;
 
-	private List<NodeElement> oldAddedNodeElements;
+	private final List<NodeElement> oldAddedNodeElements;
 
-	private List<UpdatedNodeElement> oldUpdatedNodeElements;
+	private final List<UpdatedNodeElement> oldUpdatedNodeElements;
 
-	private List<RemovedNodeElement> oldRemovedNodeElements;
+	private final List<RemovedNodeElement> oldRemovedNodeElements;
 
 	/**
 	 * 変更履歴計算コマンドを作成します。

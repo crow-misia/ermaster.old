@@ -5,19 +5,19 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.search.ReplaceManager;
 import org.insightech.er.editor.model.search.ReplaceResult;
 
-public class ReplaceCommand extends AbstractCommand {
+public final class ReplaceCommand extends AbstractCommand {
 
-	private int type;
+	private final int type;
 
-	private Object object;
+	private final Object object;
 
-	private String keyword;
+	private final String keyword;
 
-	private String replaceWord;
+	private final String replaceWord;
+
+	private final ERDiagram diagram;
 
 	private ReplaceResult result;
-
-	private ERDiagram diagram;
 
 	public ReplaceCommand(ERDiagram diagram, int type, Object object,
 			String keyword, String replaceWord) {

@@ -9,13 +9,13 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Relati
 import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 
-public class CreateRelatedTableCommand extends AbstractCreateRelationCommand {
+public final class CreateRelatedTableCommand extends AbstractCreateRelationCommand {
 
 	private Relation relation1;
 
 	private Relation relation2;
 
-	private ERTable relatedTable;
+	private final ERTable relatedTable;
 
 	private ERDiagram diagram;
 

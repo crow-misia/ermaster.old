@@ -5,15 +5,15 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceSet;
 
-public class EditTablespaceCommand extends AbstractCommand {
+public final class EditTablespaceCommand extends AbstractCommand {
 
-	private TablespaceSet tablespaceSet;
+	private final TablespaceSet tablespaceSet;
 
-	private Tablespace tablespace;
+	private final Tablespace tablespace;
 
-	private Tablespace oldTablespace;
+	private final Tablespace oldTablespace;
 
-	private Tablespace newTablespace;
+	private final Tablespace newTablespace;
 
 	public EditTablespaceCommand(ERDiagram diagram, Tablespace tablespace,
 			Tablespace newTablespace) {

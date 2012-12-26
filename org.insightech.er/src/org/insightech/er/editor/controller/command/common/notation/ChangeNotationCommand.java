@@ -4,15 +4,15 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.Settings;
 
-public class ChangeNotationCommand extends AbstractCommand {
+public final class ChangeNotationCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	private String oldNotation;
+	private final String oldNotation;
 
-	private String newNotation;
+	private final String newNotation;
 
-	private Settings settings;
+	private final Settings settings;
 
 	public ChangeNotationCommand(ERDiagram diagram, String notation) {
 		this.diagram = diagram;

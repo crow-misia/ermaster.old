@@ -7,12 +7,12 @@ import org.insightech.er.editor.model.tracking.ChangeTracking;
 /**
  * 変更履歴追加コマンド
  */
-public class AddChangeTrackingCommand extends AbstractCommand {
+public final class AddChangeTrackingCommand extends AbstractCommand {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
 	// 変更履歴
-	private ChangeTracking changeTracking;
+	private final ChangeTracking changeTracking;
 
 	/**
 	 * 変更履歴追加コマンドを作成します。
