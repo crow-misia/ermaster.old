@@ -24,7 +24,7 @@ import org.insightech.er.editor.view.dialog.element.table.TableDialog;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.util.Check;
 
-public class ERTableEditPart extends TableViewEditPart implements IResizable {
+public final class ERTableEditPart extends TableViewEditPart implements IResizable {
 
 	/**
 	 * {@inheritDoc}
@@ -75,110 +75,116 @@ public class ERTableEditPart extends TableViewEditPart implements IResizable {
 
 		if (OracleDBManager.ID.equals(diagram.getDatabase())
 				&& !Check.isEmpty(tableName)) {
-			NormalColumn autoIncrementColumn = copyTable
-					.getAutoIncrementColumn();
+			createAutoIncrementForOracle(diagram, table, copyTable, command, tableName);
+		}
 
-			if (autoIncrementColumn != null) {
-				String columnName = autoIncrementColumn.getPhysicalName();
+		return command;
+	}
 
-				if (!Check.isEmpty(columnName)) {
-					String triggerName = "TRI_" + tableName + "_" + columnName;
-					String sequenceName = "SEQ_" + tableName + "_" + columnName;
+	/**
+	 * Oracleデータベースの場合、AutoIncrement用トリガー、シーケンスの登録・削除を行う
+	 */
+	private static void createAutoIncrementForOracle(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+		NormalColumn autoIncrementColumn = copyTable
+				.getAutoIncrementColumn();
 
-					TriggerSet triggerSet = diagram.getDiagramContents()
-							.getTriggerSet();
-					SequenceSet sequenceSet = diagram.getDiagramContents()
-							.getSequenceSet();
+		if (autoIncrementColumn != null) {
+			String columnName = autoIncrementColumn.getPhysicalName();
 
-					if (!triggerSet.contains(triggerName)
-							|| !sequenceSet.contains(sequenceName)) {
-						if (Activator
-								.showConfirmDialog("dialog.message.confirm.create.autoincrement.trigger")) {
-							if (!triggerSet.contains(triggerName)) {
-								// トリガーの作成
-								Trigger trigger = new Trigger();
-								trigger.setName(triggerName);
-								trigger.setSql("BEFORE INSERT ON " + tableName
-										+ "\r\nFOR EACH ROW" + "\r\nBEGIN"
-										+ "\r\n\tSELECT " + sequenceName
-										+ ".nextval\r\n\tINTO :new."
-										+ columnName + "\r\n\tFROM dual;"
-										+ "\r\nEND");
+			if (!Check.isEmpty(columnName)) {
+				String triggerName = "TRI_" + tableName + "_" + columnName;
+				String sequenceName = "SEQ_" + tableName + "_" + columnName;
 
-								CreateTriggerCommand createTriggerCommand = new CreateTriggerCommand(
-										diagram, trigger);
-								command.add(createTriggerCommand);
-							}
+				TriggerSet triggerSet = diagram.getDiagramContents()
+						.getTriggerSet();
+				SequenceSet sequenceSet = diagram.getDiagramContents()
+						.getSequenceSet();
 
-							if (!sequenceSet.contains(sequenceName)) {
-								// シーケンスの作成
-								Sequence sequence = new Sequence();
-								sequence.setName(sequenceName);
-								sequence.setStart(1L);
-								sequence.setIncrement(1);
+				if (!triggerSet.contains(triggerName)
+						|| !sequenceSet.contains(sequenceName)) {
+					if (Activator
+							.showConfirmDialog("dialog.message.confirm.create.autoincrement.trigger")) {
+						if (!triggerSet.contains(triggerName)) {
+							// トリガーの作成
+							Trigger trigger = new Trigger();
+							trigger.setName(triggerName);
+							trigger.setSql("BEFORE INSERT ON " + tableName
+									+ "\r\nFOR EACH ROW" + "\r\nBEGIN"
+									+ "\r\n\tSELECT " + sequenceName
+									+ ".nextval\r\n\tINTO :new."
+									+ columnName + "\r\n\tFROM dual;"
+									+ "\r\nEND");
 
-								CreateSequenceCommand createSequenceCommand = new CreateSequenceCommand(
-										diagram, sequence);
-								command.add(createSequenceCommand);
-							}
+							CreateTriggerCommand createTriggerCommand = new CreateTriggerCommand(
+									diagram, trigger);
+							command.add(createTriggerCommand);
 						}
-					}
-				}
-			}
 
-			NormalColumn oldAutoIncrementColumn = table
-					.getAutoIncrementColumn();
+						if (!sequenceSet.contains(sequenceName)) {
+							// シーケンスの作成
+							Sequence sequence = new Sequence();
+							sequence.setName(sequenceName);
+							sequence.setStart(1L);
+							sequence.setIncrement(1);
 
-			if (oldAutoIncrementColumn != null) {
-				if (autoIncrementColumn == null
-						|| ((CopyColumn) autoIncrementColumn)
-								.getOriginalColumn() != oldAutoIncrementColumn) {
-					String oldTableName = table.getPhysicalName();
-					String columnName = oldAutoIncrementColumn
-							.getPhysicalName();
-
-					if (!Check.isEmpty(columnName)) {
-						String triggerName = "TRI_" + oldTableName + "_"
-								+ columnName;
-						String sequenceName = "SEQ_" + oldTableName + "_"
-								+ columnName;
-
-						TriggerSet triggerSet = diagram.getDiagramContents()
-								.getTriggerSet();
-						SequenceSet sequenceSet = diagram.getDiagramContents()
-								.getSequenceSet();
-
-						if (triggerSet.contains(triggerName)
-								|| sequenceSet.contains(sequenceName)) {
-							if (Activator
-									.showConfirmDialog("dialog.message.confirm.remove.autoincrement.trigger")) {
-
-								// トリガーの削除
-								Trigger trigger = triggerSet.get(triggerName);
-
-								if (trigger != null) {
-									DeleteTriggerCommand deleteTriggerCommand = new DeleteTriggerCommand(
-											diagram, trigger);
-									command.add(deleteTriggerCommand);
-								}
-
-								// シーケンスの作成
-								Sequence sequence = sequenceSet
-										.get(sequenceName);
-
-								if (sequence != null) {
-									DeleteSequenceCommand deleteSequenceCommand = new DeleteSequenceCommand(
-											diagram, sequence);
-									command.add(deleteSequenceCommand);
-								}
-							}
+							CreateSequenceCommand createSequenceCommand = new CreateSequenceCommand(
+									diagram, sequence);
+							command.add(createSequenceCommand);
 						}
 					}
 				}
 			}
 		}
 
-		return command;
-	}
+		NormalColumn oldAutoIncrementColumn = table
+				.getAutoIncrementColumn();
 
+		if (oldAutoIncrementColumn != null) {
+			if (autoIncrementColumn == null
+					|| ((CopyColumn) autoIncrementColumn)
+							.getOriginalColumn() != oldAutoIncrementColumn) {
+				String oldTableName = table.getPhysicalName();
+				String columnName = oldAutoIncrementColumn
+						.getPhysicalName();
+
+				if (!Check.isEmpty(columnName)) {
+					String triggerName = "TRI_" + oldTableName + "_"
+							+ columnName;
+					String sequenceName = "SEQ_" + oldTableName + "_"
+							+ columnName;
+
+					TriggerSet triggerSet = diagram.getDiagramContents()
+							.getTriggerSet();
+					SequenceSet sequenceSet = diagram.getDiagramContents()
+							.getSequenceSet();
+
+					if (triggerSet.contains(triggerName)
+							|| sequenceSet.contains(sequenceName)) {
+						if (Activator
+								.showConfirmDialog("dialog.message.confirm.remove.autoincrement.trigger")) {
+
+							// トリガーの削除
+							Trigger trigger = triggerSet.get(triggerName);
+
+							if (trigger != null) {
+								DeleteTriggerCommand deleteTriggerCommand = new DeleteTriggerCommand(
+										diagram, trigger);
+								command.add(deleteTriggerCommand);
+							}
+
+							// シーケンスの作成
+							Sequence sequence = sequenceSet
+									.get(sequenceName);
+
+							if (sequence != null) {
+								DeleteSequenceCommand deleteSequenceCommand = new DeleteSequenceCommand(
+										diagram, sequence);
+								command.add(deleteSequenceCommand);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -128,26 +128,28 @@ public class ERTable extends TableView implements TablePropertiesHolder,
 
 		super.restructureData(to);
 
-		List<Index> indexes = new ArrayList<Index>();
+		final List<Index> oldIndexes = this.getIndexes();
+		final List<Index> newIndexes = new ArrayList<Index>(oldIndexes.size());
 
-		for (Index fromIndex : this.getIndexes()) {
+		for (Index fromIndex : oldIndexes) {
 			CopyIndex copyIndex = (CopyIndex) fromIndex;
 			Index restructuredIndex = copyIndex.getRestructuredIndex(table);
-			indexes.add(restructuredIndex);
+			newIndexes.add(restructuredIndex);
 		}
-		table.setIndexes(indexes);
+		table.setIndexes(newIndexes);
 
-		List<ComplexUniqueKey> complexUniqueKeyList = new ArrayList<ComplexUniqueKey>();
+		final List<ComplexUniqueKey> oldComplexUniqueKeyList = this.getComplexUniqueKeyList();
+		final List<ComplexUniqueKey> newComplexUniqueKeyList = new ArrayList<ComplexUniqueKey>(oldComplexUniqueKeyList.size());
 
-		for (ComplexUniqueKey complexUniqueKey : this.getComplexUniqueKeyList()) {
+		for (ComplexUniqueKey complexUniqueKey : oldComplexUniqueKeyList) {
 			CopyComplexUniqueKey copyComplexUniqueKey = (CopyComplexUniqueKey) complexUniqueKey;
 			if (!copyComplexUniqueKey.isRemoved(this.getNormalColumns())) {
 				ComplexUniqueKey restructuredComplexUniqueKey = copyComplexUniqueKey
 						.restructure();
-				complexUniqueKeyList.add(restructuredComplexUniqueKey);
+				newComplexUniqueKeyList.add(restructuredComplexUniqueKey);
 			}
 		}
-		table.complexUniqueKeyList = complexUniqueKeyList;
+		table.complexUniqueKeyList = newComplexUniqueKeyList;
 
 		table.tableViewProperties = (TableProperties) this.tableViewProperties
 				.clone();

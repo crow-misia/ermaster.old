@@ -1,7 +1,5 @@
 package org.insightech.er.editor.model.dbexport.excel.sheet_generator;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import org.apache.commons.lang.time.FastDateFormat;

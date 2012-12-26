@@ -3,8 +3,10 @@ package org.insightech.er.editor.model.diagram_contents.element.node.table;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
@@ -317,17 +319,21 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 			}
 		}
 
-		dictionary.setDirty();
-
-		this.setTargetTableRelation(to, newPrimaryKeyColumns);
+		// 同一テーブルに何度もsetDirtyメソッドを実行しないよう fire予定のテーブル・ビューを保持しておく
+		final Set<TableView> fireSet = new HashSet<TableView>();
+		fireSet.add(to);
+		this.setTargetTableRelation(to, newPrimaryKeyColumns, fireSet);
 
 		to.setColumns(newColumns, false);
 
-		to.setDirty();
+		for (final TableView table : fireSet) {
+			table.setDirty();
+		}
+		dictionary.setDirty();
 	}
 
 	private void setTargetTableRelation(TableView sourceTable,
-			List<NormalColumn> newPrimaryKeyColumns) {
+			List<NormalColumn> newPrimaryKeyColumns, Set<TableView> fireSet) {
 		for (Relation relation : sourceTable.getOutgoingRelations()) {
 
 			// 関連がPKを参照している場合
@@ -395,10 +401,10 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 							.getPrimaryKeys();
 
 					this.setTargetTableRelation(targetTable,
-							nextNewPrimaryKeyColumns);
+							nextNewPrimaryKeyColumns, fireSet);
 				}
 
-				targetTable.setDirty();
+				fireSet.add(targetTable);
 			}
 		}
 	}

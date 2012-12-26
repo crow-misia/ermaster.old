@@ -141,7 +141,7 @@ public class ERDiagram extends ViewableModel {
 	}
 
 	public void changeAll() {
-		this.firePropertyChange(PROPERTY_CHANGE_ALL, null, null);
+		changeAll(null);
 	}
 
 	public void changeAll(List<NodeElement> nodeElementList) {

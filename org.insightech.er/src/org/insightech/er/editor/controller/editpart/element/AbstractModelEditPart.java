@@ -42,15 +42,15 @@ public abstract class AbstractModelEditPart extends AbstractGraphicalEditPart
 		super.deactivate();
 	}
 
-	protected ERDiagram getDiagram() {
+	protected final ERDiagram getDiagram() {
 		return (ERDiagram) this.getRoot().getContents().getModel();
 	}
 
-	protected Category getCurrentCategory() {
+	protected final Category getCurrentCategory() {
 		return this.getDiagram().getCurrentCategory();
 	}
 
-	protected void executeCommand(Command command) {
+	protected final void executeCommand(Command command) {
 		this.getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 

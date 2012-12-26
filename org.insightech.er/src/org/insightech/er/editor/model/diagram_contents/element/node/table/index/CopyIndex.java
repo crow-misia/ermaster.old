@@ -24,12 +24,14 @@ public class CopyIndex extends Index {
 		List<Boolean> descs = originalIndex.getDescs();
 
 		int i = 0;
+		final int n = descs.size();
 
 		for (NormalColumn originalIndexColumn : originalIndex.getColumns()) {
-			Boolean desc = Boolean.FALSE;
-
-			if (descs.size() > i) {
+			final Boolean desc;
+			if (n > i) {
 				desc = descs.get(i);
+			} else {
+				desc = Boolean.FALSE;
 			}
 
 			if (copyColumns != null) {
@@ -69,9 +71,10 @@ public class CopyIndex extends Index {
 
 		copyData(this, this.originalIndex);
 
-		List<NormalColumn> indexColumns = new ArrayList<NormalColumn>();
+		final List<NormalColumn> originalColumns = this.originalIndex.getColumns();
+		final List<NormalColumn> indexColumns = new ArrayList<NormalColumn>(originalColumns.size());
 
-		for (NormalColumn column : this.originalIndex.getColumns()) {
+		for (NormalColumn column : originalColumns) {
 			if (column instanceof CopyColumn) {
 				CopyColumn copyColumn = (CopyColumn) column;
 				column = copyColumn.getOriginalColumn();
@@ -98,12 +101,15 @@ public class CopyIndex extends Index {
 		List<Boolean> descs = from.getDescs();
 		int i = 0;
 
+		final int n = descs.size();
 		for (NormalColumn column : from.getColumns()) {
-			Boolean desc = Boolean.FALSE;
-
-			if (descs.size() > i) {
+			final Boolean desc;
+			if (n > i) {
 				desc = descs.get(i);
+			} else {
+				desc = Boolean.FALSE;
 			}
+
 			to.addColumn(column, desc);
 			i++;
 		}
