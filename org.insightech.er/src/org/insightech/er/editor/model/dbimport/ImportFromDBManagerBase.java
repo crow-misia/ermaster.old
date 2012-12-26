@@ -699,7 +699,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			}
 
 			int size = this.getLength(type, columnData.size);
-			Integer length = new Integer(size);
+			Integer length = Integer.valueOf(size);
 
 			SqlType sqlType = SqlType.valueOf(this.dbSetting.getDbsystem(),
 					type, size);
@@ -710,7 +710,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			}
 
 			int decimalDigits = columnData.decimalDigits;
-			Integer decimal = new Integer(decimalDigits);
+			Integer decimal = Integer.valueOf(decimalDigits);
 
 			boolean notNull = false;
 			if (columnData.nullable == DatabaseMetaData.columnNoNulls) {

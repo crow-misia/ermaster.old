@@ -78,7 +78,7 @@ public class ERDiagramOutlinePage extends ContentOutlinePage {
 		this.viewer.createControl(this.sash);
 
 		// EditPartFactory の設定
-		ERDiagramOutlineEditPartFactory editPartFactory = new ERDiagramOutlineEditPartFactory();
+		ERDiagramOutlineEditPartFactory editPartFactory = ERDiagramOutlineEditPartFactory.INSTANCE;
 		this.viewer.setEditPartFactory(editPartFactory);
 
 		// グラフィカル・エディタのルート・モデルをツリー・ビューワにも設定

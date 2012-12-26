@@ -59,7 +59,7 @@ public class NoWindowTest {
 		// display.syncExec(new Runnable() {
 		// public void run() {
 
-		ERDiagramEditPartFactory editPartFactory = new ERDiagramEditPartFactory();
+		ERDiagramEditPartFactory editPartFactory = ERDiagramEditPartFactory.INSTANCE;
 		GraphicalViewer viewer = new ScrollingGraphicalViewer();
 		viewer.setControl(new FigureCanvas(shell));
 

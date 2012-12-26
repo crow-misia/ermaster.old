@@ -448,8 +448,8 @@ public class SqlType implements Serializable {
 				msg.append("\tCOL_" + count + " ");
 
 				if (type.isNeedLength(db) && type.isNeedDecimal(db)) {
-					TypeData typeData = new TypeData(new Integer(1),
-							new Integer(1), false, null, false, null);
+					TypeData typeData = new TypeData(Integer.valueOf(1),
+							Integer.valueOf(1), false, null, false, null);
 
 					str = Format.formatType(type, typeData, db);
 					if (str.equals(alias)) {
@@ -458,7 +458,7 @@ public class SqlType implements Serializable {
 					}
 
 				} else if (type.isNeedLength(db)) {
-					TypeData typeData = new TypeData(new Integer(1), null,
+					TypeData typeData = new TypeData(Integer.valueOf(1), null,
 							false, null, false, null);
 
 					str = Format.formatType(type, typeData, db);
@@ -469,7 +469,7 @@ public class SqlType implements Serializable {
 					}
 
 				} else if (type.isNeedDecimal(db)) {
-					TypeData typeData = new TypeData(null, new Integer(1),
+					TypeData typeData = new TypeData(null, Integer.valueOf(1),
 							false, null, false, null);
 
 					str = Format.formatType(type, typeData, db);

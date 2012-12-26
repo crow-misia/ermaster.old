@@ -38,7 +38,14 @@ import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Ta
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.TriggerSet;
 
-public class ERDiagramOutlineEditPartFactory implements EditPartFactory {
+public final class ERDiagramOutlineEditPartFactory implements EditPartFactory {
+	
+	/** インスタンス */
+	public static final ERDiagramOutlineEditPartFactory INSTANCE = new ERDiagramOutlineEditPartFactory();
+	
+	private ERDiagramOutlineEditPartFactory() {
+		// do nothing.
+	}
 
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart editPart = null;

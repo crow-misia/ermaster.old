@@ -58,7 +58,7 @@ public class ExportToHtmlManager {
 		this.diagram = diagram;
 		this.tableLocationMap = tableLocationMap;
 
-		Map<Object, Integer> idMap = new HashMap<Object, Integer>();
+		Map<Object, String> idMap = new HashMap<Object, String>();
 
 		this.overviewPageGenerator = new OverviewHtmlReportPageGenerator(idMap);
 		htmlReportPageGeneratorList

@@ -20,7 +20,7 @@ import org.insightech.er.util.Format;
 public class TablespaceHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public TablespaceHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public TablespaceHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

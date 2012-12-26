@@ -28,9 +28,13 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnG
 import org.insightech.er.editor.model.tracking.RemovedERTable;
 import org.insightech.er.editor.model.tracking.RemovedNote;
 
-public class ERDiagramEditPartFactory implements EditPartFactory {
+public final class ERDiagramEditPartFactory implements EditPartFactory {
+	
+	/** インスタンス */
+	public static final ERDiagramEditPartFactory INSTANCE = new ERDiagramEditPartFactory();
 
-	public ERDiagramEditPartFactory() {
+	private ERDiagramEditPartFactory() {
+		// do nothing.
 	}
 
 	public EditPart createEditPart(EditPart context, Object model) {

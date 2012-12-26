@@ -106,7 +106,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 
 		this.diagram.setEditor(this);
 
-		this.editPartFactory = new ERDiagramEditPartFactory();
+		this.editPartFactory = ERDiagramEditPartFactory.INSTANCE;
 		this.outlinePage = new ERDiagramOutlinePage(this.diagram);
 
 		try {

@@ -19,21 +19,21 @@ import org.insightech.er.util.Format;
 public abstract class AbstractHtmlReportPageGenerator implements
 		HtmlReportPageGenerator {
 
-	private Map<Object, Integer> idMap;
+	private Map<Object, String> idMap;
 
-	public AbstractHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public AbstractHtmlReportPageGenerator(Map<Object, String> idMap) {
 		this.idMap = idMap;
 	}
 
 	public String getObjectId(Object object) {
-		Integer id = (Integer) idMap.get(object);
+		String id = idMap.get(object);
 
 		if (id == null) {
-			id = new Integer(idMap.size());
+			id = String.valueOf(idMap.size());
 			this.idMap.put(object, id);
 		}
 
-		return String.valueOf(id);
+		return id;
 	}
 
 	public String getPageTitle() {

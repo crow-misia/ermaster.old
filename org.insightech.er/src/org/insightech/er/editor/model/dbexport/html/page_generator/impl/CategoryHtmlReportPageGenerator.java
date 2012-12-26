@@ -12,7 +12,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 public class CategoryHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public CategoryHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public CategoryHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

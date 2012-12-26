@@ -19,7 +19,7 @@ import org.insightech.er.util.Format;
 public class WordHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public WordHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public WordHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

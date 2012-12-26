@@ -16,9 +16,7 @@ public final class EditWordCommand extends AbstractCommand {
 	private final ERDiagram diagram;
 
 	public EditWordCommand(Word word, Word newWord, ERDiagram diagram) {
-		this.oldWord = new Word(word.getPhysicalName(), word.getLogicalName(),
-				word.getType(), word.getTypeData().clone(), word
-						.getDescription(), diagram.getDatabase());
+		this.oldWord = new Word(word);
 		this.diagram = diagram;
 		this.word = word;
 		this.newWord = newWord;

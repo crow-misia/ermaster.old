@@ -16,7 +16,7 @@ import org.insightech.er.util.Format;
 public class IndexHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public IndexHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public IndexHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

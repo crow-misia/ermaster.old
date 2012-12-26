@@ -12,21 +12,21 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 
 public class OverviewHtmlReportPageGenerator {
 
-	private Map<Object, Integer> idMap;
+	private Map<Object, String> idMap;
 
-	public OverviewHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public OverviewHtmlReportPageGenerator(Map<Object, String> idMap) {
 		this.idMap = idMap;
 	}
 
 	public String getObjectId(Object object) {
-		Integer id = (Integer) idMap.get(object);
+		String id = idMap.get(object);
 
 		if (id == null) {
-			id = new Integer(idMap.size());
+			id = String.valueOf(idMap.size());
 			this.idMap.put(object, id);
 		}
 
-		return String.valueOf(id);
+		return id;
 	}
 
 	public String generateFrame(

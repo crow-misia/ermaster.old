@@ -11,7 +11,7 @@ import org.insightech.er.util.Format;
 public class SequenceHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public SequenceHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public SequenceHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

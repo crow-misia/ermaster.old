@@ -13,7 +13,7 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnG
 public class GroupHtmlReportPageGenerator extends
 		AbstractHtmlReportPageGenerator {
 
-	public GroupHtmlReportPageGenerator(Map<Object, Integer> idMap) {
+	public GroupHtmlReportPageGenerator(Map<Object, String> idMap) {
 		super(idMap);
 	}
 

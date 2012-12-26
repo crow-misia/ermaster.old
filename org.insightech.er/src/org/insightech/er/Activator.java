@@ -381,7 +381,7 @@ public class Activator extends AbstractUIPlugin {
 			Shell shell = new Shell(display);
 			shell.setLayout(new GridLayout(1, false));
 
-			ERDiagramEditPartFactory editPartFactory = new ERDiagramEditPartFactory();
+			ERDiagramEditPartFactory editPartFactory = ERDiagramEditPartFactory.INSTANCE;
 			viewer = new ScrollingGraphicalViewer();
 			viewer.setControl(new FigureCanvas(shell));
 			ScalableFreeformRootEditPart rootEditPart = new PagableFreeformRootEditPart(
