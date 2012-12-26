@@ -249,10 +249,7 @@ public final class ImportTableCommand extends AbstractCommand {
 			this.diagram.removeContent(nodeElement, false, false);
 
 			if (nodeElement instanceof TableView) {
-				for (NormalColumn normalColumn : ((TableView) nodeElement)
-						.getNormalColumns()) {
-					dictionary.remove(normalColumn, false);
-				}
+				dictionary.remove((TableView) nodeElement, false);
 			}
 		}
 		this.diagram.setDirtyForContent();

@@ -276,9 +276,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		to.setLogicalName(this.getLogicalName(), false);
 		to.setDescription(this.getDescription());
 
-		for (NormalColumn toColumn : to.getNormalColumns()) {
-			dictionary.remove(toColumn, false);
-		}
+		dictionary.remove(to, false);
 
 		final List<Column> oldColumns = this.getColumns();
 		final List<Column> newColumns = new ArrayList<Column>(oldColumns.size());

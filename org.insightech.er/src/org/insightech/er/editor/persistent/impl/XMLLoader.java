@@ -922,7 +922,7 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("word");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element wordElement = (Element) nodeList.item(i);
 
 				this.loadWord(wordElement, context);
@@ -961,7 +961,7 @@ public class XMLLoader {
 
 		NodeList groupList = element.getChildNodes();
 
-		for (int i = 0; i < groupList.getLength(); i++) {
+		for (int i = 0, n = groupList.getLength(); i < n; i++) {
 			if (groupList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1010,10 +1010,11 @@ public class XMLLoader {
 
 			UniqueWord uniqueWord = new UniqueWord(word);
 
-			if (context.uniqueWordMap.containsKey(uniqueWord)) {
-				word = context.uniqueWordMap.get(uniqueWord);
-			} else {
+			final Word tmp = context.uniqueWordMap.get(uniqueWord);
+			if (tmp == null) {
 				context.uniqueWordMap.put(uniqueWord, word);
+			} else {
+				word = tmp;
 			}
 		}
 

@@ -107,7 +107,7 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 	 */
 	@Override
 	protected void refreshOutlineVisuals() {
-		Word word = (Word) this.getModel();
+		UniqueWord word = (UniqueWord) this.getModel();
 
 		ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
 
@@ -157,7 +157,7 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 	 */
 	@Override
 	public void performRequest(Request request) {
-		Word word = (Word) this.getModel();
+		UniqueWord word = (UniqueWord) this.getModel();
 		ERDiagram diagram = this.getDiagram();
 
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
