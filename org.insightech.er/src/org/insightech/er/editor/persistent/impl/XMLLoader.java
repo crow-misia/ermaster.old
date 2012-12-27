@@ -291,7 +291,7 @@ public class XMLLoader {
 
 		String[] values = new String[nodeList.getLength()];
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Node node = nodeList.item(i);
 			if (node.getFirstChild() != null) {
 				values[i] = node.getFirstChild().getNodeValue();
@@ -446,7 +446,7 @@ public class XMLLoader {
 			return null;
 		}
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				Element ele = (Element) nodeList.item(i);
 				if (ele.getTagName().equals(tagname)) {
@@ -618,7 +618,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getElementsByTagName("properties");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element propertiesElemnt = (Element) nodeList.item(i);
 
 			String environmentId = this.getStringValue(propertiesElemnt,
@@ -735,7 +735,7 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("change_tracking");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element changeTrackingElemnt = (Element) nodeList.item(i);
 				ChangeTracking changeTracking = this
 						.loadChangeTracking(changeTrackingElemnt);
@@ -796,7 +796,7 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getElementsByTagName("test_data");
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element testDataElement = (Element) nodeList.item(i);
 
 				TestData testData = new TestData();
@@ -814,7 +814,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getElementsByTagName("table_test_data");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element tableTestDataElement = (Element) nodeList.item(i);
 
 			TableTestData tableTestData = new TableTestData();
@@ -841,7 +841,7 @@ public class XMLLoader {
 		NodeList nodeList = element.getElementsByTagName("data");
 
 		List<Map<NormalColumn, String>> dataList = directTestData.getDataList();
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element dataElement = (Element) nodeList.item(i);
 
 			NodeList columnNodeList = dataElement
@@ -849,7 +849,7 @@ public class XMLLoader {
 
 			Map<NormalColumn, String> data = new HashMap<NormalColumn, String>();
 
-			for (int j = 0; j < columnNodeList.getLength(); j++) {
+			for (int j = 0, m = columnNodeList.getLength(); j < m; j++) {
 				Element columnDataElement = (Element) columnNodeList.item(j);
 
 				String columnId = this.getStringValue(columnDataElement,
@@ -876,7 +876,7 @@ public class XMLLoader {
 
 		NodeList nodeList = dataDefListElement.getElementsByTagName("data_def");
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			Element dataDefElement = (Element) nodeList.item(i);
 
 			String columnId = this.getStringValue(dataDefElement, "column_id");
@@ -898,7 +898,7 @@ public class XMLLoader {
 				NodeList modifiedValueNodeList = modifiedValuesElement
 						.getElementsByTagName("modified_value");
 
-				for (int j = 0; j < modifiedValueNodeList.getLength(); j++) {
+				for (int j = 0, m = modifiedValueNodeList.getLength(); j < m; j++) {
 					Element modifiedValueNode = (Element) modifiedValueNodeList
 							.item(j);
 
@@ -1295,7 +1295,7 @@ public class XMLLoader {
 
 			List<String> selectedTranslations = new ArrayList<String>();
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 					continue;
 				}
@@ -1321,7 +1321,7 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getChildNodes();
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 					continue;
 				}
@@ -1487,7 +1487,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getChildNodes();
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1520,7 +1520,7 @@ public class XMLLoader {
 
 		List<Boolean> descs = new ArrayList<Boolean>();
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1551,7 +1551,7 @@ public class XMLLoader {
 
 		NodeList nodeList = element.getChildNodes();
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1579,7 +1579,7 @@ public class XMLLoader {
 		Element element = this.getElement(parent, "columns");
 		NodeList nodeList = element.getChildNodes();
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 				continue;
 			}
@@ -1701,7 +1701,7 @@ public class XMLLoader {
 		if (element != null) {
 			NodeList nodeList = element.getChildNodes();
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
+			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
 					continue;
 				}
