@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -71,7 +72,7 @@ public interface DBManager {
 
 	public List<String> getImportSchemaList(Connection con) throws SQLException;
 
-	public List<String> getSystemSchemaList();
+	public Set<String> getSystemSchemaList();
 
 	public BigDecimal getSequenceMaxValue();
 

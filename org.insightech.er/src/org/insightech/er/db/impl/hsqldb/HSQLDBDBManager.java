@@ -1,8 +1,8 @@
 package org.insightech.er.db.impl.hsqldb;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
@@ -104,8 +104,8 @@ public class HSQLDBDBManager extends DBManagerBase {
 	}
 
 	@Override
-	public List<String> getSystemSchemaList() {
-		List<String> list = new ArrayList<String>();
+	public Set<String> getSystemSchemaList() {
+		Set<String> list = new HashSet<String>();
 
 		list.add("information_schema");
 		list.add("system_lobs");

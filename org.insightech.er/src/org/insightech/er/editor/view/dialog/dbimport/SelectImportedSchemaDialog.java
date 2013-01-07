@@ -2,6 +2,7 @@ package org.insightech.er.editor.view.dialog.dbimport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -156,9 +157,10 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 		TreeNode[] schemaNodes = treeNodes[0].getChildren();
 
 		if (this.selectedSchemaList.isEmpty()) {
+			final Set<String> systemSchemaList = DBManagerFactory.getDBManager(this.importDB)
+					.getSystemSchemaList();
 			for (TreeNode schemaNode : schemaNodes) {
-				if (!DBManagerFactory.getDBManager(this.importDB)
-						.getSystemSchemaList().contains(
+				if (!systemSchemaList.contains(
 								String.valueOf(schemaNode.getValue())
 										.toLowerCase())) {
 					checkedList.add(schemaNode);

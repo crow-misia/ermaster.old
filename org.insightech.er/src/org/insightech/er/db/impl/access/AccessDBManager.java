@@ -1,8 +1,6 @@
 package org.insightech.er.db.impl.access;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
@@ -85,13 +83,6 @@ public class AccessDBManager extends DBManagerBase {
 
 	public String[] getCurrentTimeValue() {
 		return new String[] { "GETDATE()", "CURRENT_TIMESTAMP" };
-	}
-
-	@Override
-	public List<String> getSystemSchemaList() {
-		List<String> list = new ArrayList<String>();
-
-		return list;
 	}
 
 	public BigDecimal getSequenceMaxValue() {

@@ -147,7 +147,7 @@ public abstract class DBManagerBase implements DBManager {
 	public boolean isSupported(int supportItem) {
 		int[] supportItems = this.getSupportItems();
 
-		for (int i = 0; i < supportItems.length; i++) {
+		for (int i = 0, n = supportItems.length; i < n; i++) {
 			if (supportItems[i] == supportItem) {
 				return true;
 			}
@@ -190,10 +190,8 @@ public abstract class DBManagerBase implements DBManager {
 		return schemaList;
 	}
 
-	public List<String> getSystemSchemaList() {
-		List<String> list = new ArrayList<String>();
-
-		return list;
+	public Set<String> getSystemSchemaList() {
+		return Collections.emptySet();
 	}
 
 }

@@ -1,8 +1,8 @@
 package org.insightech.er.db.impl.postgres;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.impl.postgres.tablespace.PostgresTablespaceProperties;
@@ -102,8 +102,8 @@ public class PostgresDBManager extends DBManagerBase {
 	}
 
 	@Override
-	public List<String> getSystemSchemaList() {
-		List<String> list = new ArrayList<String>();
+	public Set<String> getSystemSchemaList() {
+		Set<String> list = new HashSet<String>();
 
 		list.add("information_schema");
 		list.add("pg_catalog");
