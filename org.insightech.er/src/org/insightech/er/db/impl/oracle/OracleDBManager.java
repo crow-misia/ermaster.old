@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.impl.oracle.tablespace.OracleTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -66,12 +67,8 @@ public class OracleDBManager extends DBManagerBase {
 		return new OracleDDLCreator(diagram, semicolon);
 	}
 
-	public List<String> getIndexTypeList(ERTable table) {
-		List<String> list = new ArrayList<String>();
-
-		list.add("BTREE");
-
-		return list;
+	public String[] getIndexTypeList(ERTable table) {
+		return ArrayUtils.EMPTY_STRING_ARRAY;
 	}
 
 	@Override

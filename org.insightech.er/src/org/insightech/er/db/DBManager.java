@@ -59,7 +59,7 @@ public interface DBManager {
 
 	public boolean isReservedWord(String str);
 
-	public List<String> getIndexTypeList(ERTable table);
+	public String[] getIndexTypeList(ERTable table);
 
 	public PreImportFromDBManager getPreTableImportManager();
 

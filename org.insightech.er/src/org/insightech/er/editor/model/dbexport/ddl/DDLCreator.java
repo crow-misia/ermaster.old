@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.tools.ant.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
@@ -757,7 +757,8 @@ public abstract class DDLCreator {
 		ddl.append(" ON ");
 		ddl.append(filter(table.getNameWithSchema(diagram.getDatabase())));
 
-		if (index.getType() != null && !index.getType().trim().equals("")) {
+		if (this.getDBManager().getIndexTypeList(table).length > 0 &&
+				StringUtils.isNotBlank(index.getType())) {
 			ddl.append(" USING ");
 			ddl.append(index.getType().trim());
 		}
@@ -768,6 +769,8 @@ public abstract class DDLCreator {
 		int i = 0;
 		List<Boolean> descs = index.getDescs();
 
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {
 				ddl.append(", ");
@@ -776,14 +779,12 @@ public abstract class DDLCreator {
 
 			ddl.append(filter(column.getPhysicalName()));
 
-			if (this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX)) {
-				if (descs.size() > i) {
-					Boolean desc = descs.get(i);
-					if (Boolean.TRUE.equals(desc)) {
-						ddl.append(" DESC");
-					} else {
-						ddl.append(" ASC");
-					}
+			if (isSupportDescIndex) {
+				Boolean desc = descs.get(i);
+				if (Boolean.TRUE.equals(desc)) {
+					ddl.append(" DESC");
+				} else {
+					ddl.append(" ASC");
 				}
 			}
 

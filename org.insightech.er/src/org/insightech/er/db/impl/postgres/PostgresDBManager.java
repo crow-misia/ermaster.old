@@ -61,12 +61,8 @@ public class PostgresDBManager extends DBManagerBase {
 		return new PostgresDDLCreator(diagram, semicolon);
 	}
 
-	public List<String> getIndexTypeList(ERTable table) {
-		List<String> list = new ArrayList<String>();
-
-		list.add("BTREE");
-
-		return list;
+	public String[] getIndexTypeList(ERTable table) {
+		return new String[] { "BTREE", "RTREE", "HASH", };
 	}
 
 	@Override

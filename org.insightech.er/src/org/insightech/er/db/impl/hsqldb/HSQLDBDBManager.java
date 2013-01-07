@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -60,12 +61,8 @@ public class HSQLDBDBManager extends DBManagerBase {
 		return new HSQLDBDDLCreator(diagram, semicolon);
 	}
 
-	public List<String> getIndexTypeList(ERTable table) {
-		List<String> list = new ArrayList<String>();
-
-		list.add("BTREE");
-
-		return list;
+	public String[] getIndexTypeList(ERTable table) {
+		return ArrayUtils.EMPTY_STRING_ARRAY;
 	}
 
 	@Override

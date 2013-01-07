@@ -291,22 +291,21 @@ public class MySQLDDLCreator extends DDLCreator {
 		int i = 0;
 		List<Boolean> descs = index.getDescs();
 
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {
 				ddl.append(", ");
-
 			}
 
 			ddl.append(filter(column.getPhysicalName()));
 
-			if (this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX)) {
-				if (descs.size() > i) {
-					Boolean desc = descs.get(i);
-					if (Boolean.TRUE.equals(desc)) {
-						ddl.append(" DESC");
-					} else {
-						ddl.append(" ASC");
-					}
+			if (isSupportDescIndex) {
+				Boolean desc = descs.get(i);
+				if (Boolean.TRUE.equals(desc)) {
+					ddl.append(" DESC");
+				} else {
+					ddl.append(" ASC");
 				}
 			}
 

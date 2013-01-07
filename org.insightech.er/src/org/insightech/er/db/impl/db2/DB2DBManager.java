@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -61,12 +62,8 @@ public class DB2DBManager extends DBManagerBase {
 		return new DB2DDLCreator(diagram, semicolon);
 	}
 
-	public List<String> getIndexTypeList(ERTable table) {
-		List<String> list = new ArrayList<String>();
-
-		list.add("BTREE");
-
-		return list;
+	public String[] getIndexTypeList(ERTable table) {
+		return ArrayUtils.EMPTY_STRING_ARRAY;
 	}
 
 	@Override
