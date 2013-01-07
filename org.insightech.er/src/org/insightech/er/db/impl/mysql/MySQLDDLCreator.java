@@ -2,7 +2,7 @@ package org.insightech.er.db.impl.mysql;
 
 import java.util.List;
 
-import org.apache.tools.ant.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;

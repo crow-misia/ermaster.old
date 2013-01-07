@@ -1,6 +1,6 @@
 package org.insightech.er.db.impl.hsqldb;
 
-import org.apache.tools.ant.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;

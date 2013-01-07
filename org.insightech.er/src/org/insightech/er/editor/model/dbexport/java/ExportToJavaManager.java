@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.tools.ant.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
