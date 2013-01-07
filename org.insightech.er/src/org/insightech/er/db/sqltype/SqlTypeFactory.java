@@ -30,7 +30,7 @@ public final class SqlTypeFactory {
 
 			HSSFRow headerRow = sheet.getRow(0);
 
-			for (int colNum = 4; colNum < headerRow.getLastCellNum(); colNum++) {
+			for (int colNum = 4, endColNum = headerRow.getLastCellNum(); colNum < endColNum; colNum++) {
 				String dbId = POIUtils.getCellValue(sheet, 0, colNum);
 
 				Map<SqlType, String> aliasMap = new LinkedHashMap<SqlType, String>();
@@ -42,7 +42,7 @@ public final class SqlTypeFactory {
 
 			SqlType.setDBAliasMap(dbAliasMap, dbSqlTypeMap);
 
-			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+			for (int rowNum = 1, endRowNum = sheet.getLastRowNum(); rowNum <= endRowNum; rowNum++) {
 				HSSFRow row = sheet.getRow(rowNum);
 
 				String sqlTypeId = POIUtils.getCellValue(sheet, rowNum, 0);
@@ -59,7 +59,7 @@ public final class SqlTypeFactory {
 				SqlType sqlType = new SqlType(sqlTypeId, javaClass, needArgs,
 						fullTextIndexable);
 
-				for (int colNum = 4; colNum < row.getLastCellNum(); colNum++) {
+				for (int colNum = 4, endColNum = row.getLastCellNum(); colNum < endColNum; colNum++) {
 
 					String dbId = POIUtils.getCellValue(sheet, 0, colNum);
 
