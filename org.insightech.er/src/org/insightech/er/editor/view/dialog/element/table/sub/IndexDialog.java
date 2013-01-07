@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
@@ -124,18 +125,23 @@ public class IndexDialog extends AbstractDialog {
 				"label.table.name", 1, -1, SWT.READ_ONLY | SWT.BORDER, false);
 		this.nameText = CompositeFactory.createText(this, composite,
 				"label.index.name", false);
-		this.typeCombo = CompositeFactory.createReadOnlyCombo(this, composite,
-				"label.index.type");
 
-		this.initTypeCombo();
+		this.initTypeCombo(composite);
 
 		this.descriptionText = CompositeFactory.createTextArea(this, composite,
 				"label.description", -1, 100, 1, true);
 	}
 
-	private void initTypeCombo() {
+	private void initTypeCombo(Composite composite) {
 		String[] indexTypeList = DBManagerFactory.getDBManager(
 				this.table.getDiagram()).getIndexTypeList(this.table);
+		if (ArrayUtils.isEmpty(indexTypeList)) {
+			// インデックスタイプのリストが空の場合、サポートしていないと判断する
+			this.typeCombo = null;
+			return;
+		}
+		this.typeCombo = CompositeFactory.createReadOnlyCombo(this, composite,
+				"label.index.type");
 
 		this.typeCombo.add("");
 
@@ -316,10 +322,10 @@ public class IndexDialog extends AbstractDialog {
 			this.descriptionText.setText(Format.null2blank(this.targetIndex
 					.getDescription()));
 
-			if (!Check.isEmpty(this.targetIndex.getType())) {
+			if (this.typeCombo != null && !Check.isEmpty(this.targetIndex.getType())) {
 				boolean selected = false;
 
-				for (int i = 0; i < this.typeCombo.getItemCount(); i++) {
+				for (int i = 0, n = this.typeCombo.getItemCount(); i < n; i++) {
 					if (this.typeCombo.getItem(i).equals(
 							this.targetIndex.getType())) {
 						this.typeCombo.select(i);
@@ -551,7 +557,7 @@ public class IndexDialog extends AbstractDialog {
 		String text = nameText.getText();
 
 		this.resultIndex = new Index(table, text, !this.uniqueCheckBox
-				.getSelection(), this.typeCombo.getText(), null);
+				.getSelection(), this.typeCombo == null ? "" : this.typeCombo.getText(), null);
 		this.resultIndex.setDescription(this.descriptionText.getText().trim());
 
 		for (NormalColumn selectedColumn : selectedColumns) {
