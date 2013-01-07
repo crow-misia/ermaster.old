@@ -15,11 +15,15 @@ public final class EditWordCommand extends AbstractCommand {
 
 	private final ERDiagram diagram;
 
+	private Dictionary dictionary;
+
 	public EditWordCommand(Word word, Word newWord, ERDiagram diagram) {
 		this.oldWord = new Word(word);
 		this.diagram = diagram;
 		this.word = word;
 		this.newWord = newWord;
+
+		this.dictionary = this.diagram.getDiagramContents().getDictionary();
 	}
 
 	/**
@@ -27,7 +31,7 @@ public final class EditWordCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
-		Dictionary.copyTo(newWord, word);
+		dictionary.copyTo(newWord, word, true);
 		this.diagram.changeAll();
 	}
 
@@ -36,7 +40,7 @@ public final class EditWordCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doUndo() {
-		Dictionary.copyTo(oldWord, word);
+		dictionary.copyTo(oldWord, word, true);
 		this.diagram.changeAll();
 	}
 

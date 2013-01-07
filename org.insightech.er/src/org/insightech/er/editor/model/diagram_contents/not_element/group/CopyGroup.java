@@ -65,7 +65,7 @@ public class CopyGroup extends ColumnGroup {
 				Word originalWord = copyColumn.getOriginalWord();
 
 				if (dictionary != null) {
-					Dictionary.copyTo(copyWord, originalWord);
+					dictionary.copyTo(copyWord, originalWord, false);
 
 				} else {
 					while (originalWord instanceof CopyWord) {

@@ -9,6 +9,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -28,7 +29,7 @@ public class Dictionary extends AbstractModel {
 	public Dictionary() {
 		this.wordMap = new IdentityHashMap<Word, Set<NormalColumn>>();
 		this.uniqueWordMap = new HashMap<UniqueWord, Set<NormalColumn>>();
-		this.cache = new IdentityHashMap<Word, UniqueWord>();
+		this.cache = new WeakHashMap<Word, UniqueWord>();
 	}
 
 	public void add(NormalColumn column, final boolean fire) {
@@ -45,9 +46,6 @@ public class Dictionary extends AbstractModel {
 			this.wordMap.put(word, useColumns);
 		}
 		useColumns.add(column);
-
-		// for UniqueWord
-		createUniqueWordMap();
 
 		if (fire) {
 			setDirty();
@@ -71,9 +69,6 @@ public class Dictionary extends AbstractModel {
 			}
 		}
 		
-		// for UniqueWord
-		createUniqueWordMap();
-
 		if (fire) {
 			setDirty();
 		}
@@ -89,6 +84,9 @@ public class Dictionary extends AbstractModel {
 	}
 	
 	public void setDirty() {
+		// for UniqueWord
+		createUniqueWordMap();
+
 		this.firePropertyChange(PROPERTY_CHANGE_DICTIONARY, null, null);
 	}
 	
@@ -96,7 +94,7 @@ public class Dictionary extends AbstractModel {
 		Set<NormalColumn> useColumns;
 		this.uniqueWordMap.clear();
 		for (final Map.Entry<Word, Set<NormalColumn>> entry : this.wordMap.entrySet()) {
-			final UniqueWord key = createUniqueWord(cache, entry.getKey(), false);
+			final UniqueWord key = createUniqueWord(cache, entry.getKey());
 			useColumns = this.uniqueWordMap.get(key);
 			if (useColumns == null) {
 				useColumns = new HashSet<NormalColumn>(entry.getValue());
@@ -132,17 +130,19 @@ public class Dictionary extends AbstractModel {
 		return this.wordMap.get(word);
 	}
 
-	public static void copyTo(Word from, Word to) {
+	public void copyTo(Word from, Word to, final boolean fire) {
 		from.copyTo(to);
+
+		if (fire) {
+			setDirty();
+		}
 	}
 	
-	private static UniqueWord createUniqueWord(final Map<Word, UniqueWord> map, final Word word, final boolean cache) {
+	private static UniqueWord createUniqueWord(final Map<Word, UniqueWord> map, final Word word) {
 		UniqueWord retval = map.get(word);
 		if (retval == null) {
 			retval = new UniqueWord(word);
-			if (cache) {
-				map.put(word, retval);
-			}
+			map.put(word, retval);
 		}
 		return retval;
 	}

@@ -118,6 +118,16 @@ public class Word extends AbstractModel implements ObjectModel,
 		return "word";
 	}
 
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
 	private static class WordWithoutNameComparator implements Comparator<Word> {
 
 		public int compare(Word o1, Word o2) {

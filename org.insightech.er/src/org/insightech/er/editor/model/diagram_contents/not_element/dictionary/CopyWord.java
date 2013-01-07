@@ -12,7 +12,7 @@ public class CopyWord extends Word {
 	}
 
 	public Word restructure(Dictionary dictionary) {
-		Dictionary.copyTo(this, this.original);
+		dictionary.copyTo(this, this.original, true);
 		return this.original;
 	}
 

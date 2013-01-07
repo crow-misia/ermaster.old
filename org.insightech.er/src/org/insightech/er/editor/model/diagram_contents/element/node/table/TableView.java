@@ -294,7 +294,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 				if (copyWord != null) {
 					Word originalWord = copyColumn.getOriginalWord();
-					Dictionary.copyTo(copyWord, originalWord);
+					dictionary.copyTo(copyWord, originalWord, false);
 				}
 
 				NormalColumn restructuredColumn = copyColumn
