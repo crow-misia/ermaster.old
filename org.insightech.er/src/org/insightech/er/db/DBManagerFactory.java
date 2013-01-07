@@ -6,6 +6,7 @@ import java.util.List;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.impl.access.AccessDBManager;
 import org.insightech.er.db.impl.db2.DB2DBManager;
+import org.insightech.er.db.impl.h2.H2DBManager;
 import org.insightech.er.db.impl.hsqldb.HSQLDBDBManager;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
 import org.insightech.er.db.impl.oracle.OracleDBManager;
@@ -26,6 +27,7 @@ public class DBManagerFactory {
 		addDB(new StandardSQLDBManager());
 		addDB(new DB2DBManager());
 		addDB(new HSQLDBDBManager());
+		addDB(new H2DBManager());
 		addDB(new AccessDBManager());
 		addDB(new MySQLDBManager());
 		addDB(new OracleDBManager());
