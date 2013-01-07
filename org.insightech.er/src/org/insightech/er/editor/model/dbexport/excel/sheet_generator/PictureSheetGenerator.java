@@ -68,32 +68,15 @@ System.out.println(cellLocation);
 					new HSSFClientAnchor(), this.pictureIndex);
 
 			Dimension dimension = picture.getImageDimension();
-			float rate = dimension.width / dimension.height;
-			float specifiedRate = width / height;
 
 			if (width == -1 || height == -1) {
 				width = dimension.width;
 				height = dimension.height;
 				
 			} else {
-				if (rate > specifiedRate) {
-					if (dimension.width > width) {
-						height = (int) (width / rate);
-
-					} else {
-						width = dimension.width;
-						height = dimension.height;
-					}
-
-				} else {
-					if (dimension.height > height) {
-						width = (int) (height * rate);
-
-					} else {
-						width = dimension.width;
-						height = dimension.height;
-					}
-				}
+				double rate = Math.min(width / dimension.getWidth(), height / dimension.getHeight());
+				width = (int) (dimension.getWidth() * rate);
+				height = (int) (dimension.getHeight() * rate);
 			}
 
 			HSSFClientAnchor preferredSize = this.getPreferredSize(sheet,
@@ -104,19 +87,20 @@ System.out.println(cellLocation);
 	}
 
 	public HSSFClientAnchor getPreferredSize(HSSFSheet sheet,
-			HSSFClientAnchor anchor, int width, int height) {
+			HSSFClientAnchor anchor, float width, float height) {
 		float w = 0.0F;
 		w += getColumnWidthInPixels(sheet, anchor.getCol1())
 				* (float) (1 - anchor.getDx1() / 1024);
 
 		short col2 = (short) (anchor.getCol1() + 1);
 		int dx2 = 0;
-		for (; w < (float) width; w += getColumnWidthInPixels(sheet, col2++))
-			;
-		if (w > (float) width) {
+		while(w < width){
+			w += getColumnWidthInPixels(sheet, col2++);
+		}
+		if (w > width) {
 			col2--;
 			float cw = getColumnWidthInPixels(sheet, col2);
-			float delta = w - (float) width;
+			float delta = w - width;
 			dx2 = (int) (((cw - delta) / cw) * 1024F);
 		}
 		anchor.setCol2(col2);
@@ -126,12 +110,13 @@ System.out.println(cellLocation);
 				* getRowHeightInPixels(sheet, anchor.getRow1());
 		int row2 = anchor.getRow1() + 1;
 		int dy2 = 0;
-		for (; h < (float) height; h += getRowHeightInPixels(sheet, row2++))
-			;
-		if (h > (float) height) {
+		while(h < height) {
+			h += getRowHeightInPixels(sheet, row2++);
+		}
+		if (h > height) {
 			row2--;
 			float ch = getRowHeightInPixels(sheet, row2);
-			float delta = h - (float) height;
+			float delta = h - height;
 			dy2 = (int) (((ch - delta) / ch) * 256F);
 		}
 		anchor.setRow2(row2);
@@ -160,7 +145,7 @@ System.out.println(cellLocation);
 	private float getPixelWidth(HSSFSheet sheet, int column) {
 		int def = sheet.getDefaultColumnWidth() * 256;
 		int cw = sheet.getColumnWidth(column);
-		return cw != def ? 36.56F : 32F;
+		return cw != def ? 28.44444444f : 32.0f;
 	}
 
 }
