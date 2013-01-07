@@ -120,10 +120,12 @@ public class ERDiagramOutlinePopupMenuManager extends MenuManager {
 							}
 
 						} else {
-							EditPart editPart = (EditPart) selectedEditParts
-									.get(0);
-							for (Class clazz : ACTION_MAP.keySet()) {
-								String actionId = ACTION_MAP.get(clazz);
+							EditPart editPart = (EditPart) selectedEditParts.get(0);
+							final boolean isSupportSequence = DBManagerFactory.getDBManager(
+									diagram).isSupported(DBManager.SUPPORT_SEQUENCE);
+							for (Map.Entry<Class, String> entry : ACTION_MAP.entrySet()) {
+								Class clazz = entry.getKey();
+								String actionId = entry.getValue();
 
 								if (!clazz.isInstance(editPart)) {
 									enabled(actionId, false);
@@ -131,9 +133,7 @@ public class ERDiagramOutlinePopupMenuManager extends MenuManager {
 								} else {
 									if (CreateSequenceAction.ID
 											.equals(actionId)
-											&& !DBManagerFactory.getDBManager(
-													diagram).isSupported(
-													DBManager.SUPPORT_SEQUENCE)) {
+											&& !isSupportSequence) {
 										enabled(actionId, false);
 
 									} else {
