@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
+import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -16,12 +17,21 @@ import org.insightech.er.editor.model.dbimport.PreImportFromDBManager;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.properties.TableProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
+import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
 
 public interface DBManager {
 
 	public static final int SUPPORT_AUTO_INCREMENT = 0;
 
 	public static final int SUPPORT_AUTO_INCREMENT_SETTING = 1;
+
+	public static final int SUPPORT_AUTO_INCREMENT_MINVALUE = 8;
+
+	public static final int SUPPORT_AUTO_INCREMENT_MAXVALUE = 9;
+
+	public static final int SUPPORT_AUTO_INCREMENT_CACHE = 10;
+
+	public static final int SUPPORT_AUTO_INCREMENT_CYCLE = 11;
 
 	public static final int SUPPORT_DESC_INDEX = 2;
 
@@ -80,4 +90,5 @@ public interface DBManager {
 
 	public BigDecimal getSequenceMaxValue();
 
+	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog);
 }

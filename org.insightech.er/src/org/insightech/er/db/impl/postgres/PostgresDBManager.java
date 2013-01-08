@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.impl.postgres.tablespace.PostgresTablespaceProperties;
+import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -15,6 +16,7 @@ import org.insightech.er.editor.model.dbimport.PreImportFromDBManager;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.properties.TableProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
+import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
 
 public class PostgresDBManager extends DBManagerBase {
 
@@ -67,7 +69,10 @@ public class PostgresDBManager extends DBManagerBase {
 
 	@Override
 	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_AUTO_INCREMENT_SETTING, SUPPORT_SCHEMA,
+		return new int[] {
+				SUPPORT_AUTO_INCREMENT_SETTING,
+				SUPPORT_AUTO_INCREMENT_MINVALUE, SUPPORT_AUTO_INCREMENT_MAXVALUE, SUPPORT_AUTO_INCREMENT_CACHE, SUPPORT_AUTO_INCREMENT_CYCLE,
+				SUPPORT_SCHEMA,
 				SUPPORT_SEQUENCE, SUPPORT_ARRAY_TYPE, };
 	}
 
@@ -114,5 +119,16 @@ public class PostgresDBManager extends DBManagerBase {
 
 	public BigDecimal getSequenceMaxValue() {
 		return BigDecimal.valueOf(Long.MAX_VALUE);
+	}
+
+	@Override
+	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog) {
+		if (SqlType.SQL_TYPE_ID_BIG_SERIAL.equals(sqlType.getId())
+				|| SqlType.SQL_TYPE_ID_SERIAL.equals(sqlType
+						.getId())) {
+			dialog.setAutoIncrementSettingButtonEnabled(true);
+		} else {
+			dialog.setAutoIncrementSettingButtonEnabled(false);
+		}
 	}
 }

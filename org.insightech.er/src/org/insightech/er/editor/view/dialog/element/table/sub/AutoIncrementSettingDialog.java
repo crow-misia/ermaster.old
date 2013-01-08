@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Text;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
+import org.insightech.er.db.DBManager;
+import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.impl.postgres.PostgresDBManager;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.util.Format;
@@ -31,14 +33,14 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 
 	private Sequence result;
 
-	private String database;
+	private DBManager dbManager;
 
 	public AutoIncrementSettingDialog(Shell parentShell, Sequence sequence,
 			String database) {
 		super(parentShell, 2);
 
 		this.sequence = sequence;
-		this.database = database;
+		this.dbManager = DBManagerFactory.getDBManager(database);
 	}
 
 	@Override
@@ -46,9 +48,11 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		this.incrementText = CompositeFactory.createNumText(this, composite,
 				"Increment");
 
-		if (PostgresDBManager.ID.equals(this.database)) {
+		if (dbManager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT_MINVALUE)) {
 			this.minValueText = CompositeFactory.createNumText(this, composite,
 					"MinValue");
+		}
+		if (dbManager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT_MAXVALUE)) {
 			this.maxValueText = CompositeFactory.createNumText(this, composite,
 					"MaxValue");
 		}
@@ -56,9 +60,11 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		this.startText = CompositeFactory.createNumText(this, composite,
 				"Start");
 
-		if (PostgresDBManager.ID.equals(this.database)) {
+		if (dbManager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT_CACHE)) {
 			this.cacheText = CompositeFactory.createNumText(this, composite,
 					"Cache");
+		}
+		if (dbManager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT_CYCLE)) {
 			this.cycleCheckBox = CompositeFactory.createCheckbox(this,
 					composite, "Cycle", 2);
 		}

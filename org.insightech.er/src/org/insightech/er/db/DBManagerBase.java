@@ -22,7 +22,9 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
+import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.settings.JDBCDriverSetting;
+import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
 import org.insightech.er.preference.PreferenceInitializer;
 import org.insightech.er.preference.jdbc.JDBCPathDialog;
 
@@ -194,4 +196,6 @@ public abstract class DBManagerBase implements DBManager {
 		return Collections.emptySet();
 	}
 
+	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog) {
+	}
 }
