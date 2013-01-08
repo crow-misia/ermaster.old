@@ -68,8 +68,11 @@ public class DB2DBManager extends DBManagerBase {
 
 	@Override
 	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_AUTO_INCREMENT, SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE };
+		return new int[] {
+				SUPPORT_AUTO_INCREMENT, SUPPORT_AUTO_INCREMENT_CACHE,
+				SUPPORT_SCHEMA,
+				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CACHE, SUPPORT_SEQUENCE_CYCLE, SUPPORT_SEQUENCE_ORDER,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

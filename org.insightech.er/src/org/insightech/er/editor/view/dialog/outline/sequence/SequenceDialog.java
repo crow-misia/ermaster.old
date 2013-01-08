@@ -65,6 +65,8 @@ public class SequenceDialog extends AbstractDialog {
 
 	@Override
 	protected void initialize(Composite composite) {
+		final DBManager dbManager = diagram.getDBManager();
+
 		this.nameText = CompositeFactory.createText(this, composite,
 				"label.sequence.name", 4, false);
 		this.schemaText = CompositeFactory.createText(this, composite,
@@ -100,25 +102,31 @@ public class SequenceDialog extends AbstractDialog {
 				"Start", TEXT_SIZE);
 		CompositeFactory.filler(composite, 3);
 
-		this.minValueText = CompositeFactory.createNumText(this, composite,
-				"MinValue", TEXT_SIZE);
-		CompositeFactory.filler(composite, 3);
+		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_MINVALUE)) {
+			this.minValueText = CompositeFactory.createNumText(this, composite,
+					"MinValue", TEXT_SIZE);
+			CompositeFactory.filler(composite, 3);
+		}
 
-		this.maxValueText = CompositeFactory.createNumText(this, composite,
-				"MaxValue", TEXT_SIZE);
-		CompositeFactory.filler(composite, 3);
+		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_MAXVALUE)) {
+			this.maxValueText = CompositeFactory.createNumText(this, composite,
+					"MaxValue", TEXT_SIZE);
+			CompositeFactory.filler(composite, 3);
+		}
 
-		if (!HSQLDBDBManager.ID.equals(diagram.getDatabase())) {
+		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_CACHE)) {
 			this.cacheText = CompositeFactory.createNumText(this, composite,
 					"Cache", TEXT_SIZE);
 			CompositeFactory.filler(composite, 3);
 		}
 
-		this.cycleCheckBox = CompositeFactory.createCheckbox(this, composite,
-				"Cycle", 2);
-		CompositeFactory.filler(composite, 3);
+		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_CYCLE)) {
+			this.cycleCheckBox = CompositeFactory.createCheckbox(this, composite,
+					"Cycle", 2);
+			CompositeFactory.filler(composite, 3);
+		}
 
-		if (DB2DBManager.ID.equals(diagram.getDatabase())) {
+		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_ORDER)) {
 			this.orderCheckBox = CompositeFactory.createCheckbox(this,
 					composite, "Order", 2);
 			CompositeFactory.filler(composite, 3);

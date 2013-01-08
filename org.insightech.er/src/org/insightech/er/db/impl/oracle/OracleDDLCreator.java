@@ -318,6 +318,9 @@ public class OracleDDLCreator extends DDLCreator {
 		if (sequence.isCycle()) {
 			ddl.append(" CYCLE");
 		}
+		if (sequence.isOrder()) {
+			ddl.append(" ORDER");
+		}
 		if (this.semicolon) {
 			ddl.append(";");
 		}

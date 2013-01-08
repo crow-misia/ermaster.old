@@ -67,7 +67,8 @@ public class HSQLDBDBManager extends DBManagerBase {
 
 	@Override
 	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_SCHEMA, SUPPORT_SEQUENCE };
+		return new int[] { SUPPORT_SCHEMA,
+				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CYCLE, };
 	}
 
 	public ImportFromDBManager getTableImportManager() {

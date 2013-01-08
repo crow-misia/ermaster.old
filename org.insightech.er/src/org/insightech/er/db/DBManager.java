@@ -41,6 +41,16 @@ public interface DBManager {
 
 	public static final int SUPPORT_SEQUENCE = 5;
 
+	public static final int SUPPORT_SEQUENCE_MINVALUE = 12;
+
+	public static final int SUPPORT_SEQUENCE_MAXVALUE = 13;
+
+	public static final int SUPPORT_SEQUENCE_CACHE = 14;
+
+	public static final int SUPPORT_SEQUENCE_CYCLE = 15;
+
+	public static final int SUPPORT_SEQUENCE_ORDER = 16;
+
 	public static final int SUPPORT_UNIT = 6;
 
 	public static final int SUPPORT_ARRAY_TYPE = 7;
