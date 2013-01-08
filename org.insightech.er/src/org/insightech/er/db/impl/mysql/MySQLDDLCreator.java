@@ -100,7 +100,7 @@ public class MySQLDDLCreator extends DDLCreator {
 		ddl.append(" ");
 
 		ddl.append(filter(Format.formatType(normalColumn.getType(),
-				normalColumn.getTypeData(), this.getDiagram().getDatabase())));
+				normalColumn.getTypeData(), dbManager)));
 
 		if (!Check.isEmpty(normalColumn.getCharacterSet())) {
 			ddl.append(" CHARACTER SET ");

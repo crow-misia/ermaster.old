@@ -96,9 +96,8 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
 
 		int colnum = 6;
-		if (PostgresDBManager.ID.equals(this.diagram.getDatabase())) {
+		if (manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
 			colnum += 4;
-
 		}
 		if (MySQLDBManager.ID.equals(this.diagram.getDatabase())) {
 			colnum += 2;
@@ -136,7 +135,7 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 				"label.column.decimal", 30);
 		this.decimalText.setEnabled(false);
 
-		if (PostgresDBManager.ID.equals(this.diagram.getDatabase())) {
+		if (manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
 			CompositeFactory.filler(composite, 1, 10);
 
 			this.arrayCheck = CompositeFactory.createCheckbox(this, composite,

@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.util.Format;
@@ -431,6 +432,8 @@ public class SqlType implements Serializable {
 		int errorCount3 = 0;
 
 		for (String db : dbList) {
+			final DBManager dbManager = DBManagerFactory.getDBManager(db);
+			
 			msg.append("-- for " + db + "\n");
 			msg.append("CREATE TABLE TYPE_TEST (\n");
 
@@ -451,7 +454,7 @@ public class SqlType implements Serializable {
 					TypeData typeData = new TypeData(Integer.valueOf(1),
 							Integer.valueOf(1), false, null, false, null, null);
 
-					str = Format.formatType(type, typeData, db);
+					str = Format.formatType(type, typeData, dbManager);
 					if (str.equals(alias)) {
 						errorCount3++;
 						msg.append("×3");
@@ -461,7 +464,7 @@ public class SqlType implements Serializable {
 					TypeData typeData = new TypeData(Integer.valueOf(1), null,
 							false, null, false, null, null);
 
-					str = Format.formatType(type, typeData, db);
+					str = Format.formatType(type, typeData, dbManager);
 
 					if (str.equals(alias)) {
 						errorCount3++;
@@ -472,7 +475,7 @@ public class SqlType implements Serializable {
 					TypeData typeData = new TypeData(null, Integer.valueOf(1),
 							false, null, false, null, null);
 
-					str = Format.formatType(type, typeData, db);
+					str = Format.formatType(type, typeData, dbManager);
 
 					if (str.equals(alias)) {
 						errorCount3++;

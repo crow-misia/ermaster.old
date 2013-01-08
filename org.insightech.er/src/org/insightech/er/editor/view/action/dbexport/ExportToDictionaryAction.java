@@ -11,6 +11,7 @@ import org.eclipse.ui.IEditorPart;
 import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
+import org.insightech.er.db.DBManager;
 import org.insightech.er.editor.ERDiagramEditor;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
@@ -58,7 +59,7 @@ public class ExportToDictionaryAction extends AbstractExportAction {
 					.getResourceString("label.column.description"));
 			writer.crln();
 
-			String database = diagram.getDatabase();
+			DBManager dbManager = diagram.getDBManager();
 
 			List<UniqueWord> list = dictionary.getUniqueWordList();
 
@@ -69,7 +70,7 @@ public class ExportToDictionaryAction extends AbstractExportAction {
 				writer.print(word.getLogicalName());
 				if (word.getType() != null) {
 					writer.print(Format.formatType(word.getType(), word
-							.getTypeData(), database));
+							.getTypeData(), dbManager));
 				} else {
 					writer.print("");
 				}

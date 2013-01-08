@@ -31,9 +31,11 @@ import org.insightech.er.util.Format;
 
 public abstract class DDLCreator {
 
-	private ERDiagram diagram;
+	private final ERDiagram diagram;
 
-	protected boolean semicolon;
+	protected final boolean semicolon;
+
+	protected final DBManager dbManager;
 
 	protected Environment environment;
 
@@ -42,6 +44,7 @@ public abstract class DDLCreator {
 	public DDLCreator(ERDiagram diagram, boolean semicolon) {
 		this.diagram = diagram;
 		this.semicolon = semicolon;
+		this.dbManager = DBManagerFactory.getDBManager(diagram);
 	}
 
 	public void init(Environment environment, DDLTarget ddlTarget) {
@@ -651,7 +654,7 @@ public abstract class DDLCreator {
 		ddl.append(" ");
 
 		ddl.append(filter(Format.formatType(normalColumn.getType(),
-				normalColumn.getTypeData(), diagram.getDatabase())));
+				normalColumn.getTypeData(), diagram.getDBManager())));
 
 		if (!Check.isEmpty(normalColumn.getDefaultValue())) {
 			String defaultValue = normalColumn.getDefaultValue();

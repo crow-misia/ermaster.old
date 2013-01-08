@@ -33,6 +33,8 @@ public interface DBManager {
 
 	public static final int SUPPORT_UNIT = 6;
 
+	public static final int SUPPORT_ARRAY_TYPE = 7;
+
 	public String getId();
 
 	public String getURL(String serverName, String dbName, int port);

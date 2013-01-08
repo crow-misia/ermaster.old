@@ -146,7 +146,7 @@ public class H2DDLCreator extends DDLCreator {
 		ddl.append(" ");
 
 		ddl.append(filter(Format.formatType(normalColumn.getType(),
-				normalColumn.getTypeData(), this.getDiagram().getDatabase())));
+				normalColumn.getTypeData(), dbManager)));
 
 		if (!Check.isEmpty(normalColumn.getDefaultValue())) {
 			String defaultValue = normalColumn.getDefaultValue();

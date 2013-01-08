@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.insightech.er.db.DBManager;
+import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.ERDiagramMultiPageEditor;
 import org.insightech.er.editor.model.diagram_contents.DiagramContents;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
@@ -162,6 +164,10 @@ public class ERDiagram extends ViewableModel {
 
 	public String getDatabase() {
 		return this.getDiagramContents().getSettings().getDatabase();
+	}
+
+	public DBManager getDBManager() {
+		return DBManagerFactory.getDBManager(this);
 	}
 
 	public void restoreDatabase(String str) {

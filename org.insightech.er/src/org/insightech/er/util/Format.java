@@ -1,15 +1,16 @@
 package org.insightech.er.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.insightech.er.db.DBManager;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
-import org.insightech.er.db.impl.postgres.PostgresDBManager;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 
 public class Format {
 
 	public static String formatType(SqlType sqlType, TypeData typeData,
-			String database) {
+			DBManager manager) {
+		String database = manager.getId();
 		String type = null;
 
 		if (sqlType != null) {
@@ -43,7 +44,7 @@ public class Format {
 
 				}
 
-				if (typeData.isArray() && PostgresDBManager.ID.equals(database)) {
+				if (typeData.isArray() && manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
 					for (int i=0,n=typeData.getArrayDimension(); i <n; i++) {
 						type += "[]";
 					}
