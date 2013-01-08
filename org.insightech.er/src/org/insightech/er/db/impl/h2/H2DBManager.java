@@ -67,7 +67,8 @@ public class H2DBManager extends DBManagerBase {
 	@Override
 	protected int[] getSupportItems() {
 		return new int[] { SUPPORT_AUTO_INCREMENT, SUPPORT_AUTO_INCREMENT_SETTING,
-				SUPPORT_SCHEMA, SUPPORT_SEQUENCE };
+				SUPPORT_SCHEMA, SUPPORT_SEQUENCE,
+				SUPPORT_DESC_INDEX, };
 	}
 
 	public ImportFromDBManager getTableImportManager() {

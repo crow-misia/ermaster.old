@@ -1,7 +1,10 @@
 package org.insightech.er.db.impl.h2;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
+import org.insightech.er.db.DBManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
@@ -92,15 +95,29 @@ public class H2DDLCreator extends DDLCreator {
 		ddl.append(" (");
 		boolean first = true;
 
+		int i = 0;
+		List<Boolean> descs = index.getDescs();
+
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {
 				ddl.append(", ");
-
 			}
 
 			ddl.append(filter(column.getPhysicalName()));
 
+			if (isSupportDescIndex) {
+				Boolean desc = descs.get(i);
+				if (Boolean.TRUE.equals(desc)) {
+					ddl.append(" DESC");
+				} else {
+					ddl.append(" ASC");
+				}
+			}
+
 			first = false;
+			i++;
 		}
 
 		ddl.append(")");
