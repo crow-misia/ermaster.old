@@ -1789,6 +1789,8 @@ public class PersistentXmlImpl extends Persistent {
 				.append("</unsigned>\n");
 		xml.append("\t<args>").append(escape(word.getTypeData().getArgs()))
 				.append("</args>\n");
+		xml.append("\t<unit>").append(escape(word.getTypeData().getUnit()))
+				.append("</unit>\n");
 
 		xml.append("\t<description>").append(escape(word.getDescription()))
 				.append("</description>\n");

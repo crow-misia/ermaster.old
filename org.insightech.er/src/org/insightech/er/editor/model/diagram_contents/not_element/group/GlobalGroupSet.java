@@ -66,9 +66,10 @@ public class GlobalGroupSet {
 						boolean unsigned = Boolean.valueOf(
 								columnSection.get("unsigned")).booleanValue();
 						String args = columnSection.get("args");
+						String unit = columnSection.get("unit");
 
 						TypeData typeData = new TypeData(length, decimal,
-								array, arrayDimension, unsigned, args);
+								array, arrayDimension, unsigned, args, unit);
 
 						Word word = new Word(physicalName, logicalName,
 								sqlType, typeData, description, database);

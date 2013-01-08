@@ -682,6 +682,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			boolean array = false;
 			Integer arrayDimension = null;
 			boolean unsigned = false;
+			String unit = null;
 
 			int unsignedIndex = type.indexOf(" UNSIGNED");
 			if (unsignedIndex != -1) {
@@ -755,7 +756,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			String args = columnData.enumData;
 
 			TypeData typeData = new TypeData(length, decimal, array,
-					arrayDimension, unsigned, args);
+					arrayDimension, unsigned, args, unit);
 
 			Word word = new Word(columnName, logicalName, sqlType, typeData,
 					description, this.diagram.getDatabase());
@@ -1380,7 +1381,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		} else {
 			word = new Word(columnAlias,
 					this.translationResources.translate(columnAlias), null,
-					new TypeData(null, null, false, null, false, null), null,
+					new TypeData(null, null, false, null, false, null, null), null,
 					null);
 
 		}

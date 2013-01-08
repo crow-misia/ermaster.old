@@ -87,8 +87,14 @@ public class WordDialog extends AbstractWordDialog {
 		if (this.argsText != null) {
 			args = this.argsText.getText();
 		}
+
+		String unit = null;
+		if (this.unitCombo != null) {
+			unit = this.unitCombo.getText();
+		}
+		
 		TypeData typeData = new TypeData(length, decimal, array,
-				arrayDimension, unsigned, args);
+				arrayDimension, unsigned, args, unit);
 
 		this.returnWord = new Word(physicalNameText.getText(), logicalNameText
 				.getText(), selectedType, typeData, descriptionText.getText(),

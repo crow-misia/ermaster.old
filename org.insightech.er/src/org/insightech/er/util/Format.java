@@ -33,13 +33,18 @@ public class Format {
 					} else {
 						len = String.valueOf(typeData.getLength());
 					}
+					
+					// 単位サポート
+					if (StringUtils.isNotBlank(typeData.getUnit())) {
+						len += " " + StringUtils.trim(typeData.getUnit());
+					}
 
 					type = type.replaceAll("\\(.\\)", "(" + len + ")");
 
 				}
 
 				if (typeData.isArray() && PostgresDBManager.ID.equals(database)) {
-					for (int i=0; i <typeData.getArrayDimension(); i++) {
+					for (int i=0,n=typeData.getArrayDimension(); i <n; i++) {
 						type += "[]";
 					}
 				}

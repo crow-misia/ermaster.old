@@ -31,6 +31,8 @@ public interface DBManager {
 
 	public static final int SUPPORT_SEQUENCE = 5;
 
+	public static final int SUPPORT_UNIT = 6;
+
 	public String getId();
 
 	public String getURL(String serverName, String dbName, int port);

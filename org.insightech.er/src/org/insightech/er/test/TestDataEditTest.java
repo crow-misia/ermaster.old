@@ -34,7 +34,7 @@ public class TestDataEditTest {
 		ERTable table = new ERTable();
 		table.setPhysicalName("table1", false);
 		table.setLogicalName("table1", false);
-		TypeData typeData = new TypeData(null, null, false, null, false, null);
+		TypeData typeData = new TypeData(null, null, false, null, false, null, null);
 
 		Word word1 = new Word("a", "a", SqlType.valueOfId("bigint"), typeData,
 				null, MySQLDBManager.ID);

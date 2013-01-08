@@ -713,7 +713,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 											.isArray(), oldTypeData
 											.getArrayDimension(), oldTypeData
 											.isUnsigned(), oldTypeData
-											.getArgs());
+											.getArgs(), oldTypeData.getUnit());
 
 							word.setType(word.getType(), newTypeData, database);
 						}
@@ -744,7 +744,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 									.isArray(),
 									oldTypeData.getArrayDimension(),
 									oldTypeData.isUnsigned(), oldTypeData
-											.getArgs());
+											.getArgs(), oldTypeData.getUnit());
 
 							word.setType(word.getType(), newTypeData, database);
 						}

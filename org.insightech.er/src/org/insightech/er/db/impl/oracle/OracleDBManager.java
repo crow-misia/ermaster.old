@@ -76,7 +76,7 @@ public class OracleDBManager extends DBManagerBase {
 	@Override
 	protected int[] getSupportItems() {
 		return new int[] { SUPPORT_AUTO_INCREMENT, SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE };
+				SUPPORT_SEQUENCE, SUPPORT_UNIT, };
 	}
 
 	public ImportFromDBManager getTableImportManager() {

@@ -67,9 +67,9 @@ public class SqlType implements Serializable {
 	}
 
 	public static class TypeKey {
-		private String alias;
+		private final String alias;
 
-		private int size;
+		private final int size;
 
 		public TypeKey(String alias, int size) {
 			if (alias != null) {
@@ -449,7 +449,7 @@ public class SqlType implements Serializable {
 
 				if (type.isNeedLength(db) && type.isNeedDecimal(db)) {
 					TypeData typeData = new TypeData(Integer.valueOf(1),
-							Integer.valueOf(1), false, null, false, null);
+							Integer.valueOf(1), false, null, false, null, null);
 
 					str = Format.formatType(type, typeData, db);
 					if (str.equals(alias)) {
@@ -459,7 +459,7 @@ public class SqlType implements Serializable {
 
 				} else if (type.isNeedLength(db)) {
 					TypeData typeData = new TypeData(Integer.valueOf(1), null,
-							false, null, false, null);
+							false, null, false, null, null);
 
 					str = Format.formatType(type, typeData, db);
 
@@ -470,7 +470,7 @@ public class SqlType implements Serializable {
 
 				} else if (type.isNeedDecimal(db)) {
 					TypeData typeData = new TypeData(null, Integer.valueOf(1),
-							false, null, false, null);
+							false, null, false, null, null);
 
 					str = Format.formatType(type, typeData, db);
 

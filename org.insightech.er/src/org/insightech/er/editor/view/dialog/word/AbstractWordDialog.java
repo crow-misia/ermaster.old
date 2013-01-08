@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.widgets.CompositeFactory;
+import org.insightech.er.db.DBManager;
+import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
 import org.insightech.er.db.impl.postgres.PostgresDBManager;
 import org.insightech.er.db.sqltype.SqlType;
@@ -48,6 +50,8 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 	protected Text descriptionText;
 
 	protected Text argsText;
+
+	protected Combo unitCombo;
 
 	protected ERDiagram diagram;
 
@@ -89,17 +93,26 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 	}
 
 	protected int getCompositeNumColumns() {
-		if (PostgresDBManager.ID.equals(this.diagram.getDatabase())) {
-			return 10;
+		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
 
-		} else if (MySQLDBManager.ID.equals(this.diagram.getDatabase())) {
-			return 8;
+		int colnum = 6;
+		if (PostgresDBManager.ID.equals(this.diagram.getDatabase())) {
+			colnum += 4;
+
+		}
+		if (MySQLDBManager.ID.equals(this.diagram.getDatabase())) {
+			colnum += 2;
+		}
+		if (manager.isSupported(DBManager.SUPPORT_UNIT)) {
+			colnum++;
 		}
 
-		return 6;
+		return colnum;
 	}
 
 	protected void initializeComposite(Composite composite) {
+		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
+
 		int numColumns = this.getCompositeNumColumns();
 
 		this.physicalNameText = CompositeFactory.createText(this, composite,
@@ -114,6 +127,10 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		this.lengthText = CompositeFactory.createNumText(this, composite,
 				"label.column.length", 30);
 		this.lengthText.setEnabled(false);
+
+		if (manager.isSupported(DBManager.SUPPORT_UNIT)) {
+			this.unitCombo = CompositeFactory.createReadOnlyCombo(this, composite, null);
+		}
 
 		this.decimalText = CompositeFactory.createNumText(this, composite,
 				"label.column.decimal", 30);
@@ -168,6 +185,7 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 	@Override
 	final protected void setData() {
 		this.initializeTypeCombo();
+		this.initializeUnitCombo();
 
 		if (!this.add) {
 			this.setWordData();
@@ -236,6 +254,10 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 			this.argsText.setText(Format.null2blank(typeData.getArgs()));
 		}
 
+		if (this.unitCombo != null) {
+			this.unitCombo.setText(Format.null2blank(typeData.getUnit()));
+		}
+
 		this.descriptionText.setText(Format.toString(description));
 	}
 
@@ -248,8 +270,14 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		if (selectedType != null) {
 			if (!selectedType.isNeedLength(diagram.getDatabase())) {
 				lengthText.setEnabled(false);
+				if (unitCombo != null) {
+					unitCombo.setEnabled(false);
+				}
 			} else {
 				lengthText.setEnabled(true);
+				if (unitCombo != null) {
+					unitCombo.setEnabled(selectedType.isFullTextIndexable());
+				}
 			}
 
 			if (!selectedType.isNeedDecimal(database)) {
@@ -330,6 +358,15 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		for (String alias : SqlType.getAliasList(database)) {
 			this.typeCombo.add(alias);
 		}
+	}
+
+	private void initializeUnitCombo() {
+		if (this.unitCombo == null) {
+			return;
+		}
+		this.unitCombo.add("");
+		this.unitCombo.add("BYTE");
+		this.unitCombo.add("CHAR");
 	}
 
 	/**

@@ -233,9 +233,14 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		String logicalName = logicalNameText.getText();
 		String description = descriptionText.getText();
 		String args = null;
+		String unit = null;
 
 		if (argsText != null) {
 			args = argsText.getText();
+		}
+		
+		if (unitCombo != null) {
+			unit = unitCombo.getText();
 		}
 
 		String database = this.diagram.getDatabase();
@@ -243,7 +248,7 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		SqlType selectedType = SqlType.valueOf(database, typeCombo.getText());
 
 		TypeData typeData = new TypeData(length, decimal, array,
-				arrayDimension, unsigned, args);
+				arrayDimension, unsigned, args, unit);
 
 		int wordIndex = this.wordCombo.getSelectionIndex();
 

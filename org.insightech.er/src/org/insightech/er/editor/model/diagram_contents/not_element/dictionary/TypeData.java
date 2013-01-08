@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.not_element.dictionary;
 
 import java.io.Serializable;
 
-public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
+import org.apache.commons.lang.StringUtils;
+
+public class TypeData implements Serializable, Comparable<TypeData> {
 
 	private static final long serialVersionUID = 811961394466466597L;
 
@@ -17,16 +19,31 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 	private boolean unsigned;
 
 	private String args;
+	
+	private String unit;
 
 	public TypeData(Integer length, Integer decimal, boolean array,
-			Integer arrayDimension, boolean unsigned, String args) {
+			Integer arrayDimension, boolean unsigned, String args,
+			String unit) {
 		super();
 		this.length = length;
 		this.decimal = decimal;
 		this.array = array;
 		this.arrayDimension = arrayDimension;
 		this.unsigned = unsigned;
-		this.args = "".equals(args) ? null : args;
+		this.args = StringUtils.trimToNull(args);
+		this.unit = unit;
+	}
+
+	public TypeData(TypeData from) {
+		super();
+		this.length = from.length;
+		this.decimal = from.decimal;
+		this.array = from.array;
+		this.arrayDimension = from.arrayDimension;
+		this.unsigned = from.unsigned;
+		this.args = from.args;
+		this.unit = from.unit;
 	}
 
 	public Integer getLength() {
@@ -74,7 +91,15 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 	}
 
 	public void setArgs(String args) {
-		this.args = "".equals(args) ? null : args;
+		this.args = StringUtils.trimToNull(args);
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 	public int compareTo(TypeData o) {
@@ -154,31 +179,35 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 			}
 		}
 		
-		return 0;
-	}
-
-	@Override
-	public TypeData clone() {
-		try {
-			return (TypeData) super.clone();
-
-		} catch (CloneNotSupportedException e) {
+		if (this.unit == null) {
+			if (o.unit != null) {
+				return 1;
+			}
+		} else {
+			if (o.unit == null) {
+				return -1;
+			}
+			int value = this.unit.compareTo(o.unit);
+			if (value != 0) {
+				return value;
+			}
 		}
 
-		return null;
+		return 0;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((args == null) ? 0 : args.hashCode());
+		result = prime * result + ((length == null) ? 0 : length.hashCode());
+		result = prime * result + ((decimal == null) ? 0 : decimal.hashCode());
 		result = prime * result + (array ? 1231 : 1237);
 		result = prime * result
 				+ ((arrayDimension == null) ? 0 : arrayDimension.hashCode());
-		result = prime * result + ((decimal == null) ? 0 : decimal.hashCode());
-		result = prime * result + ((length == null) ? 0 : length.hashCode());
 		result = prime * result + (unsigned ? 1231 : 1237);
+		result = prime * result + ((args == null) ? 0 : args.hashCode());
+		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
 		return result;
 	}
 
@@ -191,10 +220,15 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 		if (getClass() != obj.getClass())
 			return false;
 		TypeData other = (TypeData) obj;
-		if (args == null) {
-			if (other.args != null)
+		if (length == null) {
+			if (other.length != null)
 				return false;
-		} else if (!args.equals(other.args))
+		} else if (!length.equals(other.length))
+			return false;
+		if (decimal == null) {
+			if (other.decimal != null)
+				return false;
+		} else if (!decimal.equals(other.decimal))
 			return false;
 		if (array != other.array)
 			return false;
@@ -203,17 +237,17 @@ public class TypeData implements Serializable, Cloneable, Comparable<TypeData> {
 				return false;
 		} else if (!arrayDimension.equals(other.arrayDimension))
 			return false;
-		if (decimal == null) {
-			if (other.decimal != null)
-				return false;
-		} else if (!decimal.equals(other.decimal))
-			return false;
-		if (length == null) {
-			if (other.length != null)
-				return false;
-		} else if (!length.equals(other.length))
-			return false;
 		if (unsigned != other.unsigned)
+			return false;
+		if (args == null) {
+			if (other.args != null)
+				return false;
+		} else if (!args.equals(other.args))
+			return false;
+		if (unit == null) {
+			if (other.unit != null)
+				return false;
+		} else if (!unit.equals(other.unit))
 			return false;
 		return true;
 	}

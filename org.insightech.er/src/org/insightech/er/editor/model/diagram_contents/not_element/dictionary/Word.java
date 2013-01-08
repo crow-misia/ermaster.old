@@ -40,7 +40,7 @@ public class Word extends AbstractModel implements ObjectModel,
 		this.physicalName = word.physicalName;
 		this.logicalName = word.logicalName;
 		this.type = word.type;
-		this.typeData = word.typeData.clone();
+		this.typeData = new TypeData(word.typeData);
 		this.description = word.description;
 	}
 
@@ -66,7 +66,7 @@ public class Word extends AbstractModel implements ObjectModel,
 
 	public void setType(SqlType type, TypeData typeData, String database) {
 		this.type = type;
-		this.typeData = typeData.clone();
+		this.typeData = new TypeData(typeData);;
 
 		if (type != null && type.isNeedLength(database)) {
 			if (this.typeData.getLength() == null) {
@@ -103,7 +103,7 @@ public class Word extends AbstractModel implements ObjectModel,
 		to.logicalName = this.logicalName;
 		to.description = this.description;
 		to.type = this.type;
-		to.typeData = this.typeData.clone();
+		to.typeData = new TypeData(this.typeData);
 	}
 
 	public int compareTo(Word o) {
