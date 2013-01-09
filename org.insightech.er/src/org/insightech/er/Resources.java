@@ -47,7 +47,7 @@ public final class Resources {
 		return getColor(rgb[0], rgb[1], rgb[2]);
 	}
 	public static Color getColor(final int r, final int g, final int b) {
-		int key = r * 1000000 + g * 1000 + b;
+		Integer key = Integer.valueOf(r * 1000000 + g * 1000 + b);
 
 		Color color = colorMap.get(key);
 

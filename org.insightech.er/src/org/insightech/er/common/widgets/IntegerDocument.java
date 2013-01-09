@@ -50,12 +50,11 @@ public final class IntegerDocument extends PlainDocument {
 		super.remove(offset, length);
 	}
 
-	private int checkInput(String proposedValue, int offset)
+	private static int checkInput(String proposedValue, int offset)
 			throws BadLocationException {
 		if (proposedValue.length() > 0) {
 			try {
-				int newValue = Integer.parseInt(proposedValue);
-				return newValue;
+				return Integer.parseInt(proposedValue);
 			} catch (NumberFormatException e) {
 				throw new BadLocationException(proposedValue, offset);
 			}
