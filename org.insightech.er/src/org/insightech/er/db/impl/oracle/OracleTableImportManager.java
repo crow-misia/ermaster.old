@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.insightech.er.editor.model.dbimport.DBObject;
 import org.insightech.er.editor.model.dbimport.ImportFromDBManagerBase;
@@ -38,30 +39,48 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void cashColumnData(List<DBObject> dbObjectList,
-			IProgressMonitor monitor) throws SQLException, InterruptedException {
-		super.cashColumnData(dbObjectList, monitor);
+	protected void cashColumnData(String schemaName, String tableName,
+			List<DBObject> dbObjectList, IProgressMonitor monitor) throws SQLException, InterruptedException {
+		super.cashColumnData(schemaName, tableName, dbObjectList, monitor);
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
 		try {
-			stmt = this.con
-					.prepareStatement("SELECT OWNER, TABLE_NAME, COLUMN_NAME, COMMENTS FROM SYS.ALL_COL_COMMENTS WHERE COMMENTS IS NOT NULL");
+			final StringBuilder sql = new StringBuilder("SELECT OWNER, TABLE_NAME, COLUMN_NAME, COMMENTS FROM SYS.ALL_COL_COMMENTS WHERE COMMENTS IS NOT NULL");
+			if (StringUtils.isNotEmpty(schemaName)) {
+				sql.append(" AND OWNER = ?");
+			}
+			if (StringUtils.isNotEmpty(tableName)) {
+				sql.append(" AND TABLE_NAME = ?");
+			}
+			stmt = this.con.prepareStatement(sql.toString());
+			int paramNum = 1;
+			if (StringUtils.isNotEmpty(schemaName)) {
+				stmt.setString(paramNum++, schemaName);
+			}
+			if (StringUtils.isNotEmpty(tableName)) {
+				stmt.setString(paramNum++, tableName);
+			}
 			rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				String tableName = rs.getString("TABLE_NAME");
-				String schema = rs.getString("OWNER");
+			String oldTable = null;
+			String oldSchema = null;
+			Map<String, ColumnData> cash = null;
 
+			while (rs.next()) {
+				String table = rs.getString("TABLE_NAME");
+				String schema = rs.getString("OWNER");
 				String columnName = rs.getString("COLUMN_NAME");
 				String comments = rs.getString("COMMENTS");
 
-				tableName = this.dbSetting.getTableNameWithSchema(tableName,
-						schema);
+				if (cash == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
+					oldSchema = schema;
+					oldTable = table;
+					String tableNameWithSchema = this.dbSetting.getTableNameWithSchema(table, schema);
 
-				Map<String, ColumnData> cash = this.columnDataCash
-						.get(tableName);
+					cash = this.columnDataCash.get(tableNameWithSchema);
+				}
 				if (cash != null) {
 					ColumnData columnData = cash.get(columnName);
 					if (columnData != null) {

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.insightech.er.Activator;
@@ -212,40 +213,41 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		monitor.done();
 	}
 
-	protected void cashColumnData(List<DBObject> dbObjectList,
-			IProgressMonitor monitor) throws SQLException, InterruptedException {
-		this.cashColumnDataX(null, dbObjectList, monitor);
-	}
-
-	protected void cashColumnDataX(String tableName,
+	protected void cashColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
 		ResultSet columnSet = null;
 
 		try {
-			columnSet = metaData.getColumns(null, null, tableName, null);
+			columnSet = metaData.getColumns(null, schemaName, tableName, null);
+
+			String oldTable = null;
+			String oldSchema = null;
+			Map<String, ColumnData> cash = null;
 
 			while (columnSet.next()) {
-				tableName = columnSet.getString("TABLE_NAME");
+				String table = columnSet.getString("TABLE_NAME");
 				String schema = columnSet.getString("TABLE_SCHEM");
 
-				String tableNameWithSchema = this.dbSetting
-						.getTableNameWithSchema(tableName, schema);
-
-				if (monitor != null) {
-					monitor.subTask("reading : " + tableNameWithSchema);
-				}
-
-				Map<String, ColumnData> cash = this.columnDataCash
-						.get(tableNameWithSchema);
-				if (cash == null) {
-					cash = new LinkedHashMap<String, ColumnData>();
-					this.columnDataCash.put(tableNameWithSchema, cash);
+				if (cash == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
+					oldSchema = schema;
+					oldTable = table;
+					String tableNameWithSchema = this.dbSetting
+							.getTableNameWithSchema(table, schema);
+					if (monitor != null) {
+						monitor.subTask("reading : " + tableNameWithSchema);
+					}
+					cash = this.columnDataCash
+							.get(tableNameWithSchema);
+					if (cash == null) {
+						cash = new LinkedHashMap<String, ColumnData>();
+						this.columnDataCash.put(tableNameWithSchema, cash);
+					}
 				}
 
 				ColumnData columnData = this.createColumnData(columnSet);
 
-				this.cashOtherColumnData(tableName, schema, columnData);
+				this.cashOtherColumnData(table, schema, columnData);
 
 				cash.put(columnData.columnName, columnData);
 
@@ -277,8 +279,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 				columnData.defaultValue = "";
 
-				for (int i = 0; i < bits.length; i++) {
-					columnData.defaultValue += bits[i];
+				for (byte b : bits) {
+					columnData.defaultValue += b;
 				}
 			}
 		}
@@ -386,7 +388,6 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		List<ERTable> list = new ArrayList<ERTable>();
 
 		this.cashTableComment(monitor);
-		this.cashColumnData(dbObjectList, monitor);
 
 		int i = 0;
 
@@ -398,6 +399,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				String schema = dbObject.getSchema();
 				String tableNameWithSchema = this.dbSetting
 						.getTableNameWithSchema(tableName, schema);
+
+				this.cashColumnData(schema, tableName, dbObjectList, monitor);
 
 				monitor.subTask("(" + i + "/" + this.dbObjectList.size() + ") "
 						+ tableNameWithSchema);
