@@ -17,7 +17,8 @@ public class CopyIndex extends Index {
 	public CopyIndex(ERTable copyTable, Index originalIndex,
 			List<Column> copyColumns) {
 		super(copyTable, originalIndex.getName(), originalIndex.isNonUnique(),
-				originalIndex.getType(), originalIndex.getDescription());
+				originalIndex.isBitmap(), originalIndex.getType(),
+				originalIndex.getDescription());
 
 		this.originalIndex = originalIndex;
 
@@ -66,7 +67,7 @@ public class CopyIndex extends Index {
 	public Index getRestructuredIndex(ERTable originalTable) {
 		if (this.originalIndex == null) {
 			this.originalIndex = new Index(originalTable, this.getName(), this
-					.isNonUnique(), this.getType(), this.getDescription());
+					.isNonUnique(), this.isBitmap(), this.getType(), this.getDescription());
 		}
 
 		copyData(this, this.originalIndex);
@@ -91,6 +92,7 @@ public class CopyIndex extends Index {
 	public static void copyData(Index from, Index to) {
 		to.setName(from.getName());
 		to.setNonUnique(from.isNonUnique());
+		to.setBitmap(from.isBitmap());
 		to.setFullText(from.isFullText());
 		to.setType(from.getType());
 		to.setDescription(from.getDescription());

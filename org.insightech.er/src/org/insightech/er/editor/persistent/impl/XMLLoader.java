@@ -1502,6 +1502,7 @@ public class XMLLoader {
 
 			Index index = new Index(table, this.getStringValue(indexElement,
 					"name"), this.getBooleanValue(indexElement, "non_unique"),
+					this.getBooleanValue(indexElement, "bitmap"),
 					type, this.getStringValue(indexElement, "description"));
 
 			index.setFullText(this.getBooleanValue(indexElement, "full_text"));

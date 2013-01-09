@@ -549,14 +549,14 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 					String type = null;
 					short indexType = indexSet.getShort("TYPE");
 					if (indexType == DatabaseMetaData.tableIndexOther) {
-						type = "BTREE";
+						type = "";
 					}
 
 					// DatabaseMetaData.tableIndexClustered
 					// DatabaseMetaData.tableIndexOther
 					// DatabaseMetaData.tableIndexStatistic
 
-					index = new Index(table, name, nonUnique, type, null);
+					index = new Index(table, name, nonUnique, false, type, null);
 
 					indexMap.put(name, index);
 					indexes.add(index);

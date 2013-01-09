@@ -68,6 +68,8 @@ public class IndexDialog extends AbstractDialog {
 
 	private Button uniqueCheckBox;
 
+	private Button bitmapCheckBox;
+
 	private Button fullTextCheckBox;
 
 	private boolean add;
@@ -156,6 +158,9 @@ public class IndexDialog extends AbstractDialog {
 	 * 
 	 */
 	private void createCheckComposite(Composite composite) {
+		DBManager dbManager = DBManagerFactory.getDBManager(this.table
+				.getDiagram());
+
 		GridData gridData2 = new GridData();
 		gridData2.horizontalSpan = 2;
 		gridData2.heightHint = 30;
@@ -173,8 +178,11 @@ public class IndexDialog extends AbstractDialog {
 		this.uniqueCheckBox.setText(ResourceString
 				.getResourceString("label.index.unique"));
 
-		DBManager dbManager = DBManagerFactory.getDBManager(this.table
-				.getDiagram());
+		if (dbManager.isSupported(SupportFunctions.BITMAP_INDEX)) {
+			this.bitmapCheckBox = new Button(checkComposite, SWT.CHECK);
+			this.bitmapCheckBox.setText(ResourceString
+					.getResourceString("label.index.bitmap"));
+		}
 
 		if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
 			this.fullTextCheckBox = new Button(checkComposite, SWT.CHECK);
@@ -356,6 +364,8 @@ public class IndexDialog extends AbstractDialog {
 
 			this.uniqueCheckBox.setSelection(!this.targetIndex.isNonUnique());
 
+			this.bitmapCheckBox.setSelection(this.targetIndex.isBitmap());
+
 			DBManager dbManager = DBManagerFactory.getDBManager(table
 					.getDiagram());
 			if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
@@ -407,7 +417,7 @@ public class IndexDialog extends AbstractDialog {
 			public void widgetSelected(SelectionEvent e) {
 				int index = indexColumnList.getSelectionIndex();
 
-				if (index == -1 || index == 0) {
+				if (index <= 0) {
 					return;
 				}
 
@@ -501,6 +511,25 @@ public class IndexDialog extends AbstractDialog {
 				validate();
 			}
 		});
+
+		if (this.bitmapCheckBox != null) {
+			this.uniqueCheckBox.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					if (e.doit) {
+						bitmapCheckBox.setSelection(false);
+					}
+				}
+			});
+			this.bitmapCheckBox.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					if (e.doit) {
+						uniqueCheckBox.setSelection(false);
+					}
+				}
+			});
+		}
 	}
 
 	public void changeColumn(int index1, int index2) {
@@ -558,7 +587,8 @@ public class IndexDialog extends AbstractDialog {
 		String text = nameText.getText();
 
 		this.resultIndex = new Index(table, text, !this.uniqueCheckBox
-				.getSelection(), this.typeCombo == null ? "" : this.typeCombo.getText(), null);
+				.getSelection(), this.bitmapCheckBox == null ? false : this.bitmapCheckBox.getSelection(),
+				this.typeCombo == null ? "" : this.typeCombo.getText(), null);
 		this.resultIndex.setDescription(this.descriptionText.getText().trim());
 
 		for (NormalColumn selectedColumn : selectedColumns) {

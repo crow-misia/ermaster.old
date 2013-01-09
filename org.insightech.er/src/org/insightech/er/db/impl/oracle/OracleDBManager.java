@@ -1,6 +1,8 @@
 package org.insightech.er.db.impl.oracle;
 
+import static org.insightech.er.db.SupportFunctions.BITMAP_INDEX;
 import static org.insightech.er.db.SupportFunctions.COLUMN_UNIT;
+import static org.insightech.er.db.SupportFunctions.DESC_INDEX;
 import static org.insightech.er.db.SupportFunctions.SCHEMA;
 import static org.insightech.er.db.SupportFunctions.SEQUENCE;
 import static org.insightech.er.db.SupportFunctions.SEQUENCE_CACHE;
@@ -86,6 +88,8 @@ public class OracleDBManager extends DBManagerBase {
 	@Override
 	protected SupportFunctions[] getSupportItems() {
 		return new SupportFunctions[] {
+				DESC_INDEX,
+				BITMAP_INDEX,
 				SCHEMA,
 				SEQUENCE,
 				SEQUENCE_MINVALUE,

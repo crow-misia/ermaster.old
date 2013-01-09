@@ -17,6 +17,8 @@ public class Index extends AbstractModel implements ObjectModel,
 
 	private boolean nonUnique;
 
+	private boolean bitmap;
+
 	private boolean fullText;
 
 	private String type;
@@ -31,11 +33,12 @@ public class Index extends AbstractModel implements ObjectModel,
 
 	private ERTable table;
 
-	public Index(ERTable table, String name, boolean nonUnique, String type,
+	public Index(ERTable table, String name, boolean nonUnique, boolean bitmap, String type,
 			String description) {
 		this.table = table;
 
 		this.nonUnique = nonUnique;
+		this.bitmap = bitmap;
 		this.type = type;
 		this.description = description;
 
@@ -111,6 +114,14 @@ public class Index extends AbstractModel implements ObjectModel,
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public boolean isBitmap() {
+		return bitmap;
+	}
+
+	public void setBitmap(boolean bitmap) {
+		this.bitmap = bitmap;
 	}
 
 	/**

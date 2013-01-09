@@ -1686,6 +1686,8 @@ public class PersistentXmlImpl extends Persistent {
 				.append("</full_text>\n");
 		xml.append("\t<non_unique>").append(index.isNonUnique())
 				.append("</non_unique>\n");
+		xml.append("\t<bitmap>").append(index.isBitmap())
+				.append("</bitmap>\n");
 		xml.append("\t<name>").append(escape(index.getName()))
 				.append("</name>\n");
 		xml.append("\t<type>").append(escape(index.getType()))
