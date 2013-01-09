@@ -8,6 +8,8 @@ import org.eclipse.swt.widgets.Text;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
+import org.insightech.er.db.DBManager;
+import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.properties.TableProperties;
@@ -27,6 +29,8 @@ public abstract class AdvancedComposite extends Composite {
 
 	protected ERTable table;
 
+	protected DBManager dbManager;
+
 	public AdvancedComposite(Composite parent) {
 		super(parent, SWT.NONE);
 	}
@@ -37,6 +41,7 @@ public abstract class AdvancedComposite extends Composite {
 		this.tableProperties = tableProperties;
 		this.diagram = diagram;
 		this.table = table;
+		this.dbManager = DBManagerFactory.getDBManager(diagram);
 		
 		this.initComposite();
 		this.addListener();

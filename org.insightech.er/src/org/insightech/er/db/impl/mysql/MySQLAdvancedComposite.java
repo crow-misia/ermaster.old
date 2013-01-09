@@ -74,7 +74,7 @@ public class MySQLAdvancedComposite extends AdvancedComposite {
 	private void initCharacterSetCombo() {
 		this.characterSetCombo.add("");
 
-		for (String characterSet : MySQLDBManager.getCharacterSetList()) {
+		for (String characterSet : dbManager.getCharacterSetList()) {
 			this.characterSetCombo.add(characterSet);
 		}
 	}
@@ -96,7 +96,7 @@ public class MySQLAdvancedComposite extends AdvancedComposite {
 
 		this.collationCombo.add("");
 
-		for (String collation : MySQLDBManager.getCollationList(Format
+		for (String collation : dbManager.getCollationList(Format
 				.toString(characterSet))) {
 			this.collationCombo.add(collation);
 		}
@@ -167,7 +167,7 @@ public class MySQLAdvancedComposite extends AdvancedComposite {
 				collationCombo.removeAll();
 				collationCombo.add("");
 
-				for (String collation : MySQLDBManager
+				for (String collation : dbManager
 						.getCollationList(characterSetCombo.getText())) {
 					collationCombo.add(collation);
 				}

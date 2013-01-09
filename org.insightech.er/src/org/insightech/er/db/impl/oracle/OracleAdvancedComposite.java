@@ -26,7 +26,7 @@ public class OracleAdvancedComposite extends AdvancedComposite {
 	private void initCharacterSetCombo() {
 		this.characterSetCombo.add("");
 
-		for (final String characterSet : OracleDBManager.getCharacterSetList()) {
+		for (final String characterSet : dbManager.getCharacterSetList()) {
 			this.characterSetCombo.add(characterSet);
 		}
 	}

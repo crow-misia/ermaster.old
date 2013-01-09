@@ -208,4 +208,12 @@ public abstract class DBManagerBase implements DBManager {
 
 	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog) {
 	}
+
+	public List<String> getCharacterSetList() {
+		return Collections.emptyList();
+	}
+
+	public List<String> getCollationList(String characterset) {
+		return Collections.emptyList();
+	}
 }

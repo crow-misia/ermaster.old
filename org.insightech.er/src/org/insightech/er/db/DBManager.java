@@ -101,4 +101,8 @@ public interface DBManager {
 	public BigDecimal getSequenceMaxValue();
 
 	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog);
+
+	public List<String> getCharacterSetList();
+
+	public List<String> getCollationList(String characterset);
 }

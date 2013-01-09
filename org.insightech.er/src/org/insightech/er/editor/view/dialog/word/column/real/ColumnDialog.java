@@ -28,7 +28,9 @@ import org.insightech.er.util.Format;
 
 public class ColumnDialog extends AbstractRealColumnDialog {
 
-	private ERTable erTable;
+	private final ERTable erTable;
+
+	private final DBManager dbManager;
 
 	private Sequence autoIncrementSetting;
 
@@ -48,6 +50,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		super(parentShell, erTable.getDiagram());
 
 		this.erTable = erTable;
+		this.dbManager = DBManagerFactory.getDBManager(erTable.getDiagram());
 	}
 
 	@Override
@@ -57,16 +60,14 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		super.initializeDetailTab(composite);
 
-		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
-
-		if (MySQLDBManager.ID.equals(this.diagram.getDatabase())) {
+		if (dbManager.isSupported(SupportFunctions.COLUMN_CHARSET)) {
 			this.characterSetCombo = CompositeFactory.createCombo(this,
 					composite, "label.character.set", 1);
 			this.collationCombo = CompositeFactory.createCombo(this, composite,
 					"label.collation", 1);
 		}
 
-		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT_SETTING)) {
+		if (dbManager.isSupported(SupportFunctions.AUTO_INCREMENT_SETTING)) {
 			CompositeFactory.filler(composite, 2);
 
 			this.autoIncrementSettingButton = new Button(composite, SWT.NONE);
@@ -82,9 +83,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 	@Override
 	protected int getCheckBoxCompositeNumColumns() {
-		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
-
-		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
+		if (dbManager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
 			return 4;
 		}
 
@@ -98,9 +97,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		super.initializeCheckBoxComposite(composite);
 
-		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
-
-		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
+		if (dbManager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
 			this.autoIncrementCheck = CompositeFactory.createCheckbox(this,
 					composite, "label.auto.increment");
 		}
@@ -184,7 +181,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		if (this.characterSetCombo != null) {
 			this.characterSetCombo.add("");
 
-			for (String characterSet : MySQLDBManager.getCharacterSetList()) {
+			for (String characterSet : dbManager.getCharacterSetList()) {
 				this.characterSetCombo.add(characterSet);
 			}
 
@@ -193,8 +190,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 			this.collationCombo.add("");
 
-			for (String collation : MySQLDBManager
-					.getCollationList(this.targetColumn.getCharacterSet())) {
+			for (String collation : dbManager.getCollationList(this.targetColumn.getCharacterSet())) {
 				this.collationCombo.add(collation);
 			}
 
@@ -231,7 +227,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 				.getText());
 
 		if (selectedType != null) {
-			this.diagram.getDBManager().setEnabledBySqlType(selectedType, this);
+			dbManager.setEnabledBySqlType(selectedType, this);
 		}
 	}
 
@@ -381,8 +377,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 					collationCombo.removeAll();
 					collationCombo.add("");
 
-					for (String collation : MySQLDBManager
-							.getCollationList(characterSetCombo.getText())) {
+					for (String collation : dbManager.getCollationList(characterSetCombo.getText())) {
 						collationCombo.add(collation);
 					}
 

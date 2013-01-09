@@ -152,4 +152,5 @@ public class PostgresDBManager extends DBManagerBase {
 			dialog.setAutoIncrementSettingButtonEnabled(false);
 		}
 	}
+
 }

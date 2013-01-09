@@ -2,6 +2,7 @@ package org.insightech.er.db.impl.mysql;
 
 import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
 import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+import static org.insightech.er.db.SupportFunctions.COLUMN_CHARSET;
 import static org.insightech.er.db.SupportFunctions.DESC_INDEX;
 import static org.insightech.er.db.SupportFunctions.FULLTEXT_INDEX;
 import static org.insightech.er.db.SupportFunctions.SCHEMA;
@@ -87,6 +88,7 @@ public class MySQLDBManager extends DBManagerBase {
 				DESC_INDEX,
 				FULLTEXT_INDEX,
 				SCHEMA,
+				COLUMN_CHARSET,
 		};
 	}
 
@@ -124,7 +126,8 @@ public class MySQLDBManager extends DBManagerBase {
 		return null;
 	}
 
-	public static List<String> getCharacterSetList() {
+	@Override
+	public List<String> getCharacterSetList() {
 		List<String> list = new ArrayList<String>();
 
 		Enumeration<String> keys = CHARACTER_SET_RESOURCE.getKeys();
@@ -136,7 +139,8 @@ public class MySQLDBManager extends DBManagerBase {
 		return list;
 	}
 
-	public static List<String> getCollationList(String characterset) {
+	@Override
+	public List<String> getCollationList(String characterset) {
 		List<String> list = new ArrayList<String>();
 
 		if (characterset != null) {

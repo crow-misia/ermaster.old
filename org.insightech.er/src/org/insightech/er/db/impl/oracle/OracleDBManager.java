@@ -156,7 +156,8 @@ public class OracleDBManager extends DBManagerBase {
 		return new BigDecimal("9999999999999999999999999999");
 	}
 
-	public static List<String> getCharacterSetList() {
+	@Override
+	public List<String> getCharacterSetList() {
 		final List<String> list = new ArrayList<String>();
 
 		final Enumeration<String> keys = CHARACTER_SET_RESOURCE.getKeys();
@@ -167,4 +168,5 @@ public class OracleDBManager extends DBManagerBase {
 
 		return list;
 	}
+
 }

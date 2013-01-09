@@ -19,5 +19,6 @@ public enum SupportFunctions {
 	SEQUENCE_CYCLE,
 	SEQUENCE_ORDER,
 	COLUMN_UNIT,
+	COLUMN_CHARSET,
 	ARRAY_TYPE,
 }
