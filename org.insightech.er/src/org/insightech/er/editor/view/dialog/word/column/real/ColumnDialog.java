@@ -15,6 +15,7 @@ import org.insightech.er.ResourceString;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
@@ -65,7 +66,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 					"label.collation", 1);
 		}
 
-		if (manager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT_SETTING)) {
+		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT_SETTING)) {
 			CompositeFactory.filler(composite, 2);
 
 			this.autoIncrementSettingButton = new Button(composite, SWT.NONE);
@@ -83,7 +84,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 	protected int getCheckBoxCompositeNumColumns() {
 		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
 
-		if (manager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT)) {
+		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
 			return 4;
 		}
 
@@ -99,7 +100,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
 
-		if (manager.isSupported(DBManager.SUPPORT_AUTO_INCREMENT)) {
+		if (manager.isSupported(SupportFunctions.AUTO_INCREMENT)) {
 			this.autoIncrementCheck = CompositeFactory.createCheckbox(this,
 					composite, "label.auto.increment");
 		}

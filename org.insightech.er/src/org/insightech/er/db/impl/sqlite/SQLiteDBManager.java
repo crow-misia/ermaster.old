@@ -1,9 +1,13 @@
 package org.insightech.er.db.impl.sqlite;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -64,8 +68,11 @@ public class SQLiteDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_SCHEMA, SUPPORT_AUTO_INCREMENT };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				SCHEMA,
+				AUTO_INCREMENT,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

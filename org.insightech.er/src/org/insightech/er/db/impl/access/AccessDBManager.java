@@ -1,9 +1,13 @@
 package org.insightech.er.db.impl.access;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -64,9 +68,11 @@ public class AccessDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_AUTO_INCREMENT,
-				SUPPORT_AUTO_INCREMENT_SETTING };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT,
+				AUTO_INCREMENT_SETTING,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

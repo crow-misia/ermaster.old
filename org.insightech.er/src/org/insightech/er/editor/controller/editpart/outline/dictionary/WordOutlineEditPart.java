@@ -24,7 +24,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
-import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.word.word.WordDialog;

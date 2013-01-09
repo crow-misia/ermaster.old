@@ -1,9 +1,15 @@
 package org.insightech.er.db.impl.standard_sql;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -64,11 +70,12 @@ public class StandardSQLDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] {
-				SUPPORT_AUTO_INCREMENT, SUPPORT_AUTO_INCREMENT_SETTING,
-				SUPPORT_SEQUENCE,
-				SUPPORT_SCHEMA,
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT,
+				AUTO_INCREMENT_SETTING,
+				SEQUENCE,
+				SCHEMA,
 		};
 	}
 

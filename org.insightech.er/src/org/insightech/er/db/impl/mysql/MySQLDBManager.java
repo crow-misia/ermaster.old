@@ -1,5 +1,11 @@
 package org.insightech.er.db.impl.mysql;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+import static org.insightech.er.db.SupportFunctions.DESC_INDEX;
+import static org.insightech.er.db.SupportFunctions.FULLTEXT_INDEX;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -73,10 +80,14 @@ public class MySQLDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_AUTO_INCREMENT,
-				SUPPORT_AUTO_INCREMENT_SETTING, SUPPORT_DESC_INDEX,
-				SUPPORT_FULLTEXT_INDEX, SUPPORT_SCHEMA };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT,
+				AUTO_INCREMENT_SETTING,
+				DESC_INDEX,
+				FULLTEXT_INDEX,
+				SCHEMA,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

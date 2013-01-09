@@ -2,6 +2,7 @@ package org.insightech.er.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.db.DBManager;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
@@ -36,7 +37,8 @@ public class Format {
 					}
 					
 					// 単位サポート
-					if (StringUtils.isNotBlank(typeData.getUnit())) {
+					if (manager.isSupported(SupportFunctions.COLUMN_UNIT) &&
+							StringUtils.isNotBlank(typeData.getUnit())) {
 						len += " " + StringUtils.trim(typeData.getUnit());
 					}
 
@@ -44,7 +46,7 @@ public class Format {
 
 				}
 
-				if (typeData.isArray() && manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
+				if (typeData.isArray() && manager.isSupported(SupportFunctions.ARRAY_TYPE)) {
 					for (int i=0,n=typeData.getArrayDimension(); i <n; i++) {
 						type += "[]";
 					}

@@ -30,6 +30,7 @@ import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -175,7 +176,7 @@ public class IndexDialog extends AbstractDialog {
 		DBManager dbManager = DBManagerFactory.getDBManager(this.table
 				.getDiagram());
 
-		if (dbManager.isSupported(DBManager.SUPPORT_FULLTEXT_INDEX)) {
+		if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
 			this.fullTextCheckBox = new Button(checkComposite, SWT.CHECK);
 			this.fullTextCheckBox.setText(ResourceString
 					.getResourceString("label.index.fulltext"));
@@ -299,7 +300,7 @@ public class IndexDialog extends AbstractDialog {
 				.getResourceString("label.column.name"));
 
 		if (DBManagerFactory.getDBManager(this.table.getDiagram()).isSupported(
-				DBManager.SUPPORT_DESC_INDEX)) {
+				SupportFunctions.DESC_INDEX)) {
 			TableColumn tableColumn1 = new TableColumn(indexColumnList,
 					SWT.CENTER);
 			tableColumn1.setWidth(50);
@@ -357,7 +358,7 @@ public class IndexDialog extends AbstractDialog {
 
 			DBManager dbManager = DBManagerFactory.getDBManager(table
 					.getDiagram());
-			if (dbManager.isSupported(DBManager.SUPPORT_FULLTEXT_INDEX)) {
+			if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
 				this.fullTextCheckBox.setSelection(this.targetIndex
 						.isFullText());
 			}
@@ -381,7 +382,7 @@ public class IndexDialog extends AbstractDialog {
 		descCheckButton.pack();
 
 		if (DBManagerFactory.getDBManager(this.table.getDiagram()).isSupported(
-				DBManager.SUPPORT_DESC_INDEX)) {
+				SupportFunctions.DESC_INDEX)) {
 
 			TableEditor editor = new TableEditor(this.indexColumnList);
 
@@ -567,7 +568,7 @@ public class IndexDialog extends AbstractDialog {
 		}
 
 		DBManager dbManager = DBManagerFactory.getDBManager(table.getDiagram());
-		if (dbManager.isSupported(DBManager.SUPPORT_FULLTEXT_INDEX)) {
+		if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
 			this.resultIndex.setFullText(this.fullTextCheckBox.getSelection());
 		}
 	}
@@ -598,7 +599,7 @@ public class IndexDialog extends AbstractDialog {
 		DBManager dbManager = DBManagerFactory.getDBManager(this.table
 				.getDiagram());
 
-		if (dbManager.isSupported(DBManager.SUPPORT_FULLTEXT_INDEX)) {
+		if (dbManager.isSupported(SupportFunctions.FULLTEXT_INDEX)) {
 			if (fullTextCheckBox.getSelection()) {
 				for (NormalColumn indexColumn : selectedColumns) {
 					if (!indexColumn.isFullTextIndexable()) {

@@ -76,7 +76,7 @@ public interface DBManager {
 
 	public DDLCreator getDDLCreator(ERDiagram diagram, boolean semicolon);
 
-	public boolean isSupported(int support);
+	public boolean isSupported(SupportFunctions support);
 
 	public boolean doesNeedURLDatabaseName();
 

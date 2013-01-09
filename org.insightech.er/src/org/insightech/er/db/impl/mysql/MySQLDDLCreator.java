@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
-import org.insightech.er.db.DBManager;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -291,7 +291,7 @@ public class MySQLDDLCreator extends DDLCreator {
 		int i = 0;
 		List<Boolean> descs = index.getDescs();
 
-		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(SupportFunctions.DESC_INDEX) &&
 				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {

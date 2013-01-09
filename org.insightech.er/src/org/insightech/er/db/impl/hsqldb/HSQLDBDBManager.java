@@ -1,11 +1,18 @@
 package org.insightech.er.db.impl.hsqldb;
 
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CYCLE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MAXVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MINVALUE;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -66,9 +73,14 @@ public class HSQLDBDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] { SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CYCLE, };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				SCHEMA,
+				SEQUENCE,
+				SEQUENCE_MINVALUE,
+				SEQUENCE_MAXVALUE,
+				SEQUENCE_CYCLE,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

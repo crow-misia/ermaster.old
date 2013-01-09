@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
@@ -69,7 +70,7 @@ public abstract class DDLCreator {
 		}
 		if (this.ddlTarget.dropSequence
 				&& DBManagerFactory.getDBManager(diagram).isSupported(
-						DBManager.SUPPORT_SEQUENCE)) {
+						SupportFunctions.SEQUENCE)) {
 			ddl.append(this.getDropSequences(diagram));
 		}
 		if (this.ddlTarget.dropTablespace) {
@@ -241,7 +242,7 @@ public abstract class DDLCreator {
 		}
 		if (this.ddlTarget.createSequence
 				&& DBManagerFactory.getDBManager(diagram).isSupported(
-						DBManager.SUPPORT_SEQUENCE)) {
+						SupportFunctions.SEQUENCE)) {
 			ddl.append(this.getCreateSequences(diagram));
 		}
 		if (this.ddlTarget.createTable) {
@@ -772,7 +773,7 @@ public abstract class DDLCreator {
 		int i = 0;
 		List<Boolean> descs = index.getDescs();
 
-		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(SupportFunctions.DESC_INDEX) &&
 				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {

@@ -15,6 +15,7 @@ import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.db2.DB2DBManager;
 import org.insightech.er.db.impl.hsqldb.HSQLDBDBManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -102,31 +103,31 @@ public class SequenceDialog extends AbstractDialog {
 				"Start", TEXT_SIZE);
 		CompositeFactory.filler(composite, 3);
 
-		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_MINVALUE)) {
+		if (dbManager.isSupported(SupportFunctions.SEQUENCE_MINVALUE)) {
 			this.minValueText = CompositeFactory.createNumText(this, composite,
 					"MinValue", TEXT_SIZE);
 			CompositeFactory.filler(composite, 3);
 		}
 
-		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_MAXVALUE)) {
+		if (dbManager.isSupported(SupportFunctions.SEQUENCE_MAXVALUE)) {
 			this.maxValueText = CompositeFactory.createNumText(this, composite,
 					"MaxValue", TEXT_SIZE);
 			CompositeFactory.filler(composite, 3);
 		}
 
-		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_CACHE)) {
+		if (dbManager.isSupported(SupportFunctions.SEQUENCE_CACHE)) {
 			this.cacheText = CompositeFactory.createNumText(this, composite,
 					"Cache", TEXT_SIZE);
 			CompositeFactory.filler(composite, 3);
 		}
 
-		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_CYCLE)) {
+		if (dbManager.isSupported(SupportFunctions.SEQUENCE_CYCLE)) {
 			this.cycleCheckBox = CompositeFactory.createCheckbox(this, composite,
 					"Cycle", 2);
 			CompositeFactory.filler(composite, 3);
 		}
 
-		if (dbManager.isSupported(DBManager.SUPPORT_SEQUENCE_ORDER)) {
+		if (dbManager.isSupported(SupportFunctions.SEQUENCE_ORDER)) {
 			this.orderCheckBox = CompositeFactory.createCheckbox(this,
 					composite, "Order", 2);
 			CompositeFactory.filler(composite, 3);
@@ -139,7 +140,7 @@ public class SequenceDialog extends AbstractDialog {
 	@Override
 	protected String getErrorMessage() {
 		if (!DBManagerFactory.getDBManager(this.diagram).isSupported(
-				DBManager.SUPPORT_SEQUENCE)) {
+				SupportFunctions.SEQUENCE)) {
 			return "error.sequence.not.supported";
 		}
 

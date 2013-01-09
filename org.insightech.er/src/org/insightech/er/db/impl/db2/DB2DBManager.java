@@ -1,11 +1,22 @@
 package org.insightech.er.db.impl.db2;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_CACHE;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CACHE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CYCLE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MAXVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MINVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_ORDER;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -67,11 +78,17 @@ public class DB2DBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] {
-				SUPPORT_AUTO_INCREMENT, SUPPORT_AUTO_INCREMENT_CACHE,
-				SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CACHE, SUPPORT_SEQUENCE_CYCLE, SUPPORT_SEQUENCE_ORDER,
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT,
+				AUTO_INCREMENT_CACHE,
+				SCHEMA,
+				SEQUENCE,
+				SEQUENCE_MINVALUE,
+				SEQUENCE_MAXVALUE,
+				SEQUENCE_CACHE,
+				SEQUENCE_CYCLE,
+				SEQUENCE_ORDER,
 		};
 	}
 

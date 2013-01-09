@@ -1,10 +1,19 @@
 package org.insightech.er.db.impl.h2;
 
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_CACHE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+import static org.insightech.er.db.SupportFunctions.DESC_INDEX;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CACHE;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.PreTableExportManager;
@@ -65,12 +74,16 @@ public class H2DBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] {
-				SUPPORT_AUTO_INCREMENT, SUPPORT_AUTO_INCREMENT_SETTING, SUPPORT_AUTO_INCREMENT_CACHE,
-				SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_CACHE,
-				SUPPORT_DESC_INDEX, };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT,
+				AUTO_INCREMENT_SETTING,
+				AUTO_INCREMENT_CACHE,
+				SCHEMA,
+				SEQUENCE,
+				SEQUENCE_CACHE,
+				DESC_INDEX,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

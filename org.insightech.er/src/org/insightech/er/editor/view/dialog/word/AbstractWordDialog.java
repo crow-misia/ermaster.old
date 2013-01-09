@@ -17,8 +17,8 @@ import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.MySQLDBManager;
-import org.insightech.er.db.impl.postgres.PostgresDBManager;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
@@ -96,13 +96,13 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		DBManager manager = DBManagerFactory.getDBManager(this.diagram);
 
 		int colnum = 6;
-		if (manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
+		if (manager.isSupported(SupportFunctions.ARRAY_TYPE)) {
 			colnum += 4;
 		}
 		if (MySQLDBManager.ID.equals(this.diagram.getDatabase())) {
 			colnum += 2;
 		}
-		if (manager.isSupported(DBManager.SUPPORT_UNIT)) {
+		if (manager.isSupported(SupportFunctions.COLUMN_UNIT)) {
 			colnum++;
 		}
 
@@ -127,7 +127,7 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 				"label.column.length", 30);
 		this.lengthText.setEnabled(false);
 
-		if (manager.isSupported(DBManager.SUPPORT_UNIT)) {
+		if (manager.isSupported(SupportFunctions.COLUMN_UNIT)) {
 			this.unitCombo = CompositeFactory.createReadOnlyCombo(this, composite, null);
 		}
 
@@ -135,7 +135,7 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 				"label.column.decimal", 30);
 		this.decimalText.setEnabled(false);
 
-		if (manager.isSupported(DBManager.SUPPORT_ARRAY_TYPE)) {
+		if (manager.isSupported(SupportFunctions.ARRAY_TYPE)) {
 			CompositeFactory.filler(composite, 1, 10);
 
 			this.arrayCheck = CompositeFactory.createCheckbox(this, composite,

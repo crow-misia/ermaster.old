@@ -1,10 +1,23 @@
 package org.insightech.er.db.impl.postgres;
 
+import static org.insightech.er.db.SupportFunctions.ARRAY_TYPE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_CACHE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_CYCLE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_MAXVALUE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_MINVALUE;
+import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CYCLE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MAXVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MINVALUE;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.postgres.tablespace.PostgresTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -68,13 +81,20 @@ public class PostgresDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] {
-				SUPPORT_AUTO_INCREMENT_SETTING,
-				SUPPORT_AUTO_INCREMENT_MINVALUE, SUPPORT_AUTO_INCREMENT_MAXVALUE, SUPPORT_AUTO_INCREMENT_CACHE, SUPPORT_AUTO_INCREMENT_CYCLE,
-				SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CYCLE,
-				SUPPORT_ARRAY_TYPE, };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				AUTO_INCREMENT_SETTING,
+				AUTO_INCREMENT_MINVALUE,
+				AUTO_INCREMENT_MAXVALUE,
+				AUTO_INCREMENT_CACHE,
+				AUTO_INCREMENT_CYCLE,
+				SCHEMA,
+				SEQUENCE,
+				SEQUENCE_MINVALUE,
+				SEQUENCE_MAXVALUE,
+				SEQUENCE_CYCLE,
+				ARRAY_TYPE,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {

@@ -34,10 +34,28 @@ public abstract class DBManagerBase implements DBManager {
 
 	private Map<String, ClassLoader> loaderMap;
 
+	private final boolean[] supportFunctions;
+
 	public DBManagerBase() {
-		this.reservedWords = this.getReservedWords();
+		this.reservedWords = getReservedWords();
 
 		this.loaderMap = new HashMap<String, ClassLoader>();
+		
+		this.supportFunctions = createSupportFunctionsArray(this.getSupportItems());
+	}
+
+	private static boolean[] createSupportFunctionsArray(final SupportFunctions[] functions) {
+		final SupportFunctions[] funcs = SupportFunctions.values();
+		final int n = funcs.length;
+		final boolean[] retval = new boolean[funcs.length];
+		
+		for (int i = 0; i < n; i++) {
+			retval[i] = false;
+		}
+		for (final SupportFunctions func : functions) {
+			retval[func.ordinal()] = true;
+		}
+		return retval;
 	}
 
 	public String getURL(String serverName, String dbName, int port) {
@@ -146,16 +164,8 @@ public abstract class DBManagerBase implements DBManager {
 		return reservedWords.contains(str.toUpperCase());
 	}
 
-	public boolean isSupported(int supportItem) {
-		int[] supportItems = this.getSupportItems();
-
-		for (int i = 0, n = supportItems.length; i < n; i++) {
-			if (supportItems[i] == supportItem) {
-				return true;
-			}
-		}
-
-		return false;
+	public boolean isSupported(SupportFunctions function) {
+		return this.supportFunctions[function.ordinal()];
 	}
 
 	/**
@@ -172,7 +182,7 @@ public abstract class DBManagerBase implements DBManager {
 		return true;
 	}
 
-	abstract protected int[] getSupportItems();
+	protected abstract SupportFunctions[] getSupportItems();
 
 	public List<String> getImportSchemaList(Connection con) throws SQLException {
 		List<String> schemaList = new ArrayList<String>();

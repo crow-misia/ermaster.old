@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
@@ -425,7 +426,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		DBManager dbManager = DBManagerFactory.getDBManager(database);
 
-		if (!dbManager.isSupported(DBManager.SUPPORT_SCHEMA)) {
+		if (!dbManager.isSupported(SupportFunctions.SCHEMA)) {
 			return Format.null2blank(this.getPhysicalName());
 		}
 

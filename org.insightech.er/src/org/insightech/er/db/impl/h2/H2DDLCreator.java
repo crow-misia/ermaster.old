@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
-import org.insightech.er.db.DBManager;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
@@ -98,7 +98,7 @@ public class H2DDLCreator extends DDLCreator {
 		int i = 0;
 		List<Boolean> descs = index.getDescs();
 
-		final boolean isSupportDescIndex = this.getDBManager().isSupported(DBManager.SUPPORT_DESC_INDEX) &&
+		final boolean isSupportDescIndex = this.getDBManager().isSupported(SupportFunctions.DESC_INDEX) &&
 				descs.size() > 1;
 		for (NormalColumn column : index.getColumns()) {
 			if (!first) {

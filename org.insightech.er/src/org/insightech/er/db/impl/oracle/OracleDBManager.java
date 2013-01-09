@@ -1,5 +1,14 @@
 package org.insightech.er.db.impl.oracle;
 
+import static org.insightech.er.db.SupportFunctions.COLUMN_UNIT;
+import static org.insightech.er.db.SupportFunctions.SCHEMA;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CACHE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_CYCLE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MAXVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_MINVALUE;
+import static org.insightech.er.db.SupportFunctions.SEQUENCE_ORDER;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -10,6 +19,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.insightech.er.db.DBManagerBase;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.oracle.tablespace.OracleTablespaceProperties;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -74,11 +84,17 @@ public class OracleDBManager extends DBManagerBase {
 	}
 
 	@Override
-	protected int[] getSupportItems() {
-		return new int[] {
-				SUPPORT_SCHEMA,
-				SUPPORT_SEQUENCE, SUPPORT_SEQUENCE_MINVALUE, SUPPORT_SEQUENCE_MAXVALUE, SUPPORT_SEQUENCE_CACHE, SUPPORT_SEQUENCE_CYCLE, SUPPORT_SEQUENCE_ORDER,
-				SUPPORT_UNIT, };
+	protected SupportFunctions[] getSupportItems() {
+		return new SupportFunctions[] {
+				SCHEMA,
+				SEQUENCE,
+				SEQUENCE_MINVALUE,
+				SEQUENCE_MAXVALUE,
+				SEQUENCE_CACHE,
+				SEQUENCE_CYCLE,
+				SEQUENCE_ORDER,
+				COLUMN_UNIT,
+		};
 	}
 
 	public ImportFromDBManager getTableImportManager() {
