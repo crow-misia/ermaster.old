@@ -9,7 +9,7 @@ import org.eclipse.gef.dnd.TemplateTransfer;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.swt.dnd.Transfer;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
-import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 
 public class ERDiagramOutlineTransferDropTargetListener extends
 		AbstractTransferDropTargetListener {
@@ -34,7 +34,7 @@ public class ERDiagramOutlineTransferDropTargetListener extends
 			request.setLocation(this.getDropLocation());
 			return request;
 
-		} else if (object instanceof Word) {
+		} else if (object instanceof UniqueWord) {
 			DirectEditRequest request = new DirectEditRequest(
 					ERDiagramTransferDragSourceListener.REQUEST_TYPE_ADD_WORD);
 			request.setDirectEditFeature(object);

@@ -1,11 +1,75 @@
 package org.insightech.er.editor.model.diagram_contents.not_element.dictionary;
 
+import org.insightech.er.db.sqltype.SqlType;
+
 public class UniqueWord extends Word {
 
 	private static final long serialVersionUID = 6795589487175949331L;
+	
+	private final Word word;
 
 	public UniqueWord(Word word) {
 		super(word);
+		this.word = word;
+	}
+
+	public Word getWord() {
+		return word;
+	}
+
+	@Override
+	public String getLogicalName() {
+		return word.getLogicalName();
+	}
+
+	@Override
+	public String getPhysicalName() {
+		return word.getPhysicalName();
+	}
+
+	@Override
+	public SqlType getType() {
+		return word.getType();
+	}
+
+	@Override
+	public void setLogicalName(String logicalName) {
+		word.setLogicalName(logicalName);
+	}
+
+	@Override
+	public void setPhysicalName(String physicalName) {
+		word.setPhysicalName(physicalName);
+	}
+
+	@Override
+	public void setType(SqlType type, TypeData typeData, String database) {
+		word.setType(type, typeData, database);
+	}
+
+	@Override
+	protected void setType(SqlType type) {
+		word.setType(type);
+	}
+
+	@Override
+	public TypeData getTypeData() {
+		return word.getTypeData();
+	}
+
+	@Override
+	protected void setTypeData(TypeData typeData) {
+		word.setTypeData(typeData);
+	}
+
+	@Override
+	public String getDescription() {
+		return word.getDescription();
+	}
+
+	@Override
+	public void setDescription(String description) {
+		word.setDescription(description);
 	}
 
 	@Override

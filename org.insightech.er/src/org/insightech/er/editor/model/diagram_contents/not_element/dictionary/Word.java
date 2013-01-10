@@ -37,11 +37,11 @@ public class Word extends AbstractModel implements ObjectModel,
 	}
 
 	public Word(Word word) {
-		this.physicalName = word.physicalName;
-		this.logicalName = word.logicalName;
-		this.type = word.type;
-		this.typeData = new TypeData(word.typeData);
-		this.description = word.description;
+		this.physicalName = word.getPhysicalName();
+		this.logicalName = word.getLogicalName();
+		this.type = word.getType();
+		this.typeData = new TypeData(word.getTypeData());
+		this.description = word.getDescription();
 	}
 
 	public String getLogicalName() {
@@ -86,8 +86,16 @@ public class Word extends AbstractModel implements ObjectModel,
 
 	}
 
+	protected void setType(SqlType type) {
+		this.type = type;
+	}
+
 	public TypeData getTypeData() {
 		return typeData;
+	}
+
+	protected void setTypeData(TypeData typeData) {
+		this.typeData = typeData;
 	}
 
 	public String getDescription() {
@@ -99,11 +107,11 @@ public class Word extends AbstractModel implements ObjectModel,
 	}
 
 	public void copyTo(Word to) {
-		to.physicalName = this.physicalName;
-		to.logicalName = this.logicalName;
-		to.description = this.description;
-		to.type = this.type;
-		to.typeData = new TypeData(this.typeData);
+		to.setPhysicalName(this.getPhysicalName());
+		to.setLogicalName(this.getLogicalName());
+		to.setDescription(this.getDescription());
+		to.setType(this.getType());
+		to.setTypeData(new TypeData(this.typeData));
 	}
 
 	public int compareTo(Word o) {
@@ -141,36 +149,36 @@ public class Word extends AbstractModel implements ObjectModel,
 				return 1;
 			}
 
-			if (o1.type == null) {
-				if (o2.type != null) {
+			if (o1.getType() == null) {
+				if (o2.getType() != null) {
 					return 1;
 				}
 			} else {
-				if (o2.type == null) {
+				if (o2.getType() == null) {
 					return -1;
 				}
-				int value = o1.type.getId().compareTo(o2.type.getId());
+				int value = o1.getType().getId().compareTo(o2.getType().getId());
 				if (value != 0) {
 					return value;
 				}
 			}
 
-			if (o1.typeData == null) {
-				if (o2.typeData != null) {
+			if (o1.getTypeData() == null) {
+				if (o2.getTypeData() != null) {
 					return 1;
 				}
 			} else {
-				if (o2.typeData == null) {
+				if (o2.getTypeData() == null) {
 					return -1;
 				}
-				int value = o1.typeData.compareTo(o2.typeData);
+				int value = o1.getTypeData().compareTo(o2.getTypeData());
 				if (value != 0) {
 					return value;
 				}
 			}
 
-			int value = Format.null2blank(o1.description).compareTo(
-					Format.null2blank(o2.description));
+			int value = Format.null2blank(o1.getDescription()).compareTo(
+					Format.null2blank(o2.getDescription()));
 			if (value != 0) {
 				return value;
 			}
@@ -195,14 +203,14 @@ public class Word extends AbstractModel implements ObjectModel,
 
 			int value = 0;
 
-			value = Format.null2blank(o1.physicalName).toUpperCase().compareTo(
-					Format.null2blank(o2.physicalName).toUpperCase());
+			value = Format.null2blank(o1.getPhysicalName()).toUpperCase().compareTo(
+					Format.null2blank(o2.getPhysicalName()).toUpperCase());
 			if (value != 0) {
 				return value;
 			}
 
-			value = Format.null2blank(o1.logicalName).toUpperCase().compareTo(
-					Format.null2blank(o2.logicalName).toUpperCase());
+			value = Format.null2blank(o1.getLogicalName()).toUpperCase().compareTo(
+					Format.null2blank(o2.getLogicalName()).toUpperCase());
 			if (value != 0) {
 				return value;
 			}
@@ -227,14 +235,14 @@ public class Word extends AbstractModel implements ObjectModel,
 
 			int value = 0;
 
-			value = Format.null2blank(o1.logicalName).toUpperCase().compareTo(
-					Format.null2blank(o2.logicalName).toUpperCase());
+			value = Format.null2blank(o1.getLogicalName()).toUpperCase().compareTo(
+					Format.null2blank(o2.getLogicalName()).toUpperCase());
 			if (value != 0) {
 				return value;
 			}
 
-			value = Format.null2blank(o1.physicalName).toUpperCase().compareTo(
-					Format.null2blank(o2.physicalName).toUpperCase());
+			value = Format.null2blank(o1.getPhysicalName()).toUpperCase().compareTo(
+					Format.null2blank(o2.getPhysicalName()).toUpperCase());
 			if (value != 0) {
 				return value;
 			}

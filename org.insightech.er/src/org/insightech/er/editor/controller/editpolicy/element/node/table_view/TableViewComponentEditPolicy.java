@@ -15,7 +15,7 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.node
 import org.insightech.er.editor.controller.editpart.element.node.TableViewEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
-import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.view.drag_drop.ERDiagramTransferDragSourceListener;
 
@@ -83,7 +83,7 @@ public class TableViewComponentEditPolicy extends
 				DirectEditRequest editRequest = (DirectEditRequest) request;
 
 				TableView table = (TableView) this.getHost().getModel();
-				Word word = (Word) editRequest.getDirectEditFeature();
+				UniqueWord word = (UniqueWord) editRequest.getDirectEditFeature();
 
 				return new AddWordCommand(table, word, this
 						.getColumnIndex(editRequest));

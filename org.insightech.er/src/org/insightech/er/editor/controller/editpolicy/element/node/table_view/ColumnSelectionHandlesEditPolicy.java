@@ -35,6 +35,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.view.drag_drop.ERDiagramTransferDragSourceListener;
@@ -211,7 +212,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 
 				TableView table = (TableView) this.getHost().getParent()
 						.getModel();
-				Word word = (Word) editRequest.getDirectEditFeature();
+				UniqueWord word = (UniqueWord) editRequest.getDirectEditFeature();
 
 				return new AddWordCommand(table, word, this
 						.getColumnIndex(editRequest));

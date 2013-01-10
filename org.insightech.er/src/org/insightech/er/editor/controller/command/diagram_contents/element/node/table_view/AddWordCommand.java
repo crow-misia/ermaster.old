@@ -4,6 +4,7 @@ import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
 public final class AddWordCommand extends AbstractCommand {
@@ -18,9 +19,9 @@ public final class AddWordCommand extends AbstractCommand {
 
 	private final int index;
 
-	public AddWordCommand(TableView tableView, Word word, int index) {
+	public AddWordCommand(TableView tableView, UniqueWord uniqueWord, int index) {
 		this.tableView = tableView;
-		this.word = word;
+		this.word = uniqueWord.getWord();
 		this.index = index;
 
 		this.dictionary = this.tableView.getDiagram().getDiagramContents()
