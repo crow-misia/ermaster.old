@@ -18,6 +18,7 @@ import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.view.dialog.testdata.detail.TestDataDialog;
@@ -116,7 +117,7 @@ public class QuickAddDialog extends AbstractDialog {
 			TypeData typeData = new TypeData(length, decimal, false, null,
 					false, null, null);
 
-			Word word = new CopyWord(new Word(physicalName, logicalName,
+			Word word = new CopyWord(new RealWord(physicalName, logicalName,
 					sqlType, typeData, null, this.diagram.getDatabase()));
 
 			NormalColumn column = new NormalColumn(word, false, false, false,

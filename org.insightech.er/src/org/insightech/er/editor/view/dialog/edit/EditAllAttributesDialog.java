@@ -36,6 +36,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.edit.CopyManager;
@@ -635,7 +636,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 				dictionary.remove(targetColumn, false);
 
 				if (index == 0) {
-					word = new Word(word);
+					word = new RealWord(word);
 					word.setLogicalName("");
 
 				} else {

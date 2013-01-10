@@ -3,6 +3,7 @@ package org.insightech.er.editor.controller.command.diagram_contents.not_element
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
 public final class EditWordCommand extends AbstractCommand {
@@ -18,7 +19,7 @@ public final class EditWordCommand extends AbstractCommand {
 	private Dictionary dictionary;
 
 	public EditWordCommand(Word word, Word newWord, ERDiagram diagram) {
-		this.oldWord = new Word(word);
+		this.oldWord = new RealWord(word);
 		this.diagram = diagram;
 		this.word = word;
 		this.newWord = newWord;

@@ -9,6 +9,7 @@ import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.testdata.TestData;
@@ -36,13 +37,13 @@ public class TestDataEditTest {
 		table.setLogicalName("table1", false);
 		TypeData typeData = new TypeData(null, null, false, null, false, null, null);
 
-		Word word1 = new Word("a", "a", SqlType.valueOfId("bigint"), typeData,
+		Word word1 = new RealWord("a", "a", SqlType.valueOfId("bigint"), typeData,
 				null, MySQLDBManager.ID);
 
 		NormalColumn column1 = new NormalColumn(word1, true, true, true, true,
 				null, null, null, null, null);
 
-		Word word2 = new Word("a", "a", SqlType.valueOfId("bigint"), typeData,
+		Word word2 = new RealWord("a", "a", SqlType.valueOfId("bigint"), typeData,
 				null, MySQLDBManager.ID);
 		NormalColumn column2 = new NormalColumn(word2, true, true, true, true,
 				null, null, null, null, null);

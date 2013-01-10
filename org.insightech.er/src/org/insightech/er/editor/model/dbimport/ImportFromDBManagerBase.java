@@ -39,6 +39,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.index.
 import org.insightech.er.editor.model.diagram_contents.element.node.table.properties.TableViewProperties;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.unique_key.ComplexUniqueKey;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
@@ -177,7 +178,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		if (this.mergeWord) {
 			for (Word word : this.diagram.getDiagramContents().getDictionary()
 					.getWordList()) {
-				this.dictionary.put(new UniqueWord(word), word);
+				this.dictionary.put(word.getUniqueWord(), word);
 			}
 		}
 	}
@@ -761,9 +762,9 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			TypeData typeData = new TypeData(length, decimal, array,
 					arrayDimension, unsigned, args, unit);
 
-			Word word = new Word(columnName, logicalName, sqlType, typeData,
+			Word word = new RealWord(columnName, logicalName, sqlType, typeData,
 					description, this.diagram.getDatabase());
-			UniqueWord uniqueWord = new UniqueWord(word);
+			UniqueWord uniqueWord = word.getUniqueWord();
 
 			if (this.dictionary.get(uniqueWord) != null) {
 				word = this.dictionary.get(uniqueWord);
@@ -1376,20 +1377,20 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		Word word = null;
 
 		if (targetColumn != null) {
-			word = new Word(targetColumn.getWord());
+			word = new RealWord(targetColumn.getWord());
 			if (columnAlias != null) {
 				word.setPhysicalName(columnAlias);
 			}
 
 		} else {
-			word = new Word(columnAlias,
+			word = new RealWord(columnAlias,
 					this.translationResources.translate(columnAlias), null,
 					new TypeData(null, null, false, null, false, null, null), null,
 					null);
 
 		}
 
-		UniqueWord uniqueWord = new UniqueWord(word);
+		UniqueWord uniqueWord = word.getUniqueWord();
 
 		if (this.dictionary.get(uniqueWord) != null) {
 			word = this.dictionary.get(uniqueWord);

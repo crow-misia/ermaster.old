@@ -7,10 +7,10 @@ import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.util.Format;
 
-public class Word extends AbstractModel implements ObjectModel,
+public abstract class Word extends AbstractModel implements ObjectModel,
 		Comparable<Word> {
 
-	private static final long serialVersionUID = 4315217440968295922L;
+    private static final long serialVersionUID = 5551978409260110063L;
 
 	private static final Comparator<Word> WITHOUT_NAME_COMPARATOR = new WordWithoutNameComparator();
 
@@ -18,122 +18,54 @@ public class Word extends AbstractModel implements ObjectModel,
 
 	public static final Comparator<Word> LOGICAL_NAME_COMPARATOR = new WordLogicalNameComparator();
 
-	private String physicalName;
+	public abstract String getLogicalName();
 
-	private String logicalName;
+	public abstract String getPhysicalName();
 
-	private SqlType type;
+	public abstract SqlType getType();
 
-	private TypeData typeData;
+	public abstract void setLogicalName(String logicalName);
 
-	private String description;
+	public abstract void setPhysicalName(String physicalName);
 
-	public Word(String physicalName, String logicalName, SqlType type,
-			TypeData typeData, String description, String database) {
-		this.physicalName = physicalName;
-		this.logicalName = logicalName;
-		this.setType(type, typeData, database);
-		this.description = description;
-	}
+	public abstract void setType(SqlType type, TypeData typeData, String database);
 
-	public Word(Word word) {
-		this.physicalName = word.getPhysicalName();
-		this.logicalName = word.getLogicalName();
-		this.type = word.getType();
-		this.typeData = new TypeData(word.getTypeData());
-		this.description = word.getDescription();
-	}
+	protected abstract void setType(SqlType type);
 
-	public String getLogicalName() {
-		return logicalName;
-	}
+	public abstract TypeData getTypeData();
 
-	public String getPhysicalName() {
-		return physicalName;
-	}
+	protected abstract void setTypeData(TypeData typeData);
 
-	public SqlType getType() {
-		return type;
-	}
+	public abstract String getDescription();
 
-	public void setLogicalName(String logicalName) {
-		this.logicalName = logicalName;
-	}
-
-	public void setPhysicalName(String physicalName) {
-		this.physicalName = physicalName;
-	}
-
-	public void setType(SqlType type, TypeData typeData, String database) {
-		this.type = type;
-		this.typeData = new TypeData(typeData);;
-
-		if (type != null && type.isNeedLength(database)) {
-			if (this.typeData.getLength() == null) {
-				this.typeData.setLength(0);
-			}
-		} else {
-			this.typeData.setLength(null);
-		}
-
-		if (type != null && type.isNeedDecimal(database)) {
-			if (this.typeData.getDecimal() == null) {
-				this.typeData.setDecimal(0);
-			}
-		} else {
-			this.typeData.setDecimal(null);
-		}
-
-	}
-
-	protected void setType(SqlType type) {
-		this.type = type;
-	}
-
-	public TypeData getTypeData() {
-		return typeData;
-	}
-
-	protected void setTypeData(TypeData typeData) {
-		this.typeData = typeData;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	public abstract void setDescription(String description);
 
 	public void copyTo(Word to) {
 		to.setPhysicalName(this.getPhysicalName());
 		to.setLogicalName(this.getLogicalName());
 		to.setDescription(this.getDescription());
 		to.setType(this.getType());
-		to.setTypeData(new TypeData(this.typeData));
+		to.setTypeData(new TypeData(this.getTypeData()));
 	}
 
-	public int compareTo(Word o) {
+	public final int compareTo(Word o) {
 		return PHYSICAL_NAME_COMPARATOR.compare(this, o);
 	}
 
-	public String getName() {
+	public final String getName() {
 		return this.getLogicalName();
 	}
 
-	public String getObjectType() {
+	public final String getObjectType() {
 		return "word";
 	}
 
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
+	private UniqueWord uniqueWord;
+	public UniqueWord getUniqueWord() {
+		if (this.uniqueWord == null) {
+			this.uniqueWord = new UniqueWord(this);
+		}
+		return this.uniqueWord;
 	}
 
 	private static class WordWithoutNameComparator implements Comparator<Word> {

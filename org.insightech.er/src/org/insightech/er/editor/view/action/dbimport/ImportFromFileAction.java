@@ -282,7 +282,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 		if (mergeWord) {
 			for (Word word : this.getDiagram().getDiagramContents()
 					.getDictionary().getWordList()) {
-				dictionary.put(new UniqueWord(word), word);
+				dictionary.put(word.getUniqueWord(), word);
 			}
 		}
 
@@ -295,7 +295,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 							.getNormalColumns()) {
 						Word word = normalColumn.getWord();
 						if (word != null) {
-							UniqueWord uniqueWord = new UniqueWord(word);
+							UniqueWord uniqueWord = word.getUniqueWord();
 							Word replaceWord = dictionary.get(uniqueWord);
 
 							if (replaceWord != null) {

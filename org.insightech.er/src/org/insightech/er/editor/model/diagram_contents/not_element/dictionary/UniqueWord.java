@@ -8,8 +8,7 @@ public class UniqueWord extends Word {
 	
 	private final Word word;
 
-	public UniqueWord(Word word) {
-		super(word);
+	protected UniqueWord(Word word) {
 		this.word = word;
 	}
 

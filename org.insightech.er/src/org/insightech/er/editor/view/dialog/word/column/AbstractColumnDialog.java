@@ -25,6 +25,7 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.view.dialog.word.AbstractWordDialog;
@@ -267,7 +268,7 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 			word.setType(selectedType, typeData, database);
 
 		} else {
-			word = new CopyWord(new Word(physicalName, logicalName,
+			word = new CopyWord(new RealWord(physicalName, logicalName,
 					selectedType, typeData, description, database));
 		}
 

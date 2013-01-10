@@ -6,6 +6,7 @@ import java.util.List;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
@@ -372,7 +373,7 @@ public class NormalColumn extends Column {
 			if (!this.getPhysicalName().equals(this.word.getPhysicalName())
 					|| !this.getLogicalName().equals(this.word.getLogicalName())
 					|| !this.getDescription().equals(this.word.getDescription())) {
-				this.word = new Word(this.word);
+				this.word = new RealWord(this.word);
 
 				this.word.setPhysicalName(this.getPhysicalName());
 				this.word.setLogicalName(this.getLogicalName());

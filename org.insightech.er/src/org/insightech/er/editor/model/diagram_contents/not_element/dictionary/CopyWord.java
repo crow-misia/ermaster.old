@@ -1,6 +1,6 @@
 package org.insightech.er.editor.model.diagram_contents.not_element.dictionary;
 
-public class CopyWord extends Word {
+public class CopyWord extends RealWord {
 
 	private static final long serialVersionUID = 5610038803601000225L;
 

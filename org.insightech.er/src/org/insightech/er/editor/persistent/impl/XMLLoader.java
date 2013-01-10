@@ -52,6 +52,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.unique
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.properties.ViewProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
@@ -944,7 +945,7 @@ public class XMLLoader {
 						"unsigned"), this.getStringValue(element, "args"),
 						this.getStringValue(element, "unit"));
 
-		Word word = new Word(Format.null2blank(this.getStringValue(element,
+		Word word = new RealWord(Format.null2blank(this.getStringValue(element,
 				"physical_name")), Format.null2blank(this.getStringValue(
 				element, "logical_name")), SqlType.valueOfId(type), typeData,
 				Format.null2blank(this.getStringValue(element, "description")),
@@ -1003,13 +1004,13 @@ public class XMLLoader {
 		NormalColumn normalColumn = null;
 
 		if (word == null) {
-			word = new Word(this.getStringValue(element, "physical_name"),
+			word = new RealWord(this.getStringValue(element, "physical_name"),
 					this.getStringValue(element, "logical_name"),
 					SqlType.valueOfId(type), new TypeData(null, null, false,
 							null, false, null, null), this.getStringValue(element,
 							"description"), database);
 
-			UniqueWord uniqueWord = new UniqueWord(word);
+			UniqueWord uniqueWord = word.getUniqueWord();
 
 			final Word tmp = context.uniqueWordMap.get(uniqueWord);
 			if (tmp == null) {

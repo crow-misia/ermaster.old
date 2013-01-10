@@ -3,6 +3,7 @@ package org.insightech.er.editor.view.dialog.word.word;
 import org.eclipse.swt.widgets.Shell;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.view.dialog.word.AbstractWordDialog;
@@ -96,7 +97,7 @@ public class WordDialog extends AbstractWordDialog {
 		TypeData typeData = new TypeData(length, decimal, array,
 				arrayDimension, unsigned, args, unit);
 
-		this.returnWord = new Word(physicalNameText.getText(), logicalNameText
+		this.returnWord = new RealWord(physicalNameText.getText(), logicalNameText
 				.getText(), selectedType, typeData, descriptionText.getText(),
 				database);
 	}

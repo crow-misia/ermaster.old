@@ -1344,7 +1344,7 @@ public class PersistentXmlImpl extends Persistent {
 		Integer wordId = null;
 
 		if (context != null) {
-			wordId = context.wordMap.get(new UniqueWord(normalColumn.getWord()));
+			wordId = context.wordMap.get(normalColumn.getWord().getUniqueWord());
 			if (wordId != null) {
 				xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
 			}

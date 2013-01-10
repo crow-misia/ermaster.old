@@ -10,6 +10,7 @@ import org.insightech.er.Activator;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
@@ -71,7 +72,7 @@ public class GlobalGroupSet {
 						TypeData typeData = new TypeData(length, decimal,
 								array, arrayDimension, unsigned, args, unit);
 
-						Word word = new Word(physicalName, logicalName,
+						Word word = new RealWord(physicalName, logicalName,
 								sqlType, typeData, description, database);
 
 						NormalColumn column = new NormalColumn(word, notNull,

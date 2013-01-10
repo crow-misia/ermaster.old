@@ -9,7 +9,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -23,13 +22,10 @@ public class Dictionary extends AbstractModel {
 
 	private final Map<Word, Set<NormalColumn>> wordMap;
 	private final Map<UniqueWord, Set<NormalColumn>> uniqueWordMap;
-	
-	private final Map<Word, UniqueWord> cache;
 
 	public Dictionary() {
 		this.wordMap = new IdentityHashMap<Word, Set<NormalColumn>>();
 		this.uniqueWordMap = new HashMap<UniqueWord, Set<NormalColumn>>();
-		this.cache = new WeakHashMap<Word, UniqueWord>();
 	}
 
 	public void add(NormalColumn column, final boolean fire) {
@@ -65,7 +61,6 @@ public class Dictionary extends AbstractModel {
 			useColumns.remove(column);
 			if (useColumns.isEmpty()) {
 				this.wordMap.remove(word);
-				this.cache.remove(word);
 			}
 		}
 		
@@ -94,7 +89,7 @@ public class Dictionary extends AbstractModel {
 		Set<NormalColumn> useColumns;
 		this.uniqueWordMap.clear();
 		for (final Map.Entry<Word, Set<NormalColumn>> entry : this.wordMap.entrySet()) {
-			final UniqueWord key = createUniqueWord(cache, entry.getKey());
+			final UniqueWord key = entry.getKey().getUniqueWord();
 			useColumns = this.uniqueWordMap.get(key);
 			if (useColumns == null) {
 				useColumns = new HashSet<NormalColumn>(entry.getValue());
@@ -108,7 +103,6 @@ public class Dictionary extends AbstractModel {
 	public void clear() {
 		this.wordMap.clear();
 		this.uniqueWordMap.clear();
-		this.cache.clear();
 	}
 
 	public List<UniqueWord> getUniqueWordList() {
@@ -136,14 +130,5 @@ public class Dictionary extends AbstractModel {
 		if (fire) {
 			setDirty();
 		}
-	}
-	
-	private static UniqueWord createUniqueWord(final Map<Word, UniqueWord> map, final Word word) {
-		UniqueWord retval = map.get(word);
-		if (retval == null) {
-			retval = new UniqueWord(word);
-			map.put(word, retval);
-		}
-		return retval;
 	}
 }
