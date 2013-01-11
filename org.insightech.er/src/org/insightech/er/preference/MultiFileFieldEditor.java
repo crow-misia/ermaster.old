@@ -40,8 +40,8 @@ public class MultiFileFieldEditor extends FileFieldEditor {
 		}
 
 		StringBuilder ret = new StringBuilder();
-		for (int i = 0; i < d.length; i++) {
-			ret.append(d[i].getAbsolutePath());
+		for (final File i : d) {
+			ret.append(i.getAbsolutePath());
 			ret.append(";");
 		}
 
@@ -65,10 +65,11 @@ public class MultiFileFieldEditor extends FileFieldEditor {
 		dialog.open();
 		String[] fileNames = dialog.getFileNames();
 
-		if (fileNames.length > 0) {
-			File[] files = new File[fileNames.length];
+		final int num = fileNames.length;
+		if (num > 0) {
+			File[] files = new File[num];
 
-			for (int i = 0; i < fileNames.length; i++) {
+			for (int i = 0; i < num; i++) {
 				files[i] = new File(dialog.getFilterPath(), fileNames[i]);
 			}
 

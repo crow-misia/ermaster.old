@@ -154,8 +154,8 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 
 		this.resultSelectedDbObjects = new ArrayList<DBObject>();
 
-		for (int i = 0; i < selectedNodes.length; i++) {
-			Object value = ((TreeNode) selectedNodes[i]).getValue();
+		for (final Object node : selectedNodes) {
+			Object value = ((TreeNode) node).getValue();
 
 			if (value instanceof DBObject) {
 				resultSelectedDbObjects.add((DBObject) value);
@@ -216,17 +216,19 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 
 			List<DBObject> dbObjectList = entry.getValue();
 
-			TreeNode[] objectTypeNodes = new TreeNode[DBObject.ALL_TYPES.length];
+			final int n = DBObject.ALL_TYPES.length;
+			TreeNode[] objectTypeNodes = new TreeNode[n];
 
-			for (int i = 0; i < DBObject.ALL_TYPES.length; i++) {
+			for (int i = 0; i < n; i++) {
+				final String type = DBObject.ALL_TYPES[i];
 				objectTypeNodes[i] = new TreeNode(new StringObjectModel(
 						ResourceString.getResourceString("label.object.type."
-								+ DBObject.ALL_TYPES[i])));
+								+ type)));
 
 				List<TreeNode> objectNodeList = new ArrayList<TreeNode>();
 
 				for (DBObject dbObject : dbObjectList) {
-					if (DBObject.ALL_TYPES[i].equals(dbObject.getType())) {
+					if (type.equals(dbObject.getType())) {
 						TreeNode objectNode = new TreeNode(dbObject);
 						objectNode.setParent(objectTypeNodes[i]);
 

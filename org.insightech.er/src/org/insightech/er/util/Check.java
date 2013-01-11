@@ -4,8 +4,9 @@ public class Check {
 
 	public static boolean isAlphabet(String str) {
 		char[] ch = str.toCharArray();
+		final int n = ch.length;
 
-		for (int i = 0; i < ch.length; i++) {
+		for (int i = 0; i < n; i++) {
 			if (ch[i] < '0' || 'z' < ch[i]) {
 				return false;
 			}

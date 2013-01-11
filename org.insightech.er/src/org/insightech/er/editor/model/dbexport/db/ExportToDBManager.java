@@ -43,14 +43,14 @@ public class ExportToDBManager implements IRunnableWithProgress {
 					.getResourceString("dialog.message.drop.table"),
 					ddls.length);
 
-			for (int i = 0; i < ddls.length; i++) {
+			for (int i = 0, n = ddls.length; i < n; i++) {
 				String message = ddls[i];
 				int index = message.indexOf("\r\n");
 				if (index != -1) {
 					message = message.substring(0, index);
 				}
 
-				monitor.subTask("(" + (i + 1) + "/" + ddls.length + ") "
+				monitor.subTask("(" + (i + 1) + "/" + n + ") "
 						+ message);
 
 				this.executeDDL(ddls[i]);

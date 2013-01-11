@@ -115,10 +115,10 @@ public abstract class FileListEditor extends ListEditor {
 	 */
 	@Override
 	protected String createList(String[] items) {
-		StringBuilder path = new StringBuilder("");
+		StringBuilder path = new StringBuilder();
 
-		for (int i = 0; i < items.length; i++) {
-			path.append(items[i]);
+		for (final String item : items) {
+			path.append(item);
 			path.append(VALUE_SEPARATOR);
 		}
 
@@ -172,15 +172,15 @@ public abstract class FileListEditor extends ListEditor {
 		org.eclipse.swt.widgets.List list = this.getListControl(this.parent);
 
 		String s = getPreferenceStore().getString(getPreferenceName());
-		String[] array = parseString(s);
+		String[] arrays = parseString(s);
 
 		Set<String> names = new HashSet<String>();
 
-		for (int i = 0; i < array.length; i++) {
-			File file = new File(this.getStorePath(array[i]));
-			if (file.exists() && !names.contains(array[i])) {
-				list.add(array[i]);
-				names.add(array[i]);
+		for (final String arr : arrays) {
+			File file = new File(this.getStorePath(arr));
+			if (file.exists() && !names.contains(arr)) {
+				list.add(arr);
+				names.add(arr);
 			}
 		}
 	}

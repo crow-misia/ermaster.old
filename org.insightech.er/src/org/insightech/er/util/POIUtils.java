@@ -47,14 +47,15 @@ public class POIUtils {
 	}
 
 	public static CellLocation findCell(HSSFSheet sheet, String[] strs) {
-		for (int rowNum = sheet.getFirstRowNum(); rowNum < sheet
-				.getLastRowNum() + 1; rowNum++) {
+		final int n = strs.length;
+		final int lastRow = sheet.getLastRowNum();
+		for (int rowNum = sheet.getFirstRowNum(); rowNum <= lastRow; rowNum++) {
 			HSSFRow row = sheet.getRow(rowNum);
 			if (row == null) {
 				continue;
 			}
 
-			for (int i = 0; i < strs.length; i++) {
+			for (int i = 0; i < n; i++) {
 				Integer colNum = findColumn(row, strs[i]);
 
 				if (colNum != null) {
@@ -67,7 +68,8 @@ public class POIUtils {
 	}
 
 	public static Integer findColumn(HSSFRow row, String str) {
-		for (int colNum = row.getFirstCellNum(); colNum <= row.getLastCellNum(); colNum++) {
+		final int lastCell = row.getLastCellNum();
+		for (int colNum = row.getFirstCellNum(); colNum <= lastCell; colNum++) {
 			HSSFCell cell = row.getCell(colNum);
 
 			if (cell == null) {
@@ -87,8 +89,8 @@ public class POIUtils {
 	}
 
 	public static CellLocation findMatchCell(HSSFSheet sheet, String regexp) {
-		for (int rowNum = sheet.getFirstRowNum(); rowNum < sheet
-				.getLastRowNum() + 1; rowNum++) {
+		final int lastRow = sheet.getLastRowNum();
+		for (int rowNum = sheet.getFirstRowNum(); rowNum <= lastRow; rowNum++) {
 			HSSFRow row = sheet.getRow(rowNum);
 			if (row == null) {
 				continue;
@@ -105,7 +107,8 @@ public class POIUtils {
 	}
 
 	public static Integer findMatchColumn(HSSFRow row, String str) {
-		for (int colNum = row.getFirstCellNum(); colNum <= row.getLastCellNum(); colNum++) {
+		final int lastCell = row.getLastCellNum();
+		for (int colNum = row.getFirstCellNum(); colNum <= lastCell; colNum++) {
 			HSSFCell cell = row.getCell(colNum);
 
 			if (cell == null) {
@@ -127,8 +130,8 @@ public class POIUtils {
 	}
 
 	public static CellLocation findCell(HSSFSheet sheet, String str, int colNum) {
-		for (int rowNum = sheet.getFirstRowNum(); rowNum < sheet
-				.getLastRowNum() + 1; rowNum++) {
+		final int lastRow = sheet.getLastRowNum();
+		for (int rowNum = sheet.getFirstRowNum(); rowNum <= lastRow; rowNum++) {
 			HSSFRow row = sheet.getRow(rowNum);
 			if (row == null) {
 				continue;

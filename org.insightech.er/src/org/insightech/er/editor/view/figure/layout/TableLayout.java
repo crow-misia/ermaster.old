@@ -124,9 +124,10 @@ public class TableLayout extends AbstractHintLayout {
 	}
 
 	private int[] getRowHeight(List<List<IFigure>> table) {
-		int[] rowHeight = new int[table.size()];
+		final int n = table.size();
+		int[] rowHeight = new int[n];
 
-		for (int i = 0; i < rowHeight.length; i++) {
+		for (int i = 0; i < n; i++) {
 			for (IFigure cell : table.get(i)) {
 				int height = cell.getPreferredSize().height;
 
@@ -180,9 +181,10 @@ public class TableLayout extends AbstractHintLayout {
 		int[] rowHeight = this.getRowHeight(table);
 
 		int width = 0;
-		for (int i = 0; i < columnWidth.length; i++) {
+		final int colnum = columnWidth.length;
+		for (int i = 0; i < colnum; i++) {
 			width += columnWidth[i];
-			if (i != columnWidth.length - 1) {
+			if (i != colnum - 1) {
 				width += this.separatorWidth;
 			}
 		}
@@ -190,9 +192,10 @@ public class TableLayout extends AbstractHintLayout {
 		width++;
 
 		int height = 0;
-		for (int i = 0; i < rowHeight.length; i++) {
+		final int rownum = rowHeight.length;
+		for (int i = 0; i < rownum; i++) {
 			height += rowHeight[i];
-			if (i != rowHeight.length - 1) {
+			if (i != rownum - 1) {
 				height += this.separatorWidth;
 			}
 		}

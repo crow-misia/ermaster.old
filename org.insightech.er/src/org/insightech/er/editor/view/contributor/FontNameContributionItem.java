@@ -29,9 +29,9 @@ public class FontNameContributionItem extends ComboContributionItem {
 	protected void setData(Combo combo) {
 		FontData[] fontDatas = Display.getCurrent().getFontList(null, true);
 		Set<String> nameSet = new LinkedHashSet<String>();
-		for (int i = 0; i < fontDatas.length; i++) {
-			if (!fontDatas[i].getName().startsWith("@")) {
-				nameSet.add(fontDatas[i].getName());
+		for (final FontData fontData : fontDatas) {
+			if (!fontData.getName().startsWith("@")) {
+				nameSet.add(fontData.getName());
 			}
 		}
 

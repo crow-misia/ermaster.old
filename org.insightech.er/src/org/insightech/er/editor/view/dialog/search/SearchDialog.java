@@ -807,8 +807,8 @@ public class SearchDialog extends Dialog {
 
 		int[] indexes = this.resultTable.getSelectionIndices();
 		if (indexes != null) {
-			for (int i = 0; i < indexes.length; i++) {
-				replaceRows.add(rows.get(indexes[i]));
+			for (final int index : indexes) {
+				replaceRows.add(rows.get(index));
 			}
 		}
 

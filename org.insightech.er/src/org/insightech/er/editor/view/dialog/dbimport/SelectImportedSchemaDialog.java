@@ -119,8 +119,8 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 
 		this.resultSelectedSchemas.clear();
 
-		for (int i = 0; i < selectedNodes.length; i++) {
-			Object value = ((TreeNode) selectedNodes[i]).getValue();
+		for (final Object node : selectedNodes) {
+			Object value = ((TreeNode) node).getValue();
 			if (value instanceof String) {
 				resultSelectedSchemas.add((String) value);
 			}

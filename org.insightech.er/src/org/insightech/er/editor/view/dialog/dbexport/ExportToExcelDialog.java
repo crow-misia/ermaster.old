@@ -368,7 +368,8 @@ public class ExportToExcelDialog extends AbstractDialog {
 				.getResourceString("label.template.default.ja"));
 
 		// select the previous
-		for (int i = 0; i < this.templateCombo.getItemCount(); i++) {
+		final int n = this.templateCombo.getItemCount();
+		for (int i = 0; i < n; i++) {
 			String item = this.templateCombo.getItem(i);
 			if (item != null
 					&& item.equals(settings.getExportSetting()

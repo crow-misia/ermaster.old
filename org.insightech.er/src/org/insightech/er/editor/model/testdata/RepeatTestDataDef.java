@@ -1,5 +1,6 @@
 package org.insightech.er.editor.model.testdata;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,10 +114,9 @@ public class RepeatTestDataDef implements Cloneable {
 			RepeatTestDataDef clone = (RepeatTestDataDef) super.clone();
 
 			if (this.selects != null) {
-				clone.selects = new String[this.selects.length];
-				for (int i = 0, n = clone.selects.length; i < n; i++) {
-					clone.selects[i] = this.selects[i];
-				}
+				final int n = this.selects.length;
+				clone.selects = new String[n];
+				System.arraycopy(this.selects, 0, clone.selects, 0, n);
 			}
 
 			clone.modifiedValues = new HashMap<Integer, String>(this.modifiedValues);

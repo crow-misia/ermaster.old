@@ -356,9 +356,8 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 					table.clearSelection();
 
-					for (int i = 0; i < selectedIndices.length; i++) {
-						table.addRowSelectionInterval(selectedIndices[i],
-								selectedIndices[i]);
+					for (final int indice : selectedIndices) {
+						table.addRowSelectionInterval(indice, indice);
 					}
 				}
 

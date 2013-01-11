@@ -88,8 +88,8 @@ public class ExportToHtmlManager {
 
 	public void doProcess() throws IOException, InterruptedException {
 		// 固定ファイルのコピー
-		for (int i = 0; i < FIX_FILES.length; i++) {
-			this.copyOut(FIX_FILES[i], FIX_FILES[i]);
+		for (final String file : FIX_FILES) {
+			this.copyOut(file, file);
 		}
 
 		// テンプレートから生成
