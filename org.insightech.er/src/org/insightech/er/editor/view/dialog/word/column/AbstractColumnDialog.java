@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.word.column;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,9 +17,11 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.ResourceString;
+import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -188,7 +191,7 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void perfomeOK() {
+	protected void perfomeOK() throws InputException {
 		String text = lengthText.getText();
 		Integer length = null;
 		if (!text.equals("")) {
@@ -248,6 +251,29 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		int wordIndex = this.wordCombo.getSelectionIndex();
 
 		CopyWord word = null;
+		if (wordIndex > 0) {
+			final Word realWord = wordList.get(wordIndex - 1);
+			final Collection<NormalColumn> columns = this.diagram.getDiagramContents().getDictionary().getColumnList(realWord);
+			int count = 1;
+			for (final NormalColumn column : columns) {
+				if (column != this.targetColumn.getOriginalColumn()) {
+					count++;
+				}
+			}
+			// 単語を使用しているカラムが複数存在する場合、警告ダイアログを表示する
+			if (count >= 2 && diagram.getDiagramContents().getSettings().isCheckUsedWord()) {
+				MessageBox confirm = new MessageBox(getShell(), SWT.YES|SWT.NO|SWT.CANCEL|SWT.ICON_WARNING);
+				confirm.setMessage(ResourceString.getResourceString("dialog.message.use.word.other.column"));
+				switch (confirm.open()) {
+				case SWT.NO:
+					wordIndex = 0;
+					break;
+				case SWT.CANCEL:
+					throw new InputException(null);
+				}
+			}
+		}
+		
 		if (wordIndex > 0) {
 			word = new CopyWord(wordList.get(wordIndex - 1));
 

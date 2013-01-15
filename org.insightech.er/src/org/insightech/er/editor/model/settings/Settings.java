@@ -69,8 +69,10 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 	private boolean validatePhysicalName;
 
 	private boolean useBezierCurve;
-	
+
 	private boolean suspendValidator;
+
+	private boolean checkUsedWord;
 
 	public int getNotationLevel() {
 		return notationLevel;
@@ -99,6 +101,7 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 		this.validatePhysicalName = true;
 		this.useBezierCurve = false;
 		this.suspendValidator = false;
+		this.checkUsedWord = true;
 	}
 
 	public boolean isCapital() {
@@ -210,6 +213,14 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 
 	public void setSuspendValidator(boolean suspendValidator) {
 		this.suspendValidator = suspendValidator;
+	}
+
+	public boolean isCheckUsedWord() {
+		return checkUsedWord;
+	}
+
+	public void setCheckUsedWord(boolean checkUsedWord) {
+		this.checkUsedWord = checkUsedWord;
 	}
 
 	/**

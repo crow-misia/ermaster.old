@@ -643,6 +643,9 @@ public class PersistentXmlImpl extends Persistent {
 		xml.append("\t<suspend_validator>")
 				.append(settings.isSuspendValidator())
 				.append("</suspend_validator>\n");
+		xml.append("\t<check_used_word>")
+				.append(settings.isCheckUsedWord())
+				.append("</check_used_word>\n");
 
 		xml.append(tab(this.createXML(settings.getExportSetting(), context)));
 		xml.append(tab(this.createXML(settings.getCategorySetting(), context)));

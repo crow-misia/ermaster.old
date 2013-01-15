@@ -1105,6 +1105,8 @@ public class XMLLoader {
 					"use_bezier_curve"));
 			settings.setSuspendValidator(this.getBooleanValue(element,
 					"suspend_validator"));
+			settings.setCheckUsedWord(this.getBooleanValue(element,
+					"check_used_word", true));
 
 			ExportSetting exportSetting = settings.getExportSetting();
 			this.loadExportSetting(exportSetting, element, context);

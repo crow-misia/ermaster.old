@@ -19,6 +19,8 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 
 	private Button suspendValidatorCheck;
 
+	private Button changeUsedWordInOtherColumnCheck;
+
 	private Settings settings;
 
 	private OptionSettingDialog dialog;
@@ -47,6 +49,8 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 				this, "label.use.bezier.curve");
 		this.suspendValidatorCheck = CompositeFactory.createCheckbox(
 				this.dialog, this, "label.suspend.validator");
+		this.changeUsedWordInOtherColumnCheck = CompositeFactory.createCheckbox(
+				this.dialog, this, "label.check.used.word");
 	}
 
 	@Override
@@ -57,6 +61,7 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 		this.useBezierCurveCheck.setSelection(this.settings.isUseBezierCurve());
 		this.suspendValidatorCheck.setSelection(this.settings
 				.isSuspendValidator());
+		this.changeUsedWordInOtherColumnCheck.setSelection(this.settings.isCheckUsedWord());
 	}
 
 	/**
@@ -70,6 +75,8 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 		this.settings
 				.setUseBezierCurve(this.useBezierCurveCheck.getSelection());
 		this.settings.setSuspendValidator(this.suspendValidatorCheck
+				.getSelection());
+		this.settings.setCheckUsedWord(this.changeUsedWordInOtherColumnCheck
 				.getSelection());
 	}
 

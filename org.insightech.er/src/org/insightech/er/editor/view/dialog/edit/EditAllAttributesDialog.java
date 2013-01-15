@@ -1,7 +1,6 @@
 package org.insightech.er.editor.view.dialog.edit;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;

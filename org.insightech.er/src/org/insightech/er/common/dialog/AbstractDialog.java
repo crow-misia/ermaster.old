@@ -223,8 +223,10 @@ public abstract class AbstractDialog extends Dialog {
 				close();
 
 			} catch (InputException e) {
-				this.setMessage(ResourceString
-						.getResourceString(e.getMessage(), e.getArgs()));
+				if (e.getMessage() != null) {
+					this.setMessage(ResourceString
+							.getResourceString(e.getMessage(), e.getArgs()));
+				}
 				return;
 
 			} catch (Exception e) {

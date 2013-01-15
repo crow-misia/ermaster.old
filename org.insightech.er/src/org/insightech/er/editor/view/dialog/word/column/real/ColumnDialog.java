@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.ResourceString;
+import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
@@ -234,7 +235,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void perfomeOK() {
+	protected void perfomeOK() throws InputException {
 		super.perfomeOK();
 
 		this.returnColumn.setPrimaryKey(primaryKeyCheck.getSelection());

@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.ResourceString;
+import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -133,7 +134,7 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void perfomeOK() {
+	protected void perfomeOK() throws InputException {
 		super.perfomeOK();
 
 		this.returnColumn = new NormalColumn(this.returnWord, notNullCheck

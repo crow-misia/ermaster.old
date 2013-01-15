@@ -3,6 +3,7 @@ package org.insightech.er.editor.view.dialog.word.column;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.insightech.er.common.exception.InputException;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 
@@ -44,7 +45,7 @@ public class ViewColumnDialog extends AbstractColumnDialog {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void perfomeOK() {
+	protected void perfomeOK() throws InputException {
 		super.perfomeOK();
 
 		this.returnColumn = new NormalColumn(this.returnWord, false, false,
