@@ -32,6 +32,8 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.view.dialog.element.table.sub.QuickAddDialog;
 import org.insightech.er.editor.view.dialog.word.column.AbstractColumnDialog;
@@ -505,6 +507,20 @@ public class ERTableComposite extends Composite {
 		}
 
 		this.column2TableItem(copyColumn, tableItem);
+
+		// テーブル内のカラムが、追加/更新したカラムと同一の単語を使用している場合、更新する
+		final Word originalWord = copyColumn.getWord().getOriginal();
+		for (int tmpIndex = this.table.getItemCount() - 1; tmpIndex >= 0; tmpIndex--) {
+			if (index == tmpIndex) {
+				continue;
+			}
+			CopyColumn tmpColumn = (CopyColumn) this.columnList.get(tmpIndex);
+			final CopyWord tmpWord = tmpColumn.getWord();
+			if (tmpWord != null && originalWord.equals(tmpWord.getOriginal())) {
+				copyColumn.getWord().copyTo(tmpWord);
+				this.column2TableItem(tmpColumn, this.table.getItem(tmpIndex));
+			}
+		}
 
 		this.parentDialog.validate();
 	}

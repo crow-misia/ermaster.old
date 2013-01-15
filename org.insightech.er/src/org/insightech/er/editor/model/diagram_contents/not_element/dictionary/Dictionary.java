@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -115,6 +116,28 @@ public class Dictionary extends AbstractModel {
 		Collections.sort(list);
 
 		return list;
+	}
+
+	public List<Word> getUniqueWordList(final String filterString) {
+		final List<UniqueWord> list;
+		if (StringUtils.isEmpty(filterString)) {
+			list = getUniqueWordList();
+		} else {
+			final Set<UniqueWord> wordList = this.uniqueWordMap.keySet();
+			list = new ArrayList<UniqueWord>(wordList.size());
+			for (final UniqueWord word : wordList) {
+				if (word.getName().startsWith(filterString)) {
+					list.add(word);
+				}
+			}
+		}
+		
+		final List<Word> retval = new ArrayList<Word>(list.size());
+		for (final UniqueWord uw : list) {
+			retval.add(uw.getWord());
+		}
+
+		return retval;
 	}
 
 	public Collection<NormalColumn> getColumnList(Word word) {

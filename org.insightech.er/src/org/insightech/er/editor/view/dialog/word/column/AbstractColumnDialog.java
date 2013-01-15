@@ -1,6 +1,6 @@
 package org.insightech.er.editor.view.dialog.word.column;
 
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -160,20 +160,14 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		this.wordCombo.add("");
 
 		this.wordList = this.diagram.getDiagramContents().getDictionary()
-				.getWordList();
+				.getUniqueWordList(filterString);
+		// 論理名でソートする
+		Collections.sort(this.wordList, Word.LOGICAL_NAME_COMPARATOR);
 
-		for (Iterator<Word> iter = this.wordList.iterator(); iter.hasNext();) {
-			Word word = iter.next();
-
+		for (final Word word : this.wordList) {
 			String name = Format.null2blank(word.getLogicalName());
 
-			if (filterString != null && name.indexOf(filterString) == -1) {
-				iter.remove();
-
-			} else {
-				this.wordCombo.add(name);
-
-			}
+			this.wordCombo.add(name);
 		}
 	}
 

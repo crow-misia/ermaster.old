@@ -63,7 +63,11 @@ public abstract class Word extends AbstractModel implements ObjectModel,
 	private UniqueWord uniqueWord;
 	public UniqueWord getUniqueWord() {
 		if (this.uniqueWord == null) {
-			this.uniqueWord = new UniqueWord(this);
+			if (this instanceof UniqueWord) {
+				this.uniqueWord = (UniqueWord) this;
+			} else {
+				this.uniqueWord = new UniqueWord(this);
+			}
 		}
 		return this.uniqueWord;
 	}
