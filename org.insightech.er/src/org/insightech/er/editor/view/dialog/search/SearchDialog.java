@@ -184,6 +184,10 @@ public class SearchDialog extends Dialog {
 		this.selectAllCheckBox(true);
 	}
 
+	/**
+	 * 検索ダイアログ内の対象範囲タブ生成
+	 * @param tabFolder
+	 */
 	private void createRegionGroup(TabFolder tabFolder) {
 		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
 		tabItem.setText(ResourceString.getResourceString("label.search.range"));
@@ -280,6 +284,10 @@ public class SearchDialog extends Dialog {
 		tabItem.setControl(group);
 	}
 
+	/**
+	 * 検索ダイアログ内の対象範囲タブ内の単語グループチェックボックス群 生成
+	 * @param tabFolder
+	 */
 	private void createWordCheckboxGroup(Composite parent) {
 		GridData gridData = new GridData();
 		gridData.horizontalSpan = 2;
@@ -315,6 +323,11 @@ public class SearchDialog extends Dialog {
 				.getResourceString("search.result.row.name.33"));
 	}
 
+	/**
+	 * 検索ダイアログ内の対象範囲タブ内のテーブルグループチェックボックス群 生成
+	 * @param tabFolder
+	 */
+	@SuppressWarnings("unused")
 	private void createTableCheckboxGroup(Composite parent) {
 		GridData gridData = new GridData();
 		gridData.horizontalSpan = 2;
@@ -368,6 +381,11 @@ public class SearchDialog extends Dialog {
 				.getResourceString("search.result.row.name.19"));
 	}
 
+	/**
+	 * 検索ダイアログ内の対象範囲タブ内の"グループ"グループチェックボックス群 生成
+	 * @param tabFolder
+	 */
+	@SuppressWarnings("unused")
 	private void createGroupCheckboxGroup(Composite parent) {
 		GridData gridData = new GridData();
 		gridData.horizontalSpan = 2;
@@ -558,6 +576,10 @@ public class SearchDialog extends Dialog {
 		}
 	}
 
+	/**
+	 * 検索ダイアログ内の結果タブ 生成
+	 * @param tabFolder
+	 */
 	private void createResultGroup(TabFolder tabFolder) {
 		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
 		tabItem.setText(ResourceString.getResourceString("label.search.result"));

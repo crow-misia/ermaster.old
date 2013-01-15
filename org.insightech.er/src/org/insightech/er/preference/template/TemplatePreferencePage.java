@@ -33,6 +33,7 @@ public class TemplatePreferencePage extends
 	public void init(IWorkbench workbench) {
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);

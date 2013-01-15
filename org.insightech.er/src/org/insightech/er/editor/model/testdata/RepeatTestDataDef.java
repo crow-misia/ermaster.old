@@ -1,6 +1,5 @@
 package org.insightech.er.editor.model.testdata;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

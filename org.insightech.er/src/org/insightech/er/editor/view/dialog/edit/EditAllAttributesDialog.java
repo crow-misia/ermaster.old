@@ -291,7 +291,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 		combo.add("");
 
 		this.wordList = this.diagramContents.getDictionary().getWordList();
-		Collections.sort(this.wordList);
 
 		for (Word word : this.wordList) {
 			combo.add(Format.null2blank(word.getLogicalName()));

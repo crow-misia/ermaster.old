@@ -22,6 +22,7 @@ public class TranslationPreferencePage extends
 	}
 
 	@Override
+	@SuppressWarnings("unused")
 	protected Control createContents(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -55,6 +56,7 @@ public class TranslationPreferencePage extends
 		return composite;
 	}
 
+	@SuppressWarnings("unused")
 	private void createButtonComposite(Composite composite) {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;

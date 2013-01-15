@@ -567,8 +567,7 @@ public class NormalColumn extends Column {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
+		StringBuilder sb = new StringBuilder(super.toString());
 		sb.append(", physicalName:" + this.getPhysicalName());
 		sb.append(", logicalName:" + this.getLogicalName());
 
