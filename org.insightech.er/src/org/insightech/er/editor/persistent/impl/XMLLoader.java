@@ -279,23 +279,25 @@ public final class XMLLoader {
 		}
 
 		Node node = nodeList.item(0);
-
-		if (node.getFirstChild() == null) {
+		node = node.getFirstChild();
+		if (node == null) {
 			return "";
 		}
 
-		return node.getFirstChild().getNodeValue();
+		return node.getNodeValue();
 	}
 
 	private String[] getTagValues(Element element, String tagname) {
 		NodeList nodeList = element.getElementsByTagName(tagname);
 
-		String[] values = new String[nodeList.getLength()];
+		final int n = nodeList.getLength();
+		String[] values = new String[n];
 
-		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			Node node = nodeList.item(i);
-			if (node.getFirstChild() != null) {
-				values[i] = node.getFirstChild().getNodeValue();
+			node = node.getFirstChild();
+			if (node != null) {
+				values[i] = node.getNodeValue();
 			}
 		}
 
@@ -333,14 +335,14 @@ public final class XMLLoader {
 		}
 
 		Node node = nodeList.item(0);
-
-		if (node.getFirstChild() == null) {
+		node = node.getFirstChild();
+		if (node == null) {
 			return defaultValue;
 		}
 
-		String value = node.getFirstChild().getNodeValue();
+		String value = node.getNodeValue();
 
-		return Integer.valueOf(value).intValue();
+		return Integer.parseInt(value);
 	}
 
 	private Integer getIntegerValue(Element element, String tagname) {
@@ -997,17 +999,15 @@ public final class XMLLoader {
 
 		String id = this.getStringValue(element, "id");
 
-		String type = this.getStringValue(element, "type");
-
 		String wordId = this.getStringValue(element, "word_id");
 
 		Word word = context.wordMap.get(wordId);
 
-		NormalColumn normalColumn = null;
-
 		UniqueWord uniqueWord;
 		if (word == null) {
-			word = new RealWord(this.getStringValue(element, "physical_name"),
+	        String type = this.getStringValue(element, "type");
+
+	        word = new RealWord(this.getStringValue(element, "physical_name"),
 					this.getStringValue(element, "logical_name"),
 					SqlType.valueOfId(type), new TypeData(null, null, false,
 							null, false, null, null), this.getStringValue(element,
@@ -1024,8 +1024,9 @@ public final class XMLLoader {
 			}
 		}
 
-		normalColumn = new NormalColumn(word, this.getBooleanValue(element,
-				"not_null"), this.getBooleanValue(element, "primary_key"),
+		final NormalColumn normalColumn = new NormalColumn(word,
+		        this.getBooleanValue(element, "not_null"),
+		        this.getBooleanValue(element, "primary_key"),
 				this.getBooleanValue(element, "unique_key"),
 				this.getBooleanValue(element, "auto_increment"),
 				this.getStringValue(element, "default_value"),

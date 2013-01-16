@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.FastDateFormat;
+import org.insightech.er.db.DBManager;
+import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.db2.tablespace.DB2TablespaceProperties;
 import org.insightech.er.db.impl.mysql.MySQLTableProperties;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
@@ -40,6 +42,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.unique
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.properties.ViewProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.GroupSet;
@@ -76,6 +79,8 @@ public final class PersistentXmlImpl extends Persistent {
 	public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
 	private static class PersistentContext {
+	    private boolean supportedColumnCharset;
+	    
 		private Map<ColumnGroup, Integer> columnGroupMap = new HashMap<ColumnGroup, Integer>();
 
 		private Map<ConnectionElement, Integer> connectionMap = new HashMap<ConnectionElement, Integer>();
@@ -91,8 +96,12 @@ public final class PersistentXmlImpl extends Persistent {
 		private Map<Environment, Integer> environmentMap = new HashMap<Environment, Integer>();
 	}
 
-	private PersistentContext getContext(DiagramContents diagramContents) {
+	private PersistentContext getContext(ERDiagram diagram, DiagramContents diagramContents) {
+        final DBManager dbManager = diagram.getDBManager();
+        
 		PersistentContext context = new PersistentContext();
+
+		context.supportedColumnCharset = dbManager.isSupported(SupportFunctions.COLUMN_CHARSET);
 
 		int columnGroupCount = 0;
 		int columnCount = 0;
@@ -166,12 +175,12 @@ public final class PersistentXmlImpl extends Persistent {
 	}
 
 	private PersistentContext getCurrentContext(ERDiagram diagram) {
-		return this.getContext(diagram.getDiagramContents());
+		return this.getContext(diagram, diagram.getDiagramContents());
 	}
 
-	private PersistentContext getChangeTrackingContext(
+	private PersistentContext getChangeTrackingContext(ERDiagram diagram,
 			ChangeTracking changeTracking) {
-		return this.getContext(changeTracking.getDiagramContents());
+		return this.getContext(diagram, changeTracking.getDiagramContents());
 	}
 
 	@Override
@@ -244,7 +253,7 @@ public final class PersistentXmlImpl extends Persistent {
 		PersistentContext context = this.getCurrentContext(diagram);
 
 		xml.append(tab(this.createXML(diagram.getDiagramContents(), context)));
-		xml.append(tab(this.createXML(diagram.getChangeTrackingList())));
+		xml.append(tab(this.createXML(diagram, diagram.getChangeTrackingList())));
 
 		xml.append("</diagram>\n");
 
@@ -818,13 +827,13 @@ public final class PersistentXmlImpl extends Persistent {
 		return xml.toString();
 	}
 
-	private String createXML(ChangeTrackingList changeTrackingList) {
+	private String createXML(ERDiagram diagram, ChangeTrackingList changeTrackingList) {
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<change_tracking_list>\n");
 
 		for (ChangeTracking changeTracking : changeTrackingList.getList()) {
-			xml.append(tab(this.createXML(changeTracking)));
+			xml.append(tab(this.createXML(diagram, changeTracking)));
 		}
 
 		xml.append("</change_tracking_list>\n");
@@ -832,7 +841,7 @@ public final class PersistentXmlImpl extends Persistent {
 		return xml.toString();
 	}
 
-	private String createXML(ChangeTracking changeTracking) {
+	private String createXML(ERDiagram diagram, ChangeTracking changeTracking) {
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<change_tracking>\n");
@@ -844,7 +853,7 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</comment>\n");
 
 		PersistentContext context = this
-				.getChangeTrackingContext(changeTracking);
+				.getChangeTrackingContext(diagram, changeTracking);
 
 		xml.append(tab(this.createXML(changeTracking.getDiagramContents(),
 				context)));
@@ -1336,11 +1345,6 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<normal_column>\n");
 
-		String wordId = normalColumn.getWord().getUniqueWord().getId();
-		if (wordId != null) {
-			xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
-		}
-
 		if (context != null) {
 
 			xml.append("\t<id>").append(context.columnMap.get(normalColumn))
@@ -1359,36 +1363,29 @@ public final class PersistentXmlImpl extends Persistent {
 			}
 		}
 
-		String description = normalColumn.getForeignKeyDescription();
-		String logicalName = normalColumn.getForeignKeyLogicalName();
-		String physicalName = normalColumn.getForeignKeyPhysicalName();
-		SqlType sqlType = normalColumn.getType();
+        String wordId = normalColumn.getWord() == null ?
+                null : normalColumn.getWord().getUniqueWord().getId();
+        if (wordId == null) {
+            String description = normalColumn.getForeignKeyDescription();
+            String logicalName = normalColumn.getForeignKeyLogicalName();
+            String physicalName = normalColumn.getForeignKeyPhysicalName();
+            SqlType sqlType = normalColumn.getType();
 
-		xml.append("\t<description>").append(escape(description))
-				.append("</description>\n");
-		xml.append("\t<unique_key_name>")
-				.append(escape(normalColumn.getUniqueKeyName()))
-				.append("</unique_key_name>\n");
-		xml.append("\t<logical_name>").append(escape(logicalName))
-				.append("</logical_name>\n");
-		xml.append("\t<physical_name>").append(escape(physicalName))
-				.append("</physical_name>\n");
+            xml.append("\t<description>").append(escape(description))
+                    .append("</description>\n");
+            xml.append("\t<logical_name>").append(escape(logicalName))
+                    .append("</logical_name>\n");
+            xml.append("\t<physical_name>").append(escape(physicalName))
+                    .append("</physical_name>\n");
+            String type = "";
+            if (sqlType != null) {
+                type = sqlType.getId();
+            }
+            xml.append("\t<type>").append(type).append("</type>\n");
+        } else {
+            xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
+        }
 
-		String type = "";
-		if (sqlType != null) {
-			type = sqlType.getId();
-		}
-		xml.append("\t<type>").append(type).append("</type>\n");
-
-		xml.append("\t<constraint>")
-				.append(escape(normalColumn.getConstraint()))
-				.append("</constraint>\n");
-		xml.append("\t<default_value>")
-				.append(escape(normalColumn.getDefaultValue()))
-				.append("</default_value>\n");
-
-		xml.append("\t<auto_increment>").append(normalColumn.isAutoIncrement())
-				.append("</auto_increment>\n");
 		xml.append("\t<foreign_key>").append(normalColumn.isForeignKey())
 				.append("</foreign_key>\n");
 		xml.append("\t<not_null>").append(normalColumn.isNotNull())
@@ -1397,14 +1394,33 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</primary_key>\n");
 		xml.append("\t<unique_key>").append(normalColumn.isUniqueKey())
 				.append("</unique_key>\n");
+        xml.append("\t<auto_increment>").append(normalColumn.isAutoIncrement())
+                .append("</auto_increment>\n");
+        xml.append("\t<default_value>")
+                .append(escape(normalColumn.getDefaultValue()))
+                .append("</default_value>\n");
+        xml.append("\t<constraint>")
+                .append(escape(normalColumn.getConstraint()))
+                .append("</constraint>\n");
 
-		xml.append("\t<character_set>")
-				.append(escape(normalColumn.getCharacterSet()))
-				.append("</character_set>\n");
-		xml.append("\t<collation>").append(escape(normalColumn.getCollation()))
-				.append("</collation>\n");
+        if (normalColumn.isUniqueKey()) {
+            xml.append("\t<unique_key_name>")
+                    .append(escape(normalColumn.getUniqueKeyName()))
+                    .append("</unique_key_name>\n");
+        }
 
-		xml.append(tab(this.createXML(normalColumn.getAutoIncrementSetting())));
+        if (context.supportedColumnCharset) {
+    		xml.append("\t<character_set>")
+    				.append(escape(normalColumn.getCharacterSet()))
+    				.append("</character_set>\n");
+    		xml.append("\t<collation>").append(escape(normalColumn.getCollation()))
+    		        .append("</collation>\n");
+        }
+
+		if (normalColumn.isAutoIncrement()) {
+		    xml.append(tab(this.createXML(normalColumn.getAutoIncrementSetting())));
+		}
+
 		xml.append("</normal_column>\n");
 
 		return xml.toString();
@@ -1768,22 +1784,23 @@ public final class PersistentXmlImpl extends Persistent {
 		xml.append("\t<id>").append(word.getId())
 				.append("</id>\n");
 
-		xml.append("\t<length>").append(word.getTypeData().getLength())
+		final TypeData typeData = word.getTypeData();
+		xml.append("\t<length>").append(typeData.getLength())
 				.append("</length>\n");
-		xml.append("\t<decimal>").append(word.getTypeData().getDecimal())
+		xml.append("\t<decimal>").append(typeData.getDecimal())
 				.append("</decimal>\n");
 
-		Integer arrayDimension = word.getTypeData().getArrayDimension();
-		xml.append("\t<array>").append(word.getTypeData().isArray())
+		Integer arrayDimension = typeData.getArrayDimension();
+		xml.append("\t<array>").append(typeData.isArray())
 				.append("</array>\n");
 		xml.append("\t<array_dimension>").append(arrayDimension)
 				.append("</array_dimension>\n");
 
-		xml.append("\t<unsigned>").append(word.getTypeData().isUnsigned())
+		xml.append("\t<unsigned>").append(typeData.isUnsigned())
 				.append("</unsigned>\n");
-		xml.append("\t<args>").append(escape(word.getTypeData().getArgs()))
+		xml.append("\t<args>").append(escape(typeData.getArgs()))
 				.append("</args>\n");
-		xml.append("\t<unit>").append(escape(word.getTypeData().getUnit()))
+		xml.append("\t<unit>").append(escape(typeData.getUnit()))
 				.append("</unit>\n");
 
 		xml.append("\t<description>").append(escape(word.getDescription()))
