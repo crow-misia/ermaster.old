@@ -9,8 +9,13 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -23,10 +28,12 @@ public class Dictionary extends AbstractModel {
 
 	private final Map<Word, Set<NormalColumn>> wordMap;
 	private final Map<UniqueWord, Set<NormalColumn>> uniqueWordMap;
+	private final Map<UniqueWord, String> wordIdMap;
 
 	public Dictionary() {
 		this.wordMap = new IdentityHashMap<Word, Set<NormalColumn>>();
 		this.uniqueWordMap = new HashMap<UniqueWord, Set<NormalColumn>>();
+		this.wordIdMap = new WeakHashMap<UniqueWord, String>();
 	}
 
 	public void add(NormalColumn column, final boolean fire) {
@@ -41,12 +48,29 @@ public class Dictionary extends AbstractModel {
 		if (useColumns == null) {
 			useColumns = new HashSet<NormalColumn>();
 			this.wordMap.put(word, useColumns);
+
+			setWordId(word);
 		}
 		useColumns.add(column);
 
 		if (fire) {
 			setDirty();
 		}
+	}
+
+	private void setWordId(final Word word) {
+		final UniqueWord uw = word.getUniqueWord();
+		String id = uw.getId();
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			for (final Map.Entry<UniqueWord, String> wordEntry : wordIdMap.entrySet()) {
+				if (StringUtils.equalsIgnoreCase(id, wordEntry.getValue())) {
+					id = null;
+				}
+			}
+		}
+		this.wordIdMap.put(uw, id);
+		uw.setId(id);
 	}
 
 	public void remove(NormalColumn column, final boolean fire) {
@@ -108,6 +132,12 @@ public class Dictionary extends AbstractModel {
 
 	public List<UniqueWord> getUniqueWordList() {
 		return new ArrayList<UniqueWord>(this.uniqueWordMap.keySet());
+	}
+
+	public List<UniqueWord> getUniqueWordListOrderId() {
+		final List<UniqueWord> retval = new ArrayList<UniqueWord>(this.uniqueWordMap.keySet());
+		Collections.sort(retval, UniqueWord.WORD_ID_COMPARATOR);
+		return retval;
 	}
 
 	public List<Word> getWordList() {

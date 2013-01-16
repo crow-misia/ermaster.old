@@ -89,7 +89,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XMLLoader {
+public final class XMLLoader {
 
 	private ERDiagram diagram;
 
@@ -951,6 +951,8 @@ public class XMLLoader {
 				Format.null2blank(this.getStringValue(element, "description")),
 				this.database);
 
+		word.getUniqueWord().setId(id);
+
 		context.wordMap.put(id, word);
 
 		return word;
@@ -1003,6 +1005,7 @@ public class XMLLoader {
 
 		NormalColumn normalColumn = null;
 
+		UniqueWord uniqueWord;
 		if (word == null) {
 			word = new RealWord(this.getStringValue(element, "physical_name"),
 					this.getStringValue(element, "logical_name"),
@@ -1010,7 +1013,8 @@ public class XMLLoader {
 							null, false, null, null), this.getStringValue(element,
 							"description"), database);
 
-			UniqueWord uniqueWord = word.getUniqueWord();
+			uniqueWord = word.getUniqueWord();
+			uniqueWord.setId(id);
 
 			final Word tmp = context.uniqueWordMap.get(uniqueWord);
 			if (tmp == null) {

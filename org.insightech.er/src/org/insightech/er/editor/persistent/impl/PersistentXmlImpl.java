@@ -71,11 +71,11 @@ import org.insightech.er.editor.persistent.Persistent;
 import org.insightech.er.util.Format;
 import org.insightech.er.util.NameValue;
 
-public class PersistentXmlImpl extends Persistent {
+public final class PersistentXmlImpl extends Persistent {
 
 	public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
-	private class PersistentContext {
+	private static class PersistentContext {
 		private Map<ColumnGroup, Integer> columnGroupMap = new HashMap<ColumnGroup, Integer>();
 
 		private Map<ConnectionElement, Integer> connectionMap = new HashMap<ConnectionElement, Integer>();
@@ -85,8 +85,6 @@ public class PersistentXmlImpl extends Persistent {
 		private Map<ComplexUniqueKey, Integer> complexUniqueKeyMap = new HashMap<ComplexUniqueKey, Integer>();
 
 		private Map<NodeElement, Integer> nodeElementMap = new HashMap<NodeElement, Integer>();
-
-		private Map<UniqueWord, Integer> wordMap = new HashMap<UniqueWord, Integer>();
 
 		private Map<Tablespace, Integer> tablespaceMap = new HashMap<Tablespace, Integer>();
 
@@ -148,12 +146,6 @@ public class PersistentXmlImpl extends Persistent {
 				}
 
 			}
-		}
-
-		int wordCount = 0;
-		for (UniqueWord word : diagramContents.getDictionary().getUniqueWordList()) {
-			context.wordMap.put(word, Integer.valueOf(wordCount));
-			wordCount++;
 		}
 
 		int tablespaceCount = 0;
@@ -1344,13 +1336,12 @@ public class PersistentXmlImpl extends Persistent {
 
 		xml.append("<normal_column>\n");
 
-		Integer wordId = null;
+		String wordId = normalColumn.getWord().getUniqueWord().getId();
+		if (wordId != null) {
+			xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
+		}
 
 		if (context != null) {
-			wordId = context.wordMap.get(normalColumn.getWord().getUniqueWord());
-			if (wordId != null) {
-				xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
-			}
 
 			xml.append("\t<id>").append(context.columnMap.get(normalColumn))
 					.append("</id>\n");
@@ -1760,7 +1751,7 @@ public class PersistentXmlImpl extends Persistent {
 
 		xml.append("<dictionary>\n");
 
-		for (UniqueWord word : dictionary.getUniqueWordList()) {
+		for (UniqueWord word : dictionary.getUniqueWordListOrderId()) {
 			xml.append(tab(this.createXML(word, context)));
 		}
 
@@ -1774,10 +1765,8 @@ public class PersistentXmlImpl extends Persistent {
 
 		xml.append("<word>\n");
 
-		if (context != null) {
-			xml.append("\t<id>").append(context.wordMap.get(word))
-					.append("</id>\n");
-		}
+		xml.append("\t<id>").append(word.getId())
+				.append("</id>\n");
 
 		xml.append("\t<length>").append(word.getTypeData().getLength())
 				.append("</length>\n");
