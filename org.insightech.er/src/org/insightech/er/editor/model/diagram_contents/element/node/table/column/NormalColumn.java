@@ -130,16 +130,16 @@ public class NormalColumn extends Column {
 		this.collation = collation;
 	}
 
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public void setId(final String id) {
+	public final void setId(final String id) {
 		this.id = id;
 	}
 
 	public static void setId(final Set<String> check, final NormalColumn column) {
-		String id = column.getId();
+		String id = column.id;
 		while (id == null) {
 			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
 			if (check.add(id)) {

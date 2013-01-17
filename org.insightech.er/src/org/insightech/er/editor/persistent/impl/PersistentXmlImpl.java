@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -81,17 +80,7 @@ public final class PersistentXmlImpl extends Persistent {
 	public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
 	private static class PersistentContext {
-	    private boolean supportedColumnCharset;
-	    
-		private Map<ConnectionElement, Integer> connectionMap = new HashMap<ConnectionElement, Integer>();
-
-		private Map<ComplexUniqueKey, Integer> complexUniqueKeyMap = new HashMap<ComplexUniqueKey, Integer>();
-
-		private Map<NodeElement, Integer> nodeElementMap = new HashMap<NodeElement, Integer>();
-
-		private Map<Tablespace, Integer> tablespaceMap = new HashMap<Tablespace, Integer>();
-
-		private Map<Environment, Integer> environmentMap = new HashMap<Environment, Integer>();
+		private boolean supportedColumnCharset;
 	}
 
 	private PersistentContext getContext(ERDiagram diagram, DiagramContents diagramContents) {
@@ -101,36 +90,84 @@ public final class PersistentXmlImpl extends Persistent {
 
 		context.supportedColumnCharset = dbManager.isSupported(SupportFunctions.COLUMN_CHARSET);
 
+		// IDチェック用(カラム、ノード、コネクション、複合一意キー）
 		final Set<String> check = new HashSet<String>();
+		// 既知のIDをチェック用セットに格納する (重複して使用されないようにするため）
+		for (ColumnGroup columnGroup : diagramContents.getGroups().getGroupList()) {
+			for (NormalColumn column : columnGroup.getColumns()) {
+				if (column.getId() != null) {
+					check.add(column.getId());
+				}
+			}
+		}
+
+		for (NodeElement content : diagramContents.getContents()) {
+			if (content.getId() != null) {
+				check.add(content.getId());
+			}
+
+			List<ConnectionElement> connections = content.getIncomings();
+
+			for (ConnectionElement connection : connections) {
+				if (connection.getId() != null) {
+					check.add(connection.getId());
+				}
+			}
+
+			if (content instanceof ERTable) {
+				ERTable table = (ERTable) content;
+
+				for (Column column : table.getColumns()) {
+					if (column instanceof NormalColumn) {
+						if (((NormalColumn) column).getId() != null) {
+							check.add(((NormalColumn) column).getId());
+						}
+					}
+				}
+
+				for (ComplexUniqueKey complexUniqueKey : table
+						.getComplexUniqueKeyList()) {
+					if (complexUniqueKey.getId() != null) {
+						check.add(complexUniqueKey.getId());
+					}
+				}
+			}
+		}
+
+		for (Tablespace tablespace : diagramContents.getTablespaceSet()) {
+			if (tablespace.getId() != null) {
+				check.add(tablespace.getId());
+			}
+		}
+
+		for (Environment environment : diagramContents.getSettings()
+				.getEnvironmentSetting().getEnvironments()) {
+			if (environment.getId() != null) {
+				check.add(environment.getId());
+			}
+		}
+
+
+		// ID未設定要素に、IDをセットする
 		for (ColumnGroup columnGroup : diagramContents.getGroups().getGroupList()) {
 			for (NormalColumn column : columnGroup.getColumns()) {
 				NormalColumn.setId(check, column);
 			}
 		}
 
-		int nodeElementCount = 0;
-		int connectionCount = 0;
-		int complexUniqueKeyCount = 0;
-
 		for (NodeElement content : diagramContents.getContents()) {
-			context.nodeElementMap.put(content, Integer.valueOf(nodeElementCount));
-			nodeElementCount++;
+			NodeElement.setId(check, content);
 
 			List<ConnectionElement> connections = content.getIncomings();
 
 			for (ConnectionElement connection : connections) {
-				context.connectionMap.put(connection, Integer.valueOf(
-						connectionCount));
-				connectionCount++;
+				ConnectionElement.setId(check, connection);
 			}
 
 			if (content instanceof ERTable) {
-
 				ERTable table = (ERTable) content;
 
-				List<Column> columns = table.getColumns();
-
-				for (Column column : columns) {
+				for (Column column : table.getColumns()) {
 					if (column instanceof NormalColumn) {
 						NormalColumn.setId(check, (NormalColumn) column);
 					}
@@ -138,27 +175,18 @@ public final class PersistentXmlImpl extends Persistent {
 
 				for (ComplexUniqueKey complexUniqueKey : table
 						.getComplexUniqueKeyList()) {
-					context.complexUniqueKeyMap.put(complexUniqueKey,
-							Integer.valueOf(complexUniqueKeyCount));
-
-					complexUniqueKeyCount++;
+					ComplexUniqueKey.setId(check, complexUniqueKey);
 				}
-
 			}
 		}
 
-		int tablespaceCount = 0;
 		for (Tablespace tablespace : diagramContents.getTablespaceSet()) {
-			context.tablespaceMap.put(tablespace, Integer.valueOf(tablespaceCount));
-			tablespaceCount++;
+			Tablespace.setId(check, tablespace);
 		}
 
-		int environmentCount = 0;
 		for (Environment environment : diagramContents.getSettings()
 				.getEnvironmentSetting().getEnvironments()) {
-			context.environmentMap.put(environment, Integer.valueOf(
-					environmentCount));
-			environmentCount++;
+			Environment.setId(check, environment);
 		}
 
 		return context;
@@ -448,10 +476,8 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<tablespace>\n");
 
-		if (context != null) {
-			xml.append("\t<id>").append(context.tablespaceMap.get(tablespace))
-					.append("</id>\n");
-		}
+		xml.append("\t<id>").append(tablespace.getId())
+				.append("</id>\n");
 		xml.append("\t<name>").append(escape(tablespace.getName()))
 				.append("</name>\n");
 
@@ -463,7 +489,7 @@ public final class PersistentXmlImpl extends Persistent {
 			xml.append("\t<properties>\n");
 
 			xml.append("\t\t<environment_id>")
-					.append(context.environmentMap.get(environment))
+					.append(environment.getId())
 					.append("</environment_id>\n");
 
 			if (tablespaceProperties instanceof DB2TablespaceProperties) {
@@ -706,7 +732,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<table_test_data>\n");
 
-		xml.append("\t<table_id>").append(context.nodeElementMap.get(table))
+		xml.append("\t<table_id>").append(table.getId())
 				.append("</table_id>\n");
 
 		DirectTestData directTestData = tableTestData.getDirectTestData();
@@ -1055,7 +1081,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		for (NodeElement nodeElement : category.getContents()) {
 			xml.append("\t<node_element>")
-					.append(context.nodeElementMap.get(nodeElement))
+					.append(nodeElement.getId())
 					.append("</node_element>\n");
 		}
 
@@ -1111,9 +1137,11 @@ public final class PersistentXmlImpl extends Persistent {
 			PersistentContext context) {
 		StringBuilder xml = new StringBuilder();
 
-		xml.append("<id>")
-				.append(Format.toString(context.nodeElementMap.get(nodeElement)))
-				.append("</id>\n");
+		if (nodeElement.getId() != null) {
+			xml.append("<id>")
+					.append(nodeElement.getId())
+					.append("</id>\n");
+		}
 		xml.append("<height>").append(nodeElement.getHeight())
 				.append("</height>\n");
 		xml.append("<width>").append(nodeElement.getWidth())
@@ -1332,8 +1360,10 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<normal_column>\n");
 
-		xml.append("\t<id>").append(normalColumn.getId())
-				.append("</id>\n");
+		if (normalColumn.getId() != null) {
+			xml.append("\t<id>").append(normalColumn.getId())
+					.append("</id>\n");
+		}
 		for (NormalColumn referencedColumn : normalColumn
 				.getReferencedColumnList()) {
 			xml.append("\t<referenced_column>")
@@ -1344,7 +1374,7 @@ public final class PersistentXmlImpl extends Persistent {
 		if (context != null) {
 			for (Relation relation : normalColumn.getRelationList()) {
 				xml.append("\t<relation>")
-						.append(context.connectionMap.get(relation))
+						.append(relation.getId())
 						.append("</relation>\n");
 			}
 		}
@@ -1439,13 +1469,13 @@ public final class PersistentXmlImpl extends Persistent {
 			PersistentContext context) {
 		StringBuilder xml = new StringBuilder();
 
-		xml.append("<id>").append(context.connectionMap.get(connection))
+		xml.append("<id>").append(connection.getId())
 				.append("</id>\n");
 		xml.append("<source>")
-				.append(context.nodeElementMap.get(connection.getSource()))
+				.append(connection.getSource().getId())
 				.append("</source>\n");
 		xml.append("<target>")
-				.append(context.nodeElementMap.get(connection.getTarget()))
+				.append(connection.getTarget().getId())
 				.append("</target>\n");
 
 		for (Bendpoint bendpoint : connection.getBendpoints()) {
@@ -1519,10 +1549,12 @@ public final class PersistentXmlImpl extends Persistent {
 					.append(relation.getReferencedColumn().getId())
 					.append("</referenced_column>\n");
 		}
-		xml.append("\t<referenced_complex_unique_key>")
-				.append(context.complexUniqueKeyMap.get(relation
-						.getReferencedComplexUniqueKey()))
-				.append("</referenced_complex_unique_key>\n");
+		if (relation.getReferencedComplexUniqueKey() != null) {
+			xml.append("\t<referenced_complex_unique_key>")
+					.append(relation
+							.getReferencedComplexUniqueKey().getId())
+					.append("</referenced_complex_unique_key>\n");
+		}
 
 		xml.append("</relation>\n");
 
@@ -1569,8 +1601,7 @@ public final class PersistentXmlImpl extends Persistent {
 		for (Environment environment : environmentSetting.getEnvironments()) {
 			xml.append("\t<environment>\n");
 
-			Integer environmentId = context.environmentMap.get(environment);
-			xml.append("\t\t<id>").append(environmentId).append("</id>\n");
+			xml.append("\t\t<id>").append(environment.getId()).append("</id>\n");
 			xml.append("\t\t<name>").append(environment.getName())
 					.append("</name>\n");
 
@@ -1588,8 +1619,8 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<table_properties>\n");
 
-		Integer tablespaceId = context.tablespaceMap.get(tableProperties
-				.getTableSpace());
+		String tablespaceId = tableProperties.getTableSpace() == null ?
+				null : tableProperties.getTableSpace().getId();
 		if (tablespaceId != null) {
 			xml.append("\t<tablespace_id>").append(tablespaceId)
 					.append("</tablespace_id>\n");
@@ -1660,8 +1691,8 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<view_properties>\n");
 
-		Integer tablespaceId = context.tablespaceMap.get(viewProperties
-				.getTableSpace());
+		String tablespaceId = viewProperties.getTableSpace() == null ?
+				null : viewProperties.getTableSpace().getId();
 		if (tablespaceId != null) {
 			xml.append("\t<tablespace_id>").append(tablespaceId)
 					.append("</tablespace_id>\n");
@@ -1729,7 +1760,7 @@ public final class PersistentXmlImpl extends Persistent {
 		xml.append("<complex_unique_key>\n");
 
 		xml.append("\t<id>")
-				.append(context.complexUniqueKeyMap.get(complexUniqueKey))
+				.append(complexUniqueKey.getId())
 				.append("</id>\n");
 		xml.append("\t<name>")
 				.append(Format.null2blank(complexUniqueKey.getUniqueKeyName()))
@@ -1773,15 +1804,15 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</id>\n");
 
 		final TypeData typeData = word.getTypeData();
-		xml.append("\t<length>").append(typeData.getLength())
+		xml.append("\t<length>").append(Format.toString(typeData.getLength()))
 				.append("</length>\n");
-		xml.append("\t<decimal>").append(typeData.getDecimal())
+		xml.append("\t<decimal>").append(Format.toString(typeData.getDecimal()))
 				.append("</decimal>\n");
 
 		Integer arrayDimension = typeData.getArrayDimension();
 		xml.append("\t<array>").append(typeData.isArray())
 				.append("</array>\n");
-		xml.append("\t<array_dimension>").append(arrayDimension)
+		xml.append("\t<array_dimension>").append(Format.toString(arrayDimension))
 				.append("</array_dimension>\n");
 
 		xml.append("\t<unsigned>").append(typeData.isUnsigned())

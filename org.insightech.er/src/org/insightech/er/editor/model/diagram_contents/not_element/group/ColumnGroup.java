@@ -25,11 +25,11 @@ public class ColumnGroup extends Column implements ObjectModel,
 		this.columns = new ArrayList<NormalColumn>();
 	}
 
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public void setId(final String id) {
+	public final void setId(final String id) {
 		this.id = id;
 	}
 

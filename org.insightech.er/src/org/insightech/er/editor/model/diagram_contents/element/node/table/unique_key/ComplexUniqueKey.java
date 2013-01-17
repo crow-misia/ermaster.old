@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.element.node.table.uniqu
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
@@ -13,6 +15,8 @@ public class ComplexUniqueKey extends AbstractModel {
 
 	private static final long serialVersionUID = -3970737521746421701L;
 
+	private String id;
+
 	private List<NormalColumn> columnList;
 
 	private String uniqueKeyName;
@@ -20,6 +24,26 @@ public class ComplexUniqueKey extends AbstractModel {
 	public ComplexUniqueKey(String uniqueKeyName) {
 		this.uniqueKeyName = uniqueKeyName;
 		this.columnList = new ArrayList<NormalColumn>();
+	}
+
+	public final String getId() {
+		return id;
+	}
+
+	public final void setId(final String id) {
+		this.id = id;
+	}
+
+	public static void setId(final Set<String> check, final ComplexUniqueKey node) {
+		String id = node.id;
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			if (check.add(id)) {
+				node.id = id;
+				break;
+			}
+			id = null;
+		}
 	}
 
 	public String getUniqueKeyName() {

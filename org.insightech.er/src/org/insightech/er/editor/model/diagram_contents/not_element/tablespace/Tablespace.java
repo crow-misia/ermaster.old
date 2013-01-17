@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.not_element.tablespace;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ERDiagram;
@@ -13,6 +15,8 @@ public class Tablespace extends AbstractModel implements ObjectModel,
 		Comparable<Tablespace> {
 
 	private static final long serialVersionUID = 1861168804265437031L;
+
+	private String id;
 
 	private String name;
 
@@ -29,6 +33,26 @@ public class Tablespace extends AbstractModel implements ObjectModel,
 		for (Map.Entry<Environment, TablespaceProperties> entry : this.propertiesMap
 				.entrySet()) {
 			to.propertiesMap.put(entry.getKey(), entry.getValue().clone());
+		}
+	}
+
+	public final String getId() {
+		return id;
+	}
+
+	public final void setId(final String id) {
+		this.id = id;
+	}
+
+	public static void setId(final Set<String> check, final Tablespace column) {
+		String id = column.id;
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			if (check.add(id)) {
+				column.id = id;
+				break;
+			}
+			id = null;
 		}
 	}
 

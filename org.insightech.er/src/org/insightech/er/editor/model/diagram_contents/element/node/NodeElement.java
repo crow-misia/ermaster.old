@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.element.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.ViewableModel;
@@ -18,6 +20,8 @@ public abstract class NodeElement extends ViewableModel implements ObjectModel {
 
 	public static final String PROPERTY_CHANGE_OUTGOING = "outgoing";
 
+	private String id;
+
 	private Location location;
 
 	private List<ConnectionElement> incomings = new ArrayList<ConnectionElement>();
@@ -28,6 +32,26 @@ public abstract class NodeElement extends ViewableModel implements ObjectModel {
 
 	public NodeElement() {
 		this.location = new Location(0, 0, 0, 0);
+	}
+
+	public final String getId() {
+		return id;
+	}
+
+	public final void setId(final String id) {
+		this.id = id;
+	}
+
+	public static void setId(final Set<String> check, final NodeElement node) {
+		String id = node.id;
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			if (check.add(id)) {
+				node.id = id;
+				break;
+			}
+			id = null;
+		}
 	}
 
 	public void setDiagram(ERDiagram diagram) {

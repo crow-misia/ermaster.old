@@ -22,11 +22,11 @@ public class UniqueWord extends Word {
 		return word;
 	}
 
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public void setId(final String id) {
+	public final void setId(final String id) {
 		this.id = id;
 	}
 

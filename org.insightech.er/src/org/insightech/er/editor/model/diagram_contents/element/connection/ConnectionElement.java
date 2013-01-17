@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.element.connection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 
@@ -16,12 +18,34 @@ public abstract class ConnectionElement extends AbstractModel {
 
 	public static final String PROPERTY_CHANGE_CONNECTION_ATTRIBUTE = "connection_attribute";
 
+	private String id;
+
 	protected NodeElement source;
 
 	protected NodeElement target;
 
 	// ベンド・ポイントの位置情報のリスト
 	private List<Bendpoint> bendPoints = new ArrayList<Bendpoint>();
+
+	public final String getId() {
+		return id;
+	}
+
+	public final void setId(final String id) {
+		this.id = id;
+	}
+
+	public static void setId(final Set<String> check, final ConnectionElement node) {
+		String id = node.id;
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			if (check.add(id)) {
+				node.id = id;
+				break;
+			}
+			id = null;
+		}
+	}
 
 	public NodeElement getSource() {
 		return source;

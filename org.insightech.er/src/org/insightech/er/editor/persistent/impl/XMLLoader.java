@@ -212,39 +212,27 @@ public final class XMLLoader {
 
 			if (referencedColumnIds != null) {
 				for (String referencedColumnId : referencedColumnIds) {
-					try {
-						Integer.parseInt(referencedColumnId);
+					NormalColumn referencedColumn = this.columnMap
+							.get(referencedColumnId);
+					referencedColumnList.add(referencedColumn);
 
-						NormalColumn referencedColumn = this.columnMap
-								.get(referencedColumnId);
-						referencedColumnList.add(referencedColumn);
-
-						if (foreignKeyColumnSet.contains(referencedColumn) && foreignKeyColumn != referencedColumn) {
-							reduce(foreignKeyColumnSet, referencedColumn);
-						}
-
-					} catch (NumberFormatException e) {
+					if (foreignKeyColumnSet.contains(referencedColumn) && foreignKeyColumn != referencedColumn) {
+						reduce(foreignKeyColumnSet, referencedColumn);
 					}
 				}
 			}
 
 			if (relationIds != null) {
 				for (String relationId : relationIds) {
-					try {
-						Integer.parseInt(relationId);
-
-						Relation relation = (Relation) this.connectionMap
-								.get(relationId);
-						for (NormalColumn referencedColumn : referencedColumnList) {
-							if (referencedColumn.getColumnHolder() == relation
-									.getSourceTableView()) {
-								foreignKeyColumn.addReference(referencedColumn,
-										relation);
-								break;
-							}
+					Relation relation = (Relation) this.connectionMap
+							.get(relationId);
+					for (NormalColumn referencedColumn : referencedColumnList) {
+						if (referencedColumn.getColumnHolder() == relation
+								.getSourceTableView()) {
+							foreignKeyColumn.addReference(referencedColumn,
+									relation);
+							break;
 						}
-
-					} catch (NumberFormatException e) {
 					}
 				}
 			}
@@ -617,6 +605,7 @@ public final class XMLLoader {
 		String id = this.getStringValue(element, "id");
 
 		Tablespace tablespace = new Tablespace();
+		tablespace.setId(id);
 		tablespace.setName(this.getStringValue(element, "name"));
 
 		NodeList nodeList = element.getElementsByTagName("properties");
@@ -775,8 +764,8 @@ public final class XMLLoader {
 			ColumnGroup columnGroup = new ColumnGroup();
 			
 			final String id = this.getStringValue(columnGroupElement, "id");
-			columnGroup.setId(id);
 
+			columnGroup.setId(id);
 			columnGroup.setGroupName(this.getStringValue(columnGroupElement,
 					"group_name"));
 
@@ -1016,7 +1005,7 @@ public final class XMLLoader {
 							"description"), database);
 
 			uniqueWord = word.getUniqueWord();
-			uniqueWord.setId(id);
+			uniqueWord.setId(wordId);
 
 			final Word tmp = context.uniqueWordMap.get(uniqueWord);
 			if (tmp == null) {
@@ -1027,8 +1016,8 @@ public final class XMLLoader {
 		}
 
 		final NormalColumn normalColumn = new NormalColumn(word,
-		        this.getBooleanValue(element, "not_null"),
-		        this.getBooleanValue(element, "primary_key"),
+				this.getBooleanValue(element, "not_null"),
+				this.getBooleanValue(element, "primary_key"),
 				this.getBooleanValue(element, "unique_key"),
 				this.getBooleanValue(element, "auto_increment"),
 				this.getStringValue(element, "default_value"),
@@ -1036,7 +1025,6 @@ public final class XMLLoader {
 				this.getStringValue(element, "unique_key_name"),
 				this.getStringValue(element, "character_set"),
 				this.getStringValue(element, "collation"));
-		normalColumn.setId(id);
 
 		Element autoIncrementSettingElement = this.getElement(element,
 				"sequence");
@@ -1055,19 +1043,6 @@ public final class XMLLoader {
 
 		String[] referencedColumnIds = this.getTagValues(element,
 				"referenced_column");
-		List<String> temp = new ArrayList<String>();
-		for (String str : referencedColumnIds) {
-			try {
-				if (str != null) {
-					Integer.parseInt(str);
-					temp.add(str);
-				}
-
-			} catch (NumberFormatException e) {
-			}
-		}
-
-		referencedColumnIds = temp.toArray(new String[temp.size()]);
 
 		if (referencedColumnIds.length != 0) {
 			context.columnReferencedColumnMap.put(normalColumn,
@@ -1079,7 +1054,10 @@ public final class XMLLoader {
 			context.dictionary.add(normalColumn, true);
 		}
 
-		context.columnMap.put(id, normalColumn);
+		if (id != null && !"null".equals(id)) {
+			normalColumn.setId(id);
+			context.columnMap.put(id, normalColumn);
+		}
 
 		return normalColumn;
 	}
@@ -1343,6 +1321,7 @@ public final class XMLLoader {
 				String id = this.getStringValue(environmentElement, "id");
 				String name = this.getStringValue(environmentElement, "name");
 				Environment environment = new Environment(name);
+				environment.setId(id);
 
 				environmentList.add(environment);
 				context.environmentMap.put(id, environment);
@@ -1575,6 +1554,7 @@ public final class XMLLoader {
 			String name = this.getStringValue(complexUniqueKeyElement, "name");
 
 			ComplexUniqueKey complexUniqueKey = new ComplexUniqueKey(name);
+			complexUniqueKey.setId(id);
 
 			this.loadComplexUniqueKeyColumns(complexUniqueKey,
 					complexUniqueKeyElement, context);
@@ -1699,6 +1679,8 @@ public final class XMLLoader {
 			LoadContext context) {
 		String id = this.getStringValue(element, "id");
 
+		nodeElement.setId("null".equals(id) ? null : id);
+
 		this.loadLocation(nodeElement, element);
 		this.loadColor(nodeElement, element);
 		this.loadFont(nodeElement, element);
@@ -1776,6 +1758,7 @@ public final class XMLLoader {
 			LoadContext context) {
 		String id = this.getStringValue(element, "id");
 
+		connection.setId(id);
 		context.connectionMap.put(id, connection);
 
 		String source = this.getStringValue(element, "source");

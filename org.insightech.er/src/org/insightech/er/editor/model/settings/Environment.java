@@ -1,15 +1,40 @@
 package org.insightech.er.editor.model.settings;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import org.apache.commons.lang.math.RandomUtils;
 
 public class Environment implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 2894497911334351672L;
 
+	private String id;
+
 	private String name;
 
 	public Environment(String name) {
 		this.name = name;
+	}
+
+	public final String getId() {
+		return id;
+	}
+
+	public final void setId(final String id) {
+		this.id = id;
+	}
+
+	public static void setId(final Set<String> check, final Environment column) {
+		String id = column.id;
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			if (check.add(id)) {
+				column.id = id;
+				break;
+			}
+			id = null;
+		}
 	}
 
 	/**
