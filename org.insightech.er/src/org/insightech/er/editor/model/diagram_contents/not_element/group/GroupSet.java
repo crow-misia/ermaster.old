@@ -44,25 +44,11 @@ public class GroupSet extends AbstractModel {
 		this.groups.add(group);
 		Collections.sort(this.groups);
 
-		setGroupId(group);
+		ColumnGroup.setGroupId(idMap, group);
 
 		if (fire) {
 			setDirty();
 		}
-	}
-
-	private void setGroupId(final ColumnGroup group) {
-		String id = group.getId();
-		while (id == null) {
-			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
-			for (final Map.Entry<ColumnGroup, String> entry : idMap.entrySet()) {
-				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
-					id = null;
-				}
-			}
-		}
-		this.idMap.put(group, id);
-		group.setId(id);
 	}
 
 	public void remove(ColumnGroup group, final boolean fire) {

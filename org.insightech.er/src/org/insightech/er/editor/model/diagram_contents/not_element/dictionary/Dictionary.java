@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -46,28 +45,13 @@ public class Dictionary extends AbstractModel {
 			useColumns = new HashSet<NormalColumn>();
 			this.wordMap.put(word, useColumns);
 
-			setWordId(word);
+			UniqueWord.setId(idMap, word.getUniqueWord());
 		}
 		useColumns.add(column);
 
 		if (fire) {
 			setDirty();
 		}
-	}
-
-	private void setWordId(final Word word) {
-		final UniqueWord uw = word.getUniqueWord();
-		String id = uw.getId();
-		while (id == null) {
-			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
-			for (final Map.Entry<UniqueWord, String> entry : idMap.entrySet()) {
-				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
-					id = null;
-				}
-			}
-		}
-		this.idMap.put(uw, id);
-		uw.setId(id);
 	}
 
 	public void remove(NormalColumn column, final boolean fire) {

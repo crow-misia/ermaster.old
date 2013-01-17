@@ -2,7 +2,10 @@ package org.insightech.er.editor.model.diagram_contents.not_element.group;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -30,7 +33,25 @@ public class ColumnGroup extends Column implements ObjectModel,
 	}
 
 	public final void setId(final String id) {
-		this.id = id;
+		this.id = StringUtils.isNumeric(id) ? id : null;
+	}
+
+	public static void setGroupId(final Map<ColumnGroup, String> check, final ColumnGroup group) {
+		String id = group.id;
+		if (id != null) {
+			return;
+		}
+		while (id == null) {
+			id = Integer.toString(RandomUtils.nextInt());
+			for (final Map.Entry<ColumnGroup, String> entry : check.entrySet()) {
+				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
+					id = null;
+					break;
+				}
+			}
+		}
+		check.put(group, id);
+		group.id = id;
 	}
 
 	public String getGroupName() {

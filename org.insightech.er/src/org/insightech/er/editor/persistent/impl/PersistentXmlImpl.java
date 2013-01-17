@@ -1360,7 +1360,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<normal_column>\n");
 
-		if (normalColumn.getId() != null) {
+		if (StringUtils.isNotEmpty(normalColumn.getId())) {
 			xml.append("\t<id>").append(normalColumn.getId())
 					.append("</id>\n");
 		}
@@ -1444,6 +1444,10 @@ public final class PersistentXmlImpl extends Persistent {
 
 	private String createXMLConnections(List<ConnectionElement> incomings,
 			PersistentContext context) {
+		if (incomings == null || incomings.isEmpty()) {
+			return "";
+		}
+
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<connections>\n");
@@ -1563,6 +1567,10 @@ public final class PersistentXmlImpl extends Persistent {
 
 	private String createXMLIndexes(List<Index> indexes,
 			PersistentContext context) {
+		if (indexes == null || indexes.isEmpty()) {
+			return "";
+		}
+		
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<indexes>\n");
@@ -1579,6 +1587,11 @@ public final class PersistentXmlImpl extends Persistent {
 	private String createXMLComplexUniqueKeyList(
 			List<ComplexUniqueKey> complexUniqueKeyList,
 			PersistentContext context) {
+		if (complexUniqueKeyList == null || complexUniqueKeyList.isEmpty()) {
+			return "";
+		}
+			
+		
 		StringBuilder xml = new StringBuilder();
 
 		xml.append("<complex_unique_key_list>\n");

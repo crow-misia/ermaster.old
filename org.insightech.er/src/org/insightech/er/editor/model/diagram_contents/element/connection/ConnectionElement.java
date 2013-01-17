@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
@@ -32,13 +33,13 @@ public abstract class ConnectionElement extends AbstractModel {
 	}
 
 	public final void setId(final String id) {
-		this.id = id;
+		this.id = StringUtils.isNumeric(id) ? id : null;
 	}
 
 	public static void setId(final Set<String> check, final ConnectionElement node) {
 		String id = node.id;
 		while (id == null) {
-			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			id = Integer.toString(RandomUtils.nextInt());
 			if (check.add(id)) {
 				node.id = id;
 				break;

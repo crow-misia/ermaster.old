@@ -3,6 +3,7 @@ package org.insightech.er.editor.model.settings;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 
 public class Environment implements Serializable, Cloneable {
@@ -22,13 +23,13 @@ public class Environment implements Serializable, Cloneable {
 	}
 
 	public final void setId(final String id) {
-		this.id = id;
+		this.id = StringUtils.isNumeric(id) ? id : null;
 	}
 
 	public static void setId(final Set<String> check, final Environment column) {
 		String id = column.id;
 		while (id == null) {
-			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			id = Integer.toString(RandomUtils.nextInt());
 			if (check.add(id)) {
 				column.id = id;
 				break;
