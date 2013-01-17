@@ -297,6 +297,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 									diagram.getDatabase());
 
 							if (dialog.open() == IDialogConstants.OK_ID) {
+								// 新たな Sequence が作成される
 								autoIncrementSetting = dialog.getResult();
 							}
 						}

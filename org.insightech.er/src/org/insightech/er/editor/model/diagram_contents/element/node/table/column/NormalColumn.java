@@ -57,8 +57,6 @@ public class NormalColumn extends Column {
 
 		this.init(notNull, primaryKey, uniqueKey, autoIncrement, defaultValue,
 				constraint, uniqueKeyName, characterSet, collation);
-
-		this.autoIncrementSetting = new Sequence();
 	}
 
 	protected NormalColumn(NormalColumn from) {
@@ -75,8 +73,12 @@ public class NormalColumn extends Column {
 
 		this.word = from.word;
 
-		this.autoIncrementSetting = (Sequence) from.autoIncrementSetting
-				.clone();
+		if (from.autoIncrementSetting == null) {
+			from.autoIncrementSetting = null;
+		} else {
+			this.autoIncrementSetting = (Sequence) from.autoIncrementSetting
+					.clone();
+		}
 	}
 
 	/**
@@ -99,8 +101,6 @@ public class NormalColumn extends Column {
 
 		this.primaryKey = primaryKey;
 		this.autoIncrement = false;
-
-		this.autoIncrementSetting = new Sequence();
 	}
 
 	protected void init(boolean notNull, boolean primaryKey, boolean uniqueKey,
@@ -498,7 +498,11 @@ public class NormalColumn extends Column {
 				.getConstraint(), from.uniqueKeyName, from.characterSet,
 				from.collation);
 
-		to.autoIncrementSetting = (Sequence) from.autoIncrementSetting.clone();
+		if (from.autoIncrementSetting == null) {
+			to.autoIncrementSetting = null;
+		} else {
+			to.autoIncrementSetting = (Sequence) from.autoIncrementSetting.clone();
+		}
 
 		if (to.isForeignKey()) {
 			NormalColumn firstReferencedColumn = to.getFirstReferencedColumn();
