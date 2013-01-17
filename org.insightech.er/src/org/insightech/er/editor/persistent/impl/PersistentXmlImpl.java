@@ -81,8 +81,6 @@ public final class PersistentXmlImpl extends Persistent {
 	private static class PersistentContext {
 	    private boolean supportedColumnCharset;
 	    
-		private Map<ColumnGroup, Integer> columnGroupMap = new HashMap<ColumnGroup, Integer>();
-
 		private Map<ConnectionElement, Integer> connectionMap = new HashMap<ConnectionElement, Integer>();
 
 		private Map<Column, Integer> columnMap = new HashMap<Column, Integer>();
@@ -97,19 +95,14 @@ public final class PersistentXmlImpl extends Persistent {
 	}
 
 	private PersistentContext getContext(ERDiagram diagram, DiagramContents diagramContents) {
-        final DBManager dbManager = diagram.getDBManager();
-        
+		final DBManager dbManager = diagram.getDBManager();
+
 		PersistentContext context = new PersistentContext();
 
 		context.supportedColumnCharset = dbManager.isSupported(SupportFunctions.COLUMN_CHARSET);
 
-		int columnGroupCount = 0;
 		int columnCount = 0;
-		for (ColumnGroup columnGroup : diagramContents.getGroups()) {
-			context.columnGroupMap.put(columnGroup, Integer.valueOf(
-					columnGroupCount));
-			columnGroupCount++;
-
+		for (ColumnGroup columnGroup : diagramContents.getGroups().getGroupList()) {
 			for (NormalColumn normalColumn : columnGroup.getColumns()) {
 				context.columnMap.put(normalColumn, Integer.valueOf(columnCount));
 				columnCount++;
@@ -330,7 +323,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<column_groups>\n");
 
-		for (ColumnGroup columnGroup : columnGroups) {
+		for (ColumnGroup columnGroup : columnGroups.getGroupListOrderId()) {
 			xml.append(tab(tab(this.createXML(columnGroup, context))));
 		}
 
@@ -666,7 +659,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<column_group>\n");
 
-		xml.append("\t<id>").append(context.columnGroupMap.get(columnGroup))
+		xml.append("\t<id>").append(columnGroup.getId())
 				.append("</id>\n");
 
 		xml.append("\t<group_name>").append(escape(columnGroup.getGroupName()))
@@ -1332,8 +1325,7 @@ public final class PersistentXmlImpl extends Persistent {
 			PersistentContext context) {
 		StringBuilder xml = new StringBuilder();
 
-		xml.append("<column_group>")
-				.append(context.columnGroupMap.get(columnGroup))
+		xml.append("<column_group>").append(columnGroup.getId())
 				.append("</column_group>\n");
 
 		return xml.toString();

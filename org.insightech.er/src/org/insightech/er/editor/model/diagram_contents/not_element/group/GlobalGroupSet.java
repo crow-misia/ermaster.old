@@ -101,7 +101,7 @@ public class GlobalGroupSet {
 
 			int index = 0;
 
-			for (ColumnGroup columnGroup : columnGroups) {
+			for (ColumnGroup columnGroup : columnGroups.getGroupListOrderId()) {
 				IDialogSettings columnGroupSection = new DialogSettings(
 						"column_group_" + index);
 				index++;

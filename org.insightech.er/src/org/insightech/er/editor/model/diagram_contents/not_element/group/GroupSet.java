@@ -2,32 +2,67 @@ package org.insightech.er.editor.model.diagram_contents.not_element.group;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 
-public class GroupSet extends AbstractModel implements Iterable<ColumnGroup> {
+public class GroupSet extends AbstractModel {
 
 	private static final long serialVersionUID = 6192280105150073360L;
 
 	public static final String PROPERTY_CHANGE_GROUP_SET = "group_set";
 
+	private static final Comparator<ColumnGroup> GROUP_ID_COMPARATOR = new Comparator<ColumnGroup>() {
+		public int compare(ColumnGroup o1, ColumnGroup o2) {
+			if (o1.getId() == null) {
+				return o2.getId() == null ? 0 : -1;
+			}
+			if (o2.getId() == null) {
+				return -1;
+			}
+			return o1.getId().compareTo(o2.getId());
+		}
+	};
+
 	private String database;
 
-	private List<ColumnGroup> groups;
+	private final List<ColumnGroup> groups;
+
+	private final Map<ColumnGroup, String> idMap;
 
 	public GroupSet() {
 		this.groups = new ArrayList<ColumnGroup>();
+		this.idMap = new WeakHashMap<ColumnGroup, String>();
 	}
 
 	public void add(ColumnGroup group, final boolean fire) {
 		this.groups.add(group);
 		Collections.sort(this.groups);
 
+		setGroupId(group);
+
 		if (fire) {
 			setDirty();
 		}
+	}
+
+	private void setGroupId(final ColumnGroup group) {
+		String id = group.getId();
+		while (id == null) {
+			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
+			for (final Map.Entry<ColumnGroup, String> entry : idMap.entrySet()) {
+				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
+					id = null;
+				}
+			}
+		}
+		this.idMap.put(group, id);
+		group.setId(id);
 	}
 
 	public void remove(ColumnGroup group, final boolean fire) {
@@ -42,12 +77,14 @@ public class GroupSet extends AbstractModel implements Iterable<ColumnGroup> {
 		this.firePropertyChange(PROPERTY_CHANGE_GROUP_SET, null, null);
 	}
 
-	public Iterator<ColumnGroup> iterator() {
-		return this.groups.iterator();
-	}
-
 	public List<ColumnGroup> getGroupList() {
 		return this.groups;
+	}
+
+	public List<ColumnGroup> getGroupListOrderId() {
+		final List<ColumnGroup> retval = new ArrayList<ColumnGroup>(this.groups);
+		Collections.sort(retval, GROUP_ID_COMPARATOR);
+		return retval;
 	}
 
 	public void clear() {

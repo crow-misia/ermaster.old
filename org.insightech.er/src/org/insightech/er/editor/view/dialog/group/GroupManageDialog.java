@@ -72,7 +72,7 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.copyGroups = new ArrayList<CopyGroup>();
 
-		for (ColumnGroup columnGroup : columnGroups) {
+		for (ColumnGroup columnGroup : columnGroups.getGroupList()) {
 			this.copyGroups.add(new CopyGroup(columnGroup));
 		}
 

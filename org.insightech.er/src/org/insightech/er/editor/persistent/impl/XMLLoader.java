@@ -773,6 +773,9 @@ public final class XMLLoader {
 			Element columnGroupElement = (Element) nodeList.item(i);
 
 			ColumnGroup columnGroup = new ColumnGroup();
+			
+			final String id = this.getStringValue(columnGroupElement, "id");
+			columnGroup.setId(id);
 
 			columnGroup.setGroupName(this.getStringValue(columnGroupElement,
 					"group_name"));
@@ -785,7 +788,6 @@ public final class XMLLoader {
 
 			columnGroups.add(columnGroup, false);
 
-			String id = this.getStringValue(columnGroupElement, "id");
 			context.columnGroupMap.put(id, columnGroup);
 		}
 		columnGroups.setDirty();

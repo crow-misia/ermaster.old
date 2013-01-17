@@ -192,7 +192,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 		}
 
 		for (ColumnGroup columnGroup : loadedDiagram.getDiagramContents()
-				.getGroups()) {
+				.getGroups().getGroupList()) {
 			DBObject dbObject = new DBObject(null, columnGroup.getName(),
 					DBObject.TYPE_GROUP);
 			dbObject.setModel(columnGroup);
@@ -215,7 +215,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 
 		GroupSet columnGroupSet = contents.getGroups();
 
-		for (Iterator<ColumnGroup> iter = columnGroupSet.iterator(); iter
+		for (Iterator<ColumnGroup> iter = columnGroupSet.getGroupList().iterator(); iter
 				.hasNext();) {
 			ColumnGroup columnGroup = iter.next();
 
@@ -331,7 +331,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 			Map<String, ColumnGroup> groupMap = new HashMap<String, ColumnGroup>();
 
 			for (ColumnGroup columnGroup : this.getDiagram()
-					.getDiagramContents().getGroups()) {
+					.getDiagramContents().getGroups().getGroupList()) {
 				groupMap.put(columnGroup.getGroupName(), columnGroup);
 			}
 

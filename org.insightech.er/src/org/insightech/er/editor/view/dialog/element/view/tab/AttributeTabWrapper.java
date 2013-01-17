@@ -212,7 +212,7 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 	private void initGroupCombo() {
 		this.groupCombo.removeAll();
 
-		for (ColumnGroup columnGroup : this.getColumnGroups()) {
+		for (ColumnGroup columnGroup : this.getColumnGroups().getGroupList()) {
 			this.groupCombo.add(columnGroup.getGroupName());
 		}
 

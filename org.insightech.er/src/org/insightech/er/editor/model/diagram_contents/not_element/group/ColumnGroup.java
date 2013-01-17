@@ -15,12 +15,22 @@ public class ColumnGroup extends Column implements ObjectModel,
 
 	private static final long serialVersionUID = -5923128797828160786L;
 
+	private String id;
+
 	private String groupName;
 
 	private List<NormalColumn> columns;
 
 	public ColumnGroup() {
 		this.columns = new ArrayList<NormalColumn>();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(final String id) {
+		this.id = id;
 	}
 
 	public String getGroupName() {

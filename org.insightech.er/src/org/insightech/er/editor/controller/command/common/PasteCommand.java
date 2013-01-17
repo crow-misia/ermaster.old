@@ -89,7 +89,7 @@ public final class PasteCommand extends AbstractCommand {
 		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		// グループ列を追加します。
-		for (ColumnGroup columnGroup : this.columnGroups) {
+		for (ColumnGroup columnGroup : this.columnGroups.getGroupList()) {
 			columnGroupSet.add(columnGroup, false);
 		}
 		columnGroupSet.setDirty();
@@ -121,7 +121,7 @@ public final class PasteCommand extends AbstractCommand {
 		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		// グループ列を削除します。
-		for (ColumnGroup columnGroup : this.columnGroups) {
+		for (ColumnGroup columnGroup : this.columnGroups.getGroupList()) {
 			columnGroupSet.remove(columnGroup, false);
 		}
 		columnGroupSet.setDirty();

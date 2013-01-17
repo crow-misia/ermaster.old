@@ -11,10 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -28,12 +25,12 @@ public class Dictionary extends AbstractModel {
 
 	private final Map<Word, Set<NormalColumn>> wordMap;
 	private final Map<UniqueWord, Set<NormalColumn>> uniqueWordMap;
-	private final Map<UniqueWord, String> wordIdMap;
+	private final Map<UniqueWord, String> idMap;
 
 	public Dictionary() {
 		this.wordMap = new IdentityHashMap<Word, Set<NormalColumn>>();
 		this.uniqueWordMap = new HashMap<UniqueWord, Set<NormalColumn>>();
-		this.wordIdMap = new WeakHashMap<UniqueWord, String>();
+		this.idMap = new WeakHashMap<UniqueWord, String>();
 	}
 
 	public void add(NormalColumn column, final boolean fire) {
@@ -63,13 +60,13 @@ public class Dictionary extends AbstractModel {
 		String id = uw.getId();
 		while (id == null) {
 			id = Long.toString(RandomUtils.nextLong(), Character.MAX_RADIX);
-			for (final Map.Entry<UniqueWord, String> wordEntry : wordIdMap.entrySet()) {
-				if (StringUtils.equalsIgnoreCase(id, wordEntry.getValue())) {
+			for (final Map.Entry<UniqueWord, String> entry : idMap.entrySet()) {
+				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
 					id = null;
 				}
 			}
 		}
-		this.wordIdMap.put(uw, id);
+		this.idMap.put(uw, id);
 		uw.setId(id);
 	}
 

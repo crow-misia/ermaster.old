@@ -390,7 +390,7 @@ public class CopyManager {
 		Map<ColumnGroup, ColumnGroup> columnGroupMap = new HashMap<ColumnGroup, ColumnGroup>();
 
 		final GroupSet groupSet = copyDiagramContents.getGroups();
-		for (ColumnGroup columnGroup : originalDiagramContents.getGroups()) {
+		for (ColumnGroup columnGroup : originalDiagramContents.getGroups().getGroupList()) {
 			ColumnGroup newColumnGroup = (ColumnGroup) columnGroup.clone();
 			groupSet.add(newColumnGroup, false);
 
@@ -439,7 +439,7 @@ public class CopyManager {
 			}
 		}
 
-		for (ColumnGroup columnGroup : copyDiagramContents.getGroups()) {
+		for (ColumnGroup columnGroup : copyDiagramContents.getGroups().getGroupList()) {
 			for (NormalColumn normalColumn : columnGroup.getColumns()) {
 				Word oldWord = normalColumn.getWord();
 				if (oldWord != null) {
