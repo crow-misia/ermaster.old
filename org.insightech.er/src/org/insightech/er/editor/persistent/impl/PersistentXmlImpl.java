@@ -1118,9 +1118,9 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</height>\n");
 		xml.append("<width>").append(nodeElement.getWidth())
 				.append("</width>\n");
-		xml.append("\t<font_name>").append(escape(nodeElement.getFontName()))
+		xml.append("<font_name>").append(escape(nodeElement.getFontName()))
 				.append("</font_name>\n");
-		xml.append("\t<font_size>").append(nodeElement.getFontSize())
+		xml.append("<font_size>").append(nodeElement.getFontSize())
 				.append("</font_size>\n");
 		xml.append("<x>").append(nodeElement.getX()).append("</x>\n");
 		xml.append("<y>").append(nodeElement.getY()).append("</y>\n");
