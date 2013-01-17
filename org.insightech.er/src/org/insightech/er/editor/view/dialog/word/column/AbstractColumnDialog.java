@@ -255,8 +255,13 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 			final Word realWord = wordList.get(wordIndex - 1);
 			final Collection<NormalColumn> columns = this.diagram.getDiagramContents().getDictionary().getColumnList(realWord);
 			int count = 1;
+			NormalColumn originalColumn = this.targetColumn;
+			while (originalColumn != null && originalColumn instanceof CopyColumn) {
+				originalColumn = ((CopyColumn) originalColumn).getOriginalColumn();
+			}
+			
 			for (final NormalColumn column : columns) {
-				if (column != this.targetColumn.getOriginalColumn()) {
+				if (column != originalColumn) {
 					count++;
 				}
 			}
