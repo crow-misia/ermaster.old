@@ -1475,6 +1475,9 @@ public final class XMLLoader {
 		List<Index> indexes = new ArrayList<Index>();
 
 		Element element = this.getElement(parent, "indexes");
+		if (element == null) {
+			return indexes; 
+		}
 
 		NodeList nodeList = element.getChildNodes();
 
@@ -1693,23 +1696,25 @@ public final class XMLLoader {
 	private void loadConnections(Element parent, LoadContext context) {
 		Element element = this.getElement(parent, "connections");
 
-		if (element != null) {
-			NodeList nodeList = element.getChildNodes();
+		if (element == null) {
+			return;
+		}
 
-			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
-				if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
-					continue;
-				}
+		NodeList nodeList = element.getChildNodes();
 
-				Element connectionElement = (Element) nodeList.item(i);
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
+			if (nodeList.item(i).getNodeType() != Node.ELEMENT_NODE) {
+				continue;
+			}
 
-				if ("relation".equals(connectionElement.getTagName())) {
-					this.loadRelation(connectionElement, context);
+			Element connectionElement = (Element) nodeList.item(i);
 
-				} else if ("comment_connection".equals(connectionElement
-						.getTagName())) {
-					this.loadCommentConnection(connectionElement, context);
-				}
+			if ("relation".equals(connectionElement.getTagName())) {
+				this.loadRelation(connectionElement, context);
+
+			} else if ("comment_connection".equals(connectionElement
+					.getTagName())) {
+				this.loadCommentConnection(connectionElement, context);
 			}
 		}
 	}
