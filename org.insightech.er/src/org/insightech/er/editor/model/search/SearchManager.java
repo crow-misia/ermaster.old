@@ -284,7 +284,7 @@ public class SearchManager {
 			}
 
 			for (ColumnGroup columnGroup : this.diagram.getDiagramContents()
-					.getGroups()) {
+					.getGroups().getGroupList()) {
 				if (skip) {
 					if (columnGroup != this.currentTarget) {
 						continue;
@@ -467,7 +467,7 @@ public class SearchManager {
 			}
 
 			for (ColumnGroup columnGroup : this.diagram.getDiagramContents()
-					.getGroups()) {
+					.getGroups().getGroupList()) {
 				if (skip) {
 					if (columnGroup != this.currentTarget) {
 						continue;

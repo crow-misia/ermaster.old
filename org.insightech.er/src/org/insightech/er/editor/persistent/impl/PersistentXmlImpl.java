@@ -5,8 +5,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.FastDateFormat;
@@ -83,8 +85,6 @@ public final class PersistentXmlImpl extends Persistent {
 	    
 		private Map<ConnectionElement, Integer> connectionMap = new HashMap<ConnectionElement, Integer>();
 
-		private Map<Column, Integer> columnMap = new HashMap<Column, Integer>();
-
 		private Map<ComplexUniqueKey, Integer> complexUniqueKeyMap = new HashMap<ComplexUniqueKey, Integer>();
 
 		private Map<NodeElement, Integer> nodeElementMap = new HashMap<NodeElement, Integer>();
@@ -101,11 +101,10 @@ public final class PersistentXmlImpl extends Persistent {
 
 		context.supportedColumnCharset = dbManager.isSupported(SupportFunctions.COLUMN_CHARSET);
 
-		int columnCount = 0;
+		final Set<String> check = new HashSet<String>();
 		for (ColumnGroup columnGroup : diagramContents.getGroups().getGroupList()) {
-			for (NormalColumn normalColumn : columnGroup.getColumns()) {
-				context.columnMap.put(normalColumn, Integer.valueOf(columnCount));
-				columnCount++;
+			for (NormalColumn column : columnGroup.getColumns()) {
+				NormalColumn.setId(check, column);
 			}
 		}
 
@@ -133,9 +132,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 				for (Column column : columns) {
 					if (column instanceof NormalColumn) {
-						context.columnMap.put(column, Integer.valueOf(columnCount));
-
-						columnCount++;
+						NormalColumn.setId(check, (NormalColumn) column);
 					}
 				}
 
@@ -734,7 +731,7 @@ public final class PersistentXmlImpl extends Persistent {
 			for (NormalColumn normalColumn : table.getExpandedColumns()) {
 				xml.append("\t\t<column_data>\n");
 				xml.append("\t\t\t<column_id>")
-						.append(context.columnMap.get(normalColumn))
+						.append(normalColumn.getId())
 						.append("</column_id>\n");
 				xml.append("\t\t\t<value>")
 						.append(escape(data.get(normalColumn)))
@@ -772,50 +769,48 @@ public final class PersistentXmlImpl extends Persistent {
 
 	private String createXML(RepeatTestDataDef repeatTestDataDef,
 			NormalColumn column, PersistentContext context) {
+		final String columnId = column.getId();
+
 		StringBuilder xml = new StringBuilder();
 
-		Integer columnId = context.columnMap.get(column);
-
-		if (columnId != null) {
-			xml.append("<data_def>\n");
-			xml.append("\t<column_id>").append(columnId)
-					.append("</column_id>\n");
-			xml.append("\t<type>").append(escape(repeatTestDataDef.getType()))
-					.append("</type>\n");
-			xml.append("\t<repeat_num>")
-					.append(Format.toString((repeatTestDataDef.getRepeatNum())))
-					.append("</repeat_num>\n");
-			xml.append("\t<template>")
-					.append(escape(repeatTestDataDef.getTemplate()))
-					.append("</template>\n");
-			xml.append("\t<from>")
-					.append(Format.toString((repeatTestDataDef.getFrom())))
-					.append("</from>\n");
-			xml.append("\t<to>")
-					.append(Format.toString((repeatTestDataDef.getTo())))
-					.append("</to>\n");
-			xml.append("\t<increment>")
-					.append(Format.toString((repeatTestDataDef.getIncrement())))
-					.append("</increment>\n");
-			for (String select : repeatTestDataDef.getSelects()) {
-				xml.append("\t<select>").append(escape(select))
-						.append("</select>\n");
-			}
-			xml.append("\t<modified_values>\n");
-			for (Integer modifiedRow : repeatTestDataDef.getModifiedValues()
-					.keySet()) {
-				xml.append("\t\t<modified_value>\n");
-				xml.append("\t\t\t<row>").append(modifiedRow)
-						.append("</row>\n");
-				xml.append("\t\t\t<value>")
-						.append(escape(repeatTestDataDef.getModifiedValues()
-								.get(modifiedRow))).append("</value>\n");
-				xml.append("\t\t</modified_value>\n");
-			}
-			xml.append("\t</modified_values>\n");
-
-			xml.append("</data_def>\n");
+		xml.append("<data_def>\n");
+		xml.append("\t<column_id>").append(columnId)
+				.append("</column_id>\n");
+		xml.append("\t<type>").append(escape(repeatTestDataDef.getType()))
+				.append("</type>\n");
+		xml.append("\t<repeat_num>")
+				.append(Format.toString((repeatTestDataDef.getRepeatNum())))
+				.append("</repeat_num>\n");
+		xml.append("\t<template>")
+				.append(escape(repeatTestDataDef.getTemplate()))
+				.append("</template>\n");
+		xml.append("\t<from>")
+				.append(Format.toString((repeatTestDataDef.getFrom())))
+				.append("</from>\n");
+		xml.append("\t<to>")
+				.append(Format.toString((repeatTestDataDef.getTo())))
+				.append("</to>\n");
+		xml.append("\t<increment>")
+				.append(Format.toString((repeatTestDataDef.getIncrement())))
+				.append("</increment>\n");
+		for (String select : repeatTestDataDef.getSelects()) {
+			xml.append("\t<select>").append(escape(select))
+					.append("</select>\n");
 		}
+		xml.append("\t<modified_values>\n");
+		for (Integer modifiedRow : repeatTestDataDef.getModifiedValues()
+				.keySet()) {
+			xml.append("\t\t<modified_value>\n");
+			xml.append("\t\t\t<row>").append(modifiedRow)
+					.append("</row>\n");
+			xml.append("\t\t\t<value>")
+					.append(escape(repeatTestDataDef.getModifiedValues()
+							.get(modifiedRow))).append("</value>\n");
+			xml.append("\t\t</modified_value>\n");
+		}
+		xml.append("\t</modified_values>\n");
+
+		xml.append("</data_def>\n");
 
 		return xml.toString();
 	}
@@ -1337,17 +1332,16 @@ public final class PersistentXmlImpl extends Persistent {
 
 		xml.append("<normal_column>\n");
 
-		if (context != null) {
+		xml.append("\t<id>").append(normalColumn.getId())
+				.append("</id>\n");
+		for (NormalColumn referencedColumn : normalColumn
+				.getReferencedColumnList()) {
+			xml.append("\t<referenced_column>")
+					.append(referencedColumn.getId())
+					.append("</referenced_column>\n");
+		}
 
-			xml.append("\t<id>").append(context.columnMap.get(normalColumn))
-					.append("</id>\n");
-			for (NormalColumn referencedColumn : normalColumn
-					.getReferencedColumnList()) {
-				xml.append("\t<referenced_column>")
-						.append(Format.toString(context.columnMap
-								.get(referencedColumn)))
-						.append("</referenced_column>\n");
-			}
+		if (context != null) {
 			for (Relation relation : normalColumn.getRelationList()) {
 				xml.append("\t<relation>")
 						.append(context.connectionMap.get(relation))
@@ -1355,28 +1349,28 @@ public final class PersistentXmlImpl extends Persistent {
 			}
 		}
 
-        String wordId = normalColumn.getWord() == null ?
-                null : normalColumn.getWord().getUniqueWord().getId();
-        if (wordId == null) {
-            String description = normalColumn.getForeignKeyDescription();
-            String logicalName = normalColumn.getForeignKeyLogicalName();
-            String physicalName = normalColumn.getForeignKeyPhysicalName();
-            SqlType sqlType = normalColumn.getType();
+		String wordId = normalColumn.getWord() == null ?
+				null : normalColumn.getWord().getUniqueWord().getId();
+		if (wordId == null) {
+			String description = normalColumn.getForeignKeyDescription();
+			String logicalName = normalColumn.getForeignKeyLogicalName();
+			String physicalName = normalColumn.getForeignKeyPhysicalName();
+			SqlType sqlType = normalColumn.getType();
 
-            xml.append("\t<description>").append(escape(description))
-                    .append("</description>\n");
-            xml.append("\t<logical_name>").append(escape(logicalName))
-                    .append("</logical_name>\n");
-            xml.append("\t<physical_name>").append(escape(physicalName))
-                    .append("</physical_name>\n");
-            String type = "";
-            if (sqlType != null) {
-                type = sqlType.getId();
-            }
-            xml.append("\t<type>").append(type).append("</type>\n");
-        } else {
-            xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
-        }
+			xml.append("\t<description>").append(escape(description))
+					.append("</description>\n");
+			xml.append("\t<logical_name>").append(escape(logicalName))
+					.append("</logical_name>\n");
+			xml.append("\t<physical_name>").append(escape(physicalName))
+					.append("</physical_name>\n");
+			String type = "";
+			if (sqlType != null) {
+				type = sqlType.getId();
+			}
+			xml.append("\t<type>").append(type).append("</type>\n");
+		} else {
+			xml.append("\t<word_id>").append(wordId).append("</word_id>\n");
+		}
 
 		xml.append("\t<foreign_key>").append(normalColumn.isForeignKey())
 				.append("</foreign_key>\n");
@@ -1520,9 +1514,11 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</target_xp>\n");
 		xml.append("\t<target_yp>").append(relation.getTargetYp())
 				.append("</target_yp>\n");
-		xml.append("\t<referenced_column>")
-				.append(context.columnMap.get(relation.getReferencedColumn()))
-				.append("</referenced_column>\n");
+		if (relation.getReferencedColumn() != null) {
+			xml.append("\t<referenced_column>")
+					.append(relation.getReferencedColumn().getId())
+					.append("</referenced_column>\n");
+		}
 		xml.append("\t<referenced_complex_unique_key>")
 				.append(context.complexUniqueKeyMap.get(relation
 						.getReferencedComplexUniqueKey()))
@@ -1703,9 +1699,9 @@ public final class PersistentXmlImpl extends Persistent {
 
 		int count = 0;
 
-		for (Column column : index.getColumns()) {
+		for (NormalColumn column : index.getColumns()) {
 			xml.append("\t\t<column>\n");
-			xml.append("\t\t\t<id>").append(context.columnMap.get(column))
+			xml.append("\t\t\t<id>").append(column.getId())
 					.append("</id>\n");
 
 			Boolean desc = Boolean.FALSE;
@@ -1742,7 +1738,7 @@ public final class PersistentXmlImpl extends Persistent {
 
 		for (NormalColumn column : complexUniqueKey.getColumnList()) {
 			xml.append("\t\t<column>\n");
-			xml.append("\t\t\t<id>").append(context.columnMap.get(column))
+			xml.append("\t\t\t<id>").append(column.getId())
 					.append("</id>\n");
 			xml.append("\t\t</column>\n");
 		}

@@ -1007,9 +1007,9 @@ public final class XMLLoader {
 
 		UniqueWord uniqueWord;
 		if (word == null) {
-	        String type = this.getStringValue(element, "type");
+			String type = this.getStringValue(element, "type");
 
-	        word = new RealWord(this.getStringValue(element, "physical_name"),
+			word = new RealWord(this.getStringValue(element, "physical_name"),
 					this.getStringValue(element, "logical_name"),
 					SqlType.valueOfId(type), new TypeData(null, null, false,
 							null, false, null, null), this.getStringValue(element,
@@ -1036,6 +1036,7 @@ public final class XMLLoader {
 				this.getStringValue(element, "unique_key_name"),
 				this.getStringValue(element, "character_set"),
 				this.getStringValue(element, "collation"));
+		normalColumn.setId(id);
 
 		Element autoIncrementSettingElement = this.getElement(element,
 				"sequence");
@@ -1760,7 +1761,7 @@ public final class XMLLoader {
 		}
 		String referencedColumnId = this.getStringValue(element,
 				"referenced_column");
-		if (!"null".equals(referencedColumnId)) {
+		if (referencedColumnId != null && !"null".equals(referencedColumnId)) {
 			context.referencedColumnMap.put(connection, referencedColumnId);
 		}
 	}

@@ -45,6 +45,8 @@ public class SqlType implements Serializable {
 
 	private static final List<SqlType> SQL_TYPE_LIST = new ArrayList<SqlType>();
 
+	private static final Map<String, SqlType> SQL_TYPE_ID_MAPPING = new HashMap<String, SqlType>();
+
 	private String name;
 
 	private Class javaClass;
@@ -141,6 +143,7 @@ public class SqlType implements Serializable {
 		this.fullTextIndexable = fullTextIndexable;
 
 		SQL_TYPE_LIST.add(this);
+		SQL_TYPE_ID_MAPPING.put(getId(), this);
 	}
 
 	public static void setDBAliasMap(
@@ -222,18 +225,11 @@ public class SqlType implements Serializable {
 	}
 
 	public static SqlType valueOfId(String id) {
-		SqlType sqlType = null;
-
 		if (id == null) {
 			return null;
 		}
 
-		for (SqlType type : SQL_TYPE_LIST) {
-			if (id.equals(type.getId())) {
-				sqlType = type;
-			}
-		}
-		return sqlType;
+		return SQL_TYPE_ID_MAPPING.get(id);
 	}
 
 	public boolean isNeedLength(String database) {

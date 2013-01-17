@@ -37,11 +37,10 @@ public abstract class WithSchemaModel extends AbstractModel implements
 
 		DBManager dbManager = DBManagerFactory.getDBManager(database);
 
-		if (!dbManager.isSupported(SupportFunctions.SCHEMA)) {
-			return Format.null2blank(this.name);
+		if (dbManager.isSupported(SupportFunctions.SCHEMA)) {
+			return this.schema + "." + Format.null2blank(this.name);
 		}
-
-		return this.schema + "." + Format.null2blank(this.name);
+		return Format.null2blank(this.name);
 	}
 
 	public int compareTo(WithSchemaModel other) {
