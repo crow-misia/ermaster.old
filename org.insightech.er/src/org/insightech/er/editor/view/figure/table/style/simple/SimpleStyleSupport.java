@@ -52,6 +52,9 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 		top.add(separater);
 	}
 
+	public void setDependence(final Boolean dependence) {
+    }
+
 	public void setName(String name) {
 		this.nameLabel.setForegroundColor(this.getTextColor());
 		this.nameLabel.setText(name);

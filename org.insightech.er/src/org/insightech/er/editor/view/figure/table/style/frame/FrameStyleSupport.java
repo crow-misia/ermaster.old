@@ -33,7 +33,7 @@ public class FrameStyleSupport extends AbstractStyleSupport {
 		tableFigure.setBorder(this.border);
 	}
 
-	/**
+    /**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -43,7 +43,10 @@ public class FrameStyleSupport extends AbstractStyleSupport {
 		this.titleBarBorder.setPadding(new Insets(5, 20, 5, 20));
 	}
 
-	public void setName(String name) {
+	public void setDependence(final Boolean dependence) {
+    }
+
+    public void setName(String name) {
 		this.titleBarBorder.setTextColor(this.getTextColor());
 		this.titleBarBorder.setLabel(name);
 	}

@@ -26,10 +26,9 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 
 	public void init() {
 		this.init(this.tableFigure);
-
 	}
 
-	abstract protected void init(TableFigure tableFigure);
+	protected abstract void init(TableFigure tableFigure);
 
 	public void createTitleBar() {
 		Figure top = new Figure();

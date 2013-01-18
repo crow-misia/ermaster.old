@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.editor.model.AbstractModel;
 
 public class GroupSet extends AbstractModel {

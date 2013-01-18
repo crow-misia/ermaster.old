@@ -10,6 +10,8 @@ public interface StyleSupport {
 
 	public void init();
 
+    public void setDependence(final Boolean dependence);
+
 	public void createTitleBar();
 
 	public void createColumnArea(IFigure columns);

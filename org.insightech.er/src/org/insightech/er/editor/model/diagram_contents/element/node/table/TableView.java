@@ -56,6 +56,8 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 	protected TableViewProperties tableViewProperties;
 
+	private Boolean dependence;
+
 	public TableView() {
 		this.columns = new ArrayList<Column>();
 	}
@@ -205,7 +207,9 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 	}
 
 	public void setDirty() {
-		this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
+	    this.dependence = null;
+
+	    this.firePropertyChange(PROPERTY_CHANGE_COLUMNS, null, null);
 	}
 
 	public void addColumn(Column column, final boolean fire) {
@@ -536,5 +540,24 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 			return 0;
 		}
+	}
+	
+	/**
+	 * 依存・非依存を判別する
+	 * @return 依存の場合 true
+	 */
+	public Boolean isDependence() {
+	    if (this.dependence == null) {
+            Boolean d = Boolean.FALSE;
+            for (ConnectionElement connection : this.getIncomings()) {
+                if (connection instanceof Relation &&
+                        ((Relation) connection).isDependence()) {
+                    d = Boolean.TRUE;
+                    break;
+                }
+            }
+            this.dependence = d;
+	    }
+	    return this.dependence;
 	}
 }

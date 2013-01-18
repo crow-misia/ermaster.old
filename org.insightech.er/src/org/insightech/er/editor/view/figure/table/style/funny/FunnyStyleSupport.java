@@ -65,7 +65,15 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 		top.add(separater, BorderLayout.BOTTOM);
 	}
 
-	/**
+	public void setDependence(final Boolean dependence) {
+        if (dependence == null || dependence.booleanValue()) {
+            getTableFigure().setCornerDimensions(new Dimension(20, 20));
+        } else {
+            getTableFigure().setCornerDimensions(new Dimension(0, 0));
+        }
+    }
+
+    /**
 	 * {@inheritDoc}
 	 */
 	@Override

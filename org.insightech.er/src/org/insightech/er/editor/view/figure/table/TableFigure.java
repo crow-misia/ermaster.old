@@ -74,6 +74,10 @@ public class TableFigure extends RoundedRectangle {
 		}
 	}
 
+	public void setDependence(final Boolean dependence) {
+	    this.styleSupport.setDependence(dependence);
+	}
+
 	public void setName(String name) {
 		this.styleSupport.setName(name);
 	}

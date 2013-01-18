@@ -29,7 +29,6 @@ import org.insightech.er.editor.controller.editpolicy.element.connection.Relatio
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.relation.RelationDialog;
 import org.insightech.er.editor.view.figure.anchor.XYChopboxAnchor;
@@ -193,16 +192,9 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 
 			// 関連の子のFKが　PK の場合、依存(実線)、それ以外は非依存(破線)とする
 			if (settings.isNotationDependence()) {
-				Boolean isDepend = Boolean.TRUE;
-				for (final NormalColumn c : relation.getForeignKeyColumns()) {
-					if (!c.isPrimaryKey()) {
-						isDepend = Boolean.FALSE;
-						break;
-					}
-				}
-				connection.setDepend(isDepend);
+				connection.setDependence(Boolean.valueOf(relation.isDependence()));
 			} else {
-				connection.setDepend(null);
+				connection.setDependence(null);
 			}
 		}
 

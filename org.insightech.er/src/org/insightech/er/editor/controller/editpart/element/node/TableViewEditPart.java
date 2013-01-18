@@ -104,12 +104,20 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 	@Override
 	public void refreshVisuals() {
 		try {
-			TableFigure tableFigure = (TableFigure) this.getFigure();
-			TableView tableView = (TableView) this.getModel();
+            final ERDiagram diagram = this.getDiagram();
+			final TableFigure tableFigure = (TableFigure) this.getFigure();
+			final TableView tableView = (TableView) this.getModel();
+			
+			// 依存・非依存でテーブルの形を変える
+			final Settings settings = diagram.getDiagramContents().getSettings();
+			if (settings.isNotationDependence()) {
+                tableFigure.setDependence(tableView.isDependence());
+			} else {
+                tableFigure.setDependence(null);
+			}
 
 			tableFigure.create(tableView.getColor());
 
-			ERDiagram diagram = this.getDiagram();
 			tableFigure.setName(getTableViewName(tableView, diagram));
 
 			UpdatedNodeElement updated = null;
@@ -131,7 +139,7 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 			super.refreshVisuals();
 
 			if (ERDiagramEditPart.isUpdateable()) {
-				this.getFigure().getUpdateManager().performValidation();
+			    tableFigure.getUpdateManager().performValidation();
 			}
 
 		} catch (Exception e) {
@@ -220,6 +228,7 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 	protected void disposeFont() {
 		if (this.titleFont != null) {
 			this.titleFont.dispose();
+			this.titleFont = null;
 		}
 		super.disposeFont();
 	}

@@ -191,8 +191,7 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 			for (NormalColumn column : this.getTargetTableView()
 					.getNormalColumns()) {
 				if (column.isForeignKey()) {
-					NormalColumn foreignKeyColumn = (NormalColumn) column;
-					for (Relation relation : foreignKeyColumn.getRelationList()) {
+					for (final Relation relation : column.getRelationList()) {
 						if (relation == this) {
 							list.add(column);
 							break;
@@ -417,6 +416,15 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 		}
 
 		return false;
+	}
+
+	public boolean isDependence() {
+        for (final NormalColumn c : this.getForeignKeyColumns()) {
+            if (!c.isPrimaryKey()) {
+                return false;
+            }
+        }
+        return true;
 	}
 
 	/**
