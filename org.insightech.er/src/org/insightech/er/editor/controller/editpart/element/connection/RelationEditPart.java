@@ -29,6 +29,7 @@ import org.insightech.er.editor.controller.editpolicy.element.connection.Relatio
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.view.dialog.element.relation.RelationDialog;
 import org.insightech.er.editor.view.figure.anchor.XYChopboxAnchor;
 import org.insightech.er.editor.view.figure.connection.ERDiagramConnection;
@@ -47,7 +48,7 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 	protected IFigure createFigure() {
 		boolean bezier = this.getDiagram().getDiagramContents().getSettings()
 				.isUseBezierCurve();
-		PolylineConnection connection = new ERDiagramConnection(bezier);
+		PolylineConnection connection = new ERDiagramConnection(bezier, false);
 		connection.setConnectionRouter(new BendpointConnectionRouter());
 
 		ConnectionEndpointLocator targetLocator = new ConnectionEndpointLocator(
@@ -173,7 +174,8 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		if (diagram != null) {
 			Relation relation = (Relation) this.getModel();
 
-			PolylineConnection connection = (PolylineConnection) this
+			// 関連線の始点・終点に ER図の表記法に基づいた記号を付与する
+			ERDiagramConnection connection = (ERDiagramConnection) this
 					.getConnectionFigure();
 
 			String notation = diagram.getDiagramContents().getSettings()
@@ -186,6 +188,16 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 			connection.setSourceDecoration(decoration.getSourceDecoration());
 			connection.setTargetDecoration(decoration.getTargetDecoration());
 			targetLabel.setText(Format.null2blank(decoration.getTargetLabel()));
+
+			// 関連の子のFKが　PK の場合、依存(実線)、それ以外は非依存(破線)とする
+			boolean isDepend = true;
+			for (final NormalColumn c : relation.getForeignKeyColumns()) {
+				if (!c.isPrimaryKey()) {
+					isDepend = false;
+					break;
+				}
+			}
+			connection.setDepend(isDepend);
 		}
 
 		this.calculateAnchorLocation();

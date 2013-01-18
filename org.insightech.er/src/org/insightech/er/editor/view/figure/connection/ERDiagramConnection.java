@@ -8,7 +8,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 import org.insightech.er.Resources;
 
 public class ERDiagramConnection extends PolylineConnection {
@@ -17,12 +16,17 @@ public class ERDiagramConnection extends PolylineConnection {
 
 	private static final int TOLERANCE = 2;
 
+	private static final int[] NON_DEPEND_DASH = new int[] { 7, 3, };
+
 	private boolean selected;
 
 	private boolean bezier;
 
-	public ERDiagramConnection(boolean bezier) {
+	private boolean depend;
+
+	public ERDiagramConnection(final boolean bezier, final boolean depend) {
 		this.bezier = bezier;
+		this.depend = depend;
 	}
 
 	public void setSelected(boolean selected) {
@@ -33,6 +37,10 @@ public class ERDiagramConnection extends PolylineConnection {
 		this.bezier = bezier;
 	}
 
+	public void setDepend(boolean depend) {
+		this.depend = depend;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -40,9 +48,8 @@ public class ERDiagramConnection extends PolylineConnection {
 	protected void outlineShape(Graphics g) {
 		g.setAntialias(SWT.ON);
 
-		g.setForegroundColor(ColorConstants.black);
-		g.setLineWidth(1);
-
+		int width;
+		Color color;
 		if (this.selected) {
 			if (this.bezier) {
 				g.setForegroundColor(ColorConstants.gray);
@@ -51,29 +58,29 @@ public class ERDiagramConnection extends PolylineConnection {
 				g.drawPolyline(points);
 			}
 
-			g.setForegroundColor(Resources.LINE_COLOR);
-			g.setLineWidth(7);
+			color = Resources.LINE_COLOR;
+			width = 7;
+		} else {
+			color = ColorConstants.black;
+			width = 1;
 		}
 
-		PointList points = getBezierPoints();
+		final PointList points = getBezierPoints();
 
-		int width = g.getLineWidth();
+		final int lineRed = color.getRed();
+		final int lineGreen = color.getGreen();
+		final int lineBlue = color.getBlue();
 
-		Color color = g.getForegroundColor();
-
-		int lineRed = color.getRed();
-		int lineGreen = color.getGreen();
-		int lineBlue = color.getBlue();
-
-		int deltaRed = (255 - lineRed) * 2 / width;
-		int deltaGreen = (255 - lineGreen) * 2 / width;
-		int deltaBlue = (255 - lineBlue) * 2 / width;
+		final int deltaRed = (255 - lineRed) * 2 / width;
+		final int deltaGreen = (255 - lineGreen) * 2 / width;
+		final int deltaBlue = (255 - lineBlue) * 2 / width;
 
 		int red = 255;
 		int green = 255;
 		int blue = 255;
 
-		while (width > 0) {
+		Color tmpColor;
+		while (width > 1) {
 			red -= deltaRed;
 			green -= deltaGreen;
 			blue -= deltaBlue;
@@ -88,14 +95,25 @@ public class ERDiagramConnection extends PolylineConnection {
 				blue = lineBlue;
 			}
 
-			color = new Color(Display.getCurrent(), red, green, blue);
+			tmpColor = Resources.getColor(red, green, blue);
 
 			g.setLineWidth(width);
-			g.setForegroundColor(color);
+			g.setForegroundColor(tmpColor);
 			g.drawPolyline(points);
 
 			width -= 2;
 		}
+		
+		if (depend) {
+			g.setLineStyle(SWT.LINE_SOLID);
+		} else {
+			g.setLineStyle(SWT.LINE_CUSTOM);
+			g.setLineDash(NON_DEPEND_DASH);
+		}
+		
+		g.setLineWidth(1);
+		g.setForegroundColor(color);
+		g.drawPolyline(points);
 	}
 
 	public PointList getBezierPoints() {
