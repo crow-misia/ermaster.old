@@ -32,7 +32,7 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 	protected IFigure createFigure() {
 		boolean bezier = this.getDiagram().getDiagramContents().getSettings()
 				.isUseBezierCurve();
-		PolylineConnection connection = new ERDiagramConnection(bezier, true);
+		PolylineConnection connection = new ERDiagramConnection(bezier);
 		connection.setConnectionRouter(new BendpointConnectionRouter());
 
 		connection.setLineStyle(SWT.LINE_DASH);

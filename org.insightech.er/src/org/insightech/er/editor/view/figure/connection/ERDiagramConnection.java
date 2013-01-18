@@ -22,11 +22,10 @@ public class ERDiagramConnection extends PolylineConnection {
 
 	private boolean bezier;
 
-	private boolean depend;
+	private Boolean depend;
 
-	public ERDiagramConnection(final boolean bezier, final boolean depend) {
+	public ERDiagramConnection(final boolean bezier) {
 		this.bezier = bezier;
-		this.depend = depend;
 	}
 
 	public void setSelected(boolean selected) {
@@ -37,7 +36,7 @@ public class ERDiagramConnection extends PolylineConnection {
 		this.bezier = bezier;
 	}
 
-	public void setDepend(boolean depend) {
+	public void setDepend(Boolean depend) {
 		this.depend = depend;
 	}
 
@@ -104,11 +103,13 @@ public class ERDiagramConnection extends PolylineConnection {
 			width -= 2;
 		}
 		
-		if (depend) {
-			g.setLineStyle(SWT.LINE_SOLID);
-		} else {
-			g.setLineStyle(SWT.LINE_CUSTOM);
-			g.setLineDash(NON_DEPEND_DASH);
+		if (depend != null) {
+			if (depend.booleanValue()) {
+				g.setLineStyle(SWT.LINE_SOLID);
+			} else {
+				g.setLineStyle(SWT.LINE_CUSTOM);
+				g.setLineDash(NON_DEPEND_DASH);
+			}
 		}
 		
 		g.setLineWidth(1);

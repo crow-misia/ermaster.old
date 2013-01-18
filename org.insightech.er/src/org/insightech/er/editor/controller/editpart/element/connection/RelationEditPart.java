@@ -48,7 +48,7 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 	protected IFigure createFigure() {
 		boolean bezier = this.getDiagram().getDiagramContents().getSettings()
 				.isUseBezierCurve();
-		PolylineConnection connection = new ERDiagramConnection(bezier, false);
+		PolylineConnection connection = new ERDiagramConnection(bezier);
 		connection.setConnectionRouter(new BendpointConnectionRouter());
 
 		ConnectionEndpointLocator targetLocator = new ConnectionEndpointLocator(
@@ -190,10 +190,10 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 			targetLabel.setText(Format.null2blank(decoration.getTargetLabel()));
 
 			// 関連の子のFKが　PK の場合、依存(実線)、それ以外は非依存(破線)とする
-			boolean isDepend = true;
+			Boolean isDepend = Boolean.TRUE;
 			for (final NormalColumn c : relation.getForeignKeyColumns()) {
 				if (!c.isPrimaryKey()) {
-					isDepend = false;
+					isDepend = Boolean.FALSE;
 					break;
 				}
 			}
