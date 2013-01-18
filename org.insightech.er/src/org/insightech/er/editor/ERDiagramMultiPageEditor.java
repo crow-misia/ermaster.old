@@ -404,7 +404,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 			resultList.addAll(this.createTodo(description, table
 					.getLogicalName(), table));
 
-			for (NormalColumn column : table.getNormalColumns()) {
+			for (final NormalColumn column : table.getNormalColumns()) {
 				description = column.getDescription();
 				resultList.addAll(this.createTodo(description, table
 						.getLogicalName(), table));

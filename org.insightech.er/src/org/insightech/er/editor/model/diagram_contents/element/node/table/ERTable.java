@@ -140,10 +140,11 @@ public class ERTable extends TableView implements TablePropertiesHolder,
 
 		final List<ComplexUniqueKey> oldComplexUniqueKeyList = this.getComplexUniqueKeyList();
 		final List<ComplexUniqueKey> newComplexUniqueKeyList = new ArrayList<ComplexUniqueKey>(oldComplexUniqueKeyList.size());
+		final List<NormalColumn> columns = this.getNormalColumns();
 
 		for (ComplexUniqueKey complexUniqueKey : oldComplexUniqueKeyList) {
 			CopyComplexUniqueKey copyComplexUniqueKey = (CopyComplexUniqueKey) complexUniqueKey;
-			if (!copyComplexUniqueKey.isRemoved(this.getNormalColumns())) {
+			if (!copyComplexUniqueKey.isRemoved(columns)) {
 				ComplexUniqueKey restructuredComplexUniqueKey = copyComplexUniqueKey
 						.restructure();
 				newComplexUniqueKeyList.add(restructuredComplexUniqueKey);
@@ -327,7 +328,7 @@ public class ERTable extends TableView implements TablePropertiesHolder,
 			referencedComplexUniqueKey = this.getComplexUniqueKeyList().get(0);
 
 		} else {
-			for (NormalColumn normalColumn : this.getNormalColumns()) {
+			for (final NormalColumn normalColumn : this.getNormalColumns()) {
 				if (normalColumn.isUniqueKey()) {
 					referencedColumn = normalColumn;
 					break;

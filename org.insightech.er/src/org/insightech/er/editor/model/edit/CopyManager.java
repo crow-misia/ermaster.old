@@ -428,7 +428,7 @@ public class CopyManager {
 
 		for (TableView tableView : copyDiagramContents.getContents()
 				.getTableViewList()) {
-			for (NormalColumn normalColumn : tableView.getNormalColumns()) {
+			for (final NormalColumn normalColumn : tableView.getNormalColumns()) {
 				Word oldWord = normalColumn.getWord();
 				if (oldWord != null) {
 					Word newWord = wordMap.get(oldWord);

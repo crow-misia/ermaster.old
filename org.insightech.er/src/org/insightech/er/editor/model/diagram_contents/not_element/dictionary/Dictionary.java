@@ -76,7 +76,7 @@ public class Dictionary extends AbstractModel {
 	}
 
 	public void remove(TableView tableView, final boolean fire) {
-		for (NormalColumn normalColumn : tableView.getNormalColumns()) {
+		for (final NormalColumn normalColumn : tableView.getNormalColumns()) {
 			this.remove(normalColumn, false);
 		}
 		if (fire) {

@@ -291,7 +291,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 				if (nodeElement instanceof TableView) {
 					TableView tableView = (TableView) nodeElement;
 
-					for (NormalColumn normalColumn : tableView
+					for (final NormalColumn normalColumn : tableView
 							.getNormalColumns()) {
 						Word word = normalColumn.getWord();
 						if (word != null) {

@@ -111,7 +111,7 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 				}
 
 			} else {
-				for (NormalColumn sourceColumn : sourceTable.getNormalColumns()) {
+				for (final NormalColumn sourceColumn : sourceTable.getNormalColumns()) {
 					if (sourceColumn == this.referencedColumn) {
 						NormalColumn foreignKeyColumn = this
 								.createForeiKeyColumn(sourceColumn,
@@ -188,7 +188,7 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 		List<NormalColumn> list = new ArrayList<NormalColumn>();
 
 		if (this.getTargetTableView() != null) {
-			for (NormalColumn column : this.getTargetTableView()
+			for (final NormalColumn column : this.getTargetTableView()
 					.getNormalColumns()) {
 				if (column.isForeignKey()) {
 					for (final Relation relation : column.getRelationList()) {

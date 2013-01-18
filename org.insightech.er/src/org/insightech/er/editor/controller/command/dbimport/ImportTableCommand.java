@@ -167,7 +167,7 @@ public final class ImportTableCommand extends AbstractCommand {
 			this.diagram.addNewContent(nodeElement, false, false);
 
 			if (nodeElement instanceof TableView) {
-				for (NormalColumn normalColumn : ((TableView) nodeElement)
+				for (final NormalColumn normalColumn : ((TableView) nodeElement)
 						.getNormalColumns()) {
 					if (normalColumn.isForeignKey()) {
 						for (Relation relation : normalColumn.getRelationList()) {

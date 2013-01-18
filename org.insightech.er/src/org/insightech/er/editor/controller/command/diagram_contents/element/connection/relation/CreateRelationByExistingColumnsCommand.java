@@ -96,7 +96,7 @@ public final class CreateRelationByExistingColumnsCommand extends
 		Map<NormalColumn, List<NormalColumn>> referencedMap = new HashMap<NormalColumn, List<NormalColumn>>();
 		Map<Relation, Set<NormalColumn>> foreignKeySetMap = new HashMap<Relation, Set<NormalColumn>>();
 
-		for (NormalColumn normalColumn : targetTable.getNormalColumns()) {
+		for (final NormalColumn normalColumn : targetTable.getNormalColumns()) {
 			NormalColumn rootReferencedColumn = normalColumn.getRootReferencedColumn();
 			if (rootReferencedColumn != null) {
 				List<NormalColumn> foreignKeyList = referencedMap

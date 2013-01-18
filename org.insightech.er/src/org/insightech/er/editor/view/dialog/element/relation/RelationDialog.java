@@ -220,7 +220,7 @@ public class RelationDialog extends AbstractDialog {
 		info.columnStartIndex = info.complexUniqueKeyStartIndex
 				+ table.getComplexUniqueKeyList().size();
 
-		for (NormalColumn column : table.getNormalColumns()) {
+		for (final NormalColumn column : table.getNormalColumns()) {
 			if (column.isUniqueKey()) {
 				columnCombo.add(column.getLogicalName());
 				info.candidateColumns.add(column);

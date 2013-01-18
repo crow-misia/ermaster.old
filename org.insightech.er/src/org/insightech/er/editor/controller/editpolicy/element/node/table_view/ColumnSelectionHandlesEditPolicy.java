@@ -290,11 +290,12 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 				return null;
 			}
 
+			final List<NormalColumn> oldTableColumns = oldTableView.getNormalColumns();
+
 			if (oldRelation.isReferenceForPK()) {
 				for (NormalColumn referencedPrimaryKey : ((ERTable) referencedTableView)
 						.getPrimaryKeys()) {
-					for (NormalColumn oldTableColumn : oldTableView
-							.getNormalColumns()) {
+					for (final NormalColumn oldTableColumn : oldTableColumns) {
 						if (oldTableColumn.isForeignKey()) {
 							if (oldTableColumn.getReferencedColumn(oldRelation) == referencedPrimaryKey) {
 								oldForeignKeyColumnList.add(oldTableColumn);
@@ -306,8 +307,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			} else if (oldRelation.getReferencedComplexUniqueKey() != null) {
 				for (NormalColumn referencedColumn : oldRelation
 						.getReferencedComplexUniqueKey().getColumnList()) {
-					for (NormalColumn oldTableColumn : oldTableView
-							.getNormalColumns()) {
+					for (final NormalColumn oldTableColumn : oldTableColumns) {
 						if (oldTableColumn.isForeignKey()) {
 							if (oldTableColumn.getReferencedColumn(oldRelation) == referencedColumn) {
 								oldForeignKeyColumnList.add(oldTableColumn);

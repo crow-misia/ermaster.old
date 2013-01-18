@@ -77,7 +77,7 @@ public class TableSet extends AbstractModel implements ObjectListModel,
 		for (ERTable table : this.tableList) {
 			String prefix = table.getNameWithSchema(database) + "_";
 
-			for (NormalColumn column : table.getNormalColumns()) {
+			for (final NormalColumn column : table.getNormalColumns()) {
 				SqlType sqlType = column.getType();
 
 				if (SqlType.valueOfId(SqlType.SQL_TYPE_ID_SERIAL).equals(sqlType)

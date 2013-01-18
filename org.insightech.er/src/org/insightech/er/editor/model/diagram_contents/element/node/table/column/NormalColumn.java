@@ -335,7 +335,7 @@ public class NormalColumn extends Column {
 
 			for (Relation relation : table.getOutgoingRelations()) {
 				boolean found = false;
-				for (NormalColumn column : relation.getTargetTableView()
+				for (final NormalColumn column : relation.getTargetTableView()
 						.getNormalColumns()) {
 					if (column.isForeignKey()) {
 						for (NormalColumn referencedColumn : column.referencedColumnList) {

@@ -181,7 +181,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 	}
 
 	public List<NormalColumn> getNormalColumns() {
-		List<NormalColumn> normalColumns = new ArrayList<NormalColumn>();
+		final List<NormalColumn> normalColumns = new ArrayList<NormalColumn>(this.columns.size());
 
 		for (Column column : this.columns) {
 			if (column instanceof NormalColumn) {

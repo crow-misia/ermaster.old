@@ -115,7 +115,7 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 
 		this.disposeTableEditor();
 
-		for (NormalColumn normalColumn : this.copyData.getNormalColumns()) {
+		for (final NormalColumn normalColumn : this.copyData.getNormalColumns()) {
 			TableItem tableItem = new TableItem(this.columnTable, SWT.NONE);
 			tableItem.setText(0, Format.null2blank(normalColumn.getName()));
 
@@ -332,11 +332,12 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 	private void setComboData() {
 		this.complexUniqueKeyCombo.removeAll();
 
+		final List<NormalColumn> columns = this.copyData.getNormalColumns();
 		for (Iterator<ComplexUniqueKey> iter = this.copyData
 				.getComplexUniqueKeyList().iterator(); iter.hasNext();) {
 			ComplexUniqueKey complexUniqueKey = iter.next();
 
-			if (complexUniqueKey.isRemoved(this.copyData.getNormalColumns())) {
+			if (complexUniqueKey.isRemoved(columns)) {
 				iter.remove();
 			} else {
 				this.addComboData(complexUniqueKey);

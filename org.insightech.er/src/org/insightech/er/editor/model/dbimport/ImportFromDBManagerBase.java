@@ -1010,10 +1010,13 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 		Map<NormalColumn, NormalColumn> referenceMap = new HashMap<NormalColumn, NormalColumn>();
 
+		final List<NormalColumn> sourceColumns = source.getNormalColumns();
+        final List<NormalColumn> targetColumns = target.getNormalColumns();
+		
 		for (ForeignKeyData foreignKeyData : foreignKeyDataList) {
 			NormalColumn sourceColumn = null;
 
-			for (NormalColumn normalColumn : source.getNormalColumns()) {
+			for (final NormalColumn normalColumn : sourceColumns) {
 				if (normalColumn.getPhysicalName().equals(
 						foreignKeyData.sourceColumnName)) {
 					sourceColumn = normalColumn;
@@ -1031,7 +1034,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 			NormalColumn targetColumn = null;
 
-			for (NormalColumn normalColumn : target.getNormalColumns()) {
+			for (final NormalColumn normalColumn : targetColumns) {
 				if (normalColumn.getPhysicalName().equals(
 						foreignKeyData.targetColumnName)) {
 					targetColumn = normalColumn;

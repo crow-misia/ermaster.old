@@ -32,7 +32,7 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 									.getColumnHolder();
 
 							TableView newCopyTable = table.copyData();
-							for (NormalColumn copyColumn : newCopyTable
+							for (final NormalColumn copyColumn : newCopyTable
 									.getNormalColumns()) {
 								CopyColumn targetColumn = (CopyColumn) copyColumn;
 								if (targetColumn.getOriginalColumn() == normalColumn) {
