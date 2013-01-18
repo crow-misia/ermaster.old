@@ -30,6 +30,7 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.relation.RelationDialog;
 import org.insightech.er.editor.view.figure.anchor.XYChopboxAnchor;
 import org.insightech.er.editor.view.figure.connection.ERDiagramConnection;
@@ -172,14 +173,15 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		ERDiagram diagram = this.getDiagram();
 
 		if (diagram != null) {
+			final Settings settings = diagram.getDiagramContents().getSettings();
+
 			Relation relation = (Relation) this.getModel();
 
 			// 関連線の始点・終点に ER図の表記法に基づいた記号を付与する
 			ERDiagramConnection connection = (ERDiagramConnection) this
 					.getConnectionFigure();
 
-			String notation = diagram.getDiagramContents().getSettings()
-					.getNotation();
+			String notation = settings.getNotation();
 
 			Decoration decoration = DecorationFactory.getDecoration(notation,
 					relation.getParentCardinality(), relation
@@ -190,14 +192,18 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 			targetLabel.setText(Format.null2blank(decoration.getTargetLabel()));
 
 			// 関連の子のFKが　PK の場合、依存(実線)、それ以外は非依存(破線)とする
-			Boolean isDepend = Boolean.TRUE;
-			for (final NormalColumn c : relation.getForeignKeyColumns()) {
-				if (!c.isPrimaryKey()) {
-					isDepend = Boolean.FALSE;
-					break;
+			if (settings.isNotationDependence()) {
+				Boolean isDepend = Boolean.TRUE;
+				for (final NormalColumn c : relation.getForeignKeyColumns()) {
+					if (!c.isPrimaryKey()) {
+						isDepend = Boolean.FALSE;
+						break;
+					}
 				}
+				connection.setDepend(isDepend);
+			} else {
+				connection.setDepend(null);
 			}
-			connection.setDepend(isDepend);
 		}
 
 		this.calculateAnchorLocation();

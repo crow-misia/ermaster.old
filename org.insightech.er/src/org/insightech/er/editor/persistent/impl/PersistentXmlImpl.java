@@ -639,6 +639,8 @@ public final class PersistentXmlImpl extends Persistent {
 				.append("</notation>\n");
 		xml.append("\t<notation_level>").append(settings.getNotationLevel())
 				.append("</notation_level>\n");
+		xml.append("\t<notation_dependence>").append(settings.isNotationDependence())
+				.append("</notation_dependence>\n");
 		xml.append("\t<notation_expand_group>")
 				.append(settings.isNotationExpandGroup())
 				.append("</notation_expand_group>\n");

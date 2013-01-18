@@ -1075,6 +1075,8 @@ public final class XMLLoader {
 			settings.setNotation(this.getStringValue(element, "notation"));
 			settings.setNotationLevel(this.getIntValue(element,
 					"notation_level"));
+			settings.setNotationDependence(this.getBooleanValue(element,
+					"notation_dependence", true));
 			settings.setNotationExpandGroup(this.getBooleanValue(element,
 					"notation_expand_group"));
 

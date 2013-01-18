@@ -33,6 +33,7 @@ import org.insightech.er.editor.view.action.line.ResizeModelAction;
 import org.insightech.er.editor.view.action.line.RightAngleLineAction;
 import org.insightech.er.editor.view.action.option.OptionSettingAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeCapitalAction;
+import org.insightech.er.editor.view.action.option.notation.ChangeNotationDependenceAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeNotationExpandGroupAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeStampAction;
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToFrameAction;
@@ -72,6 +73,8 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 
 		final IAction changeToIENotationAction = getAction(ChangeToIENotationAction.ID);
 		final IAction changeToIDEF1XNotationAction = getAction(ChangeToIDEF1XNotationAction.ID);
+
+		final IAction changeNotationDependenceAction = getAction(ChangeNotationDependenceAction.ID);
 
 		final IAction changeNotationLevelToOnlyTitleAction = getAction(ChangeNotationLevelToOnlyTitleAction.ID);
 		final IAction changeNotationLevelToOnlyKeyAction = getAction(ChangeNotationLevelToOnlyKeyAction.ID);
@@ -140,6 +143,8 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 				.getResourceString("label.notation"));
 		notationMenu.add(changeToIENotationAction);
 		notationMenu.add(changeToIDEF1XNotationAction);
+		notationMenu.add(new Separator());
+		notationMenu.add(changeNotationDependenceAction);
 
 		displayMenu.add(notationMenu);
 
@@ -249,6 +254,7 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 				} else {
 					changeToIENotationAction.setChecked(true);
 				}
+				changeNotationDependenceAction.setChecked(settings.isNotationDependence());
 
 				changeNotationLevelToOnlyTitleAction.setChecked(false);
 				changeNotationLevelToOnlyKeyAction.setChecked(false);
@@ -276,9 +282,7 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 					changeNotationLevelToDetailAction.setChecked(true);
 				}
 
-				if (settings.isNotationExpandGroup()) {
-					changeNotationExpandGroupAction.setChecked(true);
-				}
+				changeNotationExpandGroupAction.setChecked(settings.isNotationExpandGroup());
 
 				changeDesignToFunnyAction.setChecked(false);
 				changeDesignToFrameAction.setChecked(false);

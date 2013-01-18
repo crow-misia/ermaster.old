@@ -38,6 +38,8 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 
 	private boolean notationExpandGroup;
 
+	private boolean notationDependencs;
+
 	private String tableStyle;
 
 	private ModelProperties modelProperties;
@@ -118,6 +120,14 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 
 	public void setNotationExpandGroup(boolean notationExpandGroup) {
 		this.notationExpandGroup = notationExpandGroup;
+	}
+
+	public boolean isNotationDependence() {
+		return notationDependencs;
+	}
+
+	public void setNotationDependence(boolean notationDependencs) {
+		this.notationDependencs = notationDependencs;
 	}
 
 	public String getTableStyle() {
