@@ -25,7 +25,6 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 	 */
 	@Override
 	public void init(TableFigure tableFigure) {
-		tableFigure.setCornerDimensions(new Dimension(10, 10));
 		tableFigure.setBorder(null);
 	}
 
@@ -53,6 +52,11 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 	}
 
 	public void setDependence(final Boolean dependence) {
+        if (dependence == null || dependence.booleanValue()) {
+            getTableFigure().setCornerDimensions(new Dimension(10, 10));
+        } else {
+            getTableFigure().setCornerDimensions(new Dimension(0, 0));
+        }
     }
 
 	public void setName(String name) {

@@ -32,7 +32,6 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 	 */
 	@Override
 	public void init(TableFigure tableFigure) {
-		tableFigure.setCornerDimensions(new Dimension(20, 20));
 		tableFigure.setForegroundColor(ColorConstants.black);
 		tableFigure.setBorder(null);
 	}
