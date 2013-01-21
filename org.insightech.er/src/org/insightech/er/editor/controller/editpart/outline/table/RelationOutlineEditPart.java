@@ -60,19 +60,15 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 			}
 
 			if (viewMode == Settings.VIEW_MODE_PHYSICAL) {
-				sb
-						.append(Format.null2blank(foreignKeyColumn
-								.getPhysicalName()));
+				sb.append(Format.null2blank(foreignKeyColumn.getPhysicalName()));
 
 			} else if (viewMode == Settings.VIEW_MODE_LOGICAL) {
 				sb.append(Format.null2blank(foreignKeyColumn.getLogicalName()));
 
 			} else {
 				sb.append(Format.null2blank(foreignKeyColumn.getLogicalName()));
-				sb.append("/");
-				sb
-						.append(Format.null2blank(foreignKeyColumn
-								.getPhysicalName()));
+				sb.append('/');
+				sb.append(Format.null2blank(foreignKeyColumn.getPhysicalName()));
 			}
 		}
 

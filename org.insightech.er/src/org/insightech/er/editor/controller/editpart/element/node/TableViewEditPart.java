@@ -226,7 +226,7 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 	 */
 	@Override
 	protected void disposeFont() {
-		if (this.titleFont != null) {
+		if (this.titleFont != null && !this.titleFont.isDisposed()) {
 			this.titleFont.dispose();
 			this.titleFont = null;
 		}

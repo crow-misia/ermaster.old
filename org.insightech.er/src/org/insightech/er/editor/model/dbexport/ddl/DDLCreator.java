@@ -884,14 +884,17 @@ public abstract class DDLCreator {
 		ddl.append(filter(this.getNameWithSchema(view.getTableViewProperties()
 				.getSchema(), view.getPhysicalName())));
 		ddl.append(" AS ");
-		String sql = filter(view.getSql());
-		if (sql.endsWith(";")) {
-			sql = sql.substring(0, sql.length() - 1);
-		}
-		ddl.append(sql);
-
+		String sql = StringUtils.trim(filter(view.getSql()));
 		if (this.semicolon) {
-			ddl.append(";");
+			ddl.append(sql);
+			if (!sql.endsWith(";")) {
+				ddl.append(';');
+			}
+		} else {
+			if (sql.endsWith(";")) {
+				sql = sql.substring(0, sql.length() - 1);
+			}
+			ddl.append(sql);
 		}
 
 		return ddl.toString();

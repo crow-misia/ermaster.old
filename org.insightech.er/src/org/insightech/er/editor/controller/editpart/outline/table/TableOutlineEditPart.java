@@ -100,19 +100,18 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 			}
 
 		} else {
+			final StringBuilder t = new StringBuilder();
 			if (model.getLogicalName() != null) {
-				name = model.getLogicalName();
-
-			} else {
-				name = "";
+				t.append(model.getLogicalName());
 			}
 
-			name += "/";
+			t.append('/');
 
 			if (model.getPhysicalName() != null) {
-				name += model.getPhysicalName();
-
+				t.append(model.getPhysicalName());
 			}
+
+			name = t.toString();
 		}
 
 		this.setWidgetText(diagram.filter(name));
