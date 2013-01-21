@@ -3,7 +3,6 @@ package org.insightech.er.editor.controller.command.diagram_contents.element.con
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.controller.command.diagram_contents.element.connection.AbstractCreateConnectionCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 
 public abstract class AbstractCreateRelationCommand extends
 		AbstractCreateConnectionCommand {
@@ -33,7 +32,7 @@ public abstract class AbstractCreateRelationCommand extends
 		}
 
 		if (!(this.getSourceModel() instanceof ERTable)
-				|| !(this.getTargetModel() instanceof TableView)) {
+				|| !(this.getTargetModel() instanceof ERTable)) {
 			return false;
 		}
 
