@@ -520,19 +520,21 @@ public class NormalColumn extends Column {
 		}
 
 		if (to.isForeignKey()) {
-			NormalColumn firstReferencedColumn = to.getFirstReferencedColumn();
+			final NormalColumn firstReferencedColumn = to.getFirstReferencedColumn();
+			final String firstPhysicalName = firstReferencedColumn.getPhysicalName();
+			final String firstLogicalName = firstReferencedColumn.getLogicalName();
+			final String firstDescription = firstReferencedColumn.getDescription();
 
-			if (firstReferencedColumn.getPhysicalName() == null) {
+			if (firstPhysicalName == null) {
 				to.foreignKeyPhysicalName = from.getPhysicalName();
 
 			} else {
 				if (from.foreignKeyPhysicalName != null
-						&& !firstReferencedColumn.getPhysicalName().equals(
+						&& !firstPhysicalName.equals(
 								from.foreignKeyPhysicalName)) {
 					to.foreignKeyPhysicalName = from.foreignKeyPhysicalName;
 
-				} else if (!firstReferencedColumn.getPhysicalName().equals(
-						from.getPhysicalName())) {
+				} else if (!firstPhysicalName.equals(from.getPhysicalName())) {
 					to.foreignKeyPhysicalName = from.getPhysicalName();
 
 				} else {
@@ -540,16 +542,16 @@ public class NormalColumn extends Column {
 				}
 			}
 
-			if (firstReferencedColumn.getLogicalName() == null) {
+			if (firstLogicalName == null) {
 				to.foreignKeyLogicalName = from.getLogicalName();
 
 			} else {
 				if (from.foreignKeyLogicalName != null
-						&& !firstReferencedColumn.getLogicalName().equals(
+						&& !firstLogicalName.equals(
 								from.foreignKeyLogicalName)) {
 					to.foreignKeyLogicalName = from.foreignKeyLogicalName;
 
-				} else if (!firstReferencedColumn.getLogicalName().equals(
+				} else if (!firstLogicalName.equals(
 						from.getLogicalName())) {
 					to.foreignKeyLogicalName = from.getLogicalName();
 
@@ -559,16 +561,16 @@ public class NormalColumn extends Column {
 				}
 			}
 
-			if (firstReferencedColumn.getDescription() == null) {
+			if (firstDescription == null) {
 				to.foreignKeyDescription = from.getDescription();
 
 			} else {
 				if (from.foreignKeyDescription != null
-						&& !firstReferencedColumn.getDescription().equals(
+						&& !firstDescription.equals(
 								from.foreignKeyDescription)) {
 					to.foreignKeyDescription = from.foreignKeyDescription;
 
-				} else if (!firstReferencedColumn.getDescription().equals(
+				} else if (!firstDescription.equals(
 						from.getDescription())) {
 					to.foreignKeyDescription = from.getDescription();
 
@@ -587,8 +589,8 @@ public class NormalColumn extends Column {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder(super.toString());
-		sb.append(", physicalName:" + this.getPhysicalName());
-		sb.append(", logicalName:" + this.getLogicalName());
+		sb.append(", physicalName:").append(this.getPhysicalName());
+		sb.append(", logicalName:").append(this.getLogicalName());
 
 		return sb.toString();
 	}

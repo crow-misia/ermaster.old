@@ -324,10 +324,12 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		// 同一テーブルに何度もsetDirtyメソッドを実行しないよう fire予定のテーブル・ビューを保持しておく
 		final Set<TableView> fireSet = new HashSet<TableView>();
-		fireSet.add(to);
 		this.setTargetTableRelation(to, newPrimaryKeyColumns, fireSet);
 
 		to.setColumns(newColumns, false);
+
+		// コピー先テーブルは常にsetDirtyメソッドを実行する
+		fireSet.add(to);
 
 		for (final TableView table : fireSet) {
 			table.setDirty();
@@ -343,6 +345,11 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 			if (relation.isReferenceForPK()) {
 				// 参照するテーブル
 				TableView targetTable = relation.getTargetTableView();
+
+				// 処理済みのテーブルはスキップする
+				if (!fireSet.add(targetTable)) {
+					continue;
+				}
 
 				// 外部キーリスト
 				List<NormalColumn> foreignKeyColumns = relation
@@ -406,8 +413,6 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 					this.setTargetTableRelation(targetTable,
 							nextNewPrimaryKeyColumns, fireSet);
 				}
-
-				fireSet.add(targetTable);
 			}
 		}
 	}
@@ -547,17 +552,20 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 	 * @return 依存の場合 true
 	 */
 	public Boolean isDependence() {
-	    if (this.dependence == null) {
-            Boolean d = Boolean.FALSE;
-            for (ConnectionElement connection : this.getIncomings()) {
-                if (connection instanceof Relation &&
-                        ((Relation) connection).isDependence()) {
-                    d = Boolean.TRUE;
-                    break;
-                }
-            }
-            this.dependence = d;
-	    }
-	    return this.dependence;
+		if (this.dependence == null) {
+			Boolean d = Boolean.FALSE;
+			for (ConnectionElement connection : this.getIncomings()) {
+				if (connection instanceof Relation) {
+					final Relation r = (Relation) connection;
+					if (r.getSourceTableView() != r.getTargetTableView() &&
+						r.isDependence()) {
+						d = Boolean.TRUE;
+						break;
+					}
+				}
+			}
+			this.dependence = d;
+		}
+		return this.dependence;
 	}
 }

@@ -419,12 +419,12 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 	}
 
 	public boolean isDependence() {
-        for (final NormalColumn c : this.getForeignKeyColumns()) {
-            if (!c.isPrimaryKey()) {
-                return false;
-            }
-        }
-        return true;
+		for (final NormalColumn c : this.getForeignKeyColumns()) {
+			if (!c.isPrimaryKey()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**

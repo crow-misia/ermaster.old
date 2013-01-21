@@ -509,16 +509,18 @@ public class ERTableComposite extends Composite {
 		this.column2TableItem(copyColumn, tableItem);
 
 		// テーブル内のカラムが、追加/更新したカラムと同一の単語を使用している場合、更新する
-		final Word originalWord = copyColumn.getWord().getOriginal();
-		for (int tmpIndex = this.table.getItemCount() - 1; tmpIndex >= 0; tmpIndex--) {
-			if (index == tmpIndex) {
-				continue;
-			}
-			CopyColumn tmpColumn = (CopyColumn) this.columnList.get(tmpIndex);
-			final CopyWord tmpWord = tmpColumn.getWord();
-			if (tmpWord != null && originalWord.equals(tmpWord.getOriginal())) {
-				copyColumn.getWord().copyTo(tmpWord);
-				this.column2TableItem(tmpColumn, this.table.getItem(tmpIndex));
+		final Word originalWord = copyColumn.getWord() == null ? null : copyColumn.getWord().getOriginal();
+		if (originalWord != null) {
+			for (int tmpIndex = this.table.getItemCount() - 1; tmpIndex >= 0; tmpIndex--) {
+				if (index == tmpIndex) {
+					continue;
+				}
+				CopyColumn tmpColumn = (CopyColumn) this.columnList.get(tmpIndex);
+				final CopyWord tmpWord = tmpColumn.getWord();
+				if (tmpWord != null && originalWord.equals(tmpWord.getOriginal())) {
+					copyColumn.getWord().copyTo(tmpWord);
+					this.column2TableItem(tmpColumn, this.table.getItem(tmpIndex));
+				}
 			}
 		}
 
