@@ -17,11 +17,7 @@ public class InsertedImageFigure extends Figure {
 	private int alpha;
 
 	public InsertedImageFigure(Image image, boolean fixAspectRatio, int alpha) {
-		this.image = image;
-		this.fixAspectRatio = fixAspectRatio;
-		this.alpha = alpha;
-		this.imageSize = new Dimension(this.image.getBounds().width, this.image
-				.getBounds().height);
+		setImg(image, fixAspectRatio, alpha);
 	}
 
 	public void setImg(Image image, boolean fixAspectRatio, int alpha) {
@@ -40,9 +36,10 @@ public class InsertedImageFigure extends Figure {
 		graphics.setAlpha(alpha);
 
 		Rectangle area = getClientArea();
+		Rectangle destination = area;
 
 		if (this.fixAspectRatio) {
-			Rectangle destination = new Rectangle();
+			destination = new Rectangle();
 
 			double dw = (double) this.imageSize.width / (double) area.width;
 			double dh = (double) this.imageSize.height / (double) area.height;
@@ -61,15 +58,11 @@ public class InsertedImageFigure extends Figure {
 
 			destination.x = (area.width - destination.width) / 2 + area.x;
 			destination.y = (area.height - destination.height) / 2 + area.y;
-
-			graphics.drawImage(this.image,
-					new Rectangle(this.image.getBounds()), destination);
-
-		} else {
-			graphics.drawImage(this.image,
-					new Rectangle(this.image.getBounds()), area);
-
+			
 		}
+
+		graphics.drawImage(this.image,
+				new Rectangle(this.image.getBounds()), destination);
 
 	}
 

@@ -27,6 +27,7 @@ public final class ImageKey {
 	public static final String ERROR = "ERROR";
 	public static final String EXPORT_DDL = "EXPORT_DDL";
 	public static final String EXPORT_TO_CSV = "EXPORT_TO_CSV";
+	public static final String EXPORT_TO_DICTIONARY = "EXPORT_TO_DICTIONARY";
 	public static final String EXPORT_TO_DB = "EXPORT_TO_DB";
 	public static final String EXPORT_TO_EXCEL = "EXPORT_TO_EXCEL";
 	public static final String EXPORT_TO_HTML = "EXPORT_TO_HTML";

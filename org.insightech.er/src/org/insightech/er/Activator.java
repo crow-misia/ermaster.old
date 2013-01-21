@@ -128,6 +128,8 @@ public class Activator extends AbstractUIPlugin {
 				loadImageDescriptor("icons/document-attribute-d.png"));
 		reg.put(ImageKey.EXPORT_TO_CSV,
 				loadImageDescriptor("icons/document-excel-csv.png"));
+		reg.put(ImageKey.EXPORT_TO_DICTIONARY,
+				loadImageDescriptor("icons/dictionary.gif"));
 		reg.put(ImageKey.EXPORT_TO_DB,
 				loadImageDescriptor("icons/database_connect.png"));
 		reg.put(ImageKey.EXPORT_TO_EXCEL,

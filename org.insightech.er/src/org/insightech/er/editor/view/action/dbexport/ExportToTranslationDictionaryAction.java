@@ -2,6 +2,8 @@ package org.insightech.er.editor.view.action.dbexport;
 
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
+import org.insightech.er.Activator;
+import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.ERDiagramEditor;
 import org.insightech.er.editor.model.ERDiagram;
@@ -14,11 +16,10 @@ public class ExportToTranslationDictionaryAction extends AbstractBaseAction {
 			.getName();
 
 	public ExportToTranslationDictionaryAction(ERDiagramEditor editor) {
-		super(
-				ID,
-				ResourceString
-						.getResourceString("action.title.export.translation.dictionary"),
-				editor);
+		super(ID, ResourceString
+				.getResourceString("action.title.export.translation.dictionary"), editor);
+		this.setImageDescriptor(Activator
+				.getImageDescriptor(ImageKey.EXPORT_TO_DICTIONARY));
 	}
 
 	@Override

@@ -54,8 +54,15 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 	 */
 	@Override
 	protected void disposeFont() {
+		disposeImage();
+
+		super.disposeFont();
+	}
+
+	protected void disposeImage() {
 		if (this.image != null && !this.image.isDisposed()) {
 			this.image.dispose();
+			this.image = null;
 		}
 		super.disposeFont();
 	}
@@ -132,9 +139,7 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 			}
 		}
 
-		if (this.image != null && !this.image.isDisposed()) {
-			this.image.dispose();
-		}
+		disposeImage();
 
 		this.image = new Image(Display.getDefault(), newImageData);
 	}

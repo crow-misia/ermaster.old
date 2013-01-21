@@ -14,7 +14,11 @@ public final class ResourceString {
 			.getBundle("org.insightech.er.ERDiagram");;
 
 	public static String getResourceString(String key) {
-		return getResourceString(key, null);
+		try {
+			return resource.getString(key);
+		} catch (MissingResourceException e) {
+			return key;
+		}
 	}
 	
 	public static String getResourceString(String key, String[] args) {
