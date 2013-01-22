@@ -18,12 +18,8 @@ public final class CreateCommentConnectionCommand extends CreateConnectionComman
 			return false;
 		}
 
-		if (!(this.getSourceModel() instanceof Note)
-				&& !(this.getTargetModel() instanceof Note)) {
-			return false;
-		}
-
-		return true;
+		return (this.getSourceModel() instanceof Note
+				|| this.getTargetModel() instanceof Note);
 	}
 
 }
