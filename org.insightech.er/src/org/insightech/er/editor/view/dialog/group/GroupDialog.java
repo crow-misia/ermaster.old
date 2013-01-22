@@ -56,8 +56,7 @@ public class GroupDialog extends AbstractDialog implements
 			final ERDiagram diagram) {
 		GroupSet groupSet = diagram.getDiagramContents().getGroups();
 
-		GroupDialog dialog = new GroupDialog(PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getShell(), groupSet, diagram,
+		GroupDialog dialog = new GroupDialog(parentShell, groupSet, diagram,
 				groupSet.indexOf(column));
 
 		if (dialog.open() == IDialogConstants.OK_ID) {

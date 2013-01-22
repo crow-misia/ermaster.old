@@ -72,6 +72,40 @@ public abstract class Word extends AbstractModel implements ObjectModel,
 		return this.uniqueWord;
 	}
 
+	public static boolean equals(final Word from, final Word to) {
+		if (from.getTypeData() == null) {
+			if (to.getTypeData() != null)
+				return false;
+		} else if (!from.getTypeData().equals(to.getTypeData()))
+			return false;
+
+		if (from.getDescription() == null) {
+			if (to.getDescription() != null)
+				return false;
+		} else if (!from.getDescription().equals(to.getDescription()))
+			return false;
+
+		if (from.getLogicalName() == null) {
+			if (to.getLogicalName() != null)
+				return false;
+		} else if (!from.getLogicalName().equals(to.getLogicalName()))
+			return false;
+
+		if (from.getPhysicalName() == null) {
+	 		if (to.getPhysicalName() != null)
+				return false;
+		} else if (!from.getPhysicalName().equals(to.getPhysicalName()))
+			return false;
+
+		if (from.getType() == null) {
+			if (to.getType() != null)
+				return false;
+		} else if (!from.getType().equals(to.getType()))
+			return false;
+
+		return true;
+	}
+
 	private static class WordWithoutNameComparator implements Comparator<Word> {
 
 		public int compare(Word o1, Word o2) {

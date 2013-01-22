@@ -25,6 +25,7 @@ import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Co
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
+import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
 import org.insightech.er.util.Format;
 
 public abstract class TableView extends NodeElement implements ObjectModel,
@@ -251,9 +252,12 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		for (Column fromColumn : sources) {
 			if (fromColumn instanceof NormalColumn) {
-				NormalColumn copyColumn = new CopyColumn((NormalColumn) fromColumn);
+				final NormalColumn copyColumn = new CopyColumn((NormalColumn) fromColumn);
 				columns.add(copyColumn);
 
+			} else if (fromColumn instanceof ColumnGroup) {
+				final ColumnGroup copyGroup = new CopyGroup((ColumnGroup) fromColumn);
+				columns.add(copyGroup);
 			} else {
 				columns.add(fromColumn);
 			}

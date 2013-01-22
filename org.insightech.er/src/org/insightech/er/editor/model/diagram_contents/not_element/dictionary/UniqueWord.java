@@ -135,37 +135,11 @@ public class UniqueWord extends Word {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!(obj instanceof Word)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		final Word other = (Word) obj;
-		if (getTypeData() == null) {
-			if (other.getTypeData() != null)
-				return false;
-		} else if (!getTypeData().equals(other.getTypeData()))
-			return false;
-		if (getDescription() == null) {
-			if (other.getDescription() != null)
-				return false;
-		} else if (!getDescription().equals(other.getDescription()))
-			return false;
-		if (getLogicalName() == null) {
-			if (other.getLogicalName() != null)
-				return false;
-		} else if (!getLogicalName().equals(other.getLogicalName()))
-			return false;
-		if (getPhysicalName() == null) {
-			if (other.getPhysicalName() != null)
-				return false;
-		} else if (!getPhysicalName().equals(other.getPhysicalName()))
-			return false;
-		if (this.getType() == null) {
-			if (other.getType() != null)
-				return false;
-		} else if (!this.getType().equals(other.getType()))
-			return false;
-		return true;
+		return equals(this, other);
 	}
 
 	private static class WordIdComparator implements Comparator<UniqueWord> {

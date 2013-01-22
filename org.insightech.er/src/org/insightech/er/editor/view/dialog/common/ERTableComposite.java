@@ -35,6 +35,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
+import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
 import org.insightech.er.editor.view.dialog.element.table.sub.QuickAddDialog;
 import org.insightech.er.editor.view.dialog.word.column.AbstractColumnDialog;
 import org.insightech.er.util.Format;
@@ -509,22 +510,40 @@ public class ERTableComposite extends Composite {
 		this.column2TableItem(copyColumn, tableItem);
 
 		// テーブル内のカラムが、追加/更新したカラムと同一の単語を使用している場合、更新する
-		final Word originalWord = copyColumn.getWord() == null ? null : copyColumn.getWord().getOriginal();
-		if (originalWord != null) {
-			for (int tmpIndex = this.table.getItemCount() - 1; tmpIndex >= 0; tmpIndex--) {
-				if (index == tmpIndex) {
-					continue;
-				}
-				CopyColumn tmpColumn = (CopyColumn) this.columnList.get(tmpIndex);
-				final CopyWord tmpWord = tmpColumn.getWord();
+		applyWord(index, copyColumn);
+
+		this.parentDialog.validate();
+	}
+
+	private void applyWord(final int index, final CopyColumn column) {
+		final CopyWord copyWord = column.getWord();
+		final Word originalWord = copyWord == null ? null : copyWord.getOriginal();
+
+		if (originalWord == null) {
+			return;
+		}
+
+		for (int tmpIndex = this.table.getItemCount() - 1; tmpIndex >= 0; tmpIndex--) {
+			if (index == tmpIndex) {
+				continue;
+			}
+			final Column tmpColumn = this.columnList.get(tmpIndex);
+			if (tmpColumn instanceof CopyColumn) {
+				final CopyWord tmpWord = ((CopyColumn) tmpColumn).getWord();
 				if (tmpWord != null && originalWord.equals(tmpWord.getOriginal())) {
-					copyColumn.getWord().copyTo(tmpWord);
+					copyWord.copyTo(tmpWord);
 					this.column2TableItem(tmpColumn, this.table.getItem(tmpIndex));
+				}
+			} else if (tmpColumn instanceof CopyGroup) {
+				for (final NormalColumn copyColumn : ((CopyGroup) tmpColumn).getColumns()) {
+					final CopyWord tmpWord = (CopyWord) copyColumn.getWord();
+					if (tmpWord != null && originalWord.equals(tmpWord.getOriginal())) {
+						copyWord.copyTo(tmpWord);
+						this.column2TableItem(tmpColumn, this.table.getItem(tmpIndex));
+					}
 				}
 			}
 		}
-
-		this.parentDialog.validate();
 	}
 
 	public void addTableData(ColumnGroup column) {

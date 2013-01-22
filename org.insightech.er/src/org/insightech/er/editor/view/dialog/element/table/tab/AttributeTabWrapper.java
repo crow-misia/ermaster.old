@@ -242,9 +242,10 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 		this.initGroupCombo();
 
 		int index = 0;
+		final GroupSet groupSet = this.getColumnGroups();
 		for (Column column : this.copyData.getColumns()) {
 			if (column instanceof ColumnGroup) {
-				if (!this.getColumnGroups().contains((ColumnGroup) column)) {
+				if (!groupSet.contains((ColumnGroup) column)) {
 					this.tableComposite.removeColumn(index);
 					continue;
 				}
@@ -337,7 +338,12 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 	}
 
 	public void selectGroup(ColumnGroup selectedColumn) {
-		int targetIndex = this.getColumnGroups().indexOf(selectedColumn);
+		int targetIndex;
+		if (selectedColumn instanceof CopyGroup) {
+			targetIndex = this.getColumnGroups().indexOf(((CopyGroup) selectedColumn).getOriginal());
+		} else {
+			targetIndex = this.getColumnGroups().indexOf(selectedColumn);
+		}
 
 		this.groupCombo.select(targetIndex);
 		this.selectGroup(targetIndex);

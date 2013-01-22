@@ -10,13 +10,13 @@ import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Co
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Dictionary;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 
-public class CopyGroup extends ColumnGroup {
+public final class CopyGroup extends ColumnGroup {
 
 	private static final long serialVersionUID = 8453816730649838482L;
 
 	private ColumnGroup original;
 
-	public CopyGroup(ColumnGroup original) {
+	public CopyGroup(final ColumnGroup original) {
 		super();
 
 		this.original = original;
@@ -99,4 +99,7 @@ public class CopyGroup extends ColumnGroup {
 		to.setColumns(columns);
 	}
 
+	public ColumnGroup getOriginal() {
+		return this.original;
+	}
 }

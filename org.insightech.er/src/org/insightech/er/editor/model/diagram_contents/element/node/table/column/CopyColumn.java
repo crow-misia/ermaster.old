@@ -58,8 +58,9 @@ public class CopyColumn extends NormalColumn {
 	}
 
 	public Word getOriginalWord() {
-		if (this.getWord() != null) {
-			return this.getWord().getOriginal();
+		final CopyWord word = this.getWord();
+		if (word != null) {
+			return word.getOriginal();
 		}
 
 		return null;

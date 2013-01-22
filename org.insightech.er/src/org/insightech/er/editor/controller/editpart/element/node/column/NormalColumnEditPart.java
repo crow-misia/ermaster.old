@@ -8,12 +8,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.swt.graphics.Color;
 import org.insightech.er.editor.controller.editpart.element.node.TableViewEditPart;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.column.ColumnHolder;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.settings.Settings;
@@ -198,64 +200,51 @@ public class NormalColumnEditPart extends ColumnEditPart {
 	 */
 	@Override
 	public void setSelected(int value) {
-		NormalColumnFigure figure = (NormalColumnFigure) this.getFigure();
+		final EditPart parent = this.getParent();
+		
+		final NormalColumnFigure figure = (NormalColumnFigure) this.getFigure();
 
-		if (value != 0 && this.getParent() != null
-				&& this.getParent().getParent() != null) {
+		Color backgroundColor = null;
+		Color foregroundColor = null;
+		boolean isSelected = false;
+
+		if (value != 0 && parent != null
+				&& parent.getParent() != null) {
 			List selectedEditParts = this.getViewer().getSelectedEditParts();
 
-			if (selectedEditParts != null && selectedEditParts.size() == 1) {
-				NormalColumn normalColumn = (NormalColumn) this.getModel();
-
-				if (normalColumn.getColumnHolder() instanceof ColumnGroup) {
-					for (Object child : this.getParent().getChildren()) {
-						AbstractGraphicalEditPart childEditPart = (AbstractGraphicalEditPart) child;
-
-						NormalColumn column = (NormalColumn) childEditPart
-								.getModel();
-						if (column.getColumnHolder() == normalColumn
-								.getColumnHolder()) {
-							this.setGroupColumnFigureColor(
-									(TableViewEditPart) this.getParent(),
-									(ColumnGroup) normalColumn
-											.getColumnHolder(), true);
-						}
-					}
-
-				} else {
-					figure.setBackgroundColor(ColorConstants.titleBackground);
-					figure.setForegroundColor(ColorConstants.titleForeground);
-					selected = true;
-				}
-
-				super.setSelected(value);
+			if (selectedEditParts == null && selectedEditParts.size() != 1) {
+				return;
 			}
+			
+			backgroundColor = ColorConstants.titleBackground;
+			foregroundColor = ColorConstants.titleForeground;
+			isSelected = true;
+		}
+		
+		final NormalColumn normalColumn = (NormalColumn) this.getModel();
+		final ColumnHolder columnHolder = normalColumn.getColumnHolder();
 
-		} else {
-			NormalColumn normalColumn = (NormalColumn) this.getModel();
-
-			if (normalColumn.getColumnHolder() instanceof ColumnGroup) {
-				for (Object child : this.getParent().getChildren()) {
+		if (columnHolder instanceof ColumnGroup) {
+			if (parent != null) {
+				for (Object child : parent.getChildren()) {
 					AbstractGraphicalEditPart childEditPart = (AbstractGraphicalEditPart) child;
 
-					NormalColumn column = (NormalColumn) childEditPart
-							.getModel();
-					if (column.getColumnHolder() == normalColumn
-							.getColumnHolder()) {
-						this.setGroupColumnFigureColor((TableViewEditPart) this
-								.getParent(), (ColumnGroup) normalColumn
-								.getColumnHolder(), false);
+					NormalColumn column = (NormalColumn) childEditPart.getModel();
+					if (column.getColumnHolder() == columnHolder) {
+						this.setGroupColumnFigureColor(
+								(TableViewEditPart) parent,
+								(ColumnGroup) columnHolder, isSelected);
 					}
 				}
-
-			} else {
-				figure.setBackgroundColor(null);
-				figure.setForegroundColor(null);
-				selected = false;
 			}
-
-			super.setSelected(value);
+			
+		} else {
+			figure.setBackgroundColor(backgroundColor);
+			figure.setForegroundColor(foregroundColor);
+			selected = isSelected;
 		}
+
+		super.setSelected(value);
 
 	}
 

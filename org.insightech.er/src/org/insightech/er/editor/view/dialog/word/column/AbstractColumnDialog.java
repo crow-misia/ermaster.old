@@ -250,51 +250,48 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 
 		int wordIndex = this.wordCombo.getSelectionIndex();
 
-		CopyWord word = null;
+		Word originalWord = null;
+		final Word realWord = new RealWord(physicalName, logicalName,
+				selectedType, typeData, description, database); 
+
 		if (wordIndex > 0) {
-			final Word realWord = wordList.get(wordIndex - 1);
-			final Collection<NormalColumn> columns = this.diagram.getDiagramContents().getDictionary().getColumnList(realWord);
-			int count = 1;
-			NormalColumn originalColumn = this.targetColumn;
-			while (originalColumn != null && originalColumn instanceof CopyColumn) {
-				originalColumn = ((CopyColumn) originalColumn).getOriginalColumn();
-			}
-			
-			for (final NormalColumn column : columns) {
-				if (column != originalColumn) {
-					count++;
+			originalWord = wordList.get(wordIndex - 1);
+
+			if (!Word.equals(originalWord, realWord)) {
+
+				final Collection<NormalColumn> columns = this.diagram.getDiagramContents().getDictionary().getColumnList(originalWord);
+				int count = 0;
+				NormalColumn originalColumn = this.targetColumn;
+				while (originalColumn != null && originalColumn instanceof CopyColumn) {
+					originalColumn = ((CopyColumn) originalColumn).getOriginalColumn();
 				}
-			}
-			// 単語を使用しているカラムが複数存在する場合、警告ダイアログを表示する
-			if (count >= 2 && diagram.getDiagramContents().getSettings().isCheckUsedWord()) {
-				MessageBox confirm = new MessageBox(getShell(), SWT.YES|SWT.NO|SWT.CANCEL|SWT.ICON_WARNING);
-				confirm.setMessage(ResourceString.getResourceString("dialog.message.use.word.other.column"));
-				switch (confirm.open()) {
-				case SWT.NO:
-					wordIndex = 0;
-					break;
-				case SWT.CANCEL:
-					throw new InputException(null);
+
+				for (final NormalColumn column : columns) {
+					if (column != originalColumn) {
+						count++;
+						break;
+					}
+				}
+				// 単語を使用しているカラムが複数存在する場合、警告ダイアログを表示する
+				if (count >= 1 && diagram.getDiagramContents().getSettings().isCheckUsedWord()) {
+					final MessageBox confirm = new MessageBox(getShell(), SWT.YES|SWT.NO|SWT.CANCEL|SWT.ICON_WARNING);
+					confirm.setMessage(ResourceString.getResourceString("dialog.message.use.word.other.column"));
+					switch (confirm.open()) {
+					case SWT.NO:
+						wordIndex = 0;
+						break;
+					case SWT.CANCEL:
+						throw new InputException(null);
+					}
 				}
 			}
 		}
-		
+		final CopyWord word;
 		if (wordIndex > 0) {
-			word = new CopyWord(wordList.get(wordIndex - 1));
-
-			if (!"".equals(physicalName)) {
-				word.setPhysicalName(physicalName);
-			}
-			if (!"".equals(logicalName)) {
-				word.setLogicalName(logicalName);
-			}
-			word.setDescription(description);
-
-			word.setType(selectedType, typeData, database);
-
+			word = new CopyWord(originalWord);
+			realWord.copyTo(word);
 		} else {
-			word = new CopyWord(new RealWord(physicalName, logicalName,
-					selectedType, typeData, description, database));
+			word = new CopyWord(realWord);
 		}
 
 		this.returnWord = word;
