@@ -3,12 +3,14 @@ package org.insightech.er.editor.view.dialog.group;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.widgets.CompositeFactory;
+import org.insightech.er.editor.controller.command.diagram_contents.not_element.group.ChangeGroupCommand;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
@@ -47,6 +49,25 @@ public class GroupDialog extends AbstractDialog implements
 		if (this.editTargetIndex != -1) {
 			this.copyData = copyColumnGroups.get(editTargetIndex);
 		}
+	}
+
+	public static ChangeGroupCommand openDialog(
+			final Shell parentShell, final ColumnGroup column,
+			final ERDiagram diagram) {
+		GroupSet groupSet = diagram.getDiagramContents().getGroups();
+
+		GroupDialog dialog = new GroupDialog(PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getShell(), groupSet, diagram,
+				groupSet.indexOf(column));
+
+		if (dialog.open() == IDialogConstants.OK_ID) {
+			List<CopyGroup> newColumnGroups = dialog.getCopyColumnGroups();
+
+			return new ChangeGroupCommand(diagram, groupSet,
+					newColumnGroups);
+		}
+
+		return null;
 	}
 
 	/**

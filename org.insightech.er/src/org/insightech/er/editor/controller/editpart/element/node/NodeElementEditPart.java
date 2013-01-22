@@ -11,6 +11,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.NodeEditPart;
@@ -54,8 +55,9 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 	}
 
 	protected void disposeFont() {
-		if (this.font != null) {
+		if (this.font != null && !this.font.isDisposed()) {
 			this.font.dispose();
+			this.font = null;
 		}
 	}
 
@@ -274,7 +276,7 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 			for (Object editPartObject : this.getViewer()
 					.getSelectedEditParts()) {
 				if (editPartObject instanceof ColumnEditPart) {
-					((ColumnEditPart) editPartObject).setSelected(0);
+					((ColumnEditPart) editPartObject).setSelected(EditPart.SELECTED_NONE);
 				}
 			}
 		}
@@ -282,9 +284,6 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 		super.setSelected(value);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {

@@ -39,7 +39,7 @@ public class ERDiagramMatchWidthAction extends MatchWidthAction {
 
 				} else {
 					if (first) {
-						editPart.setSelected(2);
+						editPart.setSelected(EditPart.SELECTED_PRIMARY);
 						first = false;
 					}
 				}

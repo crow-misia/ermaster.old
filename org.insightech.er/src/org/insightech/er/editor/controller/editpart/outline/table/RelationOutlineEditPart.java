@@ -101,7 +101,7 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 			if (dialog.open() == IDialogConstants.OK_ID) {
 				ChangeRelationPropertyCommand command = new ChangeRelationPropertyCommand(
 						relation, copy);
-				this.execute(command);
+				this.executeCommand(command);
 			}
 		}
 

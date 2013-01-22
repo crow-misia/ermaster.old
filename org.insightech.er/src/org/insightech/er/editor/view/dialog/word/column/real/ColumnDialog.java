@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.word.column.real;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -18,10 +19,12 @@ import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlType;
+import org.insightech.er.editor.controller.command.diagram_contents.element.node.table_view.ChangeColumnCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
+import org.insightech.er.editor.view.dialog.common.ERTableComposite;
 import org.insightech.er.editor.view.dialog.element.table.sub.AutoIncrementSettingDialog;
 import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
@@ -51,6 +54,20 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		this.erTable = erTable;
 		this.dbManager = DBManagerFactory.getDBManager(erTable.getDiagram());
+	}
+
+	public static Command openDialog(final Shell parentShell, final ERTable erTable,
+			final NormalColumn column) {
+		final ColumnDialog dialog = new ColumnDialog(PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getShell(), erTable);
+		final CopyColumn targetColumn = new CopyColumn(column);
+		
+		final NormalColumn retval = ERTableComposite.addOrEditColumn(dialog, erTable, targetColumn);
+		if (retval != null) {
+			return new ChangeColumnCommand(erTable, column, retval);
+		}
+
+		return null;
 	}
 
 	@Override

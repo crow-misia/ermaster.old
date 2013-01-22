@@ -68,9 +68,9 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		if (column.getColumnHolder() instanceof ColumnGroup) {
 			ColumnGroup columnGroup = (ColumnGroup) column.getColumnHolder();
 
-			NormalColumn firstColumn = columnGroup.getColumns().get(0);
-			NormalColumn finalColumn = columnGroup.getColumns().get(
-					columnGroup.getColumns().size() - 1);
+			final List<NormalColumn> columns = columnGroup.getColumns();
+			NormalColumn firstColumn = columns.get(0);
+			NormalColumn finalColumn = columns.get(columns.size() - 1);
 
 			for (Object editPart : columnEditPart.getParent().getChildren()) {
 				NormalColumnEditPart normalColumnEditPart = (NormalColumnEditPart) editPart;

@@ -103,6 +103,5 @@ public class GroupColumnEditPart extends ColumnEditPart {
 			
 			super.setSelected(value);
 		}
-
 	}
 }

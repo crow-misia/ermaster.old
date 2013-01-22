@@ -17,6 +17,11 @@ public class CopyColumn extends NormalColumn {
 		}
 
 		this.originalColumn = originalColumn;
+
+		final Word originalWord = originalColumn.getWord();
+		if (originalWord != null && !(originalWord instanceof CopyWord)) {
+			setWord(new CopyWord(originalWord));
+		}
 	}
 
 	public NormalColumn getRestructuredColumn() {

@@ -24,7 +24,7 @@ public final class EditWordCommand extends AbstractCommand {
 		this.word = word;
 		this.newWord = newWord;
 
-		this.dictionary = this.diagram.getDiagramContents().getDictionary();
+		this.dictionary = diagram.getDiagramContents().getDictionary();
 	}
 
 	/**

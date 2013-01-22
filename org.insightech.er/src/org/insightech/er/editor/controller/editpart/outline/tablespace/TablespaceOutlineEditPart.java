@@ -57,7 +57,7 @@ public class TablespaceOutlineEditPart extends AbstractOutlineEditPart
 				if (dialog.open() == IDialogConstants.OK_ID) {
 					EditTablespaceCommand command = new EditTablespaceCommand(
 							diagram, tablespace, dialog.getResult());
-					this.execute(command);
+					this.executeCommand(command);
 				}
 			}
 		}

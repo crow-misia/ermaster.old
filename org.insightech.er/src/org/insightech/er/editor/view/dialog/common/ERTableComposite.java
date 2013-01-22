@@ -653,22 +653,30 @@ public class ERTableComposite extends Composite {
 		this.column2TableItem(column2, tableItems[index1]);
 	}
 
-	private void addOrEditColumn(CopyColumn targetColumn, boolean add) {
+	private void addOrEditColumn(final CopyColumn targetColumn, final boolean add) {
+		final NormalColumn column = addOrEditColumn(this.columnDialog, this.ertable, targetColumn);
+		if (column != null) {
+			addTableData(column, add);
+		}
+	}
+
+	public static NormalColumn addOrEditColumn(final AbstractColumnDialog dialog,
+			final ERTable table, final CopyColumn targetColumn) {
 		boolean foreignKey = false;
 		boolean isRefered = false;
 
 		if (targetColumn != null) {
 			foreignKey = targetColumn.isForeignKey();
-			if (this.ertable != null) {
+			if (table != null) {
 				isRefered = targetColumn.isRefered();
 			}
 		}
-		this.columnDialog.setTargetColumn(targetColumn, foreignKey, isRefered);
+		dialog.setTargetColumn(targetColumn, foreignKey, isRefered);
 
-		if (this.columnDialog.open() == IDialogConstants.OK_ID) {
-			NormalColumn column = this.columnDialog.getColumn();
-			addTableData(column, add);
+		if (dialog.open() == IDialogConstants.OK_ID) {
+			return dialog.getColumn();
 		}
+		return null;
 	}
 
 	public void setColumnList(List<Column> columnList) {

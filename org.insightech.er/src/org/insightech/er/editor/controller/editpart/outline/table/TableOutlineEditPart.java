@@ -161,7 +161,7 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 						.createChangeTablePropertyCommand(diagram, table,
 								copyTable);
 
-				this.execute(command.unwrap());
+				this.executeCommand(command.unwrap());
 			}
 		}
 

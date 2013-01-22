@@ -74,7 +74,7 @@ public class IndexOutlineEditPart extends AbstractOutlineEditPart implements
 				ChangeIndexCommand command = new ChangeIndexCommand(diagram,
 						index, dialog.getResultIndex());
 
-				this.execute(command);
+				this.executeCommand(command);
 			}
 		}
 

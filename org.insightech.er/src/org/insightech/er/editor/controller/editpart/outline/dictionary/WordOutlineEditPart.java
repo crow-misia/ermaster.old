@@ -156,18 +156,18 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 	 */
 	@Override
 	public void performRequest(Request request) {
-		UniqueWord word = (UniqueWord) this.getModel();
-		ERDiagram diagram = this.getDiagram();
-
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			WordDialog dialog = new WordDialog(PlatformUI.getWorkbench()
+			final UniqueWord word = (UniqueWord) this.getModel();
+			final ERDiagram diagram = this.getDiagram();
+
+			final WordDialog dialog = new WordDialog(PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow().getShell(), word, false,
 					diagram);
 
 			if (dialog.open() == IDialogConstants.OK_ID) {
 				EditWordCommand command = new EditWordCommand(word, dialog
 						.getWord(), diagram);
-				this.execute(command);
+				this.executeCommand(command);
 			}
 		}
 

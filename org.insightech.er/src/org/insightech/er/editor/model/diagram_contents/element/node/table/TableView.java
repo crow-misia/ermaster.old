@@ -251,11 +251,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		for (Column fromColumn : sources) {
 			if (fromColumn instanceof NormalColumn) {
-				NormalColumn normalColumn = (NormalColumn) fromColumn;
-				NormalColumn copyColumn = new CopyColumn(normalColumn);
-				if (normalColumn.getWord() != null) {
-					copyColumn.setWord(new CopyWord(normalColumn.getWord()));
-				}
+				NormalColumn copyColumn = new CopyColumn((NormalColumn) fromColumn);
 				columns.add(copyColumn);
 
 			} else {

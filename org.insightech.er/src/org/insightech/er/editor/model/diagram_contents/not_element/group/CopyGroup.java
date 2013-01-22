@@ -25,9 +25,6 @@ public class CopyGroup extends ColumnGroup {
 
 		for (NormalColumn fromColumn : this.original.getColumns()) {
 			CopyColumn copyColumn = new CopyColumn(fromColumn);
-			if (fromColumn.getWord() != null) {
-				copyColumn.setWord(new CopyWord(fromColumn.getWord()));
-			}
 			this.addColumn(copyColumn);
 		}
 	}
@@ -83,13 +80,7 @@ public class CopyGroup extends ColumnGroup {
 
 			if (to instanceof CopyGroup) {
 				if (!(restructuredColumn instanceof CopyColumn)) {
-					Word restructuredWord = restructuredColumn.getWord();
-					
 					restructuredColumn = new CopyColumn(restructuredColumn);
-					
-					if (restructuredWord != null && !(restructuredWord instanceof CopyWord)) {
-						restructuredColumn.setWord(new CopyWord(restructuredWord));
-					}
 				}
 			}
 

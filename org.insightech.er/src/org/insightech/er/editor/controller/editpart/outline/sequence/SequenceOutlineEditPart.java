@@ -65,7 +65,7 @@ public class SequenceOutlineEditPart extends AbstractOutlineEditPart implements
 				if (dialog.open() == IDialogConstants.OK_ID) {
 					EditSequenceCommand command = new EditSequenceCommand(
 							diagram, sequence, dialog.getResult());
-					this.execute(command);
+					this.executeCommand(command);
 				}
 			}
 

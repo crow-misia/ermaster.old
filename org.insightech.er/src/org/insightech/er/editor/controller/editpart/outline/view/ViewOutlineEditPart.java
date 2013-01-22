@@ -61,7 +61,7 @@ public class ViewOutlineEditPart extends AbstractOutlineEditPart implements
 						.createChangeViewPropertyCommand(diagram, view,
 								copyView);
 
-				this.execute(command);
+				this.executeCommand(command);
 			}
 		}
 
