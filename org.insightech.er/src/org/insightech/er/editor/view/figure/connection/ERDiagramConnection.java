@@ -113,9 +113,10 @@ public class ERDiagramConnection extends PolylineConnection {
 				g.setLineStyle(SWT.LINE_CUSTOM);
 				g.setLineDash(NON_DEPEND_DASH);
 			}
+		} else {
+			g.setLineStyle(originalLineStyle);
 		}
 		
-		g.setLineStyle(originalLineStyle);
 		g.setLineWidth(1);
 		g.setForegroundColor(color);
 		g.drawPolyline(points);
