@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.postgres.tablespace.PostgresTablespaceProperties;
@@ -146,4 +147,6 @@ public class PostgresDBManager extends DBManagerBase {
 		}
 	}
 
+    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+    }
 }

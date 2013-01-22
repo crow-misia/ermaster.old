@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.db.sqltype.SqlTypeManager;
 import org.insightech.er.editor.model.ERDiagram;
@@ -55,54 +56,56 @@ public interface DBManager {
 
 	public static final int SUPPORT_ARRAY_TYPE = 7;
 
-	public String getId();
+    String getId();
 
-	public String getURL(String serverName, String dbName, int port);
+    String getURL(String serverName, String dbName, int port);
 
-	public int getDefaultPort();
+    int getDefaultPort();
 
-	public String getDriverClassName();
+    String getDriverClassName();
 
-	public Class<Driver> getDriverClass(String driverClassName);
+    Class<Driver> getDriverClass(String driverClassName);
 
-	public SqlTypeManager getSqlTypeManager();
+    SqlTypeManager getSqlTypeManager();
 
-	public TableProperties createTableProperties(TableProperties tableProperties);
+    TableProperties createTableProperties(TableProperties tableProperties);
 
-	public TablespaceProperties createTablespaceProperties();
+    TablespaceProperties createTablespaceProperties();
 
-	public TablespaceProperties checkTablespaceProperties(
+    TablespaceProperties checkTablespaceProperties(
 			TablespaceProperties tablespaceProperties);
 
-	public DDLCreator getDDLCreator(ERDiagram diagram, boolean semicolon);
+    DDLCreator getDDLCreator(ERDiagram diagram, boolean semicolon);
 
-	public boolean isSupported(SupportFunctions support);
+    boolean isSupported(SupportFunctions support);
 
-	public boolean doesNeedURLDatabaseName();
+    boolean doesNeedURLDatabaseName();
 
-	public boolean doesNeedURLServerName();
+    boolean doesNeedURLServerName();
 
-	public boolean isReservedWord(String str);
+    boolean isReservedWord(String str);
 
-	public String[] getIndexTypeList(ERTable table);
+    String[] getIndexTypeList(ERTable table);
 
-	public PreImportFromDBManager getPreTableImportManager();
+    PreImportFromDBManager getPreTableImportManager();
 
-	public ImportFromDBManager getTableImportManager();
+    ImportFromDBManager getTableImportManager();
 
-	public PreTableExportManager getPreTableExportManager();
+    PreTableExportManager getPreTableExportManager();
 
-	public String[] getCurrentTimeValue();
+    String[] getCurrentTimeValue();
 
-	public List<String> getImportSchemaList(Connection con) throws SQLException;
+    List<String> getImportSchemaList(Connection con) throws SQLException;
 
-	public Set<String> getSystemSchemaList();
+    Set<String> getSystemSchemaList();
 
-	public BigDecimal getSequenceMaxValue();
+    BigDecimal getSequenceMaxValue();
 
-	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog);
+    void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog);
 
-	public List<String> getCharacterSetList();
+    List<String> getCharacterSetList();
 
-	public List<String> getCollationList(String characterset);
+    List<String> getCollationList(String characterset);
+
+    void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName);
 }

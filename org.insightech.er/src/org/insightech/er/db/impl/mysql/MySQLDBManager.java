@@ -15,6 +15,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.impl.mysql.tablespace.MySQLTablespaceProperties;
@@ -153,4 +154,7 @@ public class MySQLDBManager extends DBManagerBase {
 
 		return list;
 	}
+
+    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+    }
 }

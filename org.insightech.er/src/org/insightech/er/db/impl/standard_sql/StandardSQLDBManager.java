@@ -8,6 +8,7 @@ import static org.insightech.er.db.SupportFunctions.SEQUENCE;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -100,4 +101,7 @@ public class StandardSQLDBManager extends DBManagerBase {
 	public BigDecimal getSequenceMaxValue() {
 		return null;
 	}
+
+    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+    }
 }

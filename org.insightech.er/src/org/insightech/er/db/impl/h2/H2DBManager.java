@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -123,4 +124,6 @@ public class H2DBManager extends DBManagerBase {
 		return null;
 	}
 
+    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+    }
 }

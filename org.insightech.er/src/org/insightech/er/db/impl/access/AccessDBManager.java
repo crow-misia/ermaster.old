@@ -6,6 +6,7 @@ import static org.insightech.er.db.SupportFunctions.AUTO_INCREMENT_SETTING;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.db.DBManagerBase;
 import org.insightech.er.db.SupportFunctions;
 import org.insightech.er.db.sqltype.SqlTypeManager;
@@ -102,4 +103,6 @@ public class AccessDBManager extends DBManagerBase {
 		return false;
 	}
 
+    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+    }
 }
