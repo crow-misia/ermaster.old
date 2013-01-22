@@ -25,5 +25,6 @@ public class DeleteConnectionCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		this.connection.connect();
+		this.connection.setDirtyForBendpoint();
 	}
 }

@@ -52,14 +52,14 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 	@Override
 	protected void refreshBendpoints() {
 		// ベンド・ポイントの位置情報の取得
-		ConnectionElement connection = (ConnectionElement) this.getModel();
+		final ConnectionElement connection = (ConnectionElement) this.getModel();
+		final List<Bendpoint> bendPoints = connection.getBendpoints();
 
 		// 実際のベンド・ポイントのリスト
-		List<org.eclipse.draw2d.Bendpoint> constraint = new ArrayList<org.eclipse.draw2d.Bendpoint>();
+		List<org.eclipse.draw2d.Bendpoint> constraint = new ArrayList<org.eclipse.draw2d.Bendpoint>(bendPoints.size());
 
-		for (Bendpoint bendPoint : connection.getBendpoints()) {
-			constraint.add(new AbsoluteBendpoint(bendPoint.getX(), bendPoint
-					.getY()));
+		for (final Bendpoint bendPoint : bendPoints) {
+			constraint.add(new AbsoluteBendpoint(bendPoint.getX(), bendPoint.getY()));
 		}
 
 		this.getConnectionFigure().setRoutingConstraint(constraint);
