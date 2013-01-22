@@ -13,6 +13,7 @@ import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 
 public class NoteFigure extends Shape {
 
@@ -41,6 +42,12 @@ public class NoteFigure extends Shape {
 		page.add(label);
 
 		this.add(page, BorderLayout.CENTER);
+	}
+
+	@Override
+	public void setFont(final Font f) {
+		super.setFont(f);
+		this.label.setFont(f);
 	}
 
 	public void setText(String text, int[] color) {

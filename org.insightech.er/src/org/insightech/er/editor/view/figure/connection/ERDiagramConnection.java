@@ -49,6 +49,8 @@ public class ERDiagramConnection extends PolylineConnection {
 
 		int width;
 		Color color;
+		final int originalLineStyle = g.getLineStyle();;
+
 		if (this.selected) {
 			if (this.bezier) {
 				g.setForegroundColor(ColorConstants.gray);
@@ -57,6 +59,7 @@ public class ERDiagramConnection extends PolylineConnection {
 				g.drawPolyline(points);
 			}
 
+			g.setLineStyle(SWT.LINE_SOLID);
 			color = Resources.LINE_COLOR;
 			width = 7;
 		} else {
@@ -112,6 +115,7 @@ public class ERDiagramConnection extends PolylineConnection {
 			}
 		}
 		
+		g.setLineStyle(originalLineStyle);
 		g.setLineWidth(1);
 		g.setForegroundColor(color);
 		g.drawPolyline(points);

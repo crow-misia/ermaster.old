@@ -81,11 +81,14 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 	}
 
 	private void performDirectEdit() {
+		final IFigure figure = getFigure();
+
 		if (this.editManager == null) {
 			this.editManager = new NoteEditManager(this, NoteCellEditor.class,
-					new NoteEditorLocator(getFigure()));
+					new NoteEditorLocator(figure));
 		}
 
+		this.editManager.setFont(figure.getFont());
 		this.editManager.show();
 	}
 
