@@ -1,11 +1,11 @@
 package org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation;
 
 import org.insightech.er.editor.controller.command.AbstractCommand;
-import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
+import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 
 public final class ReconnectTargetCommand extends AbstractCommand {
 
-	private final Relation relation;
+	private final ConnectionElement connection;
 
 	private final int xp;
 
@@ -15,24 +15,24 @@ public final class ReconnectTargetCommand extends AbstractCommand {
 
 	private final int oldYp;
 
-	public ReconnectTargetCommand(Relation relation, int xp, int yp) {
-		this.relation = relation;
+	public ReconnectTargetCommand(final ConnectionElement connection, final int xp, final int yp) {
+		this.connection = connection;
 
 		this.xp = xp;
 		this.yp = yp;
-		this.oldXp = relation.getTargetXp();
-		this.oldYp = relation.getTargetYp();
+		this.oldXp = connection.getTargetXp();
+		this.oldYp = connection.getTargetYp();
 	}
 
 	@Override
 	protected void doExecute() {
-		relation.setTargetLocationp(this.xp, this.yp);
-		relation.setParentMove();
+		connection.setTargetLocationp(this.xp, this.yp);
+		connection.setParentMove();
 	}
 
 	@Override
 	protected void doUndo() {
-		relation.setTargetLocationp(this.oldXp, this.oldYp);
-		relation.setParentMove();
+		connection.setTargetLocationp(this.oldXp, this.oldYp);
+		connection.setParentMove();
 	}
 }

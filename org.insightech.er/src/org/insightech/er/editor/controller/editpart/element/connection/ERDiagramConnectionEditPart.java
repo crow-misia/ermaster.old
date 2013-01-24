@@ -2,14 +2,22 @@ package org.insightech.er.editor.controller.editpart.element.connection;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.eclipse.draw2d.AbsoluteBendpoint;
+import org.eclipse.draw2d.RelativeBendpoint;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.insightech.er.Activator;
+import org.insightech.er.editor.controller.editpart.element.node.NodeElementEditPart;
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ERDiagram;
+import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.category.Category;
@@ -128,5 +136,86 @@ public abstract class ERDiagramConnectionEditPart extends
 		}
 	}
 
-	abstract protected void refreshBendpoints();
+	protected void refreshBendpoints() {
+		try {
+			// ベンド・ポイントの位置情報の取得
+			ConnectionElement connection = (ConnectionElement) this.getModel();
+
+			// 実際のベンド・ポイントのリスト
+			List<org.eclipse.draw2d.Bendpoint> constraint = new ArrayList<org.eclipse.draw2d.Bendpoint>();
+
+			for (Bendpoint bendPoint : connection.getBendpoints()) {
+				if (bendPoint.isRelative()) {
+
+					NodeElementEditPart editPart = (NodeElementEditPart) this
+							.getSource();
+					if (editPart != null) {
+						Rectangle bounds = editPart.getFigure()
+								.getBounds();
+						int width = bounds.width;
+						int height = bounds.height;
+
+						if (width == 0) {
+							bounds = editPart.getFigure().getBounds();
+							width = bounds.width;
+							height = bounds.height;
+						}
+
+						RelativeBendpoint point = new RelativeBendpoint();
+
+						int xp = connection.getTargetXp();
+						int x;
+
+						if (xp == -1) {
+							x = bounds.x + bounds.width;
+						} else {
+							x = bounds.x + (bounds.width * xp / 100);
+						}
+
+						point.setRelativeDimensions(new Dimension(width
+								* bendPoint.getX() / 100 - bounds.x
+								- bounds.width + x, 0), new Dimension(width
+								* bendPoint.getX() / 100 - bounds.x
+								- bounds.width + x, 0));
+						point.setWeight(0);
+						point.setConnection(this.getConnectionFigure());
+
+						constraint.add(point);
+
+						point = new RelativeBendpoint();
+						point.setRelativeDimensions(new Dimension(width
+								* bendPoint.getX() / 100 - bounds.x
+								- bounds.width + x, height * bendPoint.getY()
+								/ 100), new Dimension(width * bendPoint.getX()
+								/ 100 - bounds.x - bounds.width + x, height
+								* bendPoint.getY() / 100));
+						point.setWeight(0);
+						point.setConnection(this.getConnectionFigure());
+
+						constraint.add(point);
+
+						point = new RelativeBendpoint();
+						point.setRelativeDimensions(
+								new Dimension(x - bounds.x - bounds.width,
+										height * bendPoint.getY() / 100),
+								new Dimension(x - bounds.x - bounds.width,
+										height * bendPoint.getY() / 100));
+						point.setWeight(0);
+						point.setConnection(this.getConnectionFigure());
+
+						constraint.add(point);
+					}
+
+				} else {
+					constraint.add(new AbsoluteBendpoint(bendPoint.getX(),
+							bendPoint.getY()));
+				}
+
+			}
+
+			this.getConnectionFigure().setRoutingConstraint(constraint);
+		} catch (Exception e) {
+			Activator.showExceptionDialog(e);
+		}
+	}
 }

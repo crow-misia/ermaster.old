@@ -1,17 +1,11 @@
 package org.insightech.er.editor.controller.editpart.element.connection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.RelativeBendpoint;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
@@ -20,14 +14,11 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
-import org.insightech.er.Activator;
 import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
-import org.insightech.er.editor.controller.editpart.element.node.ERTableEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.TableViewEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationBendpointEditPolicy;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
-import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.relation.RelationDialog;
@@ -64,93 +55,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 				new RelationEditPolicy());
 		this.installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
 				new RelationBendpointEditPolicy());
-	}
-
-	@Override
-	protected void refreshBendpoints() {
-		try {
-			// ベンド・ポイントの位置情報の取得
-			Relation relation = (Relation) this.getModel();
-
-			// 実際のベンド・ポイントのリスト
-			List<org.eclipse.draw2d.Bendpoint> constraint = new ArrayList<org.eclipse.draw2d.Bendpoint>();
-
-			for (Bendpoint bendPoint : relation.getBendpoints()) {
-				if (bendPoint.isRelative()) {
-
-					ERTableEditPart tableEditPart = (ERTableEditPart) this
-							.getSource();
-					if (tableEditPart != null) {
-						Rectangle bounds = tableEditPart.getFigure()
-								.getBounds();
-						int width = bounds.width;
-						int height = bounds.height;
-
-						if (width == 0) {
-							// tableEditPart.getFigure().getUpdateManager()
-							// .performUpdate();
-
-							bounds = tableEditPart.getFigure().getBounds();
-							width = bounds.width;
-							height = bounds.height;
-						}
-
-						RelativeBendpoint point = new RelativeBendpoint();
-
-						int xp = relation.getTargetXp();
-						int x;
-
-						if (xp == -1) {
-							x = bounds.x + bounds.width;
-						} else {
-							x = bounds.x + (bounds.width * xp / 100);
-						}
-
-						point.setRelativeDimensions(new Dimension(width
-								* bendPoint.getX() / 100 - bounds.x
-								- bounds.width + x, 0), new Dimension(width
-								* bendPoint.getX() / 100 - bounds.x
-								- bounds.width + x, 0));
-						point.setWeight(0);
-						point.setConnection(this.getConnectionFigure());
-
-						constraint.add(point);
-
-						point = new RelativeBendpoint();
-						point.setRelativeDimensions(new Dimension(width
-								* bendPoint.getX() / 100 - bounds.x
-								- bounds.width + x, height * bendPoint.getY()
-								/ 100), new Dimension(width * bendPoint.getX()
-								/ 100 - bounds.x - bounds.width + x, height
-								* bendPoint.getY() / 100));
-						point.setWeight(0);
-						point.setConnection(this.getConnectionFigure());
-
-						constraint.add(point);
-
-						point = new RelativeBendpoint();
-						point.setRelativeDimensions(
-								new Dimension(x - bounds.x - bounds.width,
-										height * bendPoint.getY() / 100),
-								new Dimension(x - bounds.x - bounds.width,
-										height * bendPoint.getY() / 100));
-						point.setWeight(0);
-						point.setConnection(this.getConnectionFigure());
-
-						constraint.add(point);
-					}
-
-				} else {
-					constraint.add(new AbsoluteBendpoint(bendPoint.getX(),
-							bendPoint.getY()));
-				}
-
-			}
-
-			this.getConnectionFigure().setRoutingConstraint(constraint);
-		} catch (Exception e) {
-			Activator.showExceptionDialog(e);
-		}
 	}
 
 	@Override

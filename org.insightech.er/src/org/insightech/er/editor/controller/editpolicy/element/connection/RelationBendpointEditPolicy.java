@@ -91,7 +91,6 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 		} else {
 			super.showMoveBendpointFeedback(bendpointrequest);
 		}
-
 	}
 
 	@Override

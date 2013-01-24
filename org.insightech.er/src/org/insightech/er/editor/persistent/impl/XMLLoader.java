@@ -1738,10 +1738,6 @@ public final class XMLLoader {
 				"on_delete_action"));
 		connection.setOnUpdateAction(this.getStringValue(element,
 				"on_update_action"));
-		connection.setSourceLocationp(this.getIntValue(element, "source_xp"),
-				this.getIntValue(element, "source_yp"));
-		connection.setTargetLocationp(this.getIntValue(element, "target_xp"),
-				this.getIntValue(element, "target_yp"));
 
 		String referencedComplexUniqueKeyId = this.getStringValue(element,
 				"referenced_complex_unique_key");
@@ -1774,6 +1770,11 @@ public final class XMLLoader {
 
 		context.connectionSourceMap.put(connection, source);
 		context.connectionTargetMap.put(connection, target);
+
+		connection.setSourceLocationp(this.getIntValue(element, "source_xp", -1),
+				this.getIntValue(element, "source_yp", -1));
+		connection.setTargetLocationp(this.getIntValue(element, "target_xp", -1),
+				this.getIntValue(element, "target_yp", -1));
 
 		NodeList nodeList = element.getElementsByTagName("bendpoint");
 

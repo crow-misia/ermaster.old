@@ -209,7 +209,7 @@ public class NormalColumnEditPart extends ColumnEditPart {
 				&& parent.getParent() != null) {
 			List selectedEditParts = this.getViewer().getSelectedEditParts();
 
-			if (selectedEditParts == null && selectedEditParts.size() != 1) {
+			if (selectedEditParts == null || selectedEditParts.size() != 1) {
 				return;
 			}
 			

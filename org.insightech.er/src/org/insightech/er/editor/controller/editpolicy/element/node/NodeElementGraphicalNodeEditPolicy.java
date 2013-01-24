@@ -57,11 +57,11 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 
 		command.setTarget(targetEditPart);
 
-		if (!command.canExecute()) {
-			return null;
+		if (command.canExecute()) {
+			return command;
 		}
 
-		return command;
+		return null;
 	}
 
 	@Override
@@ -165,18 +165,13 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		ConnectionElement connection = (ConnectionElement) reconnectrequest
 				.getConnectionEditPart().getModel();
 
-		if (!(connection instanceof Relation)) {
-			return null;
-		}
-
-		Relation relation = (Relation) connection;
-
-		if (relation.getSource() == relation.getTarget()) {
+		final NodeElement source = connection.getSource();
+		if (source == connection.getTarget()) {
 			return null;
 		}
 
 		NodeElement newSource = (NodeElement) reconnectrequest.getTarget().getModel();
-		if (!relation.getSource().equals(newSource)) {
+		if (!source.equals(newSource)) {
 			return null;
 		}
 
@@ -204,7 +199,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 			yp = 100 * (point.y - bounds.y) / bounds.height;
 		}
 
-		ReconnectSourceCommand command = new ReconnectSourceCommand(relation,
+		ReconnectSourceCommand command = new ReconnectSourceCommand(connection,
 				xp, yp);
 
 		return command;
@@ -216,19 +211,14 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		ConnectionElement connection = (ConnectionElement) reconnectrequest
 				.getConnectionEditPart().getModel();
 
-		if (!(connection instanceof Relation)) {
-			return null;
-		}
-
-		Relation relation = (Relation) connection;
-
-		if (relation.getSource() == relation.getTarget()) {
+		final NodeElement target = connection.getTarget();
+		if (connection.getSource() == target) {
 			return null;
 		}
 
 		NodeElement newTarget = (NodeElement) reconnectrequest.getTarget()
 				.getModel();
-		if (!relation.getTarget().equals(newTarget)) {
+		if (!target.equals(newTarget)) {
 			return null;
 		}
 
@@ -256,7 +246,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 			xp = 100 * (point.x - bounds.x) / bounds.width;
 			yp = 100 * (point.y - bounds.y) / bounds.height;
 		}
-		ReconnectTargetCommand command = new ReconnectTargetCommand(relation,
+		ReconnectTargetCommand command = new ReconnectTargetCommand(connection,
 				xp, yp);
 
 		return command;
