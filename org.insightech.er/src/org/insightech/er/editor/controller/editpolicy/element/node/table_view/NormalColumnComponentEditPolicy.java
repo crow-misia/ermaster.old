@@ -65,7 +65,7 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 							} else {
 								originalColumn = copyColumn;
 							}
-							if (originalColumn == columnGroup) {
+					if (originalColumn == columnGroup) {
 								newCopyTable.removeColumn(copyColumn, true);
 								break;
 							}

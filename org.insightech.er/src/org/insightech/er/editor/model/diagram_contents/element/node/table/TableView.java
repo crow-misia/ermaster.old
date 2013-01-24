@@ -286,7 +286,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		final List<NormalColumn> newPrimaryKeyColumns = new ArrayList<NormalColumn>();
 
 		for (Column fromColumn : this.getColumns()) {
-			if (fromColumn instanceof NormalColumn) {
+			if (fromColumn instanceof CopyColumn) {
 				CopyColumn copyColumn = (CopyColumn) fromColumn;
 
 				CopyWord copyWord = copyColumn.getWord();
@@ -314,7 +314,7 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 				dictionary.add(restructuredColumn, false);
 
-			} else if (fromColumn instanceof ColumnGroup) {
+			} else if (fromColumn instanceof CopyGroup) {
 				CopyGroup copyGroup = (CopyGroup) fromColumn;
 				
 				newColumns.add(copyGroup.getOriginal());
