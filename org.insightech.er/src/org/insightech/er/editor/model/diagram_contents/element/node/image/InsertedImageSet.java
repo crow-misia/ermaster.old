@@ -49,9 +49,6 @@ public class InsertedImageSet extends AbstractModel implements ObjectListModel,
 		return this.insertedImageList.iterator();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public InsertedImageSet clone() {
 		InsertedImageSet insertedImageSet = (InsertedImageSet) super.clone();

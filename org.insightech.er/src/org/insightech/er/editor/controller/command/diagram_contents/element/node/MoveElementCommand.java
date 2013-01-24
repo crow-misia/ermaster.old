@@ -138,9 +138,6 @@ public class MoveElementCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (this.bounds != null) {
@@ -162,8 +159,9 @@ public class MoveElementCommand extends AbstractCommand {
 			this.initCategory(diagram, rectangle);
 		}
 
-		for (Category category : this.newCategoryRectangleMap.keySet()) {
-			Rectangle rectangle = this.newCategoryRectangleMap.get(category);
+		for (Map.Entry<Category, Rectangle> entry : this.newCategoryRectangleMap.entrySet()) {
+			final Category category = entry.getKey();
+			final Rectangle rectangle = entry.getValue();
 			category.setLocation(new Location(rectangle.x, rectangle.y,
 					rectangle.width, rectangle.height));
 		}
@@ -179,15 +177,13 @@ public class MoveElementCommand extends AbstractCommand {
 		this.element.setLocation(new Location(x, y, width, height));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.element.setLocation(new Location(oldX, oldY, oldWidth, oldHeight));
 
-		for (Category category : this.oldCategoryRectangleMap.keySet()) {
-			Rectangle rectangle = this.oldCategoryRectangleMap.get(category);
+		for (Map.Entry<Category, Rectangle> entry : this.oldCategoryRectangleMap.entrySet()) {
+			final Category category = entry.getKey();
+			final Rectangle rectangle = entry.getValue();
 			category.setLocation(new Location(rectangle.x, rectangle.y,
 					rectangle.width, rectangle.height));
 		}

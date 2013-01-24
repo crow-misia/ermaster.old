@@ -27,18 +27,12 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 		super(tableFigure);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void init(TableFigure tableFigure) {
 		tableFigure.setForegroundColor(ColorConstants.black);
 		tableFigure.setBorder(null);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void initTitleBar(Figure top) {
 		top.setLayoutManager(new BorderLayout());
@@ -65,16 +59,13 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 	}
 
 	public void setDependence(final Boolean dependence) {
-        if (dependence == null || dependence.booleanValue()) {
-            getTableFigure().setCornerDimensions(new Dimension(20, 20));
-        } else {
-            getTableFigure().setCornerDimensions(new Dimension(0, 0));
-        }
-    }
+		if (dependence == null || dependence.booleanValue()) {
+			getTableFigure().setCornerDimensions(new Dimension(20, 20));
+		} else {
+			getTableFigure().setCornerDimensions(new Dimension(0, 0));
+		}
+	}
 
-    /**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createColumnArea(IFigure columns) {
 		this.initColumnArea(columns);
@@ -91,9 +82,6 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 		this.getTableFigure().add(centerFigure, BorderLayout.CENTER);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createFooter() {
 		IFigure footer = new Figure();

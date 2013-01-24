@@ -23,9 +23,6 @@ public class EditAllAttributesAction extends AbstractBaseAction {
 		this.setImageDescriptor(Activator.getImageDescriptor(ImageKey.EDIT));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

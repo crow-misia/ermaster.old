@@ -44,9 +44,6 @@ public class ViewColumnDialog extends AbstractColumnDialog {
 		return "dialog.title.column";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeComposite(Composite parent) {
 		super.initializeComposite(parent);
@@ -59,9 +56,6 @@ public class ViewColumnDialog extends AbstractColumnDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		super.perfomeOK();

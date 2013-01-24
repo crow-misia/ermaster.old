@@ -35,9 +35,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	private static final Pattern TIMESTAMP_PATTERN = Pattern
 			.compile("timestamp\\((.)\\).*");
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void cashColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor) throws SQLException, InterruptedException {
@@ -95,9 +92,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void cashTableComment(IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
@@ -127,9 +121,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		if (schema != null) {
@@ -141,9 +132,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Sequence importSequence(String schema, String sequenceName)
 			throws SQLException {
@@ -198,9 +186,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Trigger importTrigger(String schema, String name)
 			throws SQLException {
@@ -246,9 +231,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		return s.matches("([a-zA-Z]{1}\\w*(\\$|\\#)*\\w*)|(\".*)");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<Index> getIndexes(ERTable table, DatabaseMetaData metaData,
 			List<PrimaryKeyData> primaryKeys) throws SQLException {
@@ -272,9 +254,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected int getLength(String type, int size) {
 		int startIndex = type.indexOf("(");
@@ -290,9 +269,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		return size;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<ERTable> importSynonyms() throws SQLException,
 			InterruptedException {

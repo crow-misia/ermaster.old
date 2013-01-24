@@ -18,9 +18,6 @@ public class ChangeFreeLayoutAction extends AbstractBaseAction {
 				.getResourceString("action.title.category.free.layout"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

@@ -21,9 +21,6 @@ public class TablespaceSetOutlineEditPart extends AbstractOutlineEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		TablespaceSet tablespaceSet = (TablespaceSet) this.getModel();
@@ -34,9 +31,6 @@ public class TablespaceSetOutlineEditPart extends AbstractOutlineEditPart {
 		return tablespaceList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		this.setWidgetText(ResourceString.getResourceString("label.tablespace")
@@ -44,9 +38,6 @@ public class TablespaceSetOutlineEditPart extends AbstractOutlineEditPart {
 		this.setWidgetImage(Activator.getImage(ImageKey.DICTIONARY));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();

@@ -50,9 +50,6 @@ public class NoteSet extends AbstractModel implements ObjectListModel,
 		return this.noteList.iterator();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public NoteSet clone() {
 		NoteSet noteSet = (NoteSet) super.clone();

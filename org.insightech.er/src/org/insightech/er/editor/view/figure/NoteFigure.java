@@ -56,9 +56,6 @@ public class NoteFigure extends Shape {
 		this.label.setText(text);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void fillShape(Graphics graphics) {
 		graphics.setAlpha(200);
@@ -79,9 +76,6 @@ public class NoteFigure extends Shape {
 		graphics.fillPolygon(pointList);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void outlineShape(Graphics graphics) {
 		Rectangle r = getBounds();

@@ -12,9 +12,6 @@ public class DropShadowRectangle extends RoundedRectangle {
 
 	public static final int SHADOW_INSET = 5;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void fillShape(Graphics graphics) {
 		Rectangle f = Rectangle.SINGLETON.setBounds(getBounds());
@@ -36,17 +33,11 @@ public class DropShadowRectangle extends RoundedRectangle {
 
 		return shrinked;
 	}
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Insets getInsets() {
 		return new Insets(1, 1, SHADOW_INSET + 1, SHADOW_INSET + 1);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void outlineShape(Graphics graphics) {
 		Rectangle f = Rectangle.SINGLETON.setBounds(getBounds());

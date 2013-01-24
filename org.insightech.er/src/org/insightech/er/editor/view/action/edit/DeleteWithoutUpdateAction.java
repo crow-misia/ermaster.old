@@ -26,9 +26,6 @@ public class DeleteWithoutUpdateAction extends DeleteAction {
 		this.setActionDefinitionId("org.eclipse.ui.edit.delete");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Command createDeleteCommand(List objects) {
 		Command command = super.createDeleteCommand(objects);

@@ -83,9 +83,6 @@ public class GroupManageDialog extends AbstractDialog implements
 		this.editTargetIndex = editTargetIndex;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createGroupListComposite(composite);
@@ -266,9 +263,6 @@ public class GroupManageDialog extends AbstractDialog implements
 		this.groupCancelButton.setLayoutData(gridData1);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.groupNameText.getEnabled()) {
@@ -282,9 +276,6 @@ public class GroupManageDialog extends AbstractDialog implements
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 	}
@@ -323,18 +314,12 @@ public class GroupManageDialog extends AbstractDialog implements
 		// do nothing
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		super.addListener();
 
 		this.groupAddButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				editTargetIndex = -1;
@@ -347,9 +332,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupEditButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				editTargetIndex = groupList.getSelectionIndex();
@@ -363,9 +345,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupDeleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				editTargetIndex = groupList.getSelectionIndex();
@@ -401,9 +380,6 @@ public class GroupManageDialog extends AbstractDialog implements
 		this.addToGlobalGroupButton
 				.addSelectionListener(new SelectionAdapter() {
 
-					/**
-					 * {@inheritDoc}
-					 */
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						editTargetIndex = groupList.getSelectionIndex();
@@ -438,9 +414,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupList.addMouseListener(new MouseAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				editTargetIndex = groupList.getSelectionIndex();
@@ -454,9 +427,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupList.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
@@ -476,9 +446,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupUpdateButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
@@ -521,9 +488,6 @@ public class GroupManageDialog extends AbstractDialog implements
 
 		this.groupCancelButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setGroupEditEnabled(false);

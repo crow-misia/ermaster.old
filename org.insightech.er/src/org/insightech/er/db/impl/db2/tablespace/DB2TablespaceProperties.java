@@ -166,9 +166,6 @@ public class DB2TablespaceProperties implements TablespaceProperties {
 		this.container = container;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public TablespaceProperties clone() {
 		DB2TablespaceProperties properties = new DB2TablespaceProperties();

@@ -81,9 +81,6 @@ public class ExportToExcelDialog extends AbstractDialog {
 		this.viewer = viewer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initLayout(GridLayout layout) {
 		super.initLayout(layout);
@@ -91,9 +88,6 @@ public class ExportToExcelDialog extends AbstractDialog {
 		layout.verticalSpacing = 15;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		GridData gridData = new GridData();
@@ -160,9 +154,6 @@ public class ExportToExcelDialog extends AbstractDialog {
 
 		this.templateCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				validate();
@@ -349,9 +340,6 @@ public class ExportToExcelDialog extends AbstractDialog {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		Settings settings = this.diagram.getDiagramContents().getSettings();
@@ -464,9 +452,6 @@ public class ExportToExcelDialog extends AbstractDialog {
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.excel";

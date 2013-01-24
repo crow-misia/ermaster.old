@@ -110,9 +110,6 @@ public class MySQLAdvancedComposite extends AdvancedComposite {
 						.getPrimaryKeyLengthOfText()));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validate() throws InputException {
 		super.validate();

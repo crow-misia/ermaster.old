@@ -15,9 +15,6 @@ public class NormalColumnFigure extends Figure {
 		this.removeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		if (graphics.getBackgroundColor().equals(

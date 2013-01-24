@@ -66,9 +66,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		this.add = add;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		Composite rootComposite = this.createRootComposite(composite);
@@ -147,9 +144,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 
 			this.arrayCheck.addSelectionListener(new SelectionAdapter() {
 
-				/**
-				 * {@inheritDoc}
-				 */
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					arrayDimensionText.setEnabled(arrayCheck.getSelection());
@@ -178,9 +172,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 				"label.column.description", -1, 100, numColumns - 1, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	final protected void setData() {
 		this.initializeTypeCombo();
@@ -309,9 +300,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 
 		this.typeCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				setEnabledBySqlType();
@@ -321,9 +309,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 
 		this.physicalNameText.addFocusListener(new FocusAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (logicalNameText.getText().equals("")) {
@@ -368,9 +353,6 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 		this.unitCombo.add("CHAR");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String text = physicalNameText.getText().trim();

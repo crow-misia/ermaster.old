@@ -19,9 +19,6 @@ public class ChangeNotationDependenceAction extends AbstractBaseAction {
 				.getResourceString("action.title.change.notation.dependence"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

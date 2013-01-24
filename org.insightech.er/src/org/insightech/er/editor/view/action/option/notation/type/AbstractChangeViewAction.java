@@ -17,9 +17,6 @@ public abstract class AbstractChangeViewAction extends AbstractBaseAction {
 				.getResourceString("action.title.change.mode.to." + type));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		if (!this.isChecked()) {

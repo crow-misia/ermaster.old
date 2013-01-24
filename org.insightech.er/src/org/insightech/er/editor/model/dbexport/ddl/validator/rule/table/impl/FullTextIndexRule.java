@@ -10,9 +10,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.index.
 
 public class FullTextIndexRule extends TableRule {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate(ERTable table) {
 		for (Index index : table.getIndexes()) {

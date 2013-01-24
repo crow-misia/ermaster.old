@@ -40,9 +40,6 @@ public class ERDiagramConnection extends PolylineConnection {
 		this.dependence = dependence;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void outlineShape(Graphics g) {
 		g.setAntialias(SWT.ON);

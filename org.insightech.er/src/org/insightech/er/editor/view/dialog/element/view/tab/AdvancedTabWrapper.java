@@ -23,9 +23,6 @@ public class AdvancedTabWrapper extends ValidatableTabWrapper {
 		this.init();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		this.composite.validate();
@@ -39,9 +36,6 @@ public class AdvancedTabWrapper extends ValidatableTabWrapper {
 				.getTableViewProperties(), this.view.getDiagram());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setInitFocus() {
 		this.composite.setInitFocus();

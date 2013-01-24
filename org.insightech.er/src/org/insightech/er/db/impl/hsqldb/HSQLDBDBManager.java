@@ -31,17 +31,10 @@ public class HSQLDBDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "org.hsqldb.jdbcDriver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:hsqldb:hsql://<SERVER NAME>:<PORT>/<DB NAME>";
@@ -95,9 +88,6 @@ public class HSQLDBDBManager extends DBManagerBase {
 		return new HSQLDBPreTableExportManager();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean doesNeedURLDatabaseName() {
 		return false;

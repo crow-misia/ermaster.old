@@ -15,9 +15,6 @@ public final class CreateSelfRelationCommand extends AbstractCreateRelationComma
 		this.relation = relation;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setSource(EditPart source) {
 		this.source = source;
@@ -25,16 +22,13 @@ public final class CreateSelfRelationCommand extends AbstractCreateRelationComma
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		ERDiagramEditPart.setUpdateable(false);
 
 		boolean anotherSelfRelation = false;
 
-		ERTable sourceTable = (ERTable) this.source.getModel();
+		ERTable sourceTable = getSourceModel();
 
 		for (Relation otherRelation : sourceTable.getOutgoingRelations()) {
 			if (otherRelation.getSource() == otherRelation.getTarget()) {
@@ -43,14 +37,7 @@ public final class CreateSelfRelationCommand extends AbstractCreateRelationComma
 			}
 		}
 
-		int rate = 0;
-
-		if (anotherSelfRelation) {
-			rate = 50;
-
-		} else {
-			rate = 100;
-		}
+		final int rate = anotherSelfRelation ? 50 : 100;
 
 		Bendpoint bendpoint0 = new Bendpoint(rate, rate);
 		bendpoint0.setRelative(true);
@@ -63,18 +50,15 @@ public final class CreateSelfRelationCommand extends AbstractCreateRelationComma
 
 		relation.addBendpoint(0, bendpoint0, true);
 
-		relation.setSource((ERTable) sourceTable, false);
+		relation.setSource(sourceTable, false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
-		relation.setTargetTableView((ERTable) this.target.getModel(), true, true);
+		relation.setTargetTableView(getTargetModel(), true, true);
 
 		sourceTable.setDirty();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -87,16 +71,11 @@ public final class CreateSelfRelationCommand extends AbstractCreateRelationComma
 
 		this.relation.removeBendpoint(0, true);
 		
-		ERTable targetTable = (ERTable) this.target.getModel();
-		targetTable.setDirty();
+		getTargetModel().setDirty();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		return source != null && target != null;
 	}
-
 }

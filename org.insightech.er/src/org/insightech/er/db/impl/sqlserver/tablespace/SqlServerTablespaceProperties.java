@@ -166,9 +166,6 @@ public class SqlServerTablespaceProperties implements TablespaceProperties {
 		this.container = container;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public TablespaceProperties clone() {
 		SqlServerTablespaceProperties properties = new SqlServerTablespaceProperties();

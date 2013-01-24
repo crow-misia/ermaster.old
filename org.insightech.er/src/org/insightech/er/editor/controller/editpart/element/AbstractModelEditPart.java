@@ -20,9 +20,6 @@ public abstract class AbstractModelEditPart extends AbstractGraphicalEditPart
 
 	private static final boolean DEBUG = false;
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void activate() {
 		super.activate();
@@ -31,9 +28,6 @@ public abstract class AbstractModelEditPart extends AbstractGraphicalEditPart
 		model.addPropertyChangeListener(this);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		AbstractModel model = (AbstractModel) this.getModel();

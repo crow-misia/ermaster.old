@@ -17,17 +17,11 @@ public final class NoteEditCommand extends AbstractCommand {
 		this.text = text;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.note.setText(text);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.note.setText(oldText);

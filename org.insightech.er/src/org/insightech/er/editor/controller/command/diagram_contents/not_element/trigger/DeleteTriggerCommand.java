@@ -16,17 +16,11 @@ public final class DeleteTriggerCommand extends AbstractCommand {
 		this.trigger = trigger;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.triggerSet.remove(this.trigger, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.triggerSet.addTrigger(this.trigger, true);

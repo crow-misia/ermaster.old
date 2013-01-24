@@ -5,38 +5,31 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.conn
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 
 public abstract class AbstractCreateRelationCommand extends
-		AbstractCreateConnectionCommand {
+		AbstractCreateConnectionCommand<ERTable, ERTable> {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String validate() {
-		ERTable sourceTable = (ERTable) this.getSourceModel();
+		ERTable sourceTable = this.getSourceModel();
 
-		if (!sourceTable.isReferable()) {
-			return ResourceString
-					.getResourceString("error.no.referenceable.column");
+		if (sourceTable.isReferable()) {
+			return null;
 		}
-
-		return null;
+		return ResourceString
+				.getResourceString("error.no.referenceable.column");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		if (!super.canExecute()) {
 			return false;
 		}
 
-		if (!(this.getSourceModel() instanceof ERTable)
-				|| !(this.getTargetModel() instanceof ERTable)) {
-			return false;
+		if (this.getSourceModel() instanceof ERTable
+				&& this.getTargetModel() instanceof ERTable) {
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 }

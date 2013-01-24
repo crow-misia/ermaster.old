@@ -19,9 +19,6 @@ public class PageSettingAction extends AbstractBaseAction {
 				editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

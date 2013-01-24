@@ -36,9 +36,6 @@ public abstract class AbstractModel implements Serializable, Cloneable {
 		this.support.removePropertyChangeListener(listener);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public AbstractModel clone() {
 		AbstractModel clone = null;

@@ -56,9 +56,6 @@ public class ViewSet extends AbstractModel implements ObjectListModel,
 		return this.viewList.iterator();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ViewSet clone() {
 		ViewSet viewSet = (ViewSet) super.clone();

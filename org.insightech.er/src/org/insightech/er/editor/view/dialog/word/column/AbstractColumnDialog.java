@@ -100,9 +100,6 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		this.wordFilterText.setFont(font);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeComposite(Composite composite) {
 		int numColumns = this.getCompositeNumColumns();
@@ -116,9 +113,6 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 
 		this.wordCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				int index = wordCombo.getSelectionIndex();
@@ -144,9 +138,6 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 				.getType(), word.getTypeData(), word.getDescription());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setWordData() {
 		this.setData(this.targetColumn.getPhysicalName(), this.targetColumn
@@ -187,9 +178,6 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		String text = lengthText.getText();

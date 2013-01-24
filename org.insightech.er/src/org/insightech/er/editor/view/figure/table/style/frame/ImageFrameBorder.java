@@ -6,9 +6,6 @@ import org.eclipse.draw2d.SchemeBorder;
 
 public class ImageFrameBorder extends FrameBorder {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createBorders() {
 		inner = new ImageTitleBarBorder();

@@ -43,9 +43,6 @@ public final class CreateRelatedTableCommand extends AbstractCreateRelationComma
 		this.targetY = y;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setTarget(EditPart target) {
 		super.setTarget(target);
@@ -60,9 +57,6 @@ public final class CreateRelatedTableCommand extends AbstractCreateRelationComma
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -83,9 +77,6 @@ public final class CreateRelatedTableCommand extends AbstractCreateRelationComma
 				.setDirty();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -105,13 +96,13 @@ public final class CreateRelatedTableCommand extends AbstractCreateRelationComma
 	}
 
 	private void init() {
-		ERTable sourceTable = (ERTable) this.getSourceModel();
+		ERTable sourceTable = this.getSourceModel();
 
 		this.diagram = sourceTable.getDiagram();
 
 		this.relation1 = sourceTable.createRelation();
 
-		ERTable targetTable = (ERTable) this.getTargetModel();
+		ERTable targetTable = this.getTargetModel();
 		this.relation2 = targetTable.createRelation();
 
 		this.relatedTable.setLocation(new Location(
@@ -122,22 +113,5 @@ public final class CreateRelatedTableCommand extends AbstractCreateRelationComma
 		this.relatedTable.setLogicalName(ERTable.NEW_LOGICAL_NAME, false);
 		this.relatedTable.setPhysicalName(ERTable.NEW_PHYSICAL_NAME, false);
 
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean canExecute() {
-		if (!super.canExecute()) {
-			return false;
-		}
-
-		if (!(this.getSourceModel() instanceof ERTable)
-				|| !(this.getTargetModel() instanceof ERTable)) {
-			return false;
-		}
-
-		return true;
 	}
 }

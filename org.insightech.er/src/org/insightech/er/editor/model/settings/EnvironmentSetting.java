@@ -60,9 +60,6 @@ public class EnvironmentSetting implements Serializable, Cloneable {
 		this.currentEnvironment = currentEnvironment;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object clone() {
 		try {

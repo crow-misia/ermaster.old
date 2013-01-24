@@ -24,9 +24,6 @@ public class IndexHtmlReportPageGenerator extends
 		return "index";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
 		List<Object> list = new ArrayList<Object>();
@@ -42,9 +39,6 @@ public class IndexHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -82,9 +76,6 @@ public class IndexHtmlReportPageGenerator extends
 		return index.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		Index index = (Index) object;

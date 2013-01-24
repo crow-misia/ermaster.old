@@ -93,9 +93,6 @@ public final class MoveCategoryCommand extends MoveElementCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (this.move) {
@@ -113,9 +110,6 @@ public final class MoveCategoryCommand extends MoveElementCommand {
 		super.doExecute();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		if (this.move) {

@@ -54,9 +54,6 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 		this.dbObjectSet = dbObjectSet;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createObjectListComposite(composite);
@@ -132,9 +129,6 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 		});
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.BACK_ID,
@@ -145,9 +139,6 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 				IDialogConstants.CANCEL_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		Object[] selectedNodes = this.viewer.getCheckedElements();
@@ -166,9 +157,6 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 		this.resultMergeGroup = this.mergeGroupButton.getSelection();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.viewer.getCheckedElements().length == 0) {

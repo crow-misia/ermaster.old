@@ -21,18 +21,12 @@ public final class ChangeNotationLevelCommand extends AbstractCommand {
 		this.oldNotationLevel = this.settings.getNotationLevel();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setNotationLevel(this.newNotationLevel);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setNotationLevel(this.oldNotationLevel);

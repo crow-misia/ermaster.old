@@ -54,9 +54,6 @@ public class ERDiagramActionBarContributor extends ActionBarContributor {
 		this.zoomComboContributionItem = zoomComboContributionItem;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void buildActions() {
 		this.addRetargetAction(new RetargetAction(ActionFactory.SELECT_ALL
@@ -162,9 +159,6 @@ public class ERDiagramActionBarContributor extends ActionBarContributor {
 		this.addRetargetAction(new ChangeBackgroundColorRetargetAction());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		toolBarManager.add(this.getAction(ActionFactory.DELETE.getId()));
@@ -283,9 +277,6 @@ public class ERDiagramActionBarContributor extends ActionBarContributor {
 		});
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void declareGlobalActionKeys() {
 		addGlobalActionKey(IWorkbenchActionConstants.PRINT_EXT);

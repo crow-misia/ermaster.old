@@ -207,9 +207,6 @@ public final class PersistentXmlImpl extends Persistent {
 		return loader.load(in);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public InputStream createInputStream(ERDiagram diagram) throws IOException {
 		InputStream inputStream = null;

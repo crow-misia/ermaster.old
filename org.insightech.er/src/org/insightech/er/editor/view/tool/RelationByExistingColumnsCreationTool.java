@@ -9,9 +9,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 public class RelationByExistingColumnsCreationTool extends
 		ConnectionCreationTool {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleCreateConnection() {
 		try {

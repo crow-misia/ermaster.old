@@ -715,9 +715,6 @@ public abstract class DDLCreator {
 		return new ArrayList<String>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public String getPostDDL(ERTable table) {
 		TableViewProperties commonTableProperties = (TableViewProperties) this
 				.getDiagram().getDiagramContents().getSettings()

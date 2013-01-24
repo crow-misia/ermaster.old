@@ -49,17 +49,11 @@ public class PasteAction extends SelectionAction {
 		this.editor = editor;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		return CopyManager.canCopy();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void run() {
 		try {

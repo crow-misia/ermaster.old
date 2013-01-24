@@ -24,18 +24,12 @@ public final class ChangeShowReferredTablesCommand extends AbstractCommand {
 		this.oldShowReferredTables = this.categorySettings.isFreeLayout();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.categorySettings.setShowReferredTables(this.newShowReferredTables);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.categorySettings.setShowReferredTables(this.oldShowReferredTables);

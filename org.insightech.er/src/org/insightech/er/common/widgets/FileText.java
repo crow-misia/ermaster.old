@@ -35,10 +35,6 @@ public final class FileText {
 		this.openBrowseButton.setText(JFaceResources.getString("openBrowse"));
 
 		this.openBrowseButton.addSelectionListener(new SelectionAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String saveFilePath = Activator.showSaveDialog(text.getText(),

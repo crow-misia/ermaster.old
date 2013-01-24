@@ -23,9 +23,6 @@ public class OptionSettingAction extends AbstractBaseAction {
 		this.setImageDescriptor(Activator.getImageDescriptor(ImageKey.OPTION));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

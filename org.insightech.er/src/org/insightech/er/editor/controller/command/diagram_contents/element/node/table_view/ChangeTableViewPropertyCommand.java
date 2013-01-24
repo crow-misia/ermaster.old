@@ -18,18 +18,12 @@ public final class ChangeTableViewPropertyCommand extends AbstractCommand {
 		this.newCopyTableView = newCopyTableView;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.newCopyTableView.restructureData(tableView);
 		this.tableView.getDiagram().changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.oldCopyTableView.restructureData(tableView);

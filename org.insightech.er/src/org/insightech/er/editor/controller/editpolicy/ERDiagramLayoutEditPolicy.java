@@ -35,9 +35,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.category.Cat
 
 public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void showSizeOnDropFeedback(CreateRequest request) {
 		Point p = new Point(request.getLocation().getCopy());
@@ -55,9 +52,6 @@ public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 				.expand(getCreationFeedbackOffset(request)));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createChangeConstraintCommand(
 			ChangeBoundsRequest request, EditPart child, Object constraint) {
@@ -162,9 +156,6 @@ public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createChangeConstraintCommand(EditPart child,
 			Object constraint) {
@@ -263,9 +254,6 @@ public class ERDiagramLayoutEditPolicy extends XYLayoutEditPolicy {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		ERDiagramEditPart editPart = (ERDiagramEditPart) this.getHost();

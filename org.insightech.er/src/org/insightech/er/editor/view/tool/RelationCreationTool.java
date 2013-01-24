@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 
 public class RelationCreationTool extends ConnectionCreationTool {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleCreateConnection() {
 		CreateRelationCommand command = (CreateRelationCommand) this

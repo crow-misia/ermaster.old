@@ -19,7 +19,7 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 
 	private TableView oldTargetTable;
 
-	private Relation relation;
+	private final Relation relation;
 
 	private Boolean removeForeignKey;
 
@@ -36,9 +36,6 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 		this.referencedColumnMap = new HashMap<NormalColumn, NormalColumn>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (this.oldTargetCopyTable == null) {
@@ -58,9 +55,6 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 		this.relation.delete(this.removeForeignKey, dictionary);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		super.doUndo();

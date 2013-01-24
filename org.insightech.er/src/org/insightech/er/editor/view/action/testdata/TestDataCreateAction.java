@@ -28,9 +28,6 @@ public class TestDataCreateAction extends AbstractBaseAction {
 				.getImageDescriptor(ImageKey.TEST_DATA));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

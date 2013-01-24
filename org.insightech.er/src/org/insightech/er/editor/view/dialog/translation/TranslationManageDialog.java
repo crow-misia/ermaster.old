@@ -47,9 +47,6 @@ public class TranslationManageDialog extends AbstractDialog {
 		this.allTranslations = this.translationSettings.getAllTranslations();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		GridLayout gridLayout = new GridLayout();
@@ -147,9 +144,6 @@ public class TranslationManageDialog extends AbstractDialog {
 	protected void addListener() {
 		this.useButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setUse(useButton.getSelection());

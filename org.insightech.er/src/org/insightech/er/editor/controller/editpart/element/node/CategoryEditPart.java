@@ -16,9 +16,6 @@ public class CategoryEditPart extends NodeElementEditPart implements IResizable 
 		super();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		Category category = (Category) this.getModel();
@@ -27,9 +24,6 @@ public class CategoryEditPart extends NodeElementEditPart implements IResizable 
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Rectangle getRectangle() {
 		Rectangle rectangle = super.getRectangle();
@@ -67,9 +61,6 @@ public class CategoryEditPart extends NodeElementEditPart implements IResizable 
 		return rectangle;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,

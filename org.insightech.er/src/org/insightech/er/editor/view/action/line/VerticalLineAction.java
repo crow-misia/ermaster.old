@@ -38,9 +38,6 @@ public class VerticalLineAction extends AbstractBaseSelectionAction {
 				.getResourceString("action.title.vertical.line"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		Command cmd = this.createCommand();
@@ -50,9 +47,6 @@ public class VerticalLineAction extends AbstractBaseSelectionAction {
 		return cmd.canExecute();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void execute(Event event) {
 		execute(createCommand());

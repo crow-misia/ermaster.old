@@ -159,9 +159,6 @@ public class Category extends NodeElement implements IResizable,
 		return compareTo;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Category clone() {
 		Category clone = (Category) super.clone();

@@ -18,9 +18,6 @@ public class ChangeCapitalAction extends AbstractBaseAction {
 				.getResourceString("action.title.display.capital"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

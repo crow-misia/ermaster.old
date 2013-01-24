@@ -42,9 +42,6 @@ public class ExportToDBDialog extends AbstractDialog {
 				"dialog.message.export.db.sql", 600, 400, 1, false, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.OK_ID, ResourceString

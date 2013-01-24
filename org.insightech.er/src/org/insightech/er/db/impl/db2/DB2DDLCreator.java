@@ -16,9 +16,6 @@ public class DB2DDLCreator extends DDLCreator {
 		super(diagram, semicolon);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getColulmnDDL(NormalColumn normalColumn) {
 		StringBuilder ddl = new StringBuilder();

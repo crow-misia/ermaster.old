@@ -26,17 +26,10 @@ public class SQLiteDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "org.sqlite.JDBC";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:sqlite:<DB NAME>";
@@ -87,9 +80,6 @@ public class SQLiteDBManager extends DBManagerBase {
 		return new SQLitePreTableExportManager();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean doesNeedURLServerName() {
 		return false;

@@ -26,9 +26,6 @@ import org.insightech.er.util.Check;
 
 public final class ERTableEditPart extends TableViewEditPart implements IResizable {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		ERDiagram diagram = this.getDiagram();
@@ -41,9 +38,6 @@ public final class ERTableEditPart extends TableViewEditPart implements IResizab
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequestOpen() {
 		ERTable table = (ERTable) this.getModel();

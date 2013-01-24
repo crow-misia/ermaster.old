@@ -54,9 +54,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 		this.modelProperties = modelProperties;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createTableComposite(composite);
@@ -184,9 +181,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				addRow();
@@ -201,9 +195,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		this.deleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				removeColumn();
@@ -223,9 +214,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		this.upButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				upColumn();
@@ -240,9 +228,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		this.downButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				downColumn();
@@ -293,17 +278,11 @@ public class ModelPropertiesDialog extends AbstractDialog {
 		item2.setText(1, value1);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 		this.modelProperties.clear();

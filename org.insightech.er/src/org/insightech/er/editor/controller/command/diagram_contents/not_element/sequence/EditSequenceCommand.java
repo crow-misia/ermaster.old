@@ -20,18 +20,12 @@ public final class EditSequenceCommand extends AbstractCommand {
 		this.newSequence = newSequence;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.sequenceSet.remove(this.oldSequence, false);
 		this.sequenceSet.addSequence(this.newSequence, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.sequenceSet.remove(this.newSequence, false);

@@ -31,17 +31,11 @@ public final class DeleteCategoryCommand extends AbstractCommand {
 				this.categorySettings.getSelectedCategories());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.diagram.removeCategory(category, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.categorySettings.setAllCategories(oldAllCategories);

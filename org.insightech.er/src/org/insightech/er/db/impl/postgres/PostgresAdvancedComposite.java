@@ -38,9 +38,6 @@ public class PostgresAdvancedComposite extends AdvancedComposite {
 						.isWithoutOIDs());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validate() throws InputException {
 		super.validate();

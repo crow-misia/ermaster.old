@@ -24,9 +24,6 @@ public class CreateIndexAction extends AbstractOutlineBaseAction {
 				treeViewer);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 

@@ -20,9 +20,6 @@ public class ChangeOutlineViewOrderByPhysicalNameAction extends
 		this.setText(ResourceString.getResourceString("label.physical.name"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

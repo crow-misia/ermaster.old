@@ -31,9 +31,6 @@ public class POIUtils {
 			this.c = c;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public String toString() {
 			String str = "(" + this.r + ", " + this.c + ")";

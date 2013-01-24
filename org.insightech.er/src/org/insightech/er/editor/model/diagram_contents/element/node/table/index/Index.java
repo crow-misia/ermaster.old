@@ -124,9 +124,6 @@ public class Index extends AbstractModel implements ObjectModel,
 		this.bitmap = bitmap;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Index clone() {
 		Index clone = (Index) super.clone();

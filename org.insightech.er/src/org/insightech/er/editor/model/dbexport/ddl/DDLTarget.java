@@ -132,9 +132,6 @@ public class DDLTarget implements Serializable, Cloneable {
 		return h;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DDLTarget clone() {
 		try {

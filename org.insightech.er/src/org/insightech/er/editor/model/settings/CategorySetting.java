@@ -111,9 +111,6 @@ public class CategorySetting implements Serializable, Cloneable {
 		return selectedCategories;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object clone() {
 		try {

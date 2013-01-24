@@ -19,9 +19,6 @@ public class NoteEditManager extends DirectEditManager {
 		this.note = (Note) source.getModel();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initCellEditor() {
 		final TextCellEditor editor = (TextCellEditor) this.getCellEditor();

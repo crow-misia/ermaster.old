@@ -19,9 +19,6 @@ public class GridSnapAction extends AbstractBaseAction {
 				.getResourceString("action.title.display.grid.snap"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		this.getDiagram();

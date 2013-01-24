@@ -9,9 +9,6 @@ import org.insightech.er.editor.view.figure.NoteFigure;
 public class RemovedNoteEditPart extends RemovedNodeElementEditPart implements
 		IResizable {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		NoteFigure noteFigure = new NoteFigure();
@@ -21,9 +18,6 @@ public class RemovedNoteEditPart extends RemovedNodeElementEditPart implements
 		return noteFigure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshVisuals() {
 		RemovedNote removedNote = (RemovedNote) this.getModel();

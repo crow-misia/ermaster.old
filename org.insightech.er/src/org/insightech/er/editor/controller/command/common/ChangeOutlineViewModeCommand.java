@@ -21,18 +21,12 @@ public final class ChangeOutlineViewModeCommand extends AbstractCommand {
 		this.oldViewMode = this.settings.getViewMode();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setOutlineViewMode(this.newViewMode);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setOutlineViewMode(this.oldViewMode);

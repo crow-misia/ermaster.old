@@ -18,20 +18,13 @@ public final class ChangeSettingsCommand extends AbstractCommand {
 		this.settings = settings;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.diagram.setSettings(settings, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.diagram.setSettings(oldSettings, true);
 	}
-
 }

@@ -11,9 +11,6 @@ import org.insightech.er.editor.model.diagram_contents.DiagramContents;
 
 public class ERDiagramOutlineEditPart extends AbstractOutlineEditPart {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		List<AbstractModel> modelChildren = new ArrayList<AbstractModel>();
@@ -40,9 +37,6 @@ public class ERDiagramOutlineEditPart extends AbstractOutlineEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		for (Object child : this.getChildren()) {

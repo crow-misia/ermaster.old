@@ -36,9 +36,6 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		List<ColumnHolder> wordHolderList = new ArrayList<ColumnHolder>();
@@ -101,9 +98,6 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 		return wordHolderList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		UniqueWord word = (UniqueWord) this.getModel();
@@ -151,9 +145,6 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 		this.setWidgetImage(Activator.getImage(ImageKey.WORD));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
@@ -174,9 +165,6 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 		super.performRequest(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);

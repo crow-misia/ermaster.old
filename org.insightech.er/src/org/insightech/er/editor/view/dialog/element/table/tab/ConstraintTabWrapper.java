@@ -33,9 +33,6 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 		this.init();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		String text = constraintText.getText().trim();

@@ -28,9 +28,6 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 
 	private ImageData imageData;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		InsertedImage model = (InsertedImage) this.getModel();
@@ -49,9 +46,6 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void disposeFont() {
 		disposeImage();
@@ -67,9 +61,6 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 		super.disposeFont();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,
@@ -144,9 +135,6 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 		this.image = new Image(Display.getDefault(), newImageData);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequestOpen() {
 		InsertedImage insertedImage = (InsertedImage) this.getModel();

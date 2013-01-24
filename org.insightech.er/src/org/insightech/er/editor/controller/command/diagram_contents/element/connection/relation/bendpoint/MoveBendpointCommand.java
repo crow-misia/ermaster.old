@@ -23,17 +23,11 @@ public final class MoveBendpointCommand extends AbstractCommand {
 		this.oldBendpoint = connection.getBendpoints().get(index);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		connection.replaceBendpoint(index, this.bendPoint, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		connection.replaceBendpoint(index, this.oldBendpoint, true);

@@ -34,13 +34,10 @@ public final class CreateRelationByExistingColumnsCommand extends
 		this.wordList = new ArrayList<Word>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
-		ERTable sourceTable = (ERTable) this.source.getModel();
-		TableView targetTable = (TableView) this.target.getModel();
+		ERTable sourceTable = this.getSourceModel();
+		TableView targetTable = this.getTargetModel();
 
 		this.relation.setSource(sourceTable, false);
 		this.relation.setTargetWithoutForeignKey(targetTable, true);
@@ -61,13 +58,10 @@ public final class CreateRelationByExistingColumnsCommand extends
 		dictionary.setDirty();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
-		ERTable sourceTable = (ERTable) source.getModel();
-		ERTable targetTable = (ERTable) target.getModel();
+		ERTable sourceTable = this.getSourceModel();
+		TableView targetTable = this.getTargetModel();
 
 		this.relation.setSource(null, false);
 		this.relation.setTargetWithoutForeignKey(null, true);
@@ -90,8 +84,8 @@ public final class CreateRelationByExistingColumnsCommand extends
 			return false;
 		}
 
-		ERTable sourceTable = (ERTable) this.source.getModel();
-		TableView targetTable = (TableView) this.target.getModel();
+		ERTable sourceTable = this.getSourceModel();
+		TableView targetTable = this.getTargetModel();
 
 		Map<NormalColumn, List<NormalColumn>> referencedMap = new HashMap<NormalColumn, List<NormalColumn>>();
 		Map<Relation, Set<NormalColumn>> foreignKeySetMap = new HashMap<Relation, Set<NormalColumn>>();

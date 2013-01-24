@@ -27,9 +27,6 @@ public class TableViewComponentEditPolicy extends
 		super.showTargetFeedback(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if (ERDiagramTransferDragSourceListener.REQUEST_TYPE_ADD_COLUMN_GROUP
@@ -59,9 +56,6 @@ public class TableViewComponentEditPolicy extends
 		return super.getTargetEditPart(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Command getCommand(Request request) {
 		try {

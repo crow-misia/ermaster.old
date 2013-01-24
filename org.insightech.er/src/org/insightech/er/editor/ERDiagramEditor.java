@@ -186,9 +186,6 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void dispose() {
 		try {
@@ -212,18 +209,12 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		this.isDirty = false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void commandStackChanged(EventObject eventObject) {
 		this.firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(eventObject);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeGraphicalViewer() {
 		GraphicalViewer viewer = this.getGraphicalViewer();
@@ -256,17 +247,11 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		this.gotoMaker = new ERDiagramGotoMarker(this);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		return new ERDiagramPaletteRoot();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object getAdapter(Class type) {
 		if (type == ZoomManager.class) {
@@ -307,9 +292,6 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 				this.outlinePage.getViewer());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void createActions() {
@@ -479,9 +461,6 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 				new ActionHandler(action));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public GraphicalViewer getGraphicalViewer() {
 		return super.getGraphicalViewer();
@@ -491,9 +470,6 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		return actionBarContributor;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		IEditorPart editorPart = getSite().getPage().getActiveEditor();

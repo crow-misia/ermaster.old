@@ -10,9 +10,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequ
 
 public class HSQLDBTableImportManager extends ImportFromDBManagerBase {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		return "SELECT VIEW_DEFINITION FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? ";

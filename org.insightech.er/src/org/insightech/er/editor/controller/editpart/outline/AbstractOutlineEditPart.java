@@ -12,18 +12,12 @@ import org.insightech.er.editor.model.diagram_contents.element.node.category.Cat
 public abstract class AbstractOutlineEditPart extends AbstractTreeEditPart
 		implements PropertyChangeListener {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void activate() {
 		super.activate();
 		((AbstractModel) getModel()).addPropertyChangeListener(this);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		((AbstractModel) getModel()).removePropertyChangeListener(this);
@@ -38,9 +32,6 @@ public abstract class AbstractOutlineEditPart extends AbstractTreeEditPart
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	final public void refreshVisuals() {
 		if (ERDiagramEditPart.isUpdateable()) {

@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 
 public class NoViewNameRule extends ViewRule {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate(View view) {
 		if (view.getPhysicalName() == null

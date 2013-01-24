@@ -164,9 +164,6 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 		return relations;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setLocation(Location location) {
 		super.setLocation(location);

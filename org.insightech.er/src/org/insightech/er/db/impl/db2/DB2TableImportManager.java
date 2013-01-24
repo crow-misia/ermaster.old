@@ -10,9 +10,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequ
 
 public class DB2TableImportManager extends ImportFromDBManagerBase {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		return "SELECT TEXT FROM SYSCAT.VIEWS WHERE VIEWSCHEMA = ? AND VIEWNAME = ?";

@@ -29,9 +29,6 @@ public final class ReplaceCommand extends AbstractCommand {
 		this.replaceWord = replaceWord;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.result = ReplaceManager.replace(this.type, this.object,
@@ -40,9 +37,6 @@ public final class ReplaceCommand extends AbstractCommand {
 		this.diagram.change();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		if (this.result != null) {

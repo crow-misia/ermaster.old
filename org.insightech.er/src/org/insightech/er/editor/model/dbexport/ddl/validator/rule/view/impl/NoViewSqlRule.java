@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 
 public class NoViewSqlRule extends ViewRule {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate(View view) {
 		if (view.getSql() == null || view.getSql().trim().equals("")) {

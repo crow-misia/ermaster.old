@@ -53,9 +53,6 @@ public class TableSet extends AbstractModel implements ObjectListModel,
 		return this.tableList.iterator();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public TableSet clone() {
 		TableSet tableSet = (TableSet) super.clone();

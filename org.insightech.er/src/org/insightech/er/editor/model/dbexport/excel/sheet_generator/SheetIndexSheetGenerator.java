@@ -35,9 +35,6 @@ public class SheetIndexSheetGenerator extends AbstractSheetGenerator {
 	private static final String[] FIND_KEYWORDS_LIST = { KEYWORD_SHEET_TYPE,
 			KEYWORD_NAME, KEYWORD_DESCRIPTION };
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void generate(IProgressMonitor monitor, HSSFWorkbook workbook,
 			int sheetNo, boolean useLogicalNameAsSheetName,
@@ -140,9 +137,6 @@ public class SheetIndexSheetGenerator extends AbstractSheetGenerator {
 		return name;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getTemplateSheetName() {
 		return "sheet_index_template";

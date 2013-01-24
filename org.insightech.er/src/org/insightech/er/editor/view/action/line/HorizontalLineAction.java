@@ -40,9 +40,6 @@ public class HorizontalLineAction extends AbstractBaseSelectionAction {
 				.getResourceString("action.title.horizontal.line"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		Command cmd = this.createCommand();
@@ -52,9 +49,6 @@ public class HorizontalLineAction extends AbstractBaseSelectionAction {
 		return cmd.canExecute();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void execute(Event event) {
 		execute(createCommand());

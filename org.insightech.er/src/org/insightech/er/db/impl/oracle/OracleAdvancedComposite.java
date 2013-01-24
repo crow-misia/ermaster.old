@@ -43,9 +43,6 @@ public class OracleAdvancedComposite extends AdvancedComposite {
 		this.characterSetCombo.setText(Format.toString(characterSet));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validate() throws InputException {
 		super.validate();

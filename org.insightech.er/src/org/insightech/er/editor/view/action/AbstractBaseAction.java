@@ -57,9 +57,6 @@ public abstract class AbstractBaseAction extends Action {
 		return this.editor.getGraphicalViewer();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void runWithEvent(Event event) {
 		try {

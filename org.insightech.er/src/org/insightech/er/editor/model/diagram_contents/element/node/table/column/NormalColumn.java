@@ -282,9 +282,6 @@ public class NormalColumn extends Column {
 		this.collation = collation;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getName() {
 		return this.getLogicalName();

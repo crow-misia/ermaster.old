@@ -23,10 +23,6 @@ public final class DirectoryText {
 		this.openBrowseButton.setText(JFaceResources.getString("openBrowse"));
 
 		this.openBrowseButton.addSelectionListener(new SelectionAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String filePath = Activator.showDirectoryDialog(text.getText());

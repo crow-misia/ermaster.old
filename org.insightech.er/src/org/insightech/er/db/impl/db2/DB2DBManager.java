@@ -36,17 +36,10 @@ public class DB2DBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "com.ibm.db2.jcc.DB2Driver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:db2://<SERVER NAME>:<PORT>/<DB NAME>";

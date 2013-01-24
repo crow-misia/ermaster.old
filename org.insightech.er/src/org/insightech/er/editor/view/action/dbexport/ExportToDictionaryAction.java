@@ -31,9 +31,6 @@ public class ExportToDictionaryAction extends AbstractExportAction {
 				.getImageDescriptor(ImageKey.EXPORT_TO_CSV));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void save(IEditorPart editorPart, GraphicalViewer viewer,
 			String saveFilePath) throws Exception {

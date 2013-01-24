@@ -49,9 +49,6 @@ public class ImportFromDBAction extends AbstractImportAction {
 				.getActiveWorkbenchWindow().getShell(), diagram, dbObjectSet);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) throws Exception {
 		ERDiagram diagram = this.getDiagram();

@@ -149,9 +149,6 @@ public final class ImportTableCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (this.columnGroups != null) {
@@ -237,9 +234,6 @@ public final class ImportTableCommand extends AbstractCommand {
 		relation.addBendpoint(0, bendpoint0, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);

@@ -31,9 +31,6 @@ public final class EditAllAttributesCommand extends AbstractCommand {
 		this.newDiagramContents = newDiagramContents;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		// 描画更新をとめます。
@@ -47,9 +44,6 @@ public final class EditAllAttributesCommand extends AbstractCommand {
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		// 描画更新をとめます。

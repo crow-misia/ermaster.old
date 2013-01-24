@@ -59,9 +59,6 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		this.logicalComplexUniqueKeyMatrixCellStyle = null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void generate(IProgressMonitor monitor, HSSFWorkbook workbook,
 			int sheetNo, boolean useLogicalNameAsSheetName,
@@ -534,9 +531,6 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getTemplateSheetName() {
 		return "table_template";

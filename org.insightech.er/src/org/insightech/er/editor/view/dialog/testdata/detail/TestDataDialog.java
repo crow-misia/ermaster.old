@@ -376,9 +376,6 @@ public class TestDataDialog extends AbstractDialog {
 		super.addListener();
 
 		this.allTableListWidget.addSelectionListener(new SelectionAdapter() {
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
 				int index = allTableListWidget.getSelectionIndex();
@@ -393,9 +390,6 @@ public class TestDataDialog extends AbstractDialog {
 
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int[] indexes = allTableListWidget.getSelectionIndices();
@@ -423,9 +417,6 @@ public class TestDataDialog extends AbstractDialog {
 
 		this.removeButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = selectedTableTable.getSelectionIndex();
@@ -453,9 +444,6 @@ public class TestDataDialog extends AbstractDialog {
 
 		this.selectedTableTable.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
 

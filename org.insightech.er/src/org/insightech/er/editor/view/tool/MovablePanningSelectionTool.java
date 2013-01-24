@@ -30,9 +30,6 @@ public class MovablePanningSelectionTool extends PanningSelectionTool {
 		return super.handleKeyUp(event);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleKeyDown(KeyEvent event) {
 		int dx = 0;

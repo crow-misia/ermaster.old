@@ -295,9 +295,6 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 		tableItem.setText(1, Format.toString(num));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		ListenerAppender.addTableEditListener(this.tableTable,
@@ -305,9 +302,6 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 
 		this.restoreDefaultButton1.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setParameterData1();
@@ -318,9 +312,6 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 
 		this.restoreDefaultButton2.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setParameterData2();

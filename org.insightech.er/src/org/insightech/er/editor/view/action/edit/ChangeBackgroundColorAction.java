@@ -87,9 +87,6 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 		this.setColorToImage();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void runWithEvent(Event event) {
 		Command command = this.createCommand(this.getSelectedObjects(), rgb);
@@ -110,9 +107,6 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		List objects = this.getSelectedObjects();
@@ -177,9 +171,6 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 
 						item1.addSelectionListener(new SelectionAdapter() {
 
-							/**
-							 * {@inheritDoc}
-							 */
 							@Override
 							public void widgetSelected(SelectionEvent e) {
 								ColorDialog colorDialog = new ColorDialog(

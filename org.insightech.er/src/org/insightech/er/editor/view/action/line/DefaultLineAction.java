@@ -26,9 +26,6 @@ public class DefaultLineAction extends AbstractBaseSelectionAction {
 				editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<Command> getCommand(EditPart editPart, Event event) {
 		List<Command> commandList = new ArrayList<Command>();

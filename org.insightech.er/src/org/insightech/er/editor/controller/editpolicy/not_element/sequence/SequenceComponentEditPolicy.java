@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequ
 
 public class SequenceComponentEditPolicy extends NotElementComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(ERDiagram diagram, Object model) {
 		return new DeleteSequenceCommand(diagram, (Sequence) model);

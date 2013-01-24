@@ -18,9 +18,6 @@ public class LockEditAction extends AbstractBaseAction {
 						.getResourceString("action.title.lock.edit"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

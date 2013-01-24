@@ -85,9 +85,6 @@ public class Tablespace extends AbstractModel implements ObjectModel,
 		return propertiesMap;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Tablespace clone() {
 		Tablespace clone = (Tablespace) super.clone();

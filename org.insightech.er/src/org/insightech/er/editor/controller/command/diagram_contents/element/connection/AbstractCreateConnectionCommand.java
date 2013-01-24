@@ -4,7 +4,8 @@ import org.eclipse.gef.EditPart;
 import org.insightech.er.editor.controller.command.AbstractCommand;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 
-public abstract class AbstractCreateConnectionCommand extends AbstractCommand {
+public abstract class AbstractCreateConnectionCommand<S extends NodeElement, T extends NodeElement>
+						extends AbstractCommand {
 
 	protected EditPart source;
 
@@ -22,17 +23,16 @@ public abstract class AbstractCreateConnectionCommand extends AbstractCommand {
 		this.target = target;
 	}
 
-	public NodeElement getSourceModel() {
-		return (NodeElement) this.source.getModel();
+	@SuppressWarnings("unchecked")
+	public S getSourceModel() {
+		return (S) this.source.getModel();
 	}
 
-	public NodeElement getTargetModel() {
-		return (NodeElement) this.target.getModel();
+	@SuppressWarnings("unchecked")
+	public T getTargetModel() {
+		return (T) this.target.getModel();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		return source != null && target != null && source != target;

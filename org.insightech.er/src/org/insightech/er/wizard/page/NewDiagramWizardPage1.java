@@ -30,9 +30,6 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 				.getResourceString("wizard.new.diagram.title"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
@@ -40,9 +37,6 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		this.setFileName("newfile");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean validatePage() {
 		boolean valid = super.validatePage();
@@ -89,9 +83,6 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		this.diagram.init();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected InputStream getInitialContents() {
 		Persistent persistent = Persistent.getInstance();
@@ -107,9 +98,6 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public IFile createNewFile() {
 		String fileName = this.getFileName();

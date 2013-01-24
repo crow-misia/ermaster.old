@@ -22,18 +22,12 @@ public final class CreateBendpointCommand extends AbstractCommand {
 		this.index = index;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		Bendpoint bendpoint = new Bendpoint(this.x, this.y);
 		connection.addBendpoint(index, bendpoint, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		connection.removeBendpoint(index, true);

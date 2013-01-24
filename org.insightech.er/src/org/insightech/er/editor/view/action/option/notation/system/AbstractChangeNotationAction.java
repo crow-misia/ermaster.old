@@ -17,9 +17,6 @@ public abstract class AbstractChangeNotationAction extends AbstractBaseAction {
 				.getResourceString("action.title.change.notation." + type));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		if (!this.isChecked()) {

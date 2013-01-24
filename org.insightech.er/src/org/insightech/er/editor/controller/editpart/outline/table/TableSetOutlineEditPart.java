@@ -24,9 +24,6 @@ public class TableSetOutlineEditPart extends AbstractOutlineEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		TableSet tableSet = (TableSet) this.getModel();
@@ -52,9 +49,6 @@ public class TableSetOutlineEditPart extends AbstractOutlineEditPart {
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		this.setWidgetText(ResourceString.getResourceString("label.table")
@@ -62,9 +56,6 @@ public class TableSetOutlineEditPart extends AbstractOutlineEditPart {
 		this.setWidgetImage(Activator.getImage(ImageKey.DICTIONARY));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();

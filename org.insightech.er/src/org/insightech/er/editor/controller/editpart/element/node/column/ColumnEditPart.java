@@ -41,9 +41,6 @@ public abstract class ColumnEditPart extends AbstractModelEditPart {
 	public void doPropertyChange(PropertyChangeEvent evt) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public EditPart getTargetEditPart(Request request) {
 		EditPart editPart = super.getTargetEditPart(request);
@@ -59,9 +56,6 @@ public abstract class ColumnEditPart extends AbstractModelEditPart {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void performRequest(Request request) {
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {

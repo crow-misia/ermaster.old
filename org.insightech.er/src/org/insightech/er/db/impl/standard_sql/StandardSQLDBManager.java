@@ -28,17 +28,10 @@ public class StandardSQLDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "";

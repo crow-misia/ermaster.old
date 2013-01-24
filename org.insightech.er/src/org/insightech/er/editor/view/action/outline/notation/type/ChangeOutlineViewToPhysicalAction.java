@@ -21,9 +21,6 @@ public class ChangeOutlineViewToPhysicalAction extends
 				.getResourceString("action.title.change.mode.to.physical"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.index.
 
 public class IndexComponentEditPolicy extends NotElementComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(ERDiagram diagram, Object model) {
 		return new DeleteIndexCommand(diagram, (Index) model);

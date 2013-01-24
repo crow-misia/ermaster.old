@@ -31,9 +31,6 @@ public final class MoveRelationBendpointCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (relative) {
@@ -54,9 +51,6 @@ public final class MoveRelationBendpointCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		if (relative) {

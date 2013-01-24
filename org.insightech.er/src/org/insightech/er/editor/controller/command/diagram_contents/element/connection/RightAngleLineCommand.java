@@ -156,17 +156,11 @@ public final class RightAngleLineCommand extends AbstractCommand {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.connection.setBendpoints(this.newBendpointList, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.connection.setBendpoints(this.oldBendpointList, true);

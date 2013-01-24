@@ -46,9 +46,6 @@ public class ExportToHtmlAction extends AbstractExportAction {
 				.getImageDescriptor(ImageKey.EXPORT_TO_HTML));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getSaveFilePath(IEditorPart editorPart,
 			GraphicalViewer viewer) {
@@ -78,9 +75,6 @@ public class ExportToHtmlAction extends AbstractExportAction {
 		return "dialog.message.update.html.export.dir";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void save(IEditorPart editorPart, GraphicalViewer viewer,
 			String saveFilePath) throws Exception {

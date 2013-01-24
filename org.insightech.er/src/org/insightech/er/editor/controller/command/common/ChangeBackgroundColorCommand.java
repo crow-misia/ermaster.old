@@ -30,17 +30,11 @@ public final class ChangeBackgroundColorCommand extends AbstractCommand {
 		this.blue = blue;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.model.setColor(red, green, blue);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.model.setColor(this.oldColor[0], this.oldColor[1],

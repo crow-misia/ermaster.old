@@ -14,9 +14,6 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 				schema);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		if (schema != null) {

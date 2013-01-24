@@ -47,9 +47,6 @@ public final class ChangeGroupCommand extends AbstractCommand {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		ERDiagram diagram = this.diagram;
@@ -92,9 +89,6 @@ public final class ChangeGroupCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		ERDiagram diagram = this.diagram;

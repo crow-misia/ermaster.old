@@ -27,9 +27,6 @@ public class WordHtmlReportPageGenerator extends
 		return "word";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -38,9 +35,6 @@ public class WordHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -83,9 +77,6 @@ public class WordHtmlReportPageGenerator extends
 		return word.getLogicalName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		return null;

@@ -89,9 +89,6 @@ public class ModelProperties extends NodeElement implements Cloneable {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setLocation(Location location) {
 		location.width = -1;
@@ -100,9 +97,6 @@ public class ModelProperties extends NodeElement implements Cloneable {
 		super.setLocation(location);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ModelProperties clone() {
 		ModelProperties clone = (ModelProperties) super.clone();

@@ -14,9 +14,6 @@ import org.insightech.er.editor.view.figure.view.ViewFigure;
 
 public class ViewEditPart extends TableViewEditPart {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		ERDiagram diagram = this.getDiagram();
@@ -29,9 +26,6 @@ public class ViewEditPart extends TableViewEditPart {
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequestOpen() {
 		View view = (View) this.getModel();

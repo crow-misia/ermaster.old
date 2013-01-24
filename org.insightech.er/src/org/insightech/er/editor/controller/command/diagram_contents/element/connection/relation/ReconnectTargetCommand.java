@@ -24,18 +24,12 @@ public final class ReconnectTargetCommand extends AbstractCommand {
 		this.oldYp = relation.getTargetYp();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		relation.setTargetLocationp(this.xp, this.yp);
 		relation.setParentMove();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		relation.setTargetLocationp(this.oldXp, this.oldYp);

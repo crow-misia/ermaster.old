@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Connec
 
 public class CommentConnectionEditPolicy extends ConnectionEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getDeleteCommand(GroupRequest grouprequest) {
 		ConnectionElement connection = (ConnectionElement) this.getHost()

@@ -42,9 +42,6 @@ public class PreferencePage extends org.eclipse.jface.preference.PreferencePage
 				.getResourceString("action.title.manage.global.group"));
 		button.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				GroupSet columnGroups = GlobalGroupSet.load();

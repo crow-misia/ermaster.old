@@ -23,18 +23,12 @@ public final class ChangeCategoryNameCommand extends AbstractCommand {
 		this.oldName = category.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.category.setName(this.newName);
 		this.diagram.setCurrentCategoryPageName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.category.setName(this.oldName);

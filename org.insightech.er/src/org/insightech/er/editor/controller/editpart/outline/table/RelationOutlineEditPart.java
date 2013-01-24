@@ -37,9 +37,6 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		Relation model = (Relation) this.getModel();
@@ -76,18 +73,12 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 		this.setWidgetImage(Activator.getImage(ImageKey.FOREIGN_KEY));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.CONNECTION_ROLE,
 				new RelationEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		Relation relation = (Relation) this.getModel();
@@ -108,9 +99,6 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 		super.performRequest(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);

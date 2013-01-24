@@ -84,9 +84,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 		this.columnList = new ArrayList<Column>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		return errorMessage;
@@ -239,9 +236,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 
 		typeCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				validate();
@@ -536,9 +530,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 	//
 	// notNullCheckButton.addSelectionListener(new SelectionAdapter() {
 	//
-	// /**
-	// * {@inheritDoc}
-	// */
 	// @Override
 	// public void widgetSelected(SelectionEvent e) {
 	// normalColumn.setNotNull(notNullCheckButton.getSelection());
@@ -548,9 +539,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 	//
 	// uniqueCheckButton.addSelectionListener(new SelectionAdapter() {
 	//
-	// /**
-	// * {@inheritDoc}
-	// */
 	// @Override
 	// public void widgetSelected(SelectionEvent e) {
 	// normalColumn.setUniqueKey(uniqueCheckButton.getSelection());

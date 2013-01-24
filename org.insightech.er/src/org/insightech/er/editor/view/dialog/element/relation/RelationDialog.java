@@ -48,9 +48,6 @@ public class RelationDialog extends AbstractDialog {
 		this.relation = relation;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		CompositeFactory.createLabel(composite, "label.constraint.name", 2);
@@ -276,9 +273,6 @@ public class RelationDialog extends AbstractDialog {
 		childCardinalityCombo.add("0..1");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		ERTable sourceTable = (ERTable) this.relation.getSourceTableView();
@@ -336,9 +330,6 @@ public class RelationDialog extends AbstractDialog {
 				.getLogicalName());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 		this.relation.setName(this.nameText.getText());

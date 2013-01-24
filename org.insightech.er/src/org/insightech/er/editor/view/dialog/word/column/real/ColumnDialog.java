@@ -134,9 +134,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		return style;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeComposite(Composite composite) {
 		super.initializeComposite(composite);
@@ -150,9 +147,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setWordData() {
 		super.setWordData();
@@ -248,9 +242,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		super.perfomeOK();
@@ -272,9 +263,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.autoIncrementCheck != null
@@ -302,9 +290,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 			this.autoIncrementSettingButton
 					.addSelectionListener(new SelectionAdapter() {
 
-						/**
-						 * {@inheritDoc}
-						 */
 						@Override
 						public void widgetSelected(SelectionEvent e) {
 							AutoIncrementSettingDialog dialog = new AutoIncrementSettingDialog(
@@ -330,9 +315,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		this.primaryKeyCheck.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (primaryKeyCheck.getSelection()) {
@@ -356,9 +338,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 
 		this.uniqueKeyCheck.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				uniqueKeyNameText.setEnabled(uniqueKeyCheck.getSelection());
@@ -370,9 +349,6 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 			this.autoIncrementCheck
 					.addSelectionListener(new SelectionAdapter() {
 
-						/**
-						 * {@inheritDoc}
-						 */
 						@Override
 						public void widgetSelected(SelectionEvent e) {
 

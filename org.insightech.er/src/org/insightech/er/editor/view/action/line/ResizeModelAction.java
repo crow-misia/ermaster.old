@@ -29,9 +29,6 @@ public class ResizeModelAction extends AbstractBaseSelectionAction {
 		this.setImageDescriptor(Activator.getImageDescriptor(ImageKey.RESIZE));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<Command> getCommand(EditPart editPart, Event event) {
 		List<Command> commandList = new ArrayList<Command>();
@@ -50,9 +47,6 @@ public class ResizeModelAction extends AbstractBaseSelectionAction {
 		return commandList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		GraphicalViewer viewer = this.getGraphicalViewer();

@@ -54,9 +54,6 @@ public abstract class ViewableModel extends AbstractModel {
 		return this.color;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ViewableModel clone() {
 		ViewableModel clone = (ViewableModel) super.clone();

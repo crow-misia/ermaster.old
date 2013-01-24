@@ -25,9 +25,6 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Relati
 
 public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void showMoveBendpointFeedback(BendpointRequest bendpointrequest) {
 		Relation relation = (Relation) getHost().getModel();
@@ -97,9 +94,6 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void showCreateBendpointFeedback(BendpointRequest bendpointrequest) {
 		Relation relation = (Relation) getHost().getModel();
@@ -110,18 +104,12 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 		super.showCreateBendpointFeedback(bendpointrequest);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void eraseConnectionFeedback(BendpointRequest request) {
 		this.getFeedbackLayer().getChildren().clear();
 		super.eraseConnectionFeedback(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getMoveBendpointCommand(BendpointRequest bendpointrequest) {
 		Relation relation = (Relation) getHost().getModel();

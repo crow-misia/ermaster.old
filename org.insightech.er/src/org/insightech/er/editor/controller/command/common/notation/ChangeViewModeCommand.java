@@ -21,18 +21,12 @@ public final class ChangeViewModeCommand extends AbstractCommand {
 		this.oldViewMode = this.settings.getViewMode();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setViewMode(this.newViewMode);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setViewMode(this.oldViewMode);

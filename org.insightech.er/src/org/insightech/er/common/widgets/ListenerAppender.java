@@ -60,10 +60,6 @@ public final class ListenerAppender {
 	public static void addFocusListener(final Text text,
 			final boolean selectAll, final boolean imeOn) {
 		text.addFocusListener(new FocusAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusGained(FocusEvent e) {
 				ERDiagram diagram = (ERDiagram) PlatformUI.getWorkbench()
@@ -90,9 +86,6 @@ public final class ListenerAppender {
 				super.focusGained(e);
 			}
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusLost(FocusEvent e) {
 				// text.clearSelection();
@@ -170,10 +163,6 @@ public final class ListenerAppender {
 		});
 
 		button.addFocusListener(new FocusAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusGained(FocusEvent e) {
 				ERDiagram diagram = (ERDiagram) PlatformUI.getWorkbench()
@@ -188,9 +177,6 @@ public final class ListenerAppender {
 				}
 			}
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusLost(FocusEvent e) {
 			}
@@ -218,9 +204,6 @@ public final class ListenerAppender {
 				return null;
 			}
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void mouseDown(MouseEvent event) {
 				if (!editableTable.validate()) {
@@ -267,32 +250,21 @@ public final class ListenerAppender {
 
 		// フォーカスが外れたときの処理
 		control.addFocusListener(new FocusAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void focusLost(FocusEvent e) {
 				setEditValue(control, tableItem, xy, editableTable);
 			}
-
 		});
 
 		// ENTERとESCが押されたときの処理
 		control.addKeyListener(new KeyAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void keyReleased(KeyEvent keyevent) {
 				if (keyevent.character == SWT.CR) {
 					setEditValue(control, tableItem, xy, editableTable);
-
 				} else if (keyevent.character == SWT.ESC) {
 					control.dispose();
 				}
-
 			}
 		});
 

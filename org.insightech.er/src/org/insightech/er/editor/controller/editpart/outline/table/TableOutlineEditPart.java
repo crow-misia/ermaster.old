@@ -31,9 +31,6 @@ import org.insightech.er.editor.view.dialog.element.table.TableDialog;
 public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 		DeleteableEditPart {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		List<AbstractModel> children = new ArrayList<AbstractModel>();
@@ -118,9 +115,6 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 		this.setWidgetImage(Activator.getImage(ImageKey.TABLE));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		this.refreshName();
@@ -131,9 +125,6 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,
@@ -141,9 +132,6 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 		// this.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, null);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		ERTable table = (ERTable) this.getModel();
@@ -168,9 +156,6 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 		super.performRequest(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);

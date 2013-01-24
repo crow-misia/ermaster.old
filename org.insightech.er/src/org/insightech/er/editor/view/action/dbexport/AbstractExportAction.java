@@ -23,9 +23,6 @@ public abstract class AbstractExportAction extends AbstractBaseAction {
 		super(id, label, editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) throws Exception {
 		this.save(this.getEditorPart(), this.getGraphicalViewer());

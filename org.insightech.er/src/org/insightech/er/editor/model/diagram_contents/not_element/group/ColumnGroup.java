@@ -118,17 +118,11 @@ public class ColumnGroup extends Column implements ObjectModel,
 				other.getGroupName().toUpperCase());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getName() {
 		return this.getGroupName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ColumnGroup clone() {
 		ColumnGroup clone = (ColumnGroup) super.clone();

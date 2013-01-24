@@ -20,18 +20,12 @@ public final class ResetChangeTrackingCommand extends AbstractCommand {
 		this.oldCalculated = this.changeTrackingList.isCalculated();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.changeTrackingList.setCalculated(false);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.changeTrackingList.setCalculated(oldCalculated);

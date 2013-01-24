@@ -41,9 +41,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 
 	private Label targetLabel;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		boolean bezier = this.getDiagram().getDiagramContents().getSettings()
@@ -59,9 +56,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		return connection;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
@@ -72,9 +66,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 				new RelationBendpointEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshBendpoints() {
 		try {
@@ -162,9 +153,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
@@ -203,9 +191,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		this.refreshBendpoints();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		Relation relation = (Relation) this.getModel();

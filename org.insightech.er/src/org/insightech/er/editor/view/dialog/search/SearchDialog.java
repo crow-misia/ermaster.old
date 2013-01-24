@@ -142,9 +142,6 @@ public class SearchDialog extends Dialog {
 		this.searchManager = new SearchManager(this.diagram);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		this.getShell().setText(
@@ -211,9 +208,6 @@ public class SearchDialog extends Dialog {
 
 		this.allCheckBox.addSelectionListener(new SelectionAdapter() {
 			
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				selectAllCheckBox(allCheckBox.getSelection());
@@ -225,9 +219,6 @@ public class SearchDialog extends Dialog {
 				.getResourceString("label.search.range.word"));
 		this.wordCheckBox.addSelectionListener(new SelectionAdapter() {
 			
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				selectWordCheckBox(wordCheckBox.getSelection());
@@ -241,9 +232,6 @@ public class SearchDialog extends Dialog {
 				.getResourceString("label.search.range.table"));
 		this.tableCheckBox.addSelectionListener(new SelectionAdapter() {
 			
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				selectTableCheckBox(tableCheckBox.getSelection());
@@ -257,9 +245,6 @@ public class SearchDialog extends Dialog {
 				.getResourceString("label.search.range.group"));
 		this.groupCheckBox.addSelectionListener(new SelectionAdapter() {
 			
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				selectGroupCheckBox(groupCheckBox.getSelection());
@@ -604,9 +589,6 @@ public class SearchDialog extends Dialog {
 
 		this.resultTable.addSelectionListener(new SelectionAdapter() {
 			
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = resultTable.getSelectionIndex();
@@ -653,9 +635,6 @@ public class SearchDialog extends Dialog {
 		tabItem.setControl(resultGroup);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		createButton(parent, REPLACE_ID, ResourceString
@@ -671,9 +650,6 @@ public class SearchDialog extends Dialog {
 				IDialogConstants.CLOSE_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == IDialogConstants.CLOSE_ID) {
@@ -844,9 +820,6 @@ public class SearchDialog extends Dialog {
 			this.sortType = sortType;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if (searchResult == null) {

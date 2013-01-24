@@ -15,9 +15,6 @@ public final class WithoutUpdateCommandWrapper extends Command {
 		this.diagram = diagram;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -29,9 +26,6 @@ public final class WithoutUpdateCommandWrapper extends Command {
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void undo() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -43,17 +37,11 @@ public final class WithoutUpdateCommandWrapper extends Command {
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		return command.canExecute();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canUndo() {
 		return command.canUndo();

@@ -98,9 +98,6 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 				"label.button.delete");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 	}

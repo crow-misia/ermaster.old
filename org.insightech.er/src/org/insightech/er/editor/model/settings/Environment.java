@@ -57,9 +57,6 @@ public class Environment implements Serializable, Cloneable {
 		this.name = name;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Environment clone() {
 		try {

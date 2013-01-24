@@ -14,9 +14,6 @@ public class ExportWarningDialog extends ExportErrorDialog {
 		super(parentShell, errorList);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.OK_ID, ResourceString
@@ -25,9 +22,6 @@ public class ExportWarningDialog extends ExportErrorDialog {
 				IDialogConstants.CANCEL_LABEL, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == IDialogConstants.CLOSE_ID

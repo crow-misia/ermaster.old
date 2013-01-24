@@ -21,9 +21,6 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
 
 	private IWorkbench workbench;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean performFinish() {
 		try {
@@ -54,9 +51,6 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void addPages() {
 		this.page1 = new NewDiagramWizardPage1(this.selection);

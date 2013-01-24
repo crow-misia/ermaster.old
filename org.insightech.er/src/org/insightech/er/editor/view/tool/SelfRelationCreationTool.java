@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 
 public class SelfRelationCreationTool extends ConnectionCreationTool {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == SWT.KeyDown) {
@@ -20,9 +17,6 @@ public class SelfRelationCreationTool extends ConnectionCreationTool {
 		return super.handleButtonDown(button);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleCreateConnection() {
 		CreateSelfRelationCommand command = (CreateSelfRelationCommand) this

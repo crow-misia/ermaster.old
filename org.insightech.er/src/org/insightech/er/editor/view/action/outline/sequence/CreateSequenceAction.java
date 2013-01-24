@@ -19,9 +19,6 @@ public class CreateSequenceAction extends AbstractOutlineBaseAction {
 				.getResourceString("action.title.create.sequence"), treeViewer);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

@@ -158,9 +158,6 @@ public class ERTableComposite extends Composite {
 
 		this.table.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = table.getSelectionIndex();
@@ -176,9 +173,6 @@ public class ERTableComposite extends Composite {
 		if (this.buttonDisplay) {
 			this.table.addMouseListener(new MouseAdapter() {
 
-				/**
-				 * {@inheritDoc}
-				 */
 				@Override
 				public void mouseDoubleClick(MouseEvent e) {
 					Column targetColumn = getTargetColumn();
@@ -214,9 +208,6 @@ public class ERTableComposite extends Composite {
 
 		this.columnAddButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				addOrEditColumn(null, true);
@@ -228,9 +219,6 @@ public class ERTableComposite extends Composite {
 
 		this.columnEditButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Column targetColumn = getTargetColumn();
@@ -250,9 +238,6 @@ public class ERTableComposite extends Composite {
 
 		this.columnDeleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = table.getSelectionIndex();
@@ -275,9 +260,6 @@ public class ERTableComposite extends Composite {
 
 		this.upButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				upColumn();
@@ -290,9 +272,6 @@ public class ERTableComposite extends Composite {
 
 		this.downButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				downColumn();
@@ -308,9 +287,6 @@ public class ERTableComposite extends Composite {
 
 		this.quickAddButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				QuickAddDialog dialog = new QuickAddDialog(PlatformUI
@@ -448,9 +424,6 @@ public class ERTableComposite extends Composite {
 		if (this.checkboxEnabled) {
 			notNullCheckButton.addSelectionListener(new SelectionAdapter() {
 
-				/**
-				 * {@inheritDoc}
-				 */
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					normalColumn.setNotNull(notNullCheckButton.getSelection());
@@ -460,9 +433,6 @@ public class ERTableComposite extends Composite {
 
 			uniqueCheckButton.addSelectionListener(new SelectionAdapter() {
 
-				/**
-				 * {@inheritDoc}
-				 */
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					normalColumn.setUniqueKey(uniqueCheckButton.getSelection());

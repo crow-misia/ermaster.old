@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.note.Note;
 
 public class NoteDirectEditPolicy extends DirectEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		String text = (String) request.getCellEditor().getValue();
@@ -20,9 +17,6 @@ public class NoteDirectEditPolicy extends DirectEditPolicy {
 		return command;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void showCurrentEditValue(DirectEditRequest request) {
 	}

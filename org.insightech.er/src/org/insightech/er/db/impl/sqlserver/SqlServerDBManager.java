@@ -30,17 +30,10 @@ public class SqlServerDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:sqlserver://<SERVER NAME>:<PORT>;database=<DB NAME>";

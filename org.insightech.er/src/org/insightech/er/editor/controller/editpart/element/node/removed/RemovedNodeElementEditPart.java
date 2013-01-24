@@ -30,9 +30,6 @@ public abstract class RemovedNodeElementEditPart extends AbstractModelEditPart
 
 	private Font font;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		this.disposeFont();
@@ -64,9 +61,6 @@ public abstract class RemovedNodeElementEditPart extends AbstractModelEditPart
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 	}
@@ -107,9 +101,6 @@ public abstract class RemovedNodeElementEditPart extends AbstractModelEditPart
 		return font;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshVisuals() {
 		this.setVisible();

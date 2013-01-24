@@ -46,9 +46,6 @@ public class ExportToImageAction extends AbstractExportAction {
 				.getImageDescriptor(ImageKey.EXPORT_TO_IMAGE));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) throws Exception {
 		// EditPart editPart = this.getGraphicalViewer().getContents();
@@ -68,9 +65,6 @@ public class ExportToImageAction extends AbstractExportAction {
 		this.save(this.getEditorPart(), this.getGraphicalViewer());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void save(IEditorPart editorPart, GraphicalViewer viewer,
 			String saveFilePath) {

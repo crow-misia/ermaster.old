@@ -142,8 +142,6 @@ public abstract class DBManagerBase implements DBManager {
 
 	abstract protected String getURL();
 
-	abstract public String getDriverClassName();
-
 	protected Set<String> getReservedWords() {
 		Set<String> reservedWords = new HashSet<String>();
 
@@ -168,16 +166,10 @@ public abstract class DBManagerBase implements DBManager {
 		return this.supportFunctions[function.ordinal()];
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public boolean doesNeedURLDatabaseName() {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public boolean doesNeedURLServerName() {
 		return true;
 	}

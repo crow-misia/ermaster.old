@@ -9,9 +9,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 
 public class NoColumnTypeRule extends ColumnRule {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate(ERTable table, NormalColumn column) {
 		if (column.getType() == null

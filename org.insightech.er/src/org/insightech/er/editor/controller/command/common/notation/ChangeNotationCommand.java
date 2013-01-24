@@ -21,18 +21,12 @@ public final class ChangeNotationCommand extends AbstractCommand {
 		this.oldNotation = this.settings.getNotation();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setNotation(this.newNotation);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setNotation(this.oldNotation);

@@ -35,9 +35,6 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 	private static final String[] FIND_KEYWORDS_LIST = { KEYWORD_DATE,
 			KEYWORD_CONTENTS };
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void generate(IProgressMonitor monitor, HSSFWorkbook workbook,
 			int sheetNo, boolean useLogicalNameAsSheetName,
@@ -133,9 +130,6 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 		return name;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getTemplateSheetName() {
 		return "history_template";

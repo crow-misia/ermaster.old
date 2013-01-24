@@ -22,9 +22,6 @@ public class FrameStyleSupport extends AbstractStyleSupport {
 		super(tableFigure);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void init(TableFigure tableFigure) {
 		this.border = new ImageFrameBorder();
@@ -33,9 +30,6 @@ public class FrameStyleSupport extends AbstractStyleSupport {
 		tableFigure.setBorder(this.border);
 	}
 
-    /**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void initTitleBar(Figure top) {
 		this.titleBarBorder = (TitleBarBorder) this.border.getInnerBorder();
@@ -55,9 +49,6 @@ public class FrameStyleSupport extends AbstractStyleSupport {
 		this.titleBarBorder.setFont(titleFont);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void adjustBounds(Rectangle rect) {
 		int width = this.border.getTitleBarWidth(this.getTableFigure());

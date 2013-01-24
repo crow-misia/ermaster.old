@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.mysql.tablespace;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -75,9 +76,6 @@ public class MySQLTablespaceDialog extends TablespaceDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String errorMessage = super.getErrorMessage();
@@ -85,23 +83,19 @@ public class MySQLTablespaceDialog extends TablespaceDialog {
 			return errorMessage;
 		}
 
-		String text = this.dataFile.getText().trim();
-		if (text.equals("")) {
+		if (StringUtils.isBlank(this.dataFile.getText())) {
 			return "error.tablespace.data.file.empty";
 		}
 
-		text = this.logFileGroup.getText().trim();
-		if (text.equals("")) {
+		if (StringUtils.isBlank(this.logFileGroup.getText())) {
 			return "error.tablespace.log.file.group.empty";
 		}
 
-		text = this.initialSize.getText().trim();
-		if (text.equals("")) {
+		if (StringUtils.isBlank(this.initialSize.getText().trim())) {
 			return "error.tablespace.initial.size.empty";
 		}
 
-		text = this.engine.getText().trim();
-		if (text.equals("")) {
+		if (StringUtils.isBlank(this.engine.getText().trim())) {
 			return "error.tablespace.storage.engine.empty";
 		}
 

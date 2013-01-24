@@ -12,9 +12,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGro
 
 public class GroupComponentEditPolicy extends NotElementComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(ERDiagram diagram, Object model) {
 		ColumnGroup deleteColumnGroup = (ColumnGroup) model;

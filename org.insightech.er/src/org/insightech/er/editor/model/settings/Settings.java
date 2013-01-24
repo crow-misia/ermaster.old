@@ -233,9 +233,6 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 		this.checkUsedWord = checkUsedWord;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object clone() {
 		Settings clone = null;

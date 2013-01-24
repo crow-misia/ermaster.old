@@ -21,18 +21,12 @@ public final class ChangeOutlineViewOrderByCommand extends AbstractCommand {
 		this.oldViewOrderBy = this.settings.getViewOrderBy();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setViewOrderBy(this.newViewOrderBy);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setViewOrderBy(this.oldViewOrderBy);

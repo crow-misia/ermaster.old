@@ -18,9 +18,6 @@ import org.insightech.er.editor.view.figure.connection.ERDiagramConnection;
 
 public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		boolean bezier = this.getDiagram().getDiagramContents().getSettings()
@@ -33,9 +30,6 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 		return connection;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
@@ -46,9 +40,6 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 				new ERDiagramBendpointEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshBendpoints() {
 		// ベンド・ポイントの位置情報の取得

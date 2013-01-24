@@ -122,9 +122,6 @@ public class ExportToDDLDialog extends AbstractDialog {
 		this.editorPart = editorPart;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initLayout(GridLayout layout) {
 		super.initLayout(layout);
@@ -132,9 +129,6 @@ public class ExportToDDLDialog extends AbstractDialog {
 		layout.verticalSpacing = 15;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		GridData gridData = new GridData();
@@ -308,18 +302,12 @@ public class ExportToDDLDialog extends AbstractDialog {
 				"label.comment.inline.column", 4);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		super.addListener();
 
 		this.environmentCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				validate();
@@ -480,9 +468,6 @@ public class ExportToDDLDialog extends AbstractDialog {
 				.getSelectionIndex());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		Settings settings = this.diagram.getDiagramContents().getSettings();
@@ -559,9 +544,6 @@ public class ExportToDDLDialog extends AbstractDialog {
 				.setSelection(exportSetting.isOpenAfterSaved());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.ddl";

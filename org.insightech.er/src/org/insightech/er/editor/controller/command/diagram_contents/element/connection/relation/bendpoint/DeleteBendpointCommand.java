@@ -18,17 +18,11 @@ public final class DeleteBendpointCommand extends AbstractCommand {
 		this.oldBendpoint = this.connection.getBendpoints().get(index);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.connection.removeBendpoint(index, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.connection.addBendpoint(index, oldBendpoint, true);

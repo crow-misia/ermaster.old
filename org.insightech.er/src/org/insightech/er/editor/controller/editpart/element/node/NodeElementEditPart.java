@@ -45,9 +45,6 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 
 	private Font font;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		this.disposeFont();
@@ -86,9 +83,6 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
@@ -135,9 +129,6 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 		return font;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		NodeElement element = (NodeElement) this.getModel();
@@ -216,18 +207,12 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 		return new Rectangle(point, dimension);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelSourceConnections() {
 		NodeElement element = (NodeElement) this.getModel();
 		return element.getOutgoings();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelTargetConnections() {
 		NodeElement element = (NodeElement) this.getModel();
@@ -267,9 +252,6 @@ public abstract class NodeElementEditPart extends AbstractModelEditPart
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setSelected(int value) {
 		if (value != 0) {

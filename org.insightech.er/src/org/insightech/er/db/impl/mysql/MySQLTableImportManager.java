@@ -16,18 +16,12 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.index.
 
 public class MySQLTableImportManager extends ImportFromDBManagerBase {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		if (schema != null) {
 			return "SELECT view_definition FROM information_schema.views WHERE table_schema = ? AND table_name = ?";
-
-		} else {
-			return "SELECT view_definition FROM information_schema.views WHERE table_name = ?";
-
 		}
+		return "SELECT view_definition FROM information_schema.views WHERE table_name = ?";
 	}
 
 	@Override

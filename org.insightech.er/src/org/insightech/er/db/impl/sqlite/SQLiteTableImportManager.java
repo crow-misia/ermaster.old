@@ -12,37 +12,22 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.index.
 
 public class SQLiteTableImportManager extends ImportFromDBManagerBase {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<Index> getIndexes(ERTable table, DatabaseMetaData metaData,
 			List<PrimaryKeyData> primaryKeys) throws SQLException {
 		return new ArrayList<Index>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setForeignKeys(List<ERTable> list) throws SQLException {
 		// SQLite note yet implemented
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @throws InterruptedException
-	 * @throws SQLException
-	 */
 	@Override
 	protected Map<String, ColumnData> getColumnDataMap(
 			String tableNameWithSchema, String tableName, String schema)

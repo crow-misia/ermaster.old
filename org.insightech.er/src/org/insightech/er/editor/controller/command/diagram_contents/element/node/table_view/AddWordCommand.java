@@ -31,18 +31,12 @@ public final class AddWordCommand extends AbstractCommand {
 				null, null, null, null, null);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.tableView.addColumn(this.index, this.column, true);
 		this.dictionary.add(this.column, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.tableView.removeColumn(this.column, true);

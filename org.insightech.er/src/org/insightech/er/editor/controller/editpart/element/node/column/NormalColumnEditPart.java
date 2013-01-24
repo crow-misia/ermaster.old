@@ -195,9 +195,6 @@ public class NormalColumnEditPart extends ColumnEditPart {
 		return foreignKeyColulmnList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setSelected(int value) {
 		final EditPart parent = this.getParent();

@@ -38,9 +38,6 @@ public class DescriptionTabWrapper extends ValidatableTabWrapper {
 				.getDescription()));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		String text = descriptionText.getText().trim();

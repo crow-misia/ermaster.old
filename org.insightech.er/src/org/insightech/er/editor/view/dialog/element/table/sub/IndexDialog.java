@@ -91,9 +91,6 @@ public class IndexDialog extends AbstractDialog {
 		this.selectedColumns = new ArrayList<NormalColumn>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createComposite(composite);
@@ -317,9 +314,6 @@ public class IndexDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		if (this.targetIndex != null && !add) {
@@ -410,9 +404,6 @@ public class IndexDialog extends AbstractDialog {
 	private void setListener() {
 		this.upButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = indexColumnList.getSelectionIndex();
@@ -429,9 +420,6 @@ public class IndexDialog extends AbstractDialog {
 
 		this.downButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = indexColumnList.getSelectionIndex();
@@ -448,9 +436,6 @@ public class IndexDialog extends AbstractDialog {
 
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = allColumnList.getSelectionIndex();
@@ -473,9 +458,6 @@ public class IndexDialog extends AbstractDialog {
 
 		this.removeButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = indexColumnList.getSelectionIndex();
@@ -568,9 +550,6 @@ public class IndexDialog extends AbstractDialog {
 		this.setTableEditor(column, tableItem, new Boolean(desc));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
@@ -579,9 +558,6 @@ public class IndexDialog extends AbstractDialog {
 				IDialogConstants.CANCEL_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 		String text = nameText.getText();
@@ -607,9 +583,6 @@ public class IndexDialog extends AbstractDialog {
 		return this.resultIndex;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String text = nameText.getText().trim();

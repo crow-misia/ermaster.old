@@ -22,9 +22,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.category.Cat
 
 public class NodeElementComponentEditPolicy extends ComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(GroupRequest request) {
 		try {

@@ -28,9 +28,6 @@ public class TablespaceHtmlReportPageGenerator extends
 		return "tablespace";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -40,9 +37,6 @@ public class TablespaceHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -82,9 +76,6 @@ public class TablespaceHtmlReportPageGenerator extends
 		return tablespace.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		return null;

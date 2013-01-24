@@ -181,9 +181,6 @@ public class JDBCPreferencePage extends
 
 		this.table.addMouseListener(new MouseAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				edit();
@@ -192,9 +189,6 @@ public class JDBCPreferencePage extends
 
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Set<JDBCDriverSetting> otherDriverSettingList = getOtherDriverSettingList(-1);
@@ -216,9 +210,6 @@ public class JDBCPreferencePage extends
 
 		this.editButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				edit();
@@ -228,9 +219,6 @@ public class JDBCPreferencePage extends
 
 		this.deleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {

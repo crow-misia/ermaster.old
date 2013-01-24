@@ -21,17 +21,11 @@ public final class ChangeTestDataCommand extends AbstractCommand {
 		this.newTestDataList = newTestDataList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.diagram.getDiagramContents().setTestDataList(newTestDataList);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.diagram.getDiagramContents().setTestDataList(oldTestDataList);

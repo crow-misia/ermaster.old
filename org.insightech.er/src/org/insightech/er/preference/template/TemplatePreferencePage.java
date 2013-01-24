@@ -74,9 +74,6 @@ public class TemplatePreferencePage extends
 				.getResourceString("label.button.download.template.en"));
 		buttonEn.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				download(DEFAULT_TEMPLATE_FILE_EN);
@@ -88,9 +85,6 @@ public class TemplatePreferencePage extends
 				.getResourceString("label.button.download.template.ja"));
 		buttonJa.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				download(DEFAULT_TEMPLATE_FILE_JA);
@@ -99,9 +93,6 @@ public class TemplatePreferencePage extends
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void performDefaults() {
 		this.fileListEditor.loadDefault();
@@ -109,9 +100,6 @@ public class TemplatePreferencePage extends
 		super.performDefaults();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean performOk() {
 		this.fileListEditor.store();

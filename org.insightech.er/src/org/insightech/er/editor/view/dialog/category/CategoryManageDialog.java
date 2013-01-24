@@ -68,9 +68,6 @@ public class CategoryManageDialog extends AbstractDialog {
 		this.categorySettings = settings.getCategorySetting();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createCategoryGroup(composite);
@@ -308,9 +305,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.categoryTable.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = categoryTable.getSelectionIndex();
@@ -331,9 +325,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.addCategoryButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String name = categoryNameText.getText().trim();
@@ -362,9 +353,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.updateCategoryButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String name = categoryNameText.getText().trim();
@@ -384,9 +372,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.deleteCategoryButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
@@ -422,9 +407,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.upButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = categoryTable.getSelectionIndex();
@@ -442,9 +424,6 @@ public class CategoryManageDialog extends AbstractDialog {
 
 		this.downButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = categoryTable.getSelectionIndex();

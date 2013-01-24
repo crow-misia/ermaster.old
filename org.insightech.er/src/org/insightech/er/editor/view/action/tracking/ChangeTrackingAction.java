@@ -17,9 +17,6 @@ public class ChangeTrackingAction extends AbstractBaseAction {
 				.getResourceString("action.title.change.tracking"), editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

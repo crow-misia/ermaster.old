@@ -42,9 +42,6 @@ public class ViewDialog extends AbstractDialog {
 		this.tabWrapperList = new ArrayList<ValidatableTabWrapper>();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		GridData gridData = new GridData();
@@ -85,9 +82,6 @@ public class ViewDialog extends AbstractDialog {
 		attributeTabWrapper.setInitFocus();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		try {
@@ -102,9 +96,6 @@ public class ViewDialog extends AbstractDialog {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.view";

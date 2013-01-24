@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
 public final class CreateRelationCommand extends AbstractCreateRelationCommand {
@@ -24,25 +23,18 @@ public final class CreateRelationCommand extends AbstractCreateRelationCommand {
 		this.foreignKeyColumnList = foreignKeyColumnList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		ERDiagramEditPart.setUpdateable(false);
 
-		this.relation.setSource((TableView) source.getModel(), false);
+		this.relation.setSource(getSourceModel(), false);
 
 		ERDiagramEditPart.setUpdateable(true);
 
-		this.relation.setTargetTableView((TableView) target.getModel(),
+		this.relation.setTargetTableView(getTargetModel(),
 				this.foreignKeyColumnList, true, true);
-
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		ERDiagramEditPart.setUpdateable(false);
@@ -53,7 +45,6 @@ public final class CreateRelationCommand extends AbstractCreateRelationCommand {
 
 		this.relation.setTargetTableView(null, true, true);
 
-		TableView targetTable = (TableView) this.target.getModel();
-		targetTable.setDirty();
+		getTargetModel().setDirty();
 	}
 }

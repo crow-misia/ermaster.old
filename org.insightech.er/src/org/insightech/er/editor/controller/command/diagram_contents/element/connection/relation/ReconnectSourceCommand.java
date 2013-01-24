@@ -5,15 +5,15 @@ import org.insightech.er.editor.model.diagram_contents.element.connection.Relati
 
 public final class ReconnectSourceCommand extends AbstractCommand {
 
-	private Relation relation;
+	private final Relation relation;
 
 	private final int xp;
 
 	private final int yp;
 
-	private int oldXp;
+	private final int oldXp;
 
-	private int oldYp;
+	private final int oldYp;
 
 	public ReconnectSourceCommand(Relation relation, int xp, int yp) {
 		this.relation = relation;
@@ -24,18 +24,12 @@ public final class ReconnectSourceCommand extends AbstractCommand {
 		this.oldYp = relation.getSourceYp();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		relation.setSourceLocationp(this.xp, this.yp);
 		relation.setParentMove();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		relation.setSourceLocationp(this.oldXp, this.oldYp);

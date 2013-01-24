@@ -26,9 +26,6 @@ public abstract class AbstractOutlineBaseAction extends Action {
 		this.treeViewer = treeViewer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void runWithEvent(Event event) {
 		try {

@@ -47,41 +47,30 @@ public final class CreateElementCommand extends AbstractCommand {
 		this.enclosedElementList = enclosedElementList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
-		if (!(this.element instanceof Category)) {
-			this.diagram.addNewContent(this.element, true, true);
-
-		} else {
+		if (this.element instanceof Category) {
 			Category category = (Category) this.element;
 			category
 					.setName(ResourceString.getResourceString("label.category"));
 			category.setContents(this.enclosedElementList);
 			this.diagram.addCategory(category, true);
+		} else {
+			this.diagram.addNewContent(this.element, true, true);
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
-		if (!(this.element instanceof Category)) {
-			this.diagram.removeContent(this.element, true, true);
-
-		} else {
+		if (this.element instanceof Category) {
 			Category category = (Category) this.element;
 			category.getContents().clear();
 			this.diagram.removeCategory(category, true);
+		} else {
+			this.diagram.removeContent(this.element, true, true);
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		if (this.element instanceof Category) {

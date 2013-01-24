@@ -40,9 +40,6 @@ public abstract class AbstractDialog extends Dialog {
 		this.numColumns = numColumns;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		this.getShell().setText(
@@ -201,9 +198,6 @@ public abstract class AbstractDialog extends Dialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == IDialogConstants.CLOSE_ID

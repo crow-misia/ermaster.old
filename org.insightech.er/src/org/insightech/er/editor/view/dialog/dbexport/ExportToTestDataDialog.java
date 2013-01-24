@@ -78,9 +78,6 @@ public class ExportToTestDataDialog extends AbstractDialog {
 				.getExportSetting().getExportTestDataSetting().clone();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		this.createTestDataTableGroup(parent);
@@ -267,9 +264,6 @@ public class ExportToTestDataDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		for (TestData testData : this.testDataList) {
@@ -321,9 +315,6 @@ public class ExportToTestDataDialog extends AbstractDialog {
 		this.fileEncodingCombo.setText(outputFileEncoding);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.OK_ID, ResourceString
@@ -332,9 +323,6 @@ public class ExportToTestDataDialog extends AbstractDialog {
 				IDialogConstants.CLOSE_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.testdata";

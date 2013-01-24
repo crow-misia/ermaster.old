@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.ERDiagram;
 
 public abstract class NotElementComponentEditPolicy extends ComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(GroupRequest request) {
 		if (this.getHost() instanceof DeleteableEditPart) {

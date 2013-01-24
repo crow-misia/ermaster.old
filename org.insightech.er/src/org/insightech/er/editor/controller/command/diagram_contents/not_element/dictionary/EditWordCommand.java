@@ -27,18 +27,12 @@ public final class EditWordCommand extends AbstractCommand {
 		this.dictionary = diagram.getDiagramContents().getDictionary();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		dictionary.copyTo(newWord, word, true);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		dictionary.copyTo(oldWord, word, true);

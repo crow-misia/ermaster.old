@@ -21,9 +21,6 @@ public class CreateTablespaceAction extends AbstractOutlineBaseAction {
 				treeViewer);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

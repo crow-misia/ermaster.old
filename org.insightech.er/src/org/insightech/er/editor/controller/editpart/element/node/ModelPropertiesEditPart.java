@@ -19,9 +19,6 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		super();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		ERDiagram diagram = this.getDiagram();
@@ -36,9 +33,6 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doPropertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equals(
@@ -49,9 +43,6 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		super.doPropertyChange(event);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		ERDiagram diagram = this.getDiagram();
@@ -67,18 +58,12 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		super.refreshVisuals();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void changeSettings(Settings settings) {
 		this.figure.setVisible(settings.getModelProperties().isDisplay());
 		super.changeSettings(settings);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setVisible() {
 		ERDiagram diagram = this.getDiagram();
@@ -88,9 +73,6 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		this.figure.setVisible(settings.getModelProperties().isDisplay());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequestOpen() {
 		ERDiagram diagram = this.getDiagram();
@@ -111,9 +93,6 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean isDeleteable() {
 		return false;

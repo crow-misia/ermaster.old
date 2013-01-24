@@ -5,32 +5,31 @@ import org.insightech.er.Activator;
 
 public abstract class AbstractCommand extends Command {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	final public void execute() {
+	public final void execute() {
 		try {
 			doExecute();
+		} catch (final Exception e) {
+			Activator.showExceptionDialog(e);
+		}
+	}
 
-		} catch (Exception e) {
+	@Override
+	public final void undo() {
+		try {
+			doUndo();
+		} catch (final Exception e) {
 			Activator.showExceptionDialog(e);
 		}
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * コマンドを実行する
 	 */
-	@Override
-	final public void undo() {
-		try {
-			doUndo();
-		} catch (Exception e) {
-			Activator.showExceptionDialog(e);
-		}
-	}
+	protected abstract void doExecute();
 
-	abstract protected void doExecute();
-
-	abstract protected void doUndo();
+	/**
+	 * 実行したコマンドの結果を取り消す
+	 */
+	protected abstract void doUndo();
 }

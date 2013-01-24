@@ -11,17 +11,11 @@ public final class NothingToDoCommand extends AbstractCommand {
 		// do nothing.
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		// do nothing.
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		// do nothing.

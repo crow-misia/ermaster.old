@@ -13,9 +13,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnG
 
 public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command createDeleteCommand(GroupRequest request) {
 		try {

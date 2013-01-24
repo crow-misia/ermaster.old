@@ -18,9 +18,6 @@ public class ChangeStampAction extends AbstractBaseAction {
 				.getResourceString("action.title.display.stamp"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

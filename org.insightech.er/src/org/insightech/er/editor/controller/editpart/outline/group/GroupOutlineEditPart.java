@@ -24,9 +24,6 @@ public class GroupOutlineEditPart extends AbstractOutlineEditPart implements
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		ColumnGroup columnGroup = (ColumnGroup) this.getModel();
@@ -35,9 +32,6 @@ public class GroupOutlineEditPart extends AbstractOutlineEditPart implements
 		this.setWidgetImage(Activator.getImage(ImageKey.GROUP));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
@@ -55,9 +49,6 @@ public class GroupOutlineEditPart extends AbstractOutlineEditPart implements
 		super.performRequest(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);
@@ -67,9 +58,6 @@ public class GroupOutlineEditPart extends AbstractOutlineEditPart implements
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,

@@ -61,9 +61,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 		this.diagram = diagram;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		Composite group = new Composite(parent, SWT.NONE);
@@ -169,9 +166,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 		return this.password.getText().trim();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		DBManager manager = null;
@@ -240,9 +234,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		if (this.dbSetting != null) {
@@ -341,9 +332,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		super.addListener();
@@ -383,9 +371,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 
 		this.settingListButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
@@ -412,9 +397,6 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 
 		this.settingAddButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {

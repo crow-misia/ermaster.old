@@ -25,9 +25,6 @@ public class TablespaceOutlineEditPart extends AbstractOutlineEditPart
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		Tablespace tablespace = (Tablespace) this.getModel();
@@ -36,9 +33,6 @@ public class TablespaceOutlineEditPart extends AbstractOutlineEditPart
 		this.setWidgetImage(Activator.getImage(ImageKey.TABLESPACE));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		Tablespace tablespace = (Tablespace) this.getModel();
@@ -65,18 +59,12 @@ public class TablespaceOutlineEditPart extends AbstractOutlineEditPart
 		super.performRequest(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,
 				new TablespaceComponentEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);

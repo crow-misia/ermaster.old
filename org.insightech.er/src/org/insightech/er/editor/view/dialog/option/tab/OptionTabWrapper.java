@@ -64,9 +64,6 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 		this.changeUsedWordInOtherColumnCheck.setSelection(this.settings.isCheckUsedWord());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		this.settings.setAutoImeChange(this.autoImeChangeCheck.getSelection());

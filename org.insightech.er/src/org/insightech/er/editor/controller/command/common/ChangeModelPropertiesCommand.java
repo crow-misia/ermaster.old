@@ -24,21 +24,14 @@ public final class ChangeModelPropertiesCommand extends AbstractCommand {
 		this.newProperties = properties.getProperties();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.modelProperties.setProperties(newProperties, true);
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.modelProperties.setProperties(oldProperties, true);
 	}
-
 }

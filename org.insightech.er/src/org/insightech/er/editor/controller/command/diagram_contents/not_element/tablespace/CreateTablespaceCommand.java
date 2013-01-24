@@ -16,17 +16,11 @@ public final class CreateTablespaceCommand extends AbstractCommand {
 		this.tablespace = tablespace;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.tablespaceSet.addTablespace(this.tablespace, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.tablespaceSet.remove(this.tablespace, true);

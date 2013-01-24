@@ -46,9 +46,6 @@ public class PostgresTablespaceDialog extends TablespaceDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String errorMessage = super.getErrorMessage();

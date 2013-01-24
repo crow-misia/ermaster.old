@@ -30,9 +30,6 @@ public class RightAngleLineAction extends AbstractBaseSelectionAction {
 				.getResourceString("action.title.right.angle.line"), editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List<Command> getCommand(EditPart editPart, Event event) {
 		List<Command> commandList = new ArrayList<Command>();
@@ -122,9 +119,6 @@ public class RightAngleLineAction extends AbstractBaseSelectionAction {
 		return command;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean calculateEnabled() {
 		GraphicalViewer viewer = this.getGraphicalViewer();

@@ -47,9 +47,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 
 	private Font titleFont;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		List<Object> modelChildren = new ArrayList<Object>();
@@ -67,9 +64,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return modelChildren;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doPropertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equals(
@@ -89,18 +83,12 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		this.refreshConnections();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refresh() {
 		super.refresh();
 		this.refreshConnections();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		try {
@@ -210,9 +198,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void changeSettings(Settings settings) {
 		TableFigure figure = (TableFigure) this.getFigure();
@@ -221,9 +206,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		super.changeSettings(settings);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void disposeFont() {
 		if (this.titleFont != null && !this.titleFont.isDisposed()) {
@@ -265,9 +247,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return name;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(
 			ConnectionEditPart editPart) {
@@ -290,9 +269,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return anchor;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		if (request instanceof ReconnectRequest) {
@@ -350,9 +326,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return new XYChopboxAnchor(this.getFigure());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(
 			ConnectionEditPart editPart) {
@@ -375,9 +348,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return anchor;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		if (request instanceof ReconnectRequest) {
@@ -476,9 +446,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return new Point(x, y);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public IFigure getContentPane() {
 		TableFigure figure = (TableFigure) super.getContentPane();
@@ -486,9 +453,6 @@ public abstract class TableViewEditPart extends NodeElementEditPart implements
 		return figure.getColumns();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,

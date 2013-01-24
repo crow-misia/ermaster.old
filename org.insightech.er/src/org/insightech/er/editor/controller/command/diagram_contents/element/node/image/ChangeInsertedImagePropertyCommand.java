@@ -19,9 +19,6 @@ public final class ChangeInsertedImagePropertyCommand extends AbstractCommand {
 		this.newInsertedImage = newInsertedImage;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.insertedImage.setHue(this.newInsertedImage.getHue());
@@ -34,9 +31,6 @@ public final class ChangeInsertedImagePropertyCommand extends AbstractCommand {
 		this.insertedImage.setDirty();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.insertedImage.setHue(this.oldInsertedImage.getHue());

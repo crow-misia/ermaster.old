@@ -21,18 +21,12 @@ public final class ChangeCapitalCommand extends AbstractCommand {
 		this.oldCapital = this.settings.isCapital();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setCapital(this.newCapital);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setCapital(this.oldCapital);

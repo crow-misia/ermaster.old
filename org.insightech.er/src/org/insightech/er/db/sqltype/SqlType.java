@@ -317,9 +317,6 @@ public class SqlType implements Serializable {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -340,9 +337,6 @@ public class SqlType implements Serializable {
 		return this.name == null ? 0 : this.name.hashCode();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return this.getId();

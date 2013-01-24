@@ -40,9 +40,6 @@ public class ERDiagramEditPart extends AbstractModelEditPart {
 		return updateable;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		try {
@@ -52,9 +49,6 @@ public class ERDiagramEditPart extends AbstractModelEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		FreeformLayer layer = new FreeformLayer();
@@ -63,18 +57,12 @@ public class ERDiagramEditPart extends AbstractModelEditPart {
 		return layer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.LAYOUT_ROLE,
 				new ERDiagramLayoutEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		List<Object> modelChildren = new ArrayList<Object>();
@@ -156,9 +144,6 @@ public class ERDiagramEditPart extends AbstractModelEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		ERDiagram element = (ERDiagram) this.getModel();

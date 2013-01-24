@@ -18,9 +18,6 @@ public abstract class AbstractChangeNotationLevelAction extends
 						+ this.getLevel()));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		if (!this.isChecked()) {

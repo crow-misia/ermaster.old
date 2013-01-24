@@ -65,9 +65,6 @@ public class ChangeTrackingDialog extends Dialog {
 		this.diagram = diagram;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		this.getShell().setText(
@@ -142,9 +139,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.changeTrackingTable.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = changeTrackingTable.getSelectionIndex();
@@ -158,9 +152,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.registerButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ChangeTracking changeTracking = new ChangeTracking(diagram
@@ -182,9 +173,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.updateButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = changeTrackingTable.getSelectionIndex();
@@ -208,9 +196,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.deleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = changeTrackingTable.getSelectionIndex();
@@ -235,9 +220,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.replaceButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = changeTrackingTable.getSelectionIndex();
@@ -281,9 +263,6 @@ public class ChangeTrackingDialog extends Dialog {
 		this.comparisonDisplayButton
 				.addSelectionListener(new SelectionAdapter() {
 
-					/**
-					 * {@inheritDoc}
-					 */
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						int index = changeTrackingTable.getSelectionIndex();
@@ -309,9 +288,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 		this.comparisonResetButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Command command = new ResetChangeTrackingCommand(diagram);
@@ -324,18 +300,12 @@ public class ChangeTrackingDialog extends Dialog {
 		this.textArea.setFocus();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.CLOSE_ID,
 				IDialogConstants.CLOSE_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == IDialogConstants.CLOSE_ID) {

@@ -46,9 +46,6 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 		this.importDB = importDB;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.createObjectListComposite(composite);
@@ -97,9 +94,6 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 		});
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.BACK_ID,
@@ -110,9 +104,6 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 				IDialogConstants.CANCEL_LABEL, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		Object[] selectedNodes = this.viewer.getCheckedElements();
@@ -127,9 +118,6 @@ public class SelectImportedSchemaDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.viewer.getCheckedElements().length == 0) {

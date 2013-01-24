@@ -27,9 +27,6 @@ public final class ChangeColumnOrderCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.tableView.removeColumn(column, false);
@@ -38,9 +35,6 @@ public final class ChangeColumnOrderCommand extends AbstractCommand {
 		this.tableView.getDiagram().changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.tableView.removeColumn(column, false);

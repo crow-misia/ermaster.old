@@ -77,9 +77,6 @@ public class GroupColumnEditPart extends ColumnEditPart {
 				.getName()), isAdded, isUpdated, isRemoved);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setSelected(int value) {
 		GroupColumnFigure figure = (GroupColumnFigure) this.getFigure();

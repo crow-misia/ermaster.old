@@ -20,9 +20,6 @@ public class CategoryManageAction extends AbstractBaseAction {
 				.getResourceString("action.title.category.manage"), editor);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

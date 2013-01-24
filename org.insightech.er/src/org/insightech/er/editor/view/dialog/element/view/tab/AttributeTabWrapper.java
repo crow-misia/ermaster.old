@@ -118,9 +118,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 				this.viewDialog, 2, true, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		String text = logicalNameText.getText().trim();
@@ -156,9 +153,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 		this.groupAddButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int targetIndex = groupCombo.getSelectionIndex();
@@ -194,9 +188,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 		this.groupCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int targetIndex = groupCombo.getSelectionIndex();
@@ -275,9 +266,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 		this.groupManageButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				GroupSet groupSet = getColumnGroups();
@@ -309,9 +297,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 		return this.copyData.getDiagram().getDiagramContents().getGroups();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setInitFocus() {
 		this.physicalNameText.setFocus();

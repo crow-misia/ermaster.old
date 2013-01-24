@@ -24,9 +24,6 @@ public class TableHtmlReportPageGenerator extends
 		return "table";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -36,9 +33,6 @@ public class TableHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -94,9 +88,6 @@ public class TableHtmlReportPageGenerator extends
 		return table.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		ERTable table = (ERTable) object;

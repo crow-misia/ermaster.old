@@ -28,9 +28,6 @@ public class WordDialog extends AbstractWordDialog {
 				.getTypeData(), this.targetWord.getDescription());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String text = logicalNameText.getText().trim();

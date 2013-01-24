@@ -15,17 +15,11 @@ public final class DeleteElementCommand extends AbstractCommand {
 		this.element = element;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.container.removeContent(this.element, true, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.container.addContent(this.element, true, true);

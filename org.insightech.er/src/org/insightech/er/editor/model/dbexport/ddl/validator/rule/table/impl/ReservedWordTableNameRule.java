@@ -8,9 +8,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 
 public class ReservedWordTableNameRule extends TableRule {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate(ERTable table) {
 		if (table.getPhysicalName() != null) {

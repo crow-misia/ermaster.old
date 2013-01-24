@@ -29,9 +29,6 @@ public class SequenceOutlineEditPart extends AbstractOutlineEditPart implements
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		Sequence sequence = (Sequence) this.getModel();
@@ -48,9 +45,6 @@ public class SequenceOutlineEditPart extends AbstractOutlineEditPart implements
 		this.setWidgetImage(Activator.getImage(ImageKey.SEQUENCE));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		try {
@@ -76,18 +70,12 @@ public class SequenceOutlineEditPart extends AbstractOutlineEditPart implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,
 				new SequenceComponentEditPolicy());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public DragTracker getDragTracker(Request req) {
 		return new SelectEditPartTracker(this);

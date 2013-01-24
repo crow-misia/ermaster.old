@@ -32,17 +32,10 @@ public class H2DBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "org.h2.Driver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:h2:tcp://<SERVER NAME>:<PORT>/<DB NAME>";
@@ -98,9 +91,6 @@ public class H2DBManager extends DBManagerBase {
 		return new H2PreTableExportManager();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean doesNeedURLDatabaseName() {
 		return false;

@@ -69,9 +69,6 @@ public class GroupDialog extends AbstractDialog implements
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	@SuppressWarnings({ "unchecked", "unused" })
 	protected void initialize(Composite composite) {
@@ -87,9 +84,6 @@ public class GroupDialog extends AbstractDialog implements
 		this.groupNameText.setFocus();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.groupNameText.getEnabled()) {
@@ -103,9 +97,6 @@ public class GroupDialog extends AbstractDialog implements
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 	}

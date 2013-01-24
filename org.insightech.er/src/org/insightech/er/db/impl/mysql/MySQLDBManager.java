@@ -39,17 +39,10 @@ public class MySQLDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "com.mysql.jdbc.Driver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:mysql://<SERVER NAME>:<PORT>/<DB NAME>";
@@ -111,11 +104,10 @@ public class MySQLDBManager extends DBManagerBase {
 	public TablespaceProperties checkTablespaceProperties(
 			TablespaceProperties tablespaceProperties) {
 
-		if (!(tablespaceProperties instanceof MySQLTablespaceProperties)) {
-			return new MySQLTablespaceProperties();
+		if (tablespaceProperties instanceof MySQLTablespaceProperties) {
+			return tablespaceProperties;
 		}
-
-		return tablespaceProperties;
+		return new MySQLTablespaceProperties();
 	}
 
 	public String[] getCurrentTimeValue() {

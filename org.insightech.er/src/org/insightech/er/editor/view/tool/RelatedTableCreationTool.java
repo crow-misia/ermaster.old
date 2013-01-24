@@ -7,9 +7,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 
 public class RelatedTableCreationTool extends ConnectionCreationTool {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean handleCreateConnection() {
 		CreateRelatedTableCommand command = (CreateRelatedTableCommand) this

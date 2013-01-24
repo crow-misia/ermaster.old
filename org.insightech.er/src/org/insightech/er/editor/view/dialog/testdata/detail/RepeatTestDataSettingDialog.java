@@ -361,9 +361,6 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		this.createButton(parent, IDialogConstants.CLOSE_ID,

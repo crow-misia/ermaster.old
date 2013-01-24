@@ -95,9 +95,6 @@ public class TranslationSetting implements Serializable, Cloneable {
 		this.selectedTranslations.add(translation);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object clone() {
 		try {

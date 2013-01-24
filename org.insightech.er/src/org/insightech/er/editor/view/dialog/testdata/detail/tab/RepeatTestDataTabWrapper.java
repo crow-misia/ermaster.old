@@ -165,9 +165,6 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 		this.initTable();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 	}

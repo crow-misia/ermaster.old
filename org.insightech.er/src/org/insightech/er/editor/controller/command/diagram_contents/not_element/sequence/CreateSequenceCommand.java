@@ -16,17 +16,11 @@ public final class CreateSequenceCommand extends AbstractCommand {
 		this.sequence = sequence;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.sequenceSet.addSequence(this.sequence, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.sequenceSet.remove(this.sequence, true);

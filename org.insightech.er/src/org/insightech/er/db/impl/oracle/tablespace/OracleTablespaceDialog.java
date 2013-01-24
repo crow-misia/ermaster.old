@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.oracle.tablespace;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -210,9 +211,6 @@ public class OracleTablespaceDialog extends TablespaceDialog {
 		this.setAutoExtendEnabled();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		String errorMessage = super.getErrorMessage();
@@ -221,8 +219,7 @@ public class OracleTablespaceDialog extends TablespaceDialog {
 		}
 
 		if (this.autoExtend.getSelection()) {
-			String text = this.autoExtendSize.getText().trim();
-			if (text.equals("")) {
+			if (StringUtils.isBlank(this.autoExtendSize.getText())) {
 				return "error.tablespace.auto.extend.size.empty";
 			}
 		}
@@ -230,37 +227,24 @@ public class OracleTablespaceDialog extends TablespaceDialog {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		super.addListener();
 
 		this.autoExtend.addSelectionListener(new SelectionAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setAutoExtendEnabled();
 			}
-
 		});
 
 		this.calculatorButton.addSelectionListener(new SelectionAdapter() {
-
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				TablespaceSizeCaluculatorDialog dialog = new TablespaceSizeCaluculatorDialog();
 				dialog.init(diagram);
 				dialog.open();
 			}
-
 		});
 	}
 

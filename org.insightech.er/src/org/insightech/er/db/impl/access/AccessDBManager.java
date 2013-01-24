@@ -26,17 +26,10 @@ public class AccessDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "sun.jdbc.odbc.JdbcOdbcDriver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:odbc:<DB NAME>";
@@ -104,9 +97,6 @@ public class AccessDBManager extends DBManagerBase {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean doesNeedURLServerName() {
 		return false;

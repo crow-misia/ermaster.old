@@ -34,9 +34,6 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		this.dbSetting = this.diagram.getDbSetting();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeBody(Composite group) {
 		GridData labelLayoutData = new GridData();
@@ -59,17 +56,11 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		super.initializeBody(group);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		super.initialize(parent);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		if (this.settingAddButton != null) {
@@ -87,9 +78,6 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		return super.getErrorMessage();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		this.setCurrentSetting();
@@ -158,17 +146,11 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.db";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		super.setData();
@@ -182,9 +164,6 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		this.environmentCombo.select(0);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected boolean isOnlyCurrentDatabase() {
 		return true;
@@ -199,18 +178,12 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 		return ddl;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void addListener() {
 		super.addListener();
 
 		this.environmentCombo.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				validate();

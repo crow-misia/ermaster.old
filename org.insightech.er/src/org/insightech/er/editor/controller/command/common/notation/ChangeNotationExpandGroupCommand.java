@@ -23,9 +23,6 @@ public final class ChangeNotationExpandGroupCommand extends AbstractCommand {
 		this.oldNotationExpandGroup = this.settings.isNotationExpandGroup();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setNotationExpandGroup(this.newNotationExpandGroup);
@@ -36,9 +33,6 @@ public final class ChangeNotationExpandGroupCommand extends AbstractCommand {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setNotationExpandGroup(this.oldNotationExpandGroup);

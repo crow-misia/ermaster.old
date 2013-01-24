@@ -21,9 +21,6 @@ public class GroupHtmlReportPageGenerator extends
 		return "group";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -32,9 +29,6 @@ public class GroupHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -62,9 +56,6 @@ public class GroupHtmlReportPageGenerator extends
 		return columnGroup.getGroupName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		return null;

@@ -50,9 +50,6 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 		this.diagram = diagram;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		GridData gridData2 = new GridData();
@@ -169,9 +166,6 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		DiagramContents diagramContents = this.diagram.getDiagramContents();
@@ -218,9 +212,6 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.translation.dictionary";

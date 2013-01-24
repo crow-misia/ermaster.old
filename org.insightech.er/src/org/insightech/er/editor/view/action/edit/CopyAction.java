@@ -45,9 +45,6 @@ public class CopyAction extends SelectionAction {
 		this.setId(ActionFactory.COPY.getId());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	protected boolean calculateEnabled() {
@@ -64,9 +61,6 @@ public class CopyAction extends SelectionAction {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void run() {
 		copy();

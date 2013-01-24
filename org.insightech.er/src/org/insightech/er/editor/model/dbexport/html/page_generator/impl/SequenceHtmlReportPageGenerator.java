@@ -19,9 +19,6 @@ public class SequenceHtmlReportPageGenerator extends
 		return "sequence";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -31,9 +28,6 @@ public class SequenceHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object) {
 		Sequence sequence = (Sequence) object;
@@ -61,9 +55,6 @@ public class SequenceHtmlReportPageGenerator extends
 		return sequence.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		Sequence sequence = (Sequence) object;

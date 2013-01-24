@@ -22,18 +22,12 @@ public final class ChangeStampCommand extends AbstractCommand {
 		this.oldStamp = this.modelProperties.isDisplay();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.modelProperties.setDisplay(this.newStamp, true);
 		this.diagram.changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.modelProperties.setDisplay(this.oldStamp, true);

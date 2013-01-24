@@ -18,9 +18,6 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 
 	private NoteEditManager editManager = null;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		NoteFigure noteFigure = new NoteFigure();
@@ -30,9 +27,6 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 		return noteFigure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doPropertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equals(Note.PROPERTY_CHANGE_NOTE)) {
@@ -42,9 +36,6 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 		super.doPropertyChange(event);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createEditPolicies() {
 		this.installEditPolicy(EditPolicy.COMPONENT_ROLE,
@@ -55,9 +46,6 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 		super.createEditPolicies();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		Note note = (Note) this.getModel();
@@ -69,9 +57,6 @@ public class NoteEditPart extends NodeElementEditPart implements IResizable {
 		super.refreshVisuals();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void performRequest(Request request) {
 		if (request.getType().equals(RequestConstants.REQ_DIRECT_EDIT)

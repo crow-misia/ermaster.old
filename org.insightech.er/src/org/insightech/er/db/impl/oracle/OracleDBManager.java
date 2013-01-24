@@ -44,17 +44,10 @@ public class OracleDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "oracle.jdbc.driver.OracleDriver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:oracle:thin:@<SERVER NAME>:<PORT>:<DB NAME>";

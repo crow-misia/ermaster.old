@@ -147,9 +147,6 @@ public abstract class NodeElement extends ViewableModel implements ObjectModel {
 		return referedElementList;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public NodeElement clone() {
 		NodeElement clone = (NodeElement) super.clone();

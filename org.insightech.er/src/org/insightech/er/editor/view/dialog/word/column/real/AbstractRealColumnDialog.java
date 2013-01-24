@@ -56,9 +56,6 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 		return composite;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initializeComposite(Composite composite) {
 		int numColumns = this.getCompositeNumColumns();
@@ -111,9 +108,6 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 				"label.unique.key");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setWordData() {
 		this.notNullCheck.setSelection(this.targetColumn.isNotNull());
@@ -130,9 +124,6 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 		super.setWordData();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		super.perfomeOK();

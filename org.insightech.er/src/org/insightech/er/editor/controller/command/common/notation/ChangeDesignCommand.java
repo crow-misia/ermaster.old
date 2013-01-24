@@ -21,18 +21,12 @@ public final class ChangeDesignCommand extends AbstractCommand {
 		this.oldDesign = this.settings.getTableStyle();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.settings.setTableStyle(this.newDesign);
 		this.diagram.change();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.settings.setTableStyle(this.oldDesign);

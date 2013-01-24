@@ -33,9 +33,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 
 public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getConnectionCompleteCommand(
 			CreateConnectionRequest request) {
@@ -67,9 +64,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		return command;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
 		EditPart editPart = request.getTargetEditPart();
@@ -165,9 +159,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getReconnectSourceCommand(
 			ReconnectRequest reconnectrequest) {
@@ -219,9 +210,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		return command;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Command getReconnectTargetCommand(
 			ReconnectRequest reconnectrequest) {

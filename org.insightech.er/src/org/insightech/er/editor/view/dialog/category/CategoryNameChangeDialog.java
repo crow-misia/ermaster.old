@@ -21,9 +21,6 @@ public class CategoryNameChangeDialog extends AbstractDialog {
 		this.targetCategory = category;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		this.categoryNameText = CompositeFactory.createText(this, composite,

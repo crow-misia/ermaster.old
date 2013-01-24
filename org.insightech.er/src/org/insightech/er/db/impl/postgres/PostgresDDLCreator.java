@@ -28,9 +28,6 @@ public class PostgresDDLCreator extends DDLCreator {
 		super(diagram, semicolon);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getPostDDL(ERTable table) {
 		PostgresTableProperties commonTableProperties = (PostgresTableProperties) this
@@ -56,9 +53,6 @@ public class PostgresDDLCreator extends DDLCreator {
 		return postDDL.toString();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<String> getCommentDDL(ERTable table) {
 		List<String> ddlList = new ArrayList<String>();

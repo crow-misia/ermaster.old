@@ -13,9 +13,6 @@ public class ImageTitleBarBorder extends TitleBarBorder {
 
 	private int width;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void paint(IFigure figure, Graphics g, Insets insets) {
 		tempRect.setBounds(getPaintRectangle(figure, insets));

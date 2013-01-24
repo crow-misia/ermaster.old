@@ -39,17 +39,10 @@ public class PostgresDBManager extends DBManagerBase {
 		return ID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getDriverClassName() {
 		return "org.postgresql.Driver";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getURL() {
 		return "jdbc:postgresql://<SERVER NAME>:<PORT>/<DB NAME>";

@@ -19,9 +19,6 @@ public class TriggerHtmlReportPageGenerator extends
 		return "trigger";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -31,9 +28,6 @@ public class TriggerHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object) {
 		Trigger trigger = (Trigger) object;
@@ -50,9 +44,6 @@ public class TriggerHtmlReportPageGenerator extends
 		return trigger.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		Trigger trigger = (Trigger) object;

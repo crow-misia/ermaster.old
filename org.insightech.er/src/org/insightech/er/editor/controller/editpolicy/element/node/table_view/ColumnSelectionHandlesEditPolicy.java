@@ -41,9 +41,6 @@ import org.insightech.er.editor.view.drag_drop.ERDiagramTransferDragSourceListen
 
 public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List createSelectionHandles() {
 		List list = new ArrayList();
@@ -184,9 +181,6 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		return super.getTargetEditPart(request);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Command getCommand(Request request) {
 		try {

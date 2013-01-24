@@ -26,18 +26,12 @@ public final class ChangeFontCommand extends AbstractCommand {
 		this.newFontSize = fontSize;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		this.viewableModel.setFontName(this.newFontName);
 		this.viewableModel.setFontSize(this.newFontSize);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.viewableModel.setFontName(this.oldFontName);

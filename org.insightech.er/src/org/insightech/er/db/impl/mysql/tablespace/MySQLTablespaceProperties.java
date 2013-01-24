@@ -116,9 +116,6 @@ public class MySQLTablespaceProperties implements TablespaceProperties {
 		this.engine = engine;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public TablespaceProperties clone() {
 		MySQLTablespaceProperties properties = new MySQLTablespaceProperties();

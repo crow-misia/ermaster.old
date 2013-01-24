@@ -20,9 +20,6 @@ public class ChangeOutlineViewToBothAction extends AbstractOutlineBaseAction {
 				.getResourceString("action.title.change.mode.to.both"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

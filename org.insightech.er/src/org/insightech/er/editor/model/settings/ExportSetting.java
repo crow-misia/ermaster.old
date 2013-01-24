@@ -262,9 +262,6 @@ public class ExportSetting implements Serializable, Cloneable {
 		return h;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ExportSetting clone() {
 		try {

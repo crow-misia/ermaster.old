@@ -48,16 +48,10 @@ public class PageSettingDialog extends AbstractDialog {
 		this.diagram = diagram;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createErrorComposite(Composite parent) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		parent.setBackground(ColorConstants.white);

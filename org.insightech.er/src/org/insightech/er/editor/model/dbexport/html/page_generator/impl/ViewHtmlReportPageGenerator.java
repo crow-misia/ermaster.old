@@ -22,9 +22,6 @@ public class ViewHtmlReportPageGenerator extends
 		return "view";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
@@ -34,11 +31,6 @@ public class ViewHtmlReportPageGenerator extends
 		return list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @throws IOException
-	 */
 	@Override
 	public String[] getContentArgs(ERDiagram diagram, Object object)
 			throws IOException {
@@ -75,9 +67,6 @@ public class ViewHtmlReportPageGenerator extends
 		return view.getName();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getObjectSummary(Object object) {
 		View view = (View) object;

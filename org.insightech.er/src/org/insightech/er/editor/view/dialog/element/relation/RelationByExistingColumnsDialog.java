@@ -90,9 +90,6 @@ public class RelationByExistingColumnsDialog extends AbstractDialog {
 		layout.verticalSpacing = 20;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite composite) {
 		GridData gridData = new GridData();
@@ -154,9 +151,6 @@ public class RelationByExistingColumnsDialog extends AbstractDialog {
 				.getResourceString("label.foreign.key"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		this.columnComboInfo = RelationDialog.setReferencedColumnComboData(
@@ -167,9 +161,6 @@ public class RelationByExistingColumnsDialog extends AbstractDialog {
 		this.createComparisonTableRows();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 		int index = this.columnCombo.getSelectionIndex();

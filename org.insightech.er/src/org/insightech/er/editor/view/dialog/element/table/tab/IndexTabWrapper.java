@@ -61,9 +61,6 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 		this.init();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		this.resutuctIndexData();
@@ -137,9 +134,6 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 	protected void addListener() {
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				IndexDialog dialog = new IndexDialog(PlatformUI.getWorkbench()
@@ -153,9 +147,6 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 
 		this.editButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				Index targetIndex = getTargetIndex();
@@ -175,9 +166,6 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 
 		this.deleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				removeIndex();
@@ -202,9 +190,6 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 			Button radioButton = new Button(this.indexTable, SWT.RADIO);
 			radioButton.addSelectionListener(new SelectionAdapter() {
 
-				/**
-				 * {@inheritDoc}
-				 */
 				@Override
 				public void widgetSelected(SelectionEvent event) {
 					setButtonEnabled(true);

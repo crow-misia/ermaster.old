@@ -19,9 +19,6 @@ public final class AddColumnGroupCommand extends AbstractCommand {
 		this.index = index;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		if (this.index != -1) {
@@ -31,9 +28,6 @@ public final class AddColumnGroupCommand extends AbstractCommand {
 		this.tableView.getDiagram().changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		this.tableView.removeColumn(columnGroup, true);

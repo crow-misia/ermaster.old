@@ -67,9 +67,6 @@ public class ERDiagramOutlinePage extends ContentOutlinePage {
 		this.registerAction(this.viewer, outlineActionRegistory);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createControl(Composite parent) {
 		this.sash = new SashForm(parent, SWT.VERTICAL);
@@ -95,9 +92,6 @@ public class ERDiagramOutlinePage extends ContentOutlinePage {
 		this.viewer.addDragSourceListener(dragSourceListener);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Control getControl() {
 		// アウトライン・ビューをアクティブにした時にフォーカスが設定されるコントロールを返す

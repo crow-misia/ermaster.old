@@ -27,9 +27,6 @@ public final class ChangeColumnCommand extends AbstractCommand {
 		this.oldColumn = new CopyColumn(column);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doExecute() {
 		NormalColumn.copyData(this.newColumn, this.column);
@@ -39,9 +36,6 @@ public final class ChangeColumnCommand extends AbstractCommand {
 		this.tableView.getDiagram().changeAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doUndo() {
 		NormalColumn.copyData(this.oldColumn, this.column);

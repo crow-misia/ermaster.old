@@ -19,9 +19,6 @@ public class CreateTriggerAction extends AbstractOutlineBaseAction {
 				.getResourceString("action.title.create.trigger"), treeViewer);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

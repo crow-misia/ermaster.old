@@ -20,9 +20,6 @@ public class ChangeOutlineViewOrderByLogicalNameAction extends
 		this.setText(ResourceString.getResourceString("label.logical.name"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

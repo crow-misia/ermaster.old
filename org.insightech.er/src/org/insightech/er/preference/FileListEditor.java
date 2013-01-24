@@ -45,9 +45,6 @@ public abstract class FileListEditor extends ListEditor {
 		this.extention = extention;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getNewInputObject() {
 
@@ -96,9 +93,6 @@ public abstract class FileListEditor extends ListEditor {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String[] parseString(String stringList) {
 		StringTokenizer st = new StringTokenizer(stringList, VALUE_SEPARATOR);
@@ -110,9 +104,6 @@ public abstract class FileListEditor extends ListEditor {
 		return (String[]) list.toArray(new String[list.size()]);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String createList(String[] items) {
 		StringBuilder path = new StringBuilder();
@@ -127,9 +118,6 @@ public abstract class FileListEditor extends ListEditor {
 
 	protected abstract String getStorePath(String name);
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doStore() {
 		try {
@@ -164,9 +152,6 @@ public abstract class FileListEditor extends ListEditor {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void doLoad() {
 		org.eclipse.swt.widgets.List list = this.getListControl(this.parent);

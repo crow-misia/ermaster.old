@@ -19,9 +19,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 
 	private Font titleFont;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected IFigure createFigure() {
 		ERDiagram diagram = this.getDiagram();
@@ -34,9 +31,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 		return figure;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void refreshVisuals() {
 		try {
@@ -72,9 +66,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void changeSettings(Settings settings) {
 		TableFigure figure = (TableFigure) this.getFigure();
@@ -83,9 +74,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 		super.changeSettings(settings);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void disposeFont() {
 		if (this.titleFont != null) {
@@ -118,9 +106,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 				.getColumns(), false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public IFigure getContentPane() {
 		TableFigure figure = (TableFigure) super.getContentPane();

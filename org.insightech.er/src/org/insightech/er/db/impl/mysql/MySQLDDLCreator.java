@@ -22,9 +22,6 @@ public class MySQLDDLCreator extends DDLCreator {
 		super(diagram, semicolon);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getPostDDL(ERTable table) {
 		MySQLTableProperties commonTableProperties = (MySQLTableProperties) this
@@ -80,9 +77,6 @@ public class MySQLDDLCreator extends DDLCreator {
 		return postDDL.toString();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getColulmnDDL(NormalColumn normalColumn) {
 		StringBuilder ddl = new StringBuilder();

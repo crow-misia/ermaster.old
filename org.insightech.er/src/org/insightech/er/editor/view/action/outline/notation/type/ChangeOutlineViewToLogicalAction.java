@@ -20,9 +20,6 @@ public class ChangeOutlineViewToLogicalAction extends AbstractOutlineBaseAction 
 				.getResourceString("action.title.change.mode.to.logical"));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();

@@ -40,9 +40,6 @@ public class SqlTabWrapper extends ValidatableTabWrapper {
 		this.sqlText.setText(Format.null2blank(copyData.getSql()));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void validatePage() throws InputException {
 		String text = sqlText.getText().trim();

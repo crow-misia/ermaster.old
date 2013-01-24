@@ -326,9 +326,6 @@ public class OracleTablespaceProperties implements TablespaceProperties {
 		this.pctIncrease = pctIncrease;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public TablespaceProperties clone() {
 		OracleTablespaceProperties properties = new OracleTablespaceProperties();

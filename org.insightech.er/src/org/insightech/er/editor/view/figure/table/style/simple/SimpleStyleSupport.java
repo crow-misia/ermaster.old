@@ -20,17 +20,11 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 		super(tableFigure);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void init(TableFigure tableFigure) {
 		tableFigure.setBorder(null);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void initTitleBar(Figure top) {
 		ToolbarLayout topLayout = new ToolbarLayout();

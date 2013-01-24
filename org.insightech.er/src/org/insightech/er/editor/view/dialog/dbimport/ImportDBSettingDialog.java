@@ -18,18 +18,12 @@ public class ImportDBSettingDialog extends AbstractDBSettingDialog {
 		super(parentShell, diagram);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		super.initialize(parent);
 		this.dbSetting = PreferenceInitializer.getDBSetting(0);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() throws InputException {
 		this.setCurrentSetting();
@@ -68,9 +62,6 @@ public class ImportDBSettingDialog extends AbstractDBSettingDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.import.tables";

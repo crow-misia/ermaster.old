@@ -222,17 +222,11 @@ public class TestDataManageDialog extends AbstractDialog {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getErrorMessage() {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void perfomeOK() {
 	}
@@ -353,9 +347,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				addTestData();
@@ -364,9 +355,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.editButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				editTestData(testDataTable.getSelectionIndex());
@@ -375,9 +363,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.deleteButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int targetIndex = testDataListWidget.getSelectionIndex();
@@ -406,9 +391,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.copyButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				copyTestData();
@@ -417,9 +399,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.exportButton.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				exportTestData();
@@ -428,9 +407,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.testDataListWidget.addSelectionListener(new SelectionAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (testDataListWidget.getSelectionIndex() != -1) {
@@ -444,9 +420,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.testDataListWidget.addMouseListener(new MouseAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				editTestData(testDataTable.getSelectionIndex());
@@ -455,9 +428,6 @@ public class TestDataManageDialog extends AbstractDialog {
 
 		this.testDataTable.addMouseListener(new MouseAdapter() {
 
-			/**
-			 * {@inheritDoc}
-			 */
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				editTestData(testDataTable.getSelectionIndex());

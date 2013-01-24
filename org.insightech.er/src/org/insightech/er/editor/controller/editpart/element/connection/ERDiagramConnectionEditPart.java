@@ -23,9 +23,6 @@ public abstract class ERDiagramConnectionEditPart extends
 
 	private static final boolean DEBUG = false;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void activate() {
 		super.activate();
@@ -34,9 +31,6 @@ public abstract class ERDiagramConnectionEditPart extends
 		model.addPropertyChangeListener(this);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deactivate() {
 		AbstractModel model = (AbstractModel) this.getModel();
@@ -74,9 +68,6 @@ public abstract class ERDiagramConnectionEditPart extends
 		return this.getDiagram().getCurrentCategory();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshVisuals() {
 		EditPart sourceEditPart = this.getSource();

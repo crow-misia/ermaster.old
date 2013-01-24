@@ -427,9 +427,6 @@ public class Relation extends ConnectionElement implements Comparable<Relation> 
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Relation clone() {
 		Relation clone = (Relation) super.clone();

@@ -11,9 +11,6 @@ public final class CreateCommentConnectionCommand extends CreateConnectionComman
 		super(connection);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean canExecute() {
 		if (!super.canExecute()) {

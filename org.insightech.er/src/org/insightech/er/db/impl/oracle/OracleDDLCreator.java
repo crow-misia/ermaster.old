@@ -22,9 +22,6 @@ public class OracleDDLCreator extends DDLCreator {
 		super(diagram, semicolon);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<String> getCommentDDL(ERTable table) {
 		List<String> ddlList = new ArrayList<String>();
@@ -105,9 +102,6 @@ public class OracleDDLCreator extends DDLCreator {
 		return ddlList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String getDDL(Relation relation) {
 		StringBuilder ddl = new StringBuilder();

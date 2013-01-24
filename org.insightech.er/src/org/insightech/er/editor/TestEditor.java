@@ -362,9 +362,6 @@ public class TestEditor extends EditorPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void init(final IEditorSite site, final IEditorInput input)
 			throws PartInitException {
@@ -380,9 +377,6 @@ public class TestEditor extends EditorPart {
 		return new SourceViewer(parent, ruler, styles);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createPartControl(Composite parent) {
 
@@ -507,9 +501,6 @@ public class TestEditor extends EditorPart {
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected final void setInputWithNotify(IEditorInput input) {
 		try {
@@ -523,9 +514,6 @@ public class TestEditor extends EditorPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void setInput(IEditorInput input) {
 		setInputWithNotify(input);
@@ -611,16 +599,10 @@ public class TestEditor extends EditorPart {
 		fImplicitDocumentProvider = null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doSaveAs() {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
 	}
@@ -788,41 +770,26 @@ public class TestEditor extends EditorPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean isDirty() {
 		IDocumentProvider p = getDocumentProvider();
 		return p == null ? false : p.canSaveDocument(getEditorInput());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object getAdapter(Class required) {
 		return super.getAdapter(required);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setFocus() {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void firePropertyChange(int property) {
 		super.firePropertyChange(property);

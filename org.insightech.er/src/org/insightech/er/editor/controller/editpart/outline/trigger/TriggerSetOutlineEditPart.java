@@ -21,9 +21,6 @@ public class TriggerSetOutlineEditPart extends AbstractOutlineEditPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected List getModelChildren() {
 		TriggerSet triggerSet = (TriggerSet) this.getModel();
@@ -35,9 +32,6 @@ public class TriggerSetOutlineEditPart extends AbstractOutlineEditPart {
 		return triggerList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshOutlineVisuals() {
 		this.setWidgetText(ResourceString.getResourceString("label.trigger")
@@ -45,9 +39,6 @@ public class TriggerSetOutlineEditPart extends AbstractOutlineEditPart {
 		this.setWidgetImage(Activator.getImage(ImageKey.DICTIONARY));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();

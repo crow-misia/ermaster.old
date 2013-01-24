@@ -56,9 +56,6 @@ public class ExportToJavaDialog extends AbstractDialog {
 		this.editorPart = editorPart;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initLayout(GridLayout layout) {
 		super.initLayout(layout);
@@ -66,9 +63,6 @@ public class ExportToJavaDialog extends AbstractDialog {
 		layout.verticalSpacing = 15;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialize(Composite parent) {
 		GridData gridData = new GridData();
@@ -162,9 +156,6 @@ public class ExportToJavaDialog extends AbstractDialog {
 		return this.exportSetting;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setData() {
 		Settings settings = this.diagram.getDiagramContents().getSettings();
@@ -195,9 +186,6 @@ public class ExportToJavaDialog extends AbstractDialog {
 		this.withHibernateButton.setSelection(exportSetting.isWithHibernate());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected String getTitle() {
 		return "dialog.title.export.java";

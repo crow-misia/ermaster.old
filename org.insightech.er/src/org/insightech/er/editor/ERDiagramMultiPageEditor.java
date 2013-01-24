@@ -72,9 +72,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 
 	private ERDiagramElementStateListener fElementStateListener;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void createPages() {
 		try {
@@ -150,9 +147,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		activeEditor.setLocation(this.diagram.getX(), this.diagram.getY());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Composite createPageContainer(Composite parent) {
 		try {
@@ -208,9 +202,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		ZoomManager zoomManager = (ZoomManager) this.getActiveEditor()
@@ -251,24 +242,15 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		validate();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void doSaveAs() {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void pageChange(int newPageIndex) {
 		super.pageChange(newPageIndex);
@@ -286,9 +268,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		this.diagram.setCurrentCategory(category, newPageIndex);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public IEditorPart getActiveEditor() {
 		return super.getActiveEditor();
@@ -307,9 +286,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		return categories.get(page - 1);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
@@ -317,18 +293,12 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		this.fElementStateListener = new ERDiagramElementStateListener(this);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void dispose() {
 		this.fElementStateListener.disposeDocumentProvider();
 		super.dispose();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void setInputWithNotify(IEditorInput input) {
 		super.setInputWithNotify(input);
@@ -520,9 +490,6 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				.execute(command);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Object getAdapter(Class type) {
 		if (type == ERDiagram.class) {

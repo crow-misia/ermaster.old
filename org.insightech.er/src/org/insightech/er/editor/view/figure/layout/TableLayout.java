@@ -168,9 +168,6 @@ public class TableLayout extends AbstractHintLayout {
 		return parent.getChildren();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Dimension calculatePreferredSize(IFigure container, int wHint,
 			int hHint) {

@@ -40,9 +40,6 @@ public class Note extends NodeElement implements Comparable<Note> {
 		this.firePropertyChange(PROPERTY_CHANGE_NOTE, null, null);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<NodeElement> getReferringElementList() {
 		List<NodeElement> referringElementList = super.getReferringElementList();
