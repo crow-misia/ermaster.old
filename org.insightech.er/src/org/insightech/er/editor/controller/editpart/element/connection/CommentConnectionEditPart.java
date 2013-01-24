@@ -33,4 +33,12 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 		this.installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
 				new ERDiagramBendpointEditPolicy());
 	}
+	
+   @Override
+    protected void refreshVisuals() {
+        super.refreshVisuals();
+        
+        super.refreshBendpoints();
+   }
+
 }

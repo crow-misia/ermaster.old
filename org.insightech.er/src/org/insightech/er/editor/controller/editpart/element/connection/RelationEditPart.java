@@ -1,13 +1,10 @@
 package org.insightech.er.editor.controller.editpart.element.connection;
 
 import org.eclipse.draw2d.BendpointConnectionRouter;
-import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -15,14 +12,12 @@ import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
-import org.insightech.er.editor.controller.editpart.element.node.TableViewEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationBendpointEditPolicy;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.relation.RelationDialog;
-import org.insightech.er.editor.view.figure.anchor.XYChopboxAnchor;
 import org.insightech.er.editor.view.figure.connection.ERDiagramConnection;
 import org.insightech.er.editor.view.figure.connection.decoration.DecorationFactory;
 import org.insightech.er.editor.view.figure.connection.decoration.DecorationFactory.Decoration;
@@ -90,8 +85,6 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 			}
 		}
 
-		this.calculateAnchorLocation();
-
 		this.refreshBendpoints();
 	}
 
@@ -115,46 +108,4 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 
 		super.performRequest(request);
 	}
-
-	private void calculateAnchorLocation() {
-		Relation relation = (Relation) this.getModel();
-
-		TableViewEditPart sourceEditPart = (TableViewEditPart) this.getSource();
-
-		Point sourcePoint = null;
-		Point targetPoint = null;
-
-		if (sourceEditPart != null && relation.getSourceXp() != -1
-				&& relation.getSourceYp() != -1) {
-			Rectangle bounds = sourceEditPart.getFigure().getBounds();
-			sourcePoint = new Point(bounds.x
-					+ (bounds.width * relation.getSourceXp() / 100), bounds.y
-					+ (bounds.height * relation.getSourceYp() / 100));
-		}
-
-		TableViewEditPart targetEditPart = (TableViewEditPart) this.getTarget();
-
-		if (targetEditPart != null && relation.getTargetXp() != -1
-				&& relation.getTargetYp() != -1) {
-			Rectangle bounds = targetEditPart.getFigure().getBounds();
-			targetPoint = new Point(bounds.x
-					+ (bounds.width * relation.getTargetXp() / 100), bounds.y
-					+ (bounds.height * relation.getTargetYp() / 100));
-		}
-
-		ConnectionAnchor sourceAnchor = this.getConnectionFigure()
-				.getSourceAnchor();
-
-		if (sourceAnchor instanceof XYChopboxAnchor) {
-			((XYChopboxAnchor) sourceAnchor).setLocation(sourcePoint);
-		}
-
-		ConnectionAnchor targetAnchor = this.getConnectionFigure()
-				.getTargetAnchor();
-
-		if (targetAnchor instanceof XYChopboxAnchor) {
-			((XYChopboxAnchor) targetAnchor).setLocation(targetPoint);
-		}
-	}
-
 }
