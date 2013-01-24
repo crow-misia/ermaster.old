@@ -73,7 +73,7 @@ public class GroupManageDialog extends AbstractDialog implements
 		this.copyGroups = new ArrayList<CopyGroup>();
 
 		for (ColumnGroup columnGroup : columnGroups.getGroupList()) {
-			this.copyGroups.add(new CopyGroup(columnGroup));
+			this.copyGroups.add(CopyGroup.getInstance(columnGroup));
 		}
 
 		this.diagram = diagram;
@@ -293,7 +293,7 @@ public class GroupManageDialog extends AbstractDialog implements
 		if (this.editTargetIndex != -1) {
 			this.groupList.setSelection(editTargetIndex);
 
-			this.copyData = new CopyGroup(copyGroups.get(editTargetIndex));
+			this.copyData = CopyGroup.getInstance(copyGroups.get(editTargetIndex));
 			this.initColumnGroup();
 
 			this.setGroupEditEnabled(true);
@@ -324,7 +324,7 @@ public class GroupManageDialog extends AbstractDialog implements
 			public void widgetSelected(SelectionEvent e) {
 				editTargetIndex = -1;
 
-				copyData = new CopyGroup(new ColumnGroup());
+				copyData = CopyGroup.getInstance(new ColumnGroup());
 				initColumnGroup();
 				setGroupEditEnabled(true);
 			}
@@ -365,11 +365,11 @@ public class GroupManageDialog extends AbstractDialog implements
 
 				if (editTargetIndex != -1) {
 					groupList.setSelection(editTargetIndex);
-					copyData = new CopyGroup(copyGroups.get(editTargetIndex));
+					copyData = CopyGroup.getInstance(copyGroups.get(editTargetIndex));
 					initColumnGroup();
 
 				} else {
-					copyData = new CopyGroup(new ColumnGroup());
+					copyData = CopyGroup.getInstance(new ColumnGroup());
 					initColumnGroup();
 					setButtonEnabled(false);
 				}
@@ -434,7 +434,7 @@ public class GroupManageDialog extends AbstractDialog implements
 					if (editTargetIndex == -1) {
 						return;
 					}
-					copyData = new CopyGroup(copyGroups.get(editTargetIndex));
+					copyData = CopyGroup.getInstance(copyGroups.get(editTargetIndex));
 					initColumnGroup();
 					setButtonEnabled(true);
 
@@ -471,7 +471,7 @@ public class GroupManageDialog extends AbstractDialog implements
 
 							if (columnGroup == copyData) {
 								groupList.setSelection(i);
-								copyData = new CopyGroup(columnGroup);
+								copyData = CopyGroup.getInstance(columnGroup);
 								initColumnGroup();
 								setButtonEnabled(true);
 								break;
@@ -492,7 +492,7 @@ public class GroupManageDialog extends AbstractDialog implements
 			public void widgetSelected(SelectionEvent e) {
 				setGroupEditEnabled(false);
 				if (editTargetIndex != -1) {
-					copyData = new CopyGroup(copyGroups.get(editTargetIndex));
+					copyData = CopyGroup.getInstance(copyGroups.get(editTargetIndex));
 					initColumnGroup();
 				}
 			}

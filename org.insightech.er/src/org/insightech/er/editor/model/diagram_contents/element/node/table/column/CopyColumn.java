@@ -9,7 +9,7 @@ public class CopyColumn extends NormalColumn {
 
 	private NormalColumn originalColumn;
 
-	public CopyColumn(NormalColumn originalColumn) {
+	private CopyColumn(NormalColumn originalColumn) {
 		super(originalColumn);
 
 		if (originalColumn == null) {
@@ -20,8 +20,15 @@ public class CopyColumn extends NormalColumn {
 
 		final Word originalWord = originalColumn.getWord();
 		if (originalWord != null && !(originalWord instanceof CopyWord)) {
-			setWord(new CopyWord(originalWord));
+			setWord(CopyWord.getInstance(originalWord));
 		}
+	}
+
+	public static CopyColumn getInstance(final NormalColumn original) {
+		if (original instanceof CopyColumn) {
+			return new CopyColumn(((CopyColumn) original).originalColumn);
+		}
+		return new CopyColumn(original);
 	}
 
 	public NormalColumn getRestructuredColumn() {

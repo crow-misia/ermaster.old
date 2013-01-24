@@ -10,6 +10,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
+import org.insightech.er.editor.model.diagram_contents.not_element.group.CopyGroup;
 
 public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 
@@ -55,7 +56,16 @@ public class NormalColumnComponentEditPolicy extends ComponentEditPolicy {
 						TableView newCopyTable = table.copyData();
 
 						for (Column copyColumn : newCopyTable.getColumns()) {
-							if (copyColumn == columnGroup) {
+							final Column originalColumn;
+							if (copyColumn instanceof NormalColumn) {
+								continue;
+							}
+							if (copyColumn instanceof CopyGroup) {
+								originalColumn = ((CopyGroup) copyColumn).getOriginal();
+							} else {
+								originalColumn = copyColumn;
+							}
+							if (originalColumn == columnGroup) {
 								newCopyTable.removeColumn(copyColumn, true);
 								break;
 							}

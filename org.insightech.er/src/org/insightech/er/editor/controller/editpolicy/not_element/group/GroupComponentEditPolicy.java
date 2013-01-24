@@ -20,7 +20,7 @@ public class GroupComponentEditPolicy extends NotElementComponentEditPolicy {
 
 		for (ColumnGroup columnGroup : diagram.getDiagramContents().getGroups().getGroupList()) {
 			if (columnGroup != deleteColumnGroup) {
-				newColumnGroups.add(new CopyGroup(columnGroup));
+				newColumnGroups.add(CopyGroup.getInstance(columnGroup));
 			}
 		}
 

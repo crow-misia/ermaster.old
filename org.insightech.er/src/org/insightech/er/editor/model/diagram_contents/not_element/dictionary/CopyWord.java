@@ -1,14 +1,21 @@
 package org.insightech.er.editor.model.diagram_contents.not_element.dictionary;
 
-public class CopyWord extends RealWord {
+public final class CopyWord extends RealWord {
 
 	private static final long serialVersionUID = 5610038803601000225L;
 
 	private Word original;
 
-	public CopyWord(Word original) {
+	private CopyWord(Word original) {
 		super(original);
 		this.original = original;
+	}
+
+	public static CopyWord getInstance(final Word original) {
+		if (original instanceof CopyWord) {
+			return new CopyWord(((CopyWord) original).original);
+		}
+		return new CopyWord(original);
 	}
 
 	public Word restructure(Dictionary dictionary) {

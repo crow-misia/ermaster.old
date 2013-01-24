@@ -21,7 +21,7 @@ public class ViewColumnDialog extends AbstractColumnDialog {
 	public static Command openDialog(final Shell parentShell, final View view, final NormalColumn column) {
 		final ViewColumnDialog dialog = new ViewColumnDialog(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(), view);
-		final CopyColumn targetColumn = new CopyColumn(column);
+		final CopyColumn targetColumn = CopyColumn.getInstance(column);
 		
 		final NormalColumn retval = ERTableComposite.addOrEditColumn(dialog, null, targetColumn);
 		if (retval != null) {

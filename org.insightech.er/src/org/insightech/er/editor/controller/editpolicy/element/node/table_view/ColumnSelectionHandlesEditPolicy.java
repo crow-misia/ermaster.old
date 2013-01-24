@@ -352,8 +352,8 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			command.add(sourceTableCommand);
 
 			TableView copyNewTableView = newTableView.copyData();
-			CopyColumn copyColumn = new CopyColumn(oldColumn);
-			copyColumn.setWord(new CopyWord(oldColumn.getWord()));
+			CopyColumn copyColumn = CopyColumn.getInstance(oldColumn);
+			copyColumn.setWord(CopyWord.getInstance(oldColumn.getWord()));
 			copyNewTableView.addColumn(index, copyColumn, true);
 			ChangeTableViewPropertyCommand targetTableCommand = new ChangeTableViewPropertyCommand(
 					newTableView, copyNewTableView);

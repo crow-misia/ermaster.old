@@ -41,7 +41,7 @@ public final class ChangeGroupCommand extends AbstractCommand {
 		this.oldColumnListMap = new HashMap<TableView, List<Column>>();
 
 		for (ColumnGroup columnGroup : groupSet.getGroupList()) {
-			CopyGroup oldCopyGroup = new CopyGroup(columnGroup);
+			CopyGroup oldCopyGroup = CopyGroup.getInstance(columnGroup);
 			this.oldCopyGroups.add(oldCopyGroup);
 		}
 

@@ -276,10 +276,10 @@ public abstract class AbstractColumnDialog extends AbstractWordDialog {
 		}
 		final CopyWord word;
 		if (wordIndex > 0) {
-			word = new CopyWord(originalWord);
+			word = CopyWord.getInstance(originalWord);
 			realWord.copyTo(word);
 		} else {
-			word = new CopyWord(realWord);
+			word = CopyWord.getInstance(realWord);
 		}
 
 		this.returnWord = word;

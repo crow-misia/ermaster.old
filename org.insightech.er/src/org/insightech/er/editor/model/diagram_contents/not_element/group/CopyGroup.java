@@ -16,17 +16,25 @@ public final class CopyGroup extends ColumnGroup {
 
 	private ColumnGroup original;
 
-	public CopyGroup(final ColumnGroup original) {
+	private CopyGroup(final ColumnGroup original) {
 		super();
 
 		this.original = original;
 
+		this.setId(this.original.getId());
 		this.setGroupName(this.original.getGroupName());
 
 		for (NormalColumn fromColumn : this.original.getColumns()) {
-			CopyColumn copyColumn = new CopyColumn(fromColumn);
+			CopyColumn copyColumn = CopyColumn.getInstance(fromColumn);
 			this.addColumn(copyColumn);
 		}
+	}
+
+	public static CopyGroup getInstance(final ColumnGroup original) {
+		if (original instanceof CopyGroup) {
+			return new CopyGroup(((CopyGroup) original).original);
+		}
+		return new CopyGroup(original);
 	}
 
 	public ColumnGroup restructure(ERDiagram diagram, final boolean dictionaryFire) {
@@ -81,7 +89,7 @@ public final class CopyGroup extends ColumnGroup {
 
 			if (to instanceof CopyGroup) {
 				if (!(restructuredColumn instanceof CopyColumn)) {
-					restructuredColumn = new CopyColumn(restructuredColumn);
+					restructuredColumn = CopyColumn.getInstance(restructuredColumn);
 				}
 			}
 

@@ -249,11 +249,11 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 		for (Column fromColumn : sources) {
 			if (fromColumn instanceof NormalColumn) {
-				final NormalColumn copyColumn = new CopyColumn((NormalColumn) fromColumn);
+				final NormalColumn copyColumn = CopyColumn.getInstance((NormalColumn) fromColumn);
 				columns.add(copyColumn);
 
 			} else if (fromColumn instanceof ColumnGroup) {
-				final ColumnGroup copyGroup = new CopyGroup((ColumnGroup) fromColumn);
+				final ColumnGroup copyGroup = CopyGroup.getInstance((ColumnGroup) fromColumn);
 				columns.add(copyGroup);
 			} else {
 				columns.add(fromColumn);
@@ -314,6 +314,10 @@ public abstract class TableView extends NodeElement implements ObjectModel,
 
 				dictionary.add(restructuredColumn, false);
 
+			} else if (fromColumn instanceof ColumnGroup) {
+				CopyGroup copyGroup = (CopyGroup) fromColumn;
+				
+				newColumns.add(copyGroup.getOriginal());
 			} else {
 				newColumns.add(fromColumn);
 			}

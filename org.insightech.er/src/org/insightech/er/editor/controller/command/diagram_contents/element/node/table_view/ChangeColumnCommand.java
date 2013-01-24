@@ -24,7 +24,7 @@ public final class ChangeColumnCommand extends AbstractCommand {
 		this.tableView = tableView;
 		this.column = column;
 		this.newColumn = newColumn;
-		this.oldColumn = new CopyColumn(column);
+		this.oldColumn = CopyColumn.getInstance(column);
 	}
 
 	@Override

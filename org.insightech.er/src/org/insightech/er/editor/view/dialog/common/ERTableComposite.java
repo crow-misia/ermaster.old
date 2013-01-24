@@ -467,7 +467,7 @@ public class ERTableComposite extends Composite {
 		if (add) {
 			tableItem = new TableItem(table, SWT.NONE);
 
-			copyColumn = new CopyColumn(column);
+			copyColumn = CopyColumn.getInstance(column);
 			this.columnList.add(copyColumn);
 
 		} else {
