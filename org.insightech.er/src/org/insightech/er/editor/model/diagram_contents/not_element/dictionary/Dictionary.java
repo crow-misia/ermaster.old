@@ -32,6 +32,17 @@ public class Dictionary extends AbstractModel {
 		this.idMap = new WeakHashMap<UniqueWord, String>();
 	}
 
+	public void add(final UniqueWord word) {
+		Set<NormalColumn> columns = this.uniqueWordMap.get(word);
+		if (columns == null) {
+			columns = new HashSet<NormalColumn>();
+			this.uniqueWordMap.put(word, columns);
+		}
+
+		// ID割当てを行う (チェック用マップも登録する)
+		UniqueWord.setId(idMap, word.getUniqueWord());
+	}
+
 	public void add(NormalColumn column, final boolean fire) {
 		Word word = column.getWord();
 
@@ -117,6 +128,7 @@ public class Dictionary extends AbstractModel {
 
 	public List<UniqueWord> getUniqueWordListOrderId() {
 		final List<UniqueWord> retval = new ArrayList<UniqueWord>(this.uniqueWordMap.keySet());
+
 		Collections.sort(retval, UniqueWord.WORD_ID_COMPARATOR);
 		return retval;
 	}

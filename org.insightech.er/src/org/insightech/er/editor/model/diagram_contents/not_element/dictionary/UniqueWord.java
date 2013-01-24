@@ -34,10 +34,13 @@ public class UniqueWord extends Word {
 	}
 
 	public static void setId(final Map<UniqueWord, String> check, final UniqueWord word) {
-		String id = word.id;
+		// 既にIDの割当てがある場合、再利用する
+		String id = check.get(word);
 		if (id != null) {
+			word.id = id;
 			return;
 		}
+
 		while (id == null) {
 			id = Integer.toString(RandomUtils.nextInt());
 			for (final Map.Entry<UniqueWord, String> entry : check.entrySet()) {
@@ -104,6 +107,14 @@ public class UniqueWord extends Word {
 	@Override
 	public void setDescription(String description) {
 		word.setDescription(description);
+	}
+
+	@Override
+	public void copyTo(Word to) {
+		super.copyTo(to);
+		if (to instanceof UniqueWord) {
+			((UniqueWord) to).id = id;
+		}
 	}
 
 	@Override

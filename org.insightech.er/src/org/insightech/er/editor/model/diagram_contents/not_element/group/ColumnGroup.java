@@ -2,7 +2,7 @@ package org.insightech.er.editor.model.diagram_contents.not_element.group;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -36,22 +36,16 @@ public class ColumnGroup extends Column implements ObjectModel,
 		this.id = StringUtils.isNumeric(id) ? id : null;
 	}
 
-	public static void setGroupId(final Map<ColumnGroup, String> check, final ColumnGroup group) {
+	public static void setId(final Set<String> check, final ColumnGroup group) {
 		String id = group.id;
-		if (id != null) {
-			return;
-		}
 		while (id == null) {
 			id = Integer.toString(RandomUtils.nextInt());
-			for (final Map.Entry<ColumnGroup, String> entry : check.entrySet()) {
-				if (StringUtils.equalsIgnoreCase(id, entry.getValue())) {
-					id = null;
-					break;
-				}
+			if (check.add(id)) {
+				group.id = id;
+				break;
 			}
+			id = null;
 		}
-		check.put(group, id);
-		group.id = id;
 	}
 
 	public String getGroupName() {
@@ -141,11 +135,11 @@ public class ColumnGroup extends Column implements ObjectModel,
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString());
+		StringBuilder sb = new StringBuilder(super.toString());
 
-		sb.append(", groupName:" + groupName);
-		sb.append(", columns:" + columns);
+		sb.append(", id:").append(id);
+		sb.append(", groupName:").append(groupName);
+		sb.append(", columns:").append(columns);
 
 		return sb.toString();
 	}

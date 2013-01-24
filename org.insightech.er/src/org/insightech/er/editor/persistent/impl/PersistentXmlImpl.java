@@ -99,6 +99,9 @@ public final class PersistentXmlImpl extends Persistent {
 					check.add(column.getId());
 				}
 			}
+			if (columnGroup.getId() != null) {
+				check.add(columnGroup.getId());
+			}
 		}
 
 		for (NodeElement content : diagramContents.getContents()) {
@@ -153,6 +156,7 @@ public final class PersistentXmlImpl extends Persistent {
 			for (NormalColumn column : columnGroup.getColumns()) {
 				NormalColumn.setId(check, column);
 			}
+			ColumnGroup.setId(check, columnGroup);
 		}
 
 		for (NodeElement content : diagramContents.getContents()) {
@@ -1424,7 +1428,7 @@ public final class PersistentXmlImpl extends Persistent {
                     .append("</unique_key_name>\n");
         }
 
-        if (context.supportedColumnCharset) {
+        if (context != null && context.supportedColumnCharset) {
     		xml.append("\t<character_set>")
     				.append(escape(normalColumn.getCharacterSet()))
     				.append("</character_set>\n");

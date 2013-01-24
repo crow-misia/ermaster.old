@@ -9,6 +9,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.CopyWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
@@ -577,6 +578,13 @@ public class NormalColumn extends Column {
 			}
 
 		} else {
+			if (!(to.word instanceof CopyWord)) {
+				if (from.word instanceof CopyWord) {
+					to.setWord(((CopyWord) from.getWord()).getOriginal());
+				} else {
+					to.setWord(from.getWord());
+				}
+			}
 			from.word.copyTo(to.word);
 		}
 

@@ -919,12 +919,12 @@ public final class XMLLoader {
 			for (int i = 0, n = nodeList.getLength(); i < n; i++) {
 				Element wordElement = (Element) nodeList.item(i);
 
-				this.loadWord(wordElement, context);
+				this.loadWord(dictionary, wordElement, context);
 			}
 		}
 	}
 
-	private Word loadWord(Element element, LoadContext context) {
+	private Word loadWord(Dictionary dictionary, Element element, LoadContext context) {
 
 		String id = this.getStringValue(element, "id");
 
@@ -945,6 +945,7 @@ public final class XMLLoader {
 				this.database);
 
 		word.getUniqueWord().setId(id);
+		dictionary.add(word.getUniqueWord());
 
 		context.wordMap.put(id, word);
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.insightech.er.editor.model.AbstractModel;
 
@@ -31,18 +29,13 @@ public class GroupSet extends AbstractModel {
 
 	private final List<ColumnGroup> groups;
 
-	private final Map<ColumnGroup, String> idMap;
-
 	public GroupSet() {
 		this.groups = new ArrayList<ColumnGroup>();
-		this.idMap = new WeakHashMap<ColumnGroup, String>();
 	}
 
 	public void add(ColumnGroup group, final boolean fire) {
 		this.groups.add(group);
 		Collections.sort(this.groups);
-
-		ColumnGroup.setGroupId(idMap, group);
 
 		if (fire) {
 			setDirty();

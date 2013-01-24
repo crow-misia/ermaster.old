@@ -25,13 +25,6 @@ public class CopyColumn extends NormalColumn {
 	}
 
 	public NormalColumn getRestructuredColumn() {
-		CopyWord copyWord = this.getWord();
-		if (copyWord != null) {
-			if (!(this.originalColumn instanceof CopyColumn)) {
-				this.originalColumn.setWord(copyWord.getOriginal());
-			}
-		}
-
 		copyData(this, this.originalColumn);
 
 		return this.originalColumn;

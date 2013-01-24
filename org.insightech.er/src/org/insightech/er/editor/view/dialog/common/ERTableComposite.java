@@ -489,7 +489,7 @@ public class ERTableComposite extends Composite {
 		final CopyWord copyWord = column.getWord();
 		final Word originalWord = copyWord == null ? null : copyWord.getOriginal();
 
-		if (originalWord == null) {
+		if (copyWord == null || originalWord == null) {
 			return;
 		}
 

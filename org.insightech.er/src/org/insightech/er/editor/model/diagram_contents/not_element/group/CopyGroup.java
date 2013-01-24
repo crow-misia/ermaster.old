@@ -49,6 +49,7 @@ public final class CopyGroup extends ColumnGroup {
 			}
 		}
 
+		to.setId(this.getId());
 		to.setGroupName(this.getGroupName());
 
 		List<NormalColumn> columns = new ArrayList<NormalColumn>();
