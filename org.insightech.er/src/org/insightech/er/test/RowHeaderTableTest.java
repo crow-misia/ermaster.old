@@ -104,7 +104,6 @@ public class RowHeaderTableTest {
 		display.dispose();
 	}
 
-	@SuppressWarnings("unused")
     public static void main(String[] args) {
 		new RowHeaderTableTest();
 	}

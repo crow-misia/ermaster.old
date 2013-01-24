@@ -312,7 +312,6 @@ public class SearchDialog extends Dialog {
 	 * 検索ダイアログ内の対象範囲タブ内のテーブルグループチェックボックス群 生成
 	 * @param tabFolder
 	 */
-	@SuppressWarnings("unused")
 	private void createTableCheckboxGroup(Composite parent) {
 		GridData gridData = new GridData();
 		gridData.horizontalSpan = 2;
@@ -370,7 +369,6 @@ public class SearchDialog extends Dialog {
 	 * 検索ダイアログ内の対象範囲タブ内の"グループ"グループチェックボックス群 生成
 	 * @param tabFolder
 	 */
-	@SuppressWarnings("unused")
 	private void createGroupCheckboxGroup(Composite parent) {
 		GridData gridData = new GridData();
 		gridData.horizontalSpan = 2;

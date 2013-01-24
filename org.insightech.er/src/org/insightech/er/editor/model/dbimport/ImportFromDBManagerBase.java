@@ -1447,7 +1447,6 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return size;
 	}
 
-	@SuppressWarnings("unused")
     public static void main(String[] args) throws InputException,
 			InstantiationException, IllegalAccessException, SQLException {
 		new Activator();

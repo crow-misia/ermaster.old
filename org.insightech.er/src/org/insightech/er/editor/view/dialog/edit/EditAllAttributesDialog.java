@@ -135,7 +135,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 	 * This method initializes composite2
 	 * 
 	 */
-	@SuppressWarnings("unused")
 	private void createTable(Composite composite) {
 		GridData tableGridData = new GridData();
 		tableGridData.horizontalSpan = 3;
