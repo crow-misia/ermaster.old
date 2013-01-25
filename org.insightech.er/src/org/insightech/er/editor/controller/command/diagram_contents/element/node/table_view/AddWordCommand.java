@@ -15,9 +15,9 @@ public final class AddWordCommand extends AbstractCommand {
 
 	private final Word word;
 
-	private final NormalColumn column;
-
 	private final int index;
+
+	private NormalColumn column;
 
 	public AddWordCommand(TableView tableView, UniqueWord uniqueWord, int index) {
 		this.tableView = tableView;
@@ -26,21 +26,23 @@ public final class AddWordCommand extends AbstractCommand {
 
 		this.dictionary = this.tableView.getDiagram().getDiagramContents()
 				.getDictionary();
-
-		this.column = new NormalColumn(this.word, true, false, false, false,
-				null, null, null, null, null);
 	}
 
 	@Override
 	protected void doExecute() {
+		this.column = new NormalColumn(this.word, true, false, false, false,
+				null, null, null, null, null);
+
 		this.tableView.addColumn(this.index, this.column, true);
 		this.dictionary.add(this.column, true);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.tableView.removeColumn(this.column, true);
-		this.dictionary.remove(this.column, true);
+		if (this.column != null) {
+			this.tableView.removeColumn(this.column, true);
+			this.dictionary.remove(this.column, true);
+		}
 	}
 
 }
