@@ -12,26 +12,28 @@ public final class CreateIndexCommand extends AbstractCommand {
 
 	private final ERTable table;
 
-	private final List<Index> oldIndexList;
+	private final Index newIndex;
 
-	private final List<Index> newIndexList;
+	private List<Index> oldIndexList;
 
 	public CreateIndexCommand(ERDiagram diagram, Index newIndex) {
 		this.table = newIndex.getTable();
-
-		this.oldIndexList = newIndex.getTable().getIndexes();
-		this.newIndexList = new ArrayList<Index>(oldIndexList);
-
-		this.newIndexList.add(newIndex);
+		this.newIndex = newIndex;
 	}
 
 	@Override
 	protected void doExecute() {
-		this.table.setIndexes(this.newIndexList);
+		this.oldIndexList = newIndex.getTable().getIndexes();
+
+		final List<Index> newIndexList = new ArrayList<Index>(oldIndexList);
+		newIndexList.add(newIndex);
+		this.table.setIndexes(newIndexList);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.table.setIndexes(this.oldIndexList);
+		if (this.oldIndexList != null) {
+			this.table.setIndexes(this.oldIndexList);
+		}
 	}
 }

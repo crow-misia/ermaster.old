@@ -21,13 +21,13 @@ public final class ChangeGroupCommand extends AbstractCommand {
 
 	private final GroupSet groupSet;
 
-	private final List<CopyGroup> oldCopyGroups;
-
 	private final List<CopyGroup> newGroups;
 
 	private final Map<TableView, List<Column>> oldColumnListMap;
 
 	private final ERDiagram diagram;
+
+	private List<CopyGroup> oldCopyGroups;
 
 	public ChangeGroupCommand(ERDiagram diagram, GroupSet groupSet,
 			List<CopyGroup> newGroups) {
@@ -37,14 +37,7 @@ public final class ChangeGroupCommand extends AbstractCommand {
 
 		this.newGroups = newGroups;
 
-		this.oldCopyGroups = new ArrayList<CopyGroup>();
 		this.oldColumnListMap = new HashMap<TableView, List<Column>>();
-
-		for (ColumnGroup columnGroup : groupSet.getGroupList()) {
-			CopyGroup oldCopyGroup = CopyGroup.getInstance(columnGroup);
-			this.oldCopyGroups.add(oldCopyGroup);
-		}
-
 	}
 
 	@Override
@@ -53,6 +46,12 @@ public final class ChangeGroupCommand extends AbstractCommand {
 
 		this.groupSet.clear();
 		this.oldColumnListMap.clear();
+
+		this.oldCopyGroups = new ArrayList<CopyGroup>();
+		for (ColumnGroup columnGroup : groupSet.getGroupList()) {
+			CopyGroup oldCopyGroup = CopyGroup.getInstance(columnGroup);
+			this.oldCopyGroups.add(oldCopyGroup);
+		}
 
 		final Dictionary dictionary = diagram.getDiagramContents().getDictionary();
 		for (CopyGroup oldCopyColumnGroup : oldCopyGroups) {
@@ -91,6 +90,10 @@ public final class ChangeGroupCommand extends AbstractCommand {
 
 	@Override
 	protected void doUndo() {
+		if (this.oldCopyGroups == null) {
+			return;
+		}
+		
 		ERDiagram diagram = this.diagram;
 
 		this.groupSet.clear();

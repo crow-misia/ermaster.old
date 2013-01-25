@@ -13,17 +13,11 @@ public final class ChangeBackgroundColorCommand extends AbstractCommand {
 
 	private final int blue;
 
-	private final int[] oldColor;
+	private int[] oldColor;
 
 	public ChangeBackgroundColorCommand(ViewableModel model, int red,
 			int green, int blue) {
 		this.model = model;
-
-		int[] color = model.getColor();
-		if (color == null) {
-			color = new int[] { 255, 255, 255, };
-		}
-		this.oldColor = color;
 
 		this.red = red;
 		this.green = green;
@@ -32,12 +26,19 @@ public final class ChangeBackgroundColorCommand extends AbstractCommand {
 
 	@Override
 	protected void doExecute() {
+		int[] color = model.getColor();
+		if (color == null) {
+			color = new int[] { 255, 255, 255, };
+		}
+		this.oldColor = color;
+
 		this.model.setColor(red, green, blue);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.model.setColor(this.oldColor[0], this.oldColor[1],
-				this.oldColor[2]);
+		if (this.oldColor != null) {
+			this.model.setColor(this.oldColor[0], this.oldColor[1], this.oldColor[2]);
+		}
 	}
 }

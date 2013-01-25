@@ -11,27 +11,30 @@ public final class EditTablespaceCommand extends AbstractCommand {
 
 	private final Tablespace tablespace;
 
-	private final Tablespace oldTablespace;
-
 	private final Tablespace newTablespace;
+
+	private Tablespace oldTablespace;
 
 	public EditTablespaceCommand(ERDiagram diagram, Tablespace tablespace,
 			Tablespace newTablespace) {
 		this.tablespaceSet = diagram.getDiagramContents().getTablespaceSet();
 		this.tablespace = tablespace;
-		this.oldTablespace = (Tablespace) this.tablespace.clone();
 		this.newTablespace = newTablespace;
 	}
 
 	@Override
 	protected void doExecute() {
+		this.oldTablespace = (Tablespace) this.tablespace.clone();
+
 		this.newTablespace.copyTo(this.tablespace);
 		this.tablespaceSet.addTablespace(this.tablespace, true);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.oldTablespace.copyTo(this.tablespace);
-		this.tablespaceSet.addTablespace(this.tablespace, true);
+		if (this.oldTablespace != null) {
+			this.oldTablespace.copyTo(this.tablespace);
+			this.tablespaceSet.addTablespace(this.tablespace, true);
+		}
 	}
 }

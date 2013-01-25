@@ -12,29 +12,34 @@ public final class ChangeIndexCommand extends AbstractCommand {
 
 	private final ERTable table;
 
-	private final List<Index> oldIndexList;
+	private final Index oldIndex;
 
-	private final List<Index> newIndexList;
+	private final Index newIndex;
+
+	private List<Index> oldIndexList;
 
 	public ChangeIndexCommand(ERDiagram diagram, Index oldIndex, Index newIndex) {
 		this.table = oldIndex.getTable();
-
-		this.oldIndexList = oldIndex.getTable().getIndexes();
-		this.newIndexList = new ArrayList<Index>(oldIndexList);
-
-		int i = this.newIndexList.indexOf(oldIndex);
-
-		this.newIndexList.remove(i);
-		this.newIndexList.add(i, newIndex);
+		this.oldIndex = oldIndex;
+		this.newIndex = newIndex;
 	}
 
 	@Override
 	protected void doExecute() {
-		this.table.setIndexes(this.newIndexList);
+		this.oldIndexList = oldIndex.getTable().getIndexes();
+
+		final List<Index> newIndexList = new ArrayList<Index>(oldIndexList);
+		final int i = newIndexList.indexOf(oldIndex);
+
+		newIndexList.set(i, newIndex);
+
+		this.table.setIndexes(newIndexList);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.table.setIndexes(this.oldIndexList);
+		if (this.oldIndexList != null) {
+			this.table.setIndexes(this.oldIndexList);
+		}
 	}
 }

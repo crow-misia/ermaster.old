@@ -12,25 +12,29 @@ public final class DeleteIndexCommand extends AbstractCommand {
 
 	private final ERTable table;
 
-	private final List<Index> oldIndexList;
+	private final Index index;
 
-	private final List<Index> newIndexList;
+	private List<Index> oldIndexList;
 
 	public DeleteIndexCommand(ERDiagram diagram, Index index) {
 		this.table = index.getTable();
-
-		this.oldIndexList = index.getTable().getIndexes();
-		this.newIndexList = new ArrayList<Index>(oldIndexList);
-		this.newIndexList.remove(index);
+		this.index = index;
 	}
 
 	@Override
 	protected void doExecute() {
-		this.table.setIndexes(this.newIndexList);
+		this.oldIndexList = index.getTable().getIndexes();
+
+		final List<Index> newIndexList = new ArrayList<Index>(oldIndexList);
+		newIndexList.remove(index);
+
+		this.table.setIndexes(newIndexList);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.table.setIndexes(this.oldIndexList);
+		if (this.oldIndexList != null) {
+			this.table.setIndexes(this.oldIndexList);
+		}
 	}
 }

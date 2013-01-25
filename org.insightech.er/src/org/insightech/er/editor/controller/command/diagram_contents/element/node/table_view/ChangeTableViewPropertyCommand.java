@@ -5,29 +5,32 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.TableV
 
 public final class ChangeTableViewPropertyCommand extends AbstractCommand {
 
-	private final TableView oldCopyTableView;
-
 	private final TableView tableView;
 
 	private final TableView newCopyTableView;
 
+	private TableView oldCopyTableView;
+
 	public ChangeTableViewPropertyCommand(TableView tableView,
 			TableView newCopyTableView) {
 		this.tableView = tableView;
-		this.oldCopyTableView = tableView.copyData();
 		this.newCopyTableView = newCopyTableView;
 	}
 
 	@Override
 	protected void doExecute() {
+		this.oldCopyTableView = tableView.copyData();
+
 		this.newCopyTableView.restructureData(tableView);
 		this.tableView.getDiagram().changeAll();
 	}
 
 	@Override
 	protected void doUndo() {
-		this.oldCopyTableView.restructureData(tableView);
-		this.tableView.getDiagram().changeAll();
+		if (this.oldCopyTableView != null) {
+			this.oldCopyTableView.restructureData(tableView);
+			this.tableView.getDiagram().changeAll();
+		}
 	}
 
 }
