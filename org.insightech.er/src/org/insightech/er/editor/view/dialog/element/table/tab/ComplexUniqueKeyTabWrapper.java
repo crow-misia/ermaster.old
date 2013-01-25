@@ -189,7 +189,7 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 					return;
 				}
 
-				ComplexUniqueKey complexUniqueKey = new CopyComplexUniqueKey(
+				ComplexUniqueKey complexUniqueKey = CopyComplexUniqueKey.getInstance(
 						new ComplexUniqueKey(name), null);
 				complexUniqueKey.setColumnList(columnList);
 				copyData.getComplexUniqueKeyList().add(complexUniqueKey);

@@ -98,7 +98,7 @@ public class ERTable extends TableView implements TablePropertiesHolder,
 		List<Index> indexes = new ArrayList<Index>();
 
 		for (Index fromIndex : this.getIndexes()) {
-			indexes.add(new CopyIndex(to, fromIndex, to.getColumns()));
+			indexes.add(CopyIndex.getInstance(to, fromIndex, to.getExpandedColumns()));
 		}
 
 		to.setIndexes(indexes);
@@ -106,7 +106,7 @@ public class ERTable extends TableView implements TablePropertiesHolder,
 		List<ComplexUniqueKey> complexUniqueKeyList = new ArrayList<ComplexUniqueKey>();
 
 		for (ComplexUniqueKey complexUniqueKey : this.getComplexUniqueKeyList()) {
-			complexUniqueKeyList.add(new CopyComplexUniqueKey(complexUniqueKey,
+			complexUniqueKeyList.add(CopyComplexUniqueKey.getInstance(complexUniqueKey,
 					to.getColumns()));
 		}
 

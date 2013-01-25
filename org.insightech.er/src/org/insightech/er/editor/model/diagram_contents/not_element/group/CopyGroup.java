@@ -31,10 +31,11 @@ public final class CopyGroup extends ColumnGroup {
 	}
 
 	public static CopyGroup getInstance(final ColumnGroup original) {
-		if (original instanceof CopyGroup) {
-			return new CopyGroup(((CopyGroup) original).original);
+		ColumnGroup o = original;
+		while (o instanceof CopyGroup) {
+			o = ((CopyGroup) o).original;
 		}
-		return new CopyGroup(original);
+		return new CopyGroup(o);
 	}
 
 	public ColumnGroup restructure(ERDiagram diagram, final boolean dictionaryFire) {

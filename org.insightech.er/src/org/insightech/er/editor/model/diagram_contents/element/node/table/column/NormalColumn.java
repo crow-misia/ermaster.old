@@ -680,4 +680,23 @@ public class NormalColumn extends Column {
 		return clone;
 	}
 
+	/**
+	 * ２つのカラムを比較し、同一カラムであるかチェックする (コピーされたカラムの場合、オリジナルが同一かのチェックを行う)
+	 * @param f
+	 * @param t
+	 * @return
+	 */
+	public static boolean equals(final NormalColumn f, final NormalColumn t) {
+		NormalColumn o1 = f;
+		while (o1 instanceof CopyColumn) {
+			o1 = ((CopyColumn) o1).getOriginalColumn();
+		}
+
+		NormalColumn o2 = t;
+		while (o2 instanceof CopyColumn) {
+			o2 = ((CopyColumn) o2).getOriginalColumn();
+		}
+		
+		return o1 == o2;
+	}
 }

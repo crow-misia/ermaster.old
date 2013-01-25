@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.CopyColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
@@ -14,8 +13,8 @@ public class CopyIndex extends Index {
 
 	private Index originalIndex;
 
-	public CopyIndex(ERTable copyTable, Index originalIndex,
-			List<Column> copyColumns) {
+	private CopyIndex(ERTable copyTable, Index originalIndex,
+			List<NormalColumn> copyColumns) {
 		super(copyTable, originalIndex.getName(), originalIndex.isNonUnique(),
 				originalIndex.isBitmap(), originalIndex.getType(),
 				originalIndex.getDescription());
@@ -35,33 +34,35 @@ public class CopyIndex extends Index {
 				desc = Boolean.FALSE;
 			}
 
-			if (copyColumns != null) {
-
+			if (copyColumns == null) {
+				this.addColumn(originalIndexColumn, desc);
+			} else {
 				boolean isGroupColumn = true;
 
-				for (Column column : copyColumns) {
-					if (column instanceof CopyColumn) {
-						CopyColumn copyColumn = (CopyColumn) column;
-
-						if (copyColumn.getOriginalColumn().equals(
-								originalIndexColumn)) {
-							this.addColumn(copyColumn, desc);
-							isGroupColumn = false;
-							break;
-						}
+				for (NormalColumn column : copyColumns) {
+					if (NormalColumn.equals(column, originalIndexColumn)) {
+						this.addColumn(column, desc);
+						isGroupColumn = false;
+						break;
 					}
 				}
 
 				if (isGroupColumn) {
 					this.addColumn(originalIndexColumn, desc);
 				}
-
-			} else {
-				this.addColumn(originalIndexColumn, desc);
 			}
 
 			i++;
 		}
+	}
+
+	public static CopyIndex getInstance(final ERTable copyTable, final Index original,
+			final List<NormalColumn> copyColumns) {
+		Index o = original;
+		while (o instanceof CopyIndex) {
+			o = ((CopyIndex) o).originalIndex;
+		}
+		return new CopyIndex(copyTable, o, copyColumns);
 	}
 
 	public Index getRestructuredIndex(ERTable originalTable) {

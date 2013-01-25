@@ -13,7 +13,7 @@ public class CopyComplexUniqueKey extends ComplexUniqueKey {
 
 	private ComplexUniqueKey originalComplexUniqueKey;
 
-	public CopyComplexUniqueKey(ComplexUniqueKey original,
+	private CopyComplexUniqueKey(ComplexUniqueKey original,
 			List<Column> copyColumns) {
 		super(original.getUniqueKeyName());
 
@@ -31,6 +31,14 @@ public class CopyComplexUniqueKey extends ComplexUniqueKey {
 				}
 			}
 		}
+	}
+
+	public static CopyComplexUniqueKey getInstance(final ComplexUniqueKey original, final List<Column> copyColumns) {
+		ComplexUniqueKey o = original;
+		while (o instanceof CopyComplexUniqueKey) {
+			o = ((CopyComplexUniqueKey) o).originalComplexUniqueKey;
+		}
+		return new CopyComplexUniqueKey(o, copyColumns);
 	}
 
 	public ComplexUniqueKey restructure() {

@@ -215,9 +215,9 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 
 				List<NormalColumn> indexColumns = index.getColumns();
 				for (int j = 0, m = indexColumns.size(); j < m; j++) {
-					NormalColumn indexColumn = indexColumns.get(j);
+					final NormalColumn indexColumn = indexColumns.get(j);
 
-					if (normalColumn.equals(indexColumn)) {
+					if (NormalColumn.equals(normalColumn, indexColumn)) {
 						tableItem.setText(i + 2, String.valueOf(j + 1));
 						break;
 					}
@@ -242,7 +242,7 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 		Index copyIndex = null;
 
 		if (add || selectedIndex == -1) {
-			copyIndex = new CopyIndex(copyData, index, null);
+			copyIndex = CopyIndex.getInstance(copyData, index, null);
 			this.copyData.addIndex(copyIndex);
 
 		} else {

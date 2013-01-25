@@ -25,10 +25,11 @@ public class CopyColumn extends NormalColumn {
 	}
 
 	public static CopyColumn getInstance(final NormalColumn original) {
-		if (original instanceof CopyColumn) {
-			return new CopyColumn(((CopyColumn) original).originalColumn);
+		NormalColumn o = original;
+		while (o instanceof CopyColumn) {
+			o = ((CopyColumn) o).originalColumn;
 		}
-		return new CopyColumn(original);
+		return new CopyColumn(o);
 	}
 
 	public NormalColumn getRestructuredColumn() {

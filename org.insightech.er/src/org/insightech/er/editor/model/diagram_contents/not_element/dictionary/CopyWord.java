@@ -12,10 +12,11 @@ public final class CopyWord extends RealWord {
 	}
 
 	public static CopyWord getInstance(final Word original) {
-		if (original instanceof CopyWord) {
-			return new CopyWord(((CopyWord) original).original);
+		Word o = original;
+		while (o instanceof CopyWord) {
+			o = ((CopyWord) o).original;
 		}
-		return new CopyWord(original);
+		return new CopyWord(o);
 	}
 
 	public Word restructure(Dictionary dictionary) {
