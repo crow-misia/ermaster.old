@@ -16,6 +16,7 @@ public class CopyColumn extends NormalColumn {
 			throw new IllegalArgumentException("originalColumn is null.");
 		}
 
+		setId(originalColumn.getId());
 		this.originalColumn = originalColumn;
 
 		final Word originalWord = originalColumn.getWord();

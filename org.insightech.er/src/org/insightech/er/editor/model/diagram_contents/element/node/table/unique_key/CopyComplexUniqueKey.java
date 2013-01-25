@@ -17,6 +17,8 @@ public class CopyComplexUniqueKey extends ComplexUniqueKey {
 			List<Column> copyColumns) {
 		super(original.getUniqueKeyName());
 
+		setId(original.getId());
+
 		this.originalComplexUniqueKey = original;
 
 		for (NormalColumn originalColumn : original.getColumnList()) {
