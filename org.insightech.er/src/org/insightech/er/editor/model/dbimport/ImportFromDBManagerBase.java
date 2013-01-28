@@ -617,14 +617,10 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 	private void setIndexColumn(ERTable erTable, Index index) {
 		for (String columnName : index.getColumnNames()) {
-			for (Column column : erTable.getColumns()) {
-				if (column instanceof NormalColumn) {
-					NormalColumn normalColumn = (NormalColumn) column;
-
-					if (normalColumn.getPhysicalName().equals(columnName)) {
-						index.addColumn(normalColumn);
-						break;
-					}
+			for (NormalColumn column : erTable.getNormalColumns()) {
+				if (column.getPhysicalName().equals(columnName)) {
+					index.addColumn(column);
+					break;
 				}
 			}
 		}
