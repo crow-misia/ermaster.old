@@ -176,7 +176,7 @@ public class SearchManager {
 					}
 				}
 
-				rows.addAll(this.search(word, this.currentKeyword,
+				rows.addAll(search(word, this.currentKeyword,
 						ResourceString.getResourceString("label.dictionary")));
 
 				if (!rows.isEmpty() && !all) {
@@ -213,15 +213,15 @@ public class SearchManager {
 				}
 
 				if (nodeElement instanceof ERTable) {
-					rows.addAll(this.search((ERTable) nodeElement,
+					rows.addAll(search((ERTable) nodeElement,
 							this.currentKeyword));
 
 				} else if (nodeElement instanceof Note) {
-					rows.addAll(this.search((Note) nodeElement,
+					rows.addAll(search((Note) nodeElement,
 							this.currentKeyword));
 
 				} else if (nodeElement instanceof ModelProperties) {
-					rows.addAll(this.search((ModelProperties) nodeElement,
+					rows.addAll(search((ModelProperties) nodeElement,
 							this.currentKeyword));
 				}
 
@@ -260,7 +260,7 @@ public class SearchManager {
 								}
 							}
 
-							rows.addAll(this.search(relation, keyword));
+							rows.addAll(search(relation, keyword));
 							if (!rows.isEmpty() && !all) {
 								result = new SearchResult(relation, rows);
 								loop = false;
@@ -299,7 +299,7 @@ public class SearchManager {
 					}
 				}
 
-				rows.addAll(this.search(columnGroup, keyword));
+				rows.addAll(search(columnGroup, keyword));
 				if (!rows.isEmpty() && !all) {
 					result = new SearchResult(columnGroup, rows);
 					loop = false;
@@ -358,7 +358,7 @@ public class SearchManager {
 					}
 				}
 
-				rows.addAll(this.search(word, this.currentKeyword,
+				rows.addAll(search(word, this.currentKeyword,
 						ResourceString.getResourceString("label.dictionary")));
 
 				if (!rows.isEmpty() && !all) {
@@ -395,15 +395,15 @@ public class SearchManager {
 				}
 
 				if (nodeElement instanceof ERTable) {
-					rows.addAll(this.search((ERTable) nodeElement,
+					rows.addAll(search((ERTable) nodeElement,
 							this.currentKeyword));
 
 				} else if (nodeElement instanceof Note) {
-					rows.addAll(this.search((Note) nodeElement,
+					rows.addAll(search((Note) nodeElement,
 							this.currentKeyword));
 
 				} else if (nodeElement instanceof ModelProperties) {
-					rows.addAll(this.search((ModelProperties) nodeElement,
+					rows.addAll(search((ModelProperties) nodeElement,
 							this.currentKeyword));
 				}
 
@@ -442,7 +442,7 @@ public class SearchManager {
 								}
 							}
 
-							rows.addAll(this.search(relation,
+							rows.addAll(search(relation,
 									this.currentKeyword));
 							if (!rows.isEmpty() && !this.all) {
 								result = new SearchResult(relation, rows);
@@ -482,7 +482,7 @@ public class SearchManager {
 					}
 				}
 
-				rows.addAll(this.search(columnGroup, this.currentKeyword));
+				rows.addAll(search(columnGroup, this.currentKeyword));
 				if (!rows.isEmpty() && !this.all) {
 					result = new SearchResult(columnGroup, rows);
 					loop = false;
@@ -514,7 +514,7 @@ public class SearchManager {
 		String path = table.getLogicalName();
 
 		if (this.physicalTableNameCheckBox) {
-			if (this.search(table.getPhysicalName(), keyword)) {
+			if (search(table.getPhysicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_TABLE_PHYSICAL_NAME, table
 								.getPhysicalName(), path, table, table));
@@ -522,7 +522,7 @@ public class SearchManager {
 		}
 
 		if (this.logicalTableNameCheckBox) {
-			if (this.search(table.getLogicalName(), keyword)) {
+			if (search(table.getLogicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_TABLE_LOGICAL_NAME, table
 								.getLogicalName(), path, table, table));
@@ -544,7 +544,7 @@ public class SearchManager {
 
 				} else if (column instanceof ColumnGroup) {
 					if (this.columnGroupNameCheckBox) {
-						if (this.search(column.getName(), keyword)) {
+						if (search(column.getName(), keyword)) {
 							String childPath = path + column.getName();
 
 							rows
@@ -574,7 +574,7 @@ public class SearchManager {
 
 			String path = null;
 
-			if (this.search(note.getText(), keyword)) {
+			if (search(note.getText(), keyword)) {
 				rows.add(new SearchResultRow(SearchResultRow.TYPE_NOTE, note
 						.getText(), path, note, note));
 			}
@@ -592,7 +592,7 @@ public class SearchManager {
 			String path = null;
 
 			for (NameValue property : modelProperties.getProperties()) {
-				if (this.search(property.getName(), keyword)) {
+				if (search(property.getName(), keyword)) {
 					rows
 							.add(new SearchResultRow(
 									SearchResultRow.TYPE_MODEL_PROPERTY_NAME,
@@ -600,7 +600,7 @@ public class SearchManager {
 									modelProperties));
 				}
 
-				if (this.search(property.getValue(), keyword)) {
+				if (search(property.getValue(), keyword)) {
 					rows.add(new SearchResultRow(
 							SearchResultRow.TYPE_MODEL_PROPERTY_VALUE, property
 									.getValue(), path, property,
@@ -620,14 +620,14 @@ public class SearchManager {
 		String path = parentPath + "/" + normalColumn.getLogicalName();
 
 		if (type == COLUMN_TYPE_GROUP && this.physicalGroupColumnNameCheckBox) {
-			if (this.search(normalColumn.getForeignKeyPhysicalName(), keyword)) {
+			if (search(normalColumn.getForeignKeyPhysicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_GROUP_COLUMN_PHYSICAL_NAME,
 						normalColumn.getForeignKeyPhysicalName(), path,
 						normalColumn, table));
 			}
 		} else if (physicalColumnNameCheckBox) {
-			if (this.search(normalColumn.getForeignKeyPhysicalName(), keyword)) {
+			if (search(normalColumn.getForeignKeyPhysicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_PHYSICAL_NAME, normalColumn
 								.getForeignKeyPhysicalName(), path,
@@ -635,14 +635,14 @@ public class SearchManager {
 			}
 		}
 		if (type == COLUMN_TYPE_GROUP && this.logicalGroupColumnNameCheckBox) {
-			if (this.search(normalColumn.getForeignKeyLogicalName(), keyword)) {
+			if (search(normalColumn.getForeignKeyLogicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_GROUP_COLUMN_LOGICAL_NAME,
 						normalColumn.getForeignKeyLogicalName(), path,
 						normalColumn, table));
 			}
 		} else if (this.logicalColumnNameCheckBox) {
-			if (this.search(normalColumn.getForeignKeyLogicalName(), keyword)) {
+			if (search(normalColumn.getForeignKeyLogicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_LOGICAL_NAME, normalColumn
 								.getForeignKeyLogicalName(), path,
@@ -651,14 +651,14 @@ public class SearchManager {
 		}
 
 		if (type == COLUMN_TYPE_GROUP && this.groupColumnDefaultValueCheckBox) {
-			if (this.search(normalColumn.getDefaultValue(), keyword)) {
+			if (search(normalColumn.getDefaultValue(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_GROUP_COLUMN_DEFAULT_VALUE,
 						normalColumn.getDefaultValue(), path, normalColumn,
 						table));
 			}
 		} else if (this.columnDefaultValueCheckBox) {
-			if (this.search(normalColumn.getDefaultValue(), keyword)) {
+			if (search(normalColumn.getDefaultValue(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_COLUMN_DEFAULT_VALUE, normalColumn
 								.getDefaultValue(), path, normalColumn, table));
@@ -675,14 +675,14 @@ public class SearchManager {
 		String path = parentPath + "/" + word.getLogicalName();
 
 		if (physicalWordNameCheckBox) {
-			if (this.search(word.getPhysicalName(), keyword)) {
+			if (search(word.getPhysicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_WORD_PHYSICAL_NAME, word
 								.getPhysicalName(), path, word, null));
 			}
 		}
 		if (this.logicalWordNameCheckBox) {
-			if (this.search(word.getLogicalName(), keyword)) {
+			if (search(word.getLogicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_WORD_LOGICAL_NAME, word
 								.getLogicalName(), path, word, null));
@@ -691,7 +691,7 @@ public class SearchManager {
 		if (word.getType() != null
 				&& word.getType().getAlias(this.diagram.getDatabase()) != null) {
 			if (this.wordTypeCheckBox) {
-				if (this.search(word.getType().getAlias(
+				if (search(word.getType().getAlias(
 						this.diagram.getDatabase()), keyword)) {
 					rows.add(new SearchResultRow(
 							SearchResultRow.TYPE_WORD_TYPE, word.getType()
@@ -702,7 +702,7 @@ public class SearchManager {
 		}
 
 		if (this.wordLengthCheckBox) {
-			if (this.search(word.getTypeData().getLength(), keyword)) {
+			if (search(word.getTypeData().getLength(), keyword)) {
 				rows.add(new SearchResultRow(SearchResultRow.TYPE_WORD_LENGTH,
 						String.valueOf(word.getTypeData().getLength()), path,
 						word, null));
@@ -710,7 +710,7 @@ public class SearchManager {
 		}
 
 		if (this.wordDecimalCheckBox) {
-			if (this.search(word.getTypeData().getDecimal(), keyword)) {
+			if (search(word.getTypeData().getDecimal(), keyword)) {
 				rows.add(new SearchResultRow(SearchResultRow.TYPE_WORD_DECIMAL,
 						String.valueOf(word.getTypeData().getDecimal()), path,
 						word, null));
@@ -718,7 +718,7 @@ public class SearchManager {
 		}
 
 		if (this.wordDescriptionCheckBox) {
-			if (this.search(word.getDescription(), keyword)) {
+			if (search(word.getDescription(), keyword)) {
 				rows.add(new SearchResultRow(SearchResultRow.TYPE_WORD_COMMENT,
 						word.getDescription(), path, word, null));
 			}
@@ -727,18 +727,18 @@ public class SearchManager {
 		return rows;
 	}
 
-	private List<SearchResultRow> search(ERTable table, Index index,
+	private static List<SearchResultRow> search(ERTable table, Index index,
 			String keyword, String parentPath) {
 		List<SearchResultRow> rows = new ArrayList<SearchResultRow>();
 
 		String path = parentPath + "/" + index.getName();
 
-		if (this.search(index.getName(), keyword)) {
+		if (search(index.getName(), keyword)) {
 			rows.add(new SearchResultRow(SearchResultRow.TYPE_INDEX_NAME, index
 					.getName(), path, index, table));
 		}
 		for (NormalColumn normalColumn : index.getColumns()) {
-			if (this.search(normalColumn.getPhysicalName(), keyword)) {
+			if (search(normalColumn.getPhysicalName(), keyword)) {
 				rows.add(new SearchResultRow(
 						SearchResultRow.TYPE_INDEX_COLUMN_NAME, normalColumn
 								.getPhysicalName(), path, normalColumn, table));
@@ -748,10 +748,10 @@ public class SearchManager {
 		return rows;
 	}
 
-	private List<SearchResultRow> search(Relation relation, String keyword) {
+	private static List<SearchResultRow> search(Relation relation, String keyword) {
 		List<SearchResultRow> rows = new ArrayList<SearchResultRow>();
 
-		if (this.search(relation.getName(), keyword)) {
+		if (search(relation.getName(), keyword)) {
 			String path = relation.getName();
 			rows.add(new SearchResultRow(SearchResultRow.TYPE_RELATION_NAME,
 					relation.getName(), path, relation, relation));
@@ -767,7 +767,7 @@ public class SearchManager {
 		String path = columnGroup.getGroupName();
 
 		if (this.groupNameCheckBox
-				&& this.search(columnGroup.getName(), keyword)) {
+				&& search(columnGroup.getName(), keyword)) {
 			rows.add(new SearchResultRow(
 					SearchResultRow.TYPE_COLUMN_GROUP_NAME, columnGroup
 							.getName(), path, columnGroup, columnGroup));
@@ -781,7 +781,7 @@ public class SearchManager {
 		return rows;
 	}
 
-	private boolean search(String str, String keyword) {
+	private static boolean search(String str, String keyword) {
 		if (str == null) {
 			return false;
 		}
@@ -793,7 +793,7 @@ public class SearchManager {
 		return false;
 	}
 
-	private boolean search(Integer num, String keyword) {
+	private static boolean search(Integer num, String keyword) {
 		if (num == null) {
 			return false;
 		}

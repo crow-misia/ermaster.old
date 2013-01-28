@@ -147,7 +147,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 			InterruptedException {
 		File excelFile = new File(this.saveFilePath);
 
-		this.backup(excelFile, true);
+		backup(excelFile, true);
 
 		HSSFWorkbook workbook = this.loadTemplateWorkbook(this.template,
 				this.diagram);
@@ -155,7 +155,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		// check whether the file is not opened by another process.
 		POIUtils.writeExcelFile(excelFile, workbook);
 
-		int count = this.countSheetFromTemplate(workbook, this.diagram);
+		int count = countSheetFromTemplate(workbook, this.diagram);
 		monitor.beginTask(ResourceString
 				.getResourceString("dialog.message.export.excel"), count);
 
@@ -231,7 +231,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		}
 	}
 
-	private AbstractSheetGenerator getSheetGenerator(String templateSheetName) {
+	private static AbstractSheetGenerator getSheetGenerator(String templateSheetName) {
 		for (AbstractSheetGenerator sheetGenerator : SHHET_GENERATOR_LIST) {
 			if (sheetGenerator.getTemplateSheetName().equals(templateSheetName)) {
 				return sheetGenerator;
@@ -251,8 +251,8 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		while (originalSheetNum > 0) {
 			String templateSheetName = workbook.getSheetName(0);
 
-			AbstractSheetGenerator sheetGenerator = this
-					.getSheetGenerator(templateSheetName);
+			AbstractSheetGenerator sheetGenerator = 
+					getSheetGenerator(templateSheetName);
 
 			if (sheetGenerator != null) {
 				sheetGenerator.generate(monitor, workbook, 0,
@@ -321,14 +321,14 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 	}
 
 	
-	private int countSheetFromTemplate(HSSFWorkbook workbook, ERDiagram diagram) {
+	private static int countSheetFromTemplate(HSSFWorkbook workbook, ERDiagram diagram) {
 		int count = 0;
 
 		for (int sheetNo = 0, n = workbook.getNumberOfSheets(); sheetNo < n; sheetNo++) {
 			String templateSheetName = workbook.getSheetName(sheetNo);
 
-			AbstractSheetGenerator sheetGenerator = this
-					.getSheetGenerator(templateSheetName);
+			AbstractSheetGenerator sheetGenerator =
+					getSheetGenerator(templateSheetName);
 
 			if (sheetGenerator != null) {
 				count += sheetGenerator.count(diagram);
@@ -341,7 +341,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		return count;
 	}
 
-	private boolean backup(File file, boolean isBackupEnable)
+	private static boolean backup(File file, boolean isBackupEnable)
 			throws IOException {
 		if (!isBackupEnable || !file.exists()) {
 			return true;
@@ -364,7 +364,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 		return true;
 	}
 
-	private boolean isExcludeTarget(String templateSheetName) {
+	private static boolean isExcludeTarget(String templateSheetName) {
 		if (WORDS_SHEET_NAME.equals(templateSheetName)
 				|| LOOPS_SHEET_NAME.equals(templateSheetName)) {
 			return true;

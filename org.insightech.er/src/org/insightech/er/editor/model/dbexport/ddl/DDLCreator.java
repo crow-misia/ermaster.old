@@ -631,10 +631,12 @@ public abstract class DDLCreator {
 		return ddl.toString();
 	}
 
+	@SuppressWarnings("static-method")
 	protected String getPrimaryKeyLength(ERTable table, NormalColumn primaryKey) {
 		return "";
 	}
 
+	@SuppressWarnings("static-method")
 	protected String getTableSettingDDL(ERTable table) {
 		return "";
 	}
@@ -696,7 +698,8 @@ public abstract class DDLCreator {
 		return ddl.toString();
 	}
 
-	protected boolean doesNeedQuoteDefaultValue(NormalColumn normalColumn) {
+	@SuppressWarnings("static-method")
+  	  protected boolean doesNeedQuoteDefaultValue(NormalColumn normalColumn) {
 		if (normalColumn.getType().isNumber()) {
 			return false;
 		}
@@ -711,6 +714,7 @@ public abstract class DDLCreator {
 		return true;
 	}
 
+	@SuppressWarnings("static-method")
 	public List<String> getCommentDDL(ERTable table) {
 		return new ArrayList<String>();
 	}
@@ -1103,6 +1107,7 @@ public abstract class DDLCreator {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("static-method")
 	public String getIfExistsOption() {
 		return "";
 	}

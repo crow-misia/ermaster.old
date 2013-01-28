@@ -70,7 +70,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		Object object = request.getNewObject();
 
 		if (editPart instanceof ERTableEditPart) {
-			Command command = this.getRelationCreateCommand(request, object);
+			Command command = getRelationCreateCommand(request, object);
 
 			if (command != null) {
 				return command;
@@ -92,7 +92,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 		return null;
 	}
 
-	private Command getRelationCreateCommand(CreateConnectionRequest request,
+	private static Command getRelationCreateCommand(CreateConnectionRequest request,
 			Object object) {
 		if (object instanceof Relation) {
 			Relation relation = (Relation) object;

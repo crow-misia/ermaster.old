@@ -44,11 +44,11 @@ public class SheetIndexSheetGenerator extends AbstractSheetGenerator {
 
 		HSSFSheet sheet = workbook.getSheetAt(sheetNo);
 
-		this.setSheetListData(workbook, sheet, sheetObjectMap, diagram);
+		setSheetListData(workbook, sheet, sheetObjectMap, diagram);
 		monitor.worked(1);
 	}
 
-	public void setSheetListData(HSSFWorkbook workbook, HSSFSheet sheet,
+	private static void setSheetListData(HSSFWorkbook workbook, HSSFSheet sheet,
 			Map<String, ObjectModel> sheetObjectMap, ERDiagram diagram) {
 		CellLocation cellLocation = POIUtils
 				.findCell(sheet, FIND_KEYWORDS_LIST);
@@ -57,7 +57,7 @@ public class SheetIndexSheetGenerator extends AbstractSheetGenerator {
 			int rowNum = cellLocation.r;
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
-			ColumnTemplate columnTemplate = this.loadColumnTemplate(workbook,
+			ColumnTemplate columnTemplate = loadColumnTemplate(workbook,
 					sheet, cellLocation);
 			int order = 1;
 
@@ -115,7 +115,7 @@ public class SheetIndexSheetGenerator extends AbstractSheetGenerator {
 				}
 			}
 
-			this.setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
+			setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
 					- cellLocation.r, templateRow.getFirstCellNum());
 
 			if (linkCol != -1) {

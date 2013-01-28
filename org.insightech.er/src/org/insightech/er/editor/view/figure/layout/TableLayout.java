@@ -41,7 +41,7 @@ public class TableLayout extends AbstractHintLayout {
 
 		List<List<IFigure>> table = this.getTable(children);
 		int[] columnWidth = this.getColumnWidth(table);
-		int[] rowHeight = this.getRowHeight(table);
+		int[] rowHeight = getRowHeight(table);
 
 		Rectangle rect = parent.getBounds();
 
@@ -84,6 +84,7 @@ public class TableLayout extends AbstractHintLayout {
 		}
 	}
 
+	@SuppressWarnings("null")
 	private List<List<IFigure>> getTable(List children) {
 		int numChildren = children.size();
 
@@ -123,7 +124,7 @@ public class TableLayout extends AbstractHintLayout {
 		return columnWidth;
 	}
 
-	private int[] getRowHeight(List<List<IFigure>> table) {
+	private static int[] getRowHeight(List<List<IFigure>> table) {
 		final int n = table.size();
 		int[] rowHeight = new int[n];
 
@@ -175,7 +176,7 @@ public class TableLayout extends AbstractHintLayout {
 
 		List<List<IFigure>> table = this.getTable(children);
 		int[] columnWidth = this.getColumnWidth(table);
-		int[] rowHeight = this.getRowHeight(table);
+		int[] rowHeight = getRowHeight(table);
 
 		int width = 0;
 		final int colnum = columnWidth.length;

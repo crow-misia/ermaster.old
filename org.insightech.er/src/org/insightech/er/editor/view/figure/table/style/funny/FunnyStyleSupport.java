@@ -68,7 +68,7 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 
 	@Override
 	public void createColumnArea(IFigure columns) {
-		this.initColumnArea(columns);
+		initColumnArea(columns);
 
 		columns.setBorder(new MarginBorder(0, 0, 0, 0));
 		columns.setBackgroundColor(ColorConstants.white);
@@ -121,11 +121,11 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 			boolean isSelectedForeignKey, boolean isAdded, boolean isUpdated,
 			boolean isRemoved) {
 
-		Label label = this.createColumnLabel();
+		Label label = createColumnLabel();
 		label.setForegroundColor(ColorConstants.black);
 
 		StringBuilder text = new StringBuilder();
-		text.append(this.getColumnText(viewMode, physicalName, logicalName,
+		text.append(getColumnText(viewMode, physicalName, logicalName,
 				type, isNotNull, uniqueKey, displayDetail, displayType));
 
 		if (displayKey) {
@@ -169,7 +169,7 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 
 		label.setText(text.toString());
 
-		this.setColumnFigureColor(columnFigure, isSelectedReferenced,
+		setColumnFigureColor(columnFigure, isSelectedReferenced,
 				isSelectedForeignKey, isAdded, isUpdated, isRemoved);
 
 		columnFigure.add(label);
@@ -191,10 +191,10 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 		text.append(name);
 		text.append(" (GROUP)");
 
-		this.setColumnFigureColor(columnFigure, false, false, isAdded,
+		setColumnFigureColor(columnFigure, false, false, isAdded,
 				isUpdated, isRemoved);
 
-		Label label = this.createColumnLabel();
+		Label label = createColumnLabel();
 
 		label.setForegroundColor(ColorConstants.black);
 

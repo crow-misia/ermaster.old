@@ -151,7 +151,7 @@ public class PageSettingDialog extends AbstractDialog {
 
 		sizeCombo = new Combo(sizeGroup, SWT.READ_ONLY | SWT.BORDER);
 		sizeCombo.setBackground(ColorConstants.white);
-		this.setPaperSize(sizeCombo);
+		setPaperSize(sizeCombo);
 
 		label = new Label(sizeGroup, SWT.NONE);
 		label.setBackground(ColorConstants.white);
@@ -174,7 +174,7 @@ public class PageSettingDialog extends AbstractDialog {
 		label.setText(ResourceString.getResourceString("label.page.margin.top"));
 
 		topMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
-		this.setMarginSpinner(topMarginSpinner);
+		setMarginSpinner(topMarginSpinner);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label = new Label(marginComposite, SWT.NONE);
@@ -184,7 +184,7 @@ public class PageSettingDialog extends AbstractDialog {
 		label.setText(ResourceString.getResourceString("label.page.margin.left"));
 
 		leftMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
-		this.setMarginSpinner(leftMarginSpinner);
+		setMarginSpinner(leftMarginSpinner);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label = new Label(marginComposite, SWT.NONE);
@@ -194,7 +194,7 @@ public class PageSettingDialog extends AbstractDialog {
 		label.setText(ResourceString.getResourceString("label.page.margin.right"));
 
 		rightMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
-		this.setMarginSpinner(rightMarginSpinner);
+		setMarginSpinner(rightMarginSpinner);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label = new Label(marginComposite, SWT.NONE);
@@ -204,13 +204,13 @@ public class PageSettingDialog extends AbstractDialog {
 		label.setText(ResourceString.getResourceString("label.page.margin.bottom"));
 
 		bottomMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
-		this.setMarginSpinner(bottomMarginSpinner);
+		setMarginSpinner(bottomMarginSpinner);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label = new Label(marginComposite, SWT.NONE);
 	}
 
-	private void setMarginSpinner(Spinner spinner) {
+	private static void setMarginSpinner(Spinner spinner) {
 		spinner.setDigits(1);
 		spinner.setIncrement(5);
 		spinner.setMinimum(0);
@@ -218,7 +218,7 @@ public class PageSettingDialog extends AbstractDialog {
 		spinner.setSelection(20);
 	}
 
-	private void setPaperSize(Combo combo) {
+	private static void setPaperSize(Combo combo) {
 		for (String paperSize : PageSetting.getAllPaperSize()) {
 			combo.add(paperSize);
 		}

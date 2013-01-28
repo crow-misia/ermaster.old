@@ -62,14 +62,14 @@ public class TableHtmlReportPageGenerator extends
 		String referencedKeyTable = this
 				.generateReferenceKeyTable(referencedKeyList);
 
-		String complexUniqueKeyMatrix = this.generateComplexUniqueKeyMatrix(
+		String complexUniqueKeyMatrix = generateComplexUniqueKeyMatrix(
 				table.getComplexUniqueKeyList(), normalColumnList);
 
 		List<Index> indexList = table.getIndexes();
 
 		String indexSummaryTable = this.generateIndexSummaryTable(indexList);
 
-		String indexMatrix = this.generateIndexMatrix(indexList,
+		String indexMatrix = generateIndexMatrix(indexList,
 				normalColumnList);
 
 		String attributeDetailTable = this.generateAttributeDetailTable(

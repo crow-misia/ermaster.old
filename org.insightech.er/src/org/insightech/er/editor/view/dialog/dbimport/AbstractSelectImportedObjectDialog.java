@@ -241,7 +241,7 @@ public abstract class AbstractSelectImportedObjectDialog extends AbstractDialog 
 		return treeNodeList;
 	}
 
-	protected TreeNode createTopNode(String objectType,
+	protected static TreeNode createTopNode(String objectType,
 			List<DBObject> dbObjectList) {
 		TreeNode treeNode = new TreeNode(new StringObjectModel(ResourceString
 				.getResourceString("label.object.type." + objectType)));

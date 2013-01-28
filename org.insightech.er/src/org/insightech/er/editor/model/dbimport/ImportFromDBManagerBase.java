@@ -264,6 +264,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		}
 	}
 
+	@SuppressWarnings("static-method")
 	protected ColumnData createColumnData(ResultSet columnSet)
 			throws SQLException {
 		ColumnData columnData = new ColumnData();
@@ -353,8 +354,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -378,6 +379,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return list;
 	}
 
+	@SuppressWarnings("static-method")
 	protected Trigger importTrigger(String schema, String triggerName)
 			throws SQLException {
 		//
@@ -423,11 +425,13 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return list;
 	}
 
+	@SuppressWarnings("static-method")
 	protected List<ERTable> importSynonyms() throws SQLException,
 			InterruptedException {
 		return new ArrayList<ERTable>();
 	}
 
+	@SuppressWarnings("static-method")
 	protected String getConstraintName(PrimaryKeyData data) {
 		return data.constraintName;
 	}
@@ -436,7 +440,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			String schema) throws SQLException, InterruptedException {
 		String autoIncrementColumnName = null;
 		try {
-			autoIncrementColumnName = this.getAutoIncrementColumnName(con,
+			autoIncrementColumnName = getAutoIncrementColumnName(con,
 					this.getTableNameWithSchema(schema, tableName));
 		} catch (SQLException e) {
 			// �e�[�u����񂪎擾�ł��Ȃ��ꍇ�i���̃��[�U�̏��L���Ȃǂ̏ꍇ�j�A
@@ -472,7 +476,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		this.tableMap.put(tableNameWithSchema, table);
 
 		for (Index index : indexes) {
-			this.setIndexColumn(table, index);
+			setIndexColumn(table, index);
 		}
 
 		table.setDirty();
@@ -496,7 +500,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		}
 	}
 
-	private String getAutoIncrementColumnName(Connection con,
+	private static String getAutoIncrementColumnName(Connection con,
 			String tableNameWithSchema) throws SQLException {
 		String autoIncrementColumnName = null;
 
@@ -517,8 +521,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			}
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 
 		return autoIncrementColumnName;
@@ -588,7 +592,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		} catch (SQLException e) {
 			throw e;
 		} finally {
-			this.close(indexSet);
+			close(indexSet);
 		}
 
 		for (Iterator<Index> iter = indexes.iterator(); iter.hasNext();) {
@@ -615,7 +619,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return indexes;
 	}
 
-	private void setIndexColumn(ERTable erTable, Index index) {
+	private static void setIndexColumn(ERTable erTable, Index index) {
 		for (String columnName : index.getColumnNames()) {
 			for (NormalColumn column : erTable.getNormalColumns()) {
 				if (column.getPhysicalName().equals(columnName)) {
@@ -649,7 +653,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			// Microsoft Access does not support getPrimaryKeys
 
 		} finally {
-			this.close(primaryKeySet);
+			close(primaryKeySet);
 		}
 
 		return primaryKeys;
@@ -739,7 +743,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				}
 			}
 
-			boolean uniqueKey = this.isUniqueKey(columnName, indexes,
+			boolean uniqueKey = isUniqueKey(columnName, indexes,
 					primaryKeys);
 
 			boolean autoIncrement = columnName
@@ -780,7 +784,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return columns;
 	}
 
-	private boolean isUniqueKey(String columnName, List<Index> indexes,
+	private static boolean isUniqueKey(String columnName, List<Index> indexes,
 			List<PrimaryKeyData> primaryKeys) {
 		String primaryKey = null;
 
@@ -811,7 +815,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return false;
 	}
 
-	private boolean isCyclicForeignKye(ForeignKeyData foreignKeyData) {
+	private static boolean isCyclicForeignKye(ForeignKeyData foreignKeyData) {
 		if (foreignKeyData.sourceSchemaName == null) {
 			if (foreignKeyData.targetSchemaName != null) {
 				return false;
@@ -861,7 +865,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				foreignKeyData.deleteRule = foreignKeySet
 						.getShort("DELETE_RULE");
 
-				if (this.isCyclicForeignKye(foreignKeyData)) {
+				if (isCyclicForeignKye(foreignKeyData)) {
 					continue;
 				}
 
@@ -883,7 +887,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			tableForeignKeyDataMap = null;
 
 		} finally {
-			this.close(foreignKeySet);
+			close(foreignKeySet);
 		}
 	}
 
@@ -901,8 +905,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			return;
 		}
 
-		Map<String, List<ForeignKeyData>> sameNameForeignKeyDataMap = this
-				.collectSameNameForeignKeyData(foreignKeyList);
+		Map<String, List<ForeignKeyData>> sameNameForeignKeyDataMap =
+				collectSameNameForeignKeyData(foreignKeyList);
 
 		for (Map.Entry<String, List<ForeignKeyData>> entry : sameNameForeignKeyDataMap
 				.entrySet()) {
@@ -949,8 +953,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				return;
 			}
 
-			Map<String, List<ForeignKeyData>> sameNameForeignKeyDataMap = this
-					.collectSameNameForeignKeyData(foreignKeyList);
+			Map<String, List<ForeignKeyData>> sameNameForeignKeyDataMap =
+					collectSameNameForeignKeyData(foreignKeyList);
 
 			for (Map.Entry<String, List<ForeignKeyData>> entry : sameNameForeignKeyDataMap
 					.entrySet()) {
@@ -961,11 +965,11 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			// microsoft access does not support getImportedKeys
 
 		} finally {
-			this.close(foreignKeySet);
+			close(foreignKeySet);
 		}
 	}
 
-	private Map<String, List<ForeignKeyData>> collectSameNameForeignKeyData(
+	private static Map<String, List<ForeignKeyData>> collectSameNameForeignKeyData(
 			List<ForeignKeyData> foreignKeyList) {
 		Map<String, List<ForeignKeyData>> map = new HashMap<String, List<ForeignKeyData>>();
 
@@ -1190,8 +1194,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -1429,6 +1433,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return importedTriggers;
 	}
 
+	@SuppressWarnings("static-method")
 	protected Tablespace importTablespace(String tablespaceName)
 			throws SQLException {
 		// TODO �e�[�u���X�y�[�X�̃C���|�[�g
@@ -1439,11 +1444,13 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return exception;
 	}
 
+	@SuppressWarnings("static-method")
 	protected int getLength(String type, int size) {
 		return size;
 	}
 
-    public static void main(String[] args) throws InputException,
+	@SuppressWarnings("unused")
+	public static void main(String[] args) throws InputException,
 			InstantiationException, IllegalAccessException, SQLException {
 		new Activator();
 
@@ -1464,13 +1471,13 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		}
 	}
 
-	protected void close(ResultSet rs) throws SQLException {
+	protected static void close(ResultSet rs) throws SQLException {
 		if (rs != null) {
 			rs.close();
 		}
 	}
 
-	protected void close(Statement stmt) throws SQLException {
+	protected static void close(Statement stmt) throws SQLException {
 		if (stmt != null) {
 			stmt.close();
 		}

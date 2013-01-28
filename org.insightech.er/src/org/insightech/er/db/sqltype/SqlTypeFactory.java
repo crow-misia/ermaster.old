@@ -17,10 +17,11 @@ import org.insightech.er.util.io.IOUtils;
 
 public final class SqlTypeFactory {
 	public static void load() throws IOException, ClassNotFoundException {
-		InputStream in = SqlTypeFactory.class
-				.getResourceAsStream("/SqlType.xls");
+		InputStream in = null;
 
 		try {
+			in = SqlTypeFactory.class.getResourceAsStream("/SqlType.xls");
+
 			HSSFWorkbook workBook = POIUtils.readExcelBook(in);
 
 			HSSFSheet sheet = workBook.getSheetAt(0);

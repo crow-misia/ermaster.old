@@ -21,6 +21,7 @@ public class TranslationPreferencePage extends
 	public void init(IWorkbench workbench) {
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -29,7 +30,7 @@ public class TranslationPreferencePage extends
 		composite.setLayout(layout);
 
 		Composite buttonComposite = new Composite(composite, SWT.NONE);
-		this.createButtonComposite(buttonComposite);
+		createButtonComposite(buttonComposite);
 
 		CompositeFactory.filler(composite, 4);
 
@@ -55,7 +56,8 @@ public class TranslationPreferencePage extends
 		return composite;
 	}
 
-	private void createButtonComposite(Composite composite) {
+	@SuppressWarnings("unused")
+	private static void createButtonComposite(Composite composite) {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		composite.setLayout(layout);

@@ -190,12 +190,12 @@ public abstract class AbstractHtmlReportPageGenerator implements
 			}
 
 			Object[] args = { this.getObjectId(normalColumn),
-					this.getPKString(normalColumn),
-					this.getForeignKeyString(normalColumn),
+					getPKString(normalColumn),
+					getForeignKeyString(normalColumn),
 					Format.null2blank(normalColumn.getLogicalName()),
 					Format.null2blank(normalColumn.getPhysicalName()), type,
-					this.getUniqueString(normalColumn),
-					this.getNotNullString(normalColumn) };
+					getUniqueString(normalColumn),
+					getNotNullString(normalColumn) };
 
 			String row = MessageFormat.format(template, args);
 
@@ -224,8 +224,8 @@ public abstract class AbstractHtmlReportPageGenerator implements
 
 			Object[] args = {
 					this.getObjectId(normalColumn),
-					this.getPKString(normalColumn),
-					this.getForeignKeyString(normalColumn),
+					getPKString(normalColumn),
+					getForeignKeyString(normalColumn),
 					Format.null2blank(normalColumn.getLogicalName()),
 					Format.null2blank(normalColumn.getPhysicalName()),
 					Format.null2blank(normalColumn.getDescription()),
@@ -400,7 +400,7 @@ public abstract class AbstractHtmlReportPageGenerator implements
 		return sb.toString();
 	}
 
-	public String generateIndexMatrix(List<Index> indexList,
+	public static String generateIndexMatrix(List<Index> indexList,
 			List<NormalColumn> normalColumnList) throws IOException {
 
 		if (indexList.isEmpty()) {
@@ -466,7 +466,7 @@ public abstract class AbstractHtmlReportPageGenerator implements
 		return template;
 	}
 
-	public String generateComplexUniqueKeyMatrix(
+	public static String generateComplexUniqueKeyMatrix(
 			List<ComplexUniqueKey> complexUniqueKeyList,
 			List<NormalColumn> normalColumnList) throws IOException {
 
@@ -535,38 +535,34 @@ public abstract class AbstractHtmlReportPageGenerator implements
 		return template;
 	}
 
-	private String getPKString(NormalColumn normalColumn) {
+	private static String getPKString(NormalColumn normalColumn) {
 		if (normalColumn.isPrimaryKey()) {
 			return "<img src=\"../image/" + ExportToHtmlManager.ICON_FILES[0]
 					+ "\">";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
-	private String getForeignKeyString(NormalColumn normalColumn) {
+	private static String getForeignKeyString(NormalColumn normalColumn) {
 		if (normalColumn.isForeignKey()) {
 			return "<img src=\"../image/" + ExportToHtmlManager.ICON_FILES[1]
 					+ "\">";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
-	private String getUniqueString(NormalColumn normalColumn) {
+	private static String getUniqueString(NormalColumn normalColumn) {
 		if (normalColumn.isUniqueKey()) {
 			return "UNIQUE";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
-	private String getNotNullString(NormalColumn normalColumn) {
+	private static String getNotNullString(NormalColumn normalColumn) {
 		if (normalColumn.isNotNull()) {
 			return "NOT NULL";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
 }

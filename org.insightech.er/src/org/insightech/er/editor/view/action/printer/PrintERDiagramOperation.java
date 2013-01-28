@@ -51,7 +51,7 @@ public class PrintERDiagramOperation extends PrintGraphicalViewerOperation {
 		return printRegion;
 	}
 
-	private Rectangle shrink(Rectangle bounds, Insets insets) {
+	private static Rectangle shrink(Rectangle bounds, Insets insets) {
 		Rectangle shrinked = bounds.getCopy();
 
 		shrinked.x += insets.left;

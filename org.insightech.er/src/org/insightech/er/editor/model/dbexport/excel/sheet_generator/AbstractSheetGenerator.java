@@ -133,7 +133,7 @@ public abstract class AbstractSheetGenerator {
 		public HSSFCellStyle style33;
 	}
 
-	protected Map<String, String> buildKeywordsValueMap(HSSFSheet wordsSheet,
+	protected static Map<String, String> buildKeywordsValueMap(HSSFSheet wordsSheet,
 			int columnNo, String[] keywords) {
 		Map<String, String> keywordsValueMap = new HashMap<String, String>();
 
@@ -155,7 +155,7 @@ public abstract class AbstractSheetGenerator {
 		return keywordsValueMap;
 	}
 
-	protected String getValue(Map<String, String> keywordsValueMap,
+	protected static String getValue(Map<String, String> keywordsValueMap,
 			String keyword, Object obj) {
 		if (obj instanceof Boolean) {
 			if (Boolean.TRUE.equals(obj)) {
@@ -176,7 +176,7 @@ public abstract class AbstractSheetGenerator {
 		return obj.toString();
 	}
 
-	protected void setColumnData(Map<String, String> keywordsValueMap,
+	protected static void setColumnData(Map<String, String> keywordsValueMap,
 			ColumnTemplate columnTemplate, HSSFRow row,
 			NormalColumn normalColumn, TableView tableView, int order) {
 
@@ -189,7 +189,7 @@ public abstract class AbstractSheetGenerator {
 				value = String.valueOf(order);
 
 			} else {
-				value = this.getColumnValue(keywordsValueMap, normalColumn,
+				value = getColumnValue(keywordsValueMap, normalColumn,
 						tableView, template);
 			}
 
@@ -204,19 +204,19 @@ public abstract class AbstractSheetGenerator {
 		}
 	}
 
-	private String getColumnValue(Map<String, String> keywordsValueMap,
+	private static String getColumnValue(Map<String, String> keywordsValueMap,
 			NormalColumn normalColumn, TableView tableView, String template) {
 		String str = template;
 
 		for (String keyword : KEYWORDS_OF_COLUMN) {
-			str = StringUtils.replace(str, keyword, this.getKeywordValue(
+			str = StringUtils.replace(str, keyword, getKeywordValue(
 					keywordsValueMap, normalColumn, tableView, keyword));
 		}
 
 		return str;
 	}
 
-	private String getKeywordValue(Map<String, String> keywordsValueMap,
+	private static String getKeywordValue(Map<String, String> keywordsValueMap,
 			NormalColumn normalColumn, TableView tableView, String keyword) {
 		Object obj = null;
 
@@ -232,13 +232,10 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_PHYSICAL_COLUMN_NAME.equals(keyword)) {
 			obj = normalColumn.getPhysicalName();
 
-		} else if (KEYWORD_TYPE.equals(keyword)) {
-			if (normalColumn.getType() == null) {
-				obj = null;
-			} else {
-				obj = normalColumn.getType().getAlias(
-						tableView.getDiagram().getDatabase());
-			}
+		} else if (KEYWORD_TYPE.equals(keyword) &&
+			normalColumn.getType() != null) {
+			obj = normalColumn.getType().getAlias(
+					tableView.getDiagram().getDatabase());
 		} else if (KEYWORD_LENGTH.equals(keyword)) {
 			obj = normalColumn.getTypeData().getLength();
 
@@ -255,19 +252,15 @@ public abstract class AbstractSheetGenerator {
 			List<Relation> relationList = normalColumn.getRelationList();
 
 			if (relationList == null || relationList.isEmpty()) {
-				obj = false;
-
+				obj = Boolean.FALSE;
 			} else {
-				obj = true;
+				obj = Boolean.TRUE;
 			}
 
 		} else if (KEYWORD_LOGICAL_REFERENCE_TABLE_KEY.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				Relation relation = relationList.get(0);
 
 				TableView referencedTable = relation.getSourceTableView();
@@ -280,10 +273,7 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_PHYSICAL_REFERENCE_TABLE_KEY.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				Relation relation = relationList.get(0);
 
 				TableView referencedTable = relation.getSourceTableView();
@@ -296,10 +286,7 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_LOGICAL_REFERENCE_TABLE.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				TableView referencedTable = relationList.get(0)
 						.getSourceTableView();
 				obj = referencedTable.getLogicalName();
@@ -308,10 +295,7 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_PHYSICAL_REFERENCE_TABLE.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				TableView referencedTable = relationList.get(0)
 						.getSourceTableView();
 				obj = referencedTable.getPhysicalName();
@@ -320,10 +304,7 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_LOGICAL_REFERENCE_KEY.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				Relation relation = relationList.get(0);
 
 				obj = normalColumn.getReferencedColumn(relation)
@@ -333,10 +314,7 @@ public abstract class AbstractSheetGenerator {
 		} else if (KEYWORD_PHYSICAL_REFERENCE_KEY.equals(keyword)) {
 			List<Relation> relationList = normalColumn.getRelationList();
 
-			if (relationList == null || relationList.isEmpty()) {
-				obj = null;
-
-			} else {
+			if (relationList != null && relationList.size() > 0) {
 				Relation relation = relationList.get(0);
 
 				obj = normalColumn.getReferencedColumn(relation)
@@ -363,10 +341,10 @@ public abstract class AbstractSheetGenerator {
 
 		}
 
-		return this.getValue(keywordsValueMap, keyword, obj);
+		return getValue(keywordsValueMap, keyword, obj);
 	}
 
-	protected ColumnTemplate loadColumnTemplate(HSSFWorkbook workbook,
+	protected static ColumnTemplate loadColumnTemplate(HSSFWorkbook workbook,
 			HSSFSheet templateSheet, CellLocation location) {
 		if (location == null) {
 			return null;
@@ -422,7 +400,7 @@ public abstract class AbstractSheetGenerator {
 		return columnTemplate;
 	}
 
-	protected void setCellStyle(ColumnTemplate columnTemplate, HSSFSheet sheet,
+	protected static void setCellStyle(ColumnTemplate columnTemplate, HSSFSheet sheet,
 			int firstRowNum, int rowSize, int firstColNum) {
 
 		sheet.removeRow(sheet.getRow(firstRowNum + rowSize));
@@ -532,8 +510,8 @@ public abstract class AbstractSheetGenerator {
 	}
 
 	public void init(HSSFSheet wordsSheet) {
-		this.keywordsValueMap = this.buildKeywordsValueMap(wordsSheet, this
-				.getKeywordsColumnNo(), this.getKeywords());
+		this.keywordsValueMap = buildKeywordsValueMap(wordsSheet,
+				getKeywordsColumnNo(), this.getKeywords());
 	}
 
 	public abstract void generate(IProgressMonitor monitor,

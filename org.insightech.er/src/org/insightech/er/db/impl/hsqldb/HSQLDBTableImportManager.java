@@ -151,8 +151,8 @@ public class HSQLDBTableImportManager extends ImportFromDBManagerBase {
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 }

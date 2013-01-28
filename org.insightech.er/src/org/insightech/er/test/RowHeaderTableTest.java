@@ -31,7 +31,7 @@ public class RowHeaderTableTest {
 
 		final RowHeaderTable table = CompositeFactory.createRowHeaderTable(
 				shell, 750, 150, 100, 25, 2, true, true);
-		this.initTableData(table);
+		initTableData(table);
 
 		table.setCellEditWorker(new CellEditWorker() {
 
@@ -49,7 +49,7 @@ public class RowHeaderTableTest {
 		});
 	}
 
-	private void initTableData(RowHeaderTable table) {
+	private static void initTableData(RowHeaderTable table) {
 		table.addColumnHeader("a\r\nA", 150);
 		table.addColumnHeader("b\r\nB", 50);
 		table.addColumnHeader("c\r\nC", 150);
@@ -104,7 +104,8 @@ public class RowHeaderTableTest {
 		display.dispose();
 	}
 
-    public static void main(String[] args) {
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
 		new RowHeaderTableTest();
 	}
 }

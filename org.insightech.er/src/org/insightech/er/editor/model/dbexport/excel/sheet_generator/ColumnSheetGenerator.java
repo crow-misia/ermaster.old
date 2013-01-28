@@ -37,7 +37,7 @@ public class ColumnSheetGenerator extends AbstractSheetGenerator {
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
 			if (this.columnTemplate == null) {
-				this.columnTemplate = this.loadColumnTemplate(workbook, sheet,
+				this.columnTemplate = loadColumnTemplate(workbook, sheet,
 						cellLocation);
 			}
 
@@ -53,13 +53,13 @@ public class ColumnSheetGenerator extends AbstractSheetGenerator {
 
 				for (NormalColumn normalColumn : table.getExpandedColumns()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-					this.setColumnData(this.keywordsValueMap, columnTemplate,
+					setColumnData(this.keywordsValueMap, columnTemplate,
 							row, normalColumn, table, order);
 					order++;
 				}
 			}
 
-			this.setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
+			setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
 					- cellLocation.r, templateRow.getFirstCellNum());
 		}
 	}

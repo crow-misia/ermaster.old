@@ -29,17 +29,17 @@ public class OverviewHtmlReportPageGenerator {
 		return id;
 	}
 
-	public String generateFrame(
+	public static String generateFrame(
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList)
 			throws IOException {
 		String template = ExportToHtmlManager
 				.getTemplate("overview/overview-frame_template.html");
 
-		Object[] args = { this.generateFrameTable(htmlReportPageGeneratorList) };
+		Object[] args = { generateFrameTable(htmlReportPageGeneratorList) };
 		return MessageFormat.format(template, args);
 	}
 
-	private String generateFrameTable(
+	private static String generateFrameTable(
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList)
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -67,7 +67,7 @@ public class OverviewHtmlReportPageGenerator {
 				.getTemplate("overview/overview-summary_template.html");
 
 		Object[] args = { this.generateImage(imageSrc, tableLocationMap),
-				this.generateSummaryTable(htmlReportPageGeneratorList) };
+				generateSummaryTable(htmlReportPageGeneratorList) };
 
 		return MessageFormat.format(template, args);
 	}
@@ -113,7 +113,7 @@ public class OverviewHtmlReportPageGenerator {
 		return sb.toString();
 	}
 
-	private String generateSummaryTable(
+	private static String generateSummaryTable(
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList)
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -132,19 +132,19 @@ public class OverviewHtmlReportPageGenerator {
 		return sb.toString();
 	}
 
-	public String generateAllClasses(ERDiagram diagram,
+	public static String generateAllClasses(ERDiagram diagram,
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList)
 			throws IOException {
 		String template = ExportToHtmlManager
 				.getTemplate("allclasses_template.html");
 
-		Object[] args = { this.generateAllClassesTable(diagram,
+		Object[] args = { generateAllClassesTable(diagram,
 				htmlReportPageGeneratorList) };
 
 		return MessageFormat.format(template, args);
 	}
 
-	private String generateAllClassesTable(ERDiagram diagram,
+	private static String generateAllClassesTable(ERDiagram diagram,
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList)
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -168,7 +168,7 @@ public class OverviewHtmlReportPageGenerator {
 		return sb.toString();
 	}
 
-	public int countAllClasses(ERDiagram diagram,
+	public static int countAllClasses(ERDiagram diagram,
 			List<HtmlReportPageGenerator> htmlReportPageGeneratorList) {
 		int count = 0;
 

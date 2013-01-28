@@ -261,8 +261,7 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 	protected void setData() {
 		for (ERTable table : this.tableList) {
 			TableItem tableItem = new TableItem(this.tableTable, SWT.NONE);
-			this
-					.column2TableItem(table, this.tableNumMap.get(table),
+			column2TableItem(table, this.tableNumMap.get(table),
 							tableItem);
 		}
 
@@ -287,7 +286,7 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 		this.dbBlockSizeText.setText(Format.toString(this.dbBlockSize));
 	}
 
-	private void column2TableItem(ERTable table, Integer num,
+	private static void column2TableItem(ERTable table, Integer num,
 			TableItem tableItem) {
 		if (table != null) {
 			tableItem.setText(0, Format.null2blank(table.getLogicalName()));
@@ -345,7 +344,7 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 				this.tableNumMap.put(this.tableList.get(xy.y), num);
 
 				TableItem tableItem = this.tableTable.getItem(xy.y);
-				this.column2TableItem(null, num, tableItem);
+				column2TableItem(null, num, tableItem);
 			}
 
 		} catch (NumberFormatException e) {
@@ -355,10 +354,10 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 	}
 
 	private void calculate() {
-		double bytesOfBlockHeader = this.getValue(this.kcbhText)
-				+ this.getValue(this.ub4Text) + this.getValue(this.ktbbhText)
-				+ ((initrans - 1) * this.getValue(this.ktbitText))
-				+ this.getValue(this.kdbhText);
+		double bytesOfBlockHeader = getValue(this.kcbhText)
+				+ getValue(this.ub4Text) + getValue(this.ktbbhText)
+				+ ((initrans - 1) * getValue(this.ktbitText))
+				+ getValue(this.kdbhText);
 
 		// 20 + 4 + 48 + (1-1) * 24 + 14;
 
@@ -371,17 +370,17 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 		// this.ub1 = 1;
 		// this.sb2 = 2;
 
-		double bytesOfDataPerBlock = Math.ceil((this
-				.getValue(this.dbBlockSizeText) - bytesOfBlockHeader)
+		double bytesOfDataPerBlock = Math.ceil((
+				getValue(this.dbBlockSizeText) - bytesOfBlockHeader)
 				* (1 - (this.pctfree / 100)))
-				+ this.getValue(this.kdbtText);
+				+ getValue(this.kdbtText);
 
 		int total = 0;
 
 		for (ERTable table : this.tableList) {
-			double bytesPerRow = 3 * this.getValue(this.ub1Text)
+			double bytesPerRow = 3 * getValue(this.ub1Text)
 					+ this.getTotalColumnSize(table)
-					+ this.getValue(this.sb2Text);
+					+ getValue(this.sb2Text);
 
 			double rowNumPerBlock = Math.floor(bytesOfDataPerBlock
 					/ bytesPerRow);
@@ -391,8 +390,8 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 			}
 
 			double totalBlockNum = Math.ceil(recordNum / rowNumPerBlock);
-			int totalBytes = (int) (totalBlockNum * this
-					.getValue(this.dbBlockSizeText));
+			int totalBytes = (int) (totalBlockNum * 
+					getValue(this.dbBlockSizeText));
 
 			total += totalBytes;
 		}
@@ -415,7 +414,7 @@ public class TablespaceSizeCaluculatorDialog extends AbstractDialog implements
 		return total;
 	}
 
-	private double getValue(Text text) {
+	private static double getValue(Text text) {
 		double value = 0;
 
 		try {

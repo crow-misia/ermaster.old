@@ -36,7 +36,7 @@ public class PreferencePage extends org.eclipse.jface.preference.PreferencePage
 		return composite;
 	}
 
-	private void initialize(Composite parent) {
+	private static void initialize(Composite parent) {
 		Button button = new Button(parent, SWT.NONE);
 		button.setText(ResourceString
 				.getResourceString("action.title.manage.global.group"));

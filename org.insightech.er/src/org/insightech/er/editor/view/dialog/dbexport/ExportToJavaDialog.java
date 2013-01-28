@@ -29,6 +29,7 @@ import org.insightech.er.editor.model.settings.ExportSetting;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.model.settings.export.ExportJavaSetting;
 import org.insightech.er.util.Format;
+import org.insightech.er.util.io.IOUtils;
 
 public class ExportToJavaDialog extends AbstractDialog {
 
@@ -142,13 +143,7 @@ public class ExportToJavaDialog extends AbstractDialog {
 			Activator.showExceptionDialog(e);
 
 		} finally {
-			if (stream != null) {
-				try {
-					stream.close();
-				} catch (IOException e) {
-					Activator.showExceptionDialog(e);
-				}
-			}
+			IOUtils.closeQuietly(stream);
 		}
 	}
 

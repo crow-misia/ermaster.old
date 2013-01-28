@@ -97,13 +97,13 @@ public abstract class ComboContributionItem extends ContributionItem {
 			}
 		});
 
-		this.toolitem.setWidth(this.computeWidth(this.combo));
+		this.toolitem.setWidth(computeWidth(this.combo));
 		return combo;
 	}
 
 	abstract protected Command createCommand(ViewableModel viewableModel);
 
-	private int computeWidth(Control control) {
+	private static int computeWidth(Control control) {
 		return control.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x;
 	}
 

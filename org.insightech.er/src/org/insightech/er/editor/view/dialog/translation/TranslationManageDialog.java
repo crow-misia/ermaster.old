@@ -44,7 +44,7 @@ public class TranslationManageDialog extends AbstractDialog {
 		super(parentShell, 1);
 
 		this.translationSettings = settings.getTranslationSetting();
-		this.allTranslations = this.translationSettings.getAllTranslations();
+		this.allTranslations = TranslationSetting.getAllTranslations();
 	}
 
 	@Override

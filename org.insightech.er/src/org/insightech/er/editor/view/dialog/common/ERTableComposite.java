@@ -536,15 +536,13 @@ public class ERTableComposite extends Composite {
 				NormalColumn normalColumn = (NormalColumn) column;
 
 				if (normalColumn.isForeignKey()) {
-					this
-							.setMessage(ResourceString
-									.getResourceString("error.foreign.key.not.deleteable"));
+					setMessage(ResourceString
+							.getResourceString("error.foreign.key.not.deleteable"));
 
 				} else {
 					if (this.ertable != null && normalColumn.isRefered()) {
-						this
-								.setMessage(ResourceString
-										.getResourceString("error.reference.key.not.deleteable"));
+						setMessage(ResourceString
+								.getResourceString("error.reference.key.not.deleteable"));
 
 					} else {
 						removeColumn(index);
@@ -592,7 +590,7 @@ public class ERTableComposite extends Composite {
 		return column;
 	}
 
-	private void setMessage(String message) {
+	private static void setMessage(String message) {
 		MessageBox messageBox = new MessageBox(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(), SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText(ResourceString

@@ -416,6 +416,7 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 		});
 	}
 
+	@SuppressWarnings("static-method")
 	protected boolean isOnlyCurrentDatabase() {
 		return false;
 	}

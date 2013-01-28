@@ -38,6 +38,7 @@ public abstract class AbstractErrorDialog extends Dialog {
 
 	protected abstract String getData();
 
+	@SuppressWarnings("static-method")
 	protected String getMessage() {
 		return "dialog.message.export.ddl.error";
 	}

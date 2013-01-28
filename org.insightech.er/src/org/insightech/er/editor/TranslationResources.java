@@ -60,9 +60,10 @@ public class TranslationResources {
 			}
 
 			if (translationSettings.isSelected(defaultFileName)) {
-				InputStream in = this.getClass().getResourceAsStream(
-						"/translation.txt");
+				InputStream in = null;
 				try {
+					in = this.getClass().getResourceAsStream(
+							"/translation.txt");
 					load(in);
 
 				} catch (IOException e) {

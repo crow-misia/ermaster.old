@@ -98,19 +98,19 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 	public void setTableData(HSSFWorkbook workbook, HSSFSheet sheet,
 			ERTable table) {
-		POIUtils.replace(sheet, KEYWORD_LOGICAL_TABLE_NAME, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_LOGICAL_TABLE_NAME, getValue(
 				this.keywordsValueMap, KEYWORD_LOGICAL_TABLE_NAME, table
 						.getLogicalName()));
 
-		POIUtils.replace(sheet, KEYWORD_PHYSICAL_TABLE_NAME, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_PHYSICAL_TABLE_NAME, getValue(
 				this.keywordsValueMap, KEYWORD_PHYSICAL_TABLE_NAME, table
 						.getPhysicalName()));
 
-		POIUtils.replace(sheet, KEYWORD_TABLE_DESCRIPTION, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_TABLE_DESCRIPTION, getValue(
 				this.keywordsValueMap, KEYWORD_TABLE_DESCRIPTION, table
 						.getDescription()));
 
-		POIUtils.replace(sheet, KEYWORD_TABLE_CONSTRAINT, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_TABLE_CONSTRAINT, getValue(
 				this.keywordsValueMap, KEYWORD_TABLE_CONSTRAINT, table
 						.getConstraint()));
 
@@ -122,7 +122,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
 			if (this.columnTemplate == null) {
-				this.columnTemplate = this.loadColumnTemplate(workbook, sheet,
+				this.columnTemplate = loadColumnTemplate(workbook, sheet,
 						cellLocation);
 			}
 
@@ -130,12 +130,12 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 			for (NormalColumn normalColumn : table.getExpandedColumns()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-				this.setColumnData(this.keywordsValueMap, columnTemplate, row,
+				setColumnData(this.keywordsValueMap, columnTemplate, row,
 						normalColumn, table, order);
 				order++;
 			}
 
-			this.setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
+			setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
 					- cellLocation.r, templateRow.getFirstCellNum());
 		}
 
@@ -147,7 +147,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
 			if (this.fkColumnTemplate == null) {
-				this.fkColumnTemplate = this.loadColumnTemplate(workbook,
+				this.fkColumnTemplate = loadColumnTemplate(workbook,
 						sheet, fkCellLocation);
 			}
 
@@ -156,14 +156,14 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 			for (NormalColumn normalColumn : table.getExpandedColumns()) {
 				if (normalColumn.isForeignKey()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-					this.setColumnData(this.keywordsValueMap,
+					setColumnData(this.keywordsValueMap,
 							this.fkColumnTemplate, row, normalColumn, table,
 							order);
 					order++;
 				}
 			}
 
-			this.setCellStyle(this.fkColumnTemplate, sheet, fkCellLocation.r,
+			setCellStyle(this.fkColumnTemplate, sheet, fkCellLocation.r,
 					rowNum - fkCellLocation.r, templateRow.getFirstCellNum());
 		}
 
@@ -178,7 +178,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		if (logicalIndexCellLocation != null) {
 			if (this.logicalIndexMatrixCellStyle == null) {
-				this.logicalIndexMatrixCellStyle = this.createMatrixCellStyle(
+				this.logicalIndexMatrixCellStyle = createMatrixCellStyle(
 						workbook, sheet, logicalIndexCellLocation);
 			}
 			setIndexMatrix(workbook, sheet, table, logicalIndexCellLocation,
@@ -190,7 +190,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		if (physicalIndexCellLocation != null) {
 			if (this.physicalIndexMatrixCellStyle == null) {
-				this.physicalIndexMatrixCellStyle = this.createMatrixCellStyle(
+				this.physicalIndexMatrixCellStyle = createMatrixCellStyle(
 						workbook, sheet, physicalIndexCellLocation);
 			}
 			setIndexMatrix(workbook, sheet, table, physicalIndexCellLocation,
@@ -205,8 +205,8 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		if (logicalCellLocation != null) {
 			if (this.logicalComplexUniqueKeyMatrixCellStyle == null) {
-				this.logicalComplexUniqueKeyMatrixCellStyle = this
-						.createMatrixCellStyle(workbook, sheet,
+				this.logicalComplexUniqueKeyMatrixCellStyle =
+						createMatrixCellStyle(workbook, sheet,
 								logicalCellLocation);
 			}
 			setComplexUniqueKeyMatrix(workbook, sheet, table,
@@ -219,25 +219,25 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		if (physicalCellLocation != null) {
 			if (this.physicalComplexUniqueKeyMatrixCellStyle == null) {
-				this.physicalComplexUniqueKeyMatrixCellStyle = this
-						.createMatrixCellStyle(workbook, sheet,
+				this.physicalComplexUniqueKeyMatrixCellStyle =
+						createMatrixCellStyle(workbook, sheet,
 								physicalCellLocation);
 			}
 
-			this.setComplexUniqueKeyMatrix(workbook, sheet, table,
+			setComplexUniqueKeyMatrix(workbook, sheet, table,
 					physicalCellLocation,
 					this.physicalComplexUniqueKeyMatrixCellStyle, false);
 		}
 	}
 
-	private void setIndexMatrixColor(HSSFWorkbook workbook,
+	private static void setIndexMatrixColor(HSSFWorkbook workbook,
 			HSSFCellStyle indexStyle) {
 		indexStyle.setFillForegroundColor(HSSFColor.WHITE.index);
 		HSSFFont font = workbook.getFontAt(indexStyle.getFontIndex());
 		font.setColor(HSSFColor.BLACK.index);
 	}
 
-	private MatrixCellStyle createMatrixCellStyle(HSSFWorkbook workbook,
+	private static MatrixCellStyle createMatrixCellStyle(HSSFWorkbook workbook,
 			HSSFSheet sheet, CellLocation matrixCellLocation) {
 
 		int matrixRowNum = matrixCellLocation.r;
@@ -252,51 +252,50 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		matrixCellStyle.headerTemplateCellStyle = matrixHeaderTemplateCell
 				.getCellStyle();
 
-		matrixCellStyle.style11 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style11 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, false, true, true,
 				false);
 
-		matrixCellStyle.style12 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style12 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, false, true, true,
 				true);
 
-		matrixCellStyle.style13 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style13 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, false, false, true,
 				true);
 
-		matrixCellStyle.style21 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style21 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, true, true, true,
 				false);
 
-		matrixCellStyle.style22 = this
-				.createMatrixCellStyle(workbook,
+		matrixCellStyle.style22 = createMatrixCellStyle(workbook,
 						matrixCellStyle.headerTemplateCellStyle, true, true,
 						true, true);
-		this.setIndexMatrixColor(workbook, matrixCellStyle.style22);
+		setIndexMatrixColor(workbook, matrixCellStyle.style22);
 
-		matrixCellStyle.style23 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style23 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, true, false, true,
 				true);
-		this.setIndexMatrixColor(workbook, matrixCellStyle.style23);
+		setIndexMatrixColor(workbook, matrixCellStyle.style23);
 
-		matrixCellStyle.style31 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style31 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, true, true, false,
 				false);
 
-		matrixCellStyle.style32 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style32 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, true, true, false,
 				true);
-		this.setIndexMatrixColor(workbook, matrixCellStyle.style32);
+		setIndexMatrixColor(workbook, matrixCellStyle.style32);
 
-		matrixCellStyle.style33 = this.createMatrixCellStyle(workbook,
+		matrixCellStyle.style33 = createMatrixCellStyle(workbook,
 				matrixCellStyle.headerTemplateCellStyle, true, false, false,
 				true);
-		this.setIndexMatrixColor(workbook, matrixCellStyle.style33);
+		setIndexMatrixColor(workbook, matrixCellStyle.style33);
 
 		return matrixCellStyle;
 	}
 
-	private HSSFCellStyle createMatrixCellStyle(HSSFWorkbook workbook,
+	private static HSSFCellStyle createMatrixCellStyle(HSSFWorkbook workbook,
 			HSSFCellStyle matrixHeaderTemplateCellStyle, boolean top,
 			boolean right, boolean bottom, boolean left) {
 		HSSFCellStyle cellStyle = POIUtils.copyCellStyle(workbook,
@@ -318,7 +317,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		return cellStyle;
 	}
 
-	private void setIndexMatrix(HSSFWorkbook workbook, HSSFSheet sheet,
+	private static void setIndexMatrix(HSSFWorkbook workbook, HSSFSheet sheet,
 			ERTable table, CellLocation cellLocation,
 			MatrixCellStyle matrixCellStyle, boolean isLogical) {
 
@@ -423,7 +422,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		}
 	}
 
-	private void setComplexUniqueKeyMatrix(HSSFWorkbook workbook,
+	private static void setComplexUniqueKeyMatrix(HSSFWorkbook workbook,
 			HSSFSheet sheet, ERTable table, CellLocation cellLocation,
 			MatrixCellStyle matrixCellStyle, boolean isLogical) {
 

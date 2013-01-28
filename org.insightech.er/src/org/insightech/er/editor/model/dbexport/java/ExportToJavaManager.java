@@ -130,7 +130,7 @@ public class ExportToJavaManager {
 
 			if (this.exportJavaSetting.isWithHibernate()) {
 				if (table.getPrimaryKeySize() > 1) {
-					compositeIdClassName = this.getCamelCaseName(table) + "Id";
+					compositeIdClassName = getCamelCaseName(table) + "Id";
 
 					String compositeIdContent = this
 							.generateCompositeIdContent(diagram, table,
@@ -158,16 +158,16 @@ public class ExportToJavaManager {
 	}
 
 	protected String getClassName(ERTable table) {
-		return this.getCamelCaseName(table)
-				+ this.getCamelCaseName(this.exportJavaSetting
+		return getCamelCaseName(table)
+				+ getCamelCaseName(this.exportJavaSetting
 						.getClassNameSuffix(), true);
 	}
 
-	protected String getCamelCaseName(ERTable table) {
-		return this.getCamelCaseName(table.getPhysicalName(), true);
+	protected static String getCamelCaseName(ERTable table) {
+		return getCamelCaseName(table.getPhysicalName(), true);
 	}
 
-	protected String getCamelCaseName(String name, boolean capital) {
+	protected static String getCamelCaseName(String name, boolean capital) {
 		String className = name.toLowerCase();
 
 		if (capital && className.length() > 0) {
@@ -252,8 +252,8 @@ public class ExportToJavaManager {
 				"java.template.class.description"),
 				"@LogicalTableName", table.getLogicalName());
 
-		content = this.replaceClassInfo(content, classDescription, this
-				.getCamelCaseName(table), this.exportJavaSetting
+		content = this.replaceClassInfo(content, classDescription,
+				getCamelCaseName(table), this.exportJavaSetting
 				.getClassNameSuffix());
 		content = this.replaceExtendInfo(content);
 		content = this.replaceImportInfo(content);
@@ -302,9 +302,9 @@ public class ExportToJavaManager {
 		StringBuilder setterGetters = new StringBuilder();
 
 		if (compositeIdClassName != null) {
-			this.addCompositeIdContent(properties, PROPERTIES,
+			addCompositeIdContent(properties, PROPERTIES,
 					compositeIdClassName, table);
-			this.addCompositeIdContent(setterGetters, SETTER_GETTER,
+			addCompositeIdContent(setterGetters, SETTER_GETTER,
 					compositeIdClassName, table);
 		}
 
@@ -343,9 +343,9 @@ public class ExportToJavaManager {
 			StringBuilder hashCodes = new StringBuilder();
 			StringBuilder equals = new StringBuilder();
 
-			this.addCompositeIdContent(hashCodes, HASHCODE_LOGIC,
+			addCompositeIdContent(hashCodes, HASHCODE_LOGIC,
 					compositeIdClassName, table);
-			this.addCompositeIdContent(equals, EQUALS_LOGIC,
+			addCompositeIdContent(equals, EQUALS_LOGIC,
 					compositeIdClassName, table);
 
 			String hashCodeEquals = HASHCODE_EQUALS;
@@ -394,7 +394,7 @@ public class ExportToJavaManager {
 
 		content = StringUtils.replace(content, "@classDescription", classDescription);
 		content = StringUtils.replace(content, "@PhysicalTableName", className);
-		content = StringUtils.replace(content, "@suffix", this.getCamelCaseName(
+		content = StringUtils.replace(content, "@suffix", getCamelCaseName(
 				classNameSufix, true));
 		content = StringUtils.replace(content, "@version", "@version $Id$");
 
@@ -452,10 +452,10 @@ public class ExportToJavaManager {
 		StringBuilder constructor = new StringBuilder();
 		for (String tableName : this.sets) {
 			constructor.append("\t\tthis.");
-			constructor.append(this.getCamelCaseName(tableName, false));
+			constructor.append(getCamelCaseName(tableName, false));
 			constructor.append("Set = new HashSet<");
-			constructor.append(this.getCamelCaseName(tableName, true)
-					+ this.getCamelCaseName(this.exportJavaSetting
+			constructor.append(getCamelCaseName(tableName, true)
+					+ getCamelCaseName(this.exportJavaSetting
 							.getClassNameSuffix(), true));
 			constructor.append(">();\r\n");
 		}
@@ -491,20 +491,20 @@ public class ExportToJavaManager {
 				physicalName = physicalName + referencedTable.getPhysicalName();
 			}
 
-			value = StringUtils.replace(value, "@physicalColumnName", this
-					.getCamelCaseName(physicalName, false));
-			value = StringUtils.replace(value, "@PhysicalColumnName", this
-					.getCamelCaseName(physicalName, true));
+			value = StringUtils.replace(value, "@physicalColumnName",
+					getCamelCaseName(physicalName, false));
+			value = StringUtils.replace(value, "@PhysicalColumnName",
+					getCamelCaseName(physicalName, true));
 
 		} else {
 			value = StringUtils.replace(template, "@type", this.getClassName(normalColumn
 					.getType()));
 			value = StringUtils.replace(value, "@logicalColumnName", normalColumn
 					.getLogicalName());
-			value = StringUtils.replace(value, "@physicalColumnName", this
-					.getCamelCaseName(normalColumn.getPhysicalName(), false));
-			value = StringUtils.replace(value, "@PhysicalColumnName", this
-					.getCamelCaseName(normalColumn.getPhysicalName(), true));
+			value = StringUtils.replace(value, "@physicalColumnName",
+					getCamelCaseName(normalColumn.getPhysicalName(), false));
+			value = StringUtils.replace(value, "@PhysicalColumnName",
+					getCamelCaseName(normalColumn.getPhysicalName(), true));
 
 		}
 
@@ -521,25 +521,25 @@ public class ExportToJavaManager {
 		this.importClasseNames.add("java.util.HashSet");
 
 		value = StringUtils.replace(value, "@setType", "Set<"
-				+ this.getCamelCaseName(tableView.getPhysicalName(), true)
-				+ this.getCamelCaseName(this.exportJavaSetting
+				+ getCamelCaseName(tableView.getPhysicalName(), true)
+				+ getCamelCaseName(this.exportJavaSetting
 						.getClassNameSuffix(), true) + ">");
-		value = StringUtils.replace(value, "@type", this.getCamelCaseName(tableView
+		value = StringUtils.replace(value, "@type", getCamelCaseName(tableView
 				.getPhysicalName(), true)
-				+ this.getCamelCaseName(this.exportJavaSetting
+				+ getCamelCaseName(this.exportJavaSetting
 						.getClassNameSuffix(), true));
 		value = StringUtils.replace(value, "@logicalColumnName", tableView.getName());
 
-		value = StringUtils.replace(value, "@physicalColumnName", this.getCamelCaseName(
+		value = StringUtils.replace(value, "@physicalColumnName", getCamelCaseName(
 				tableView.getPhysicalName(), false));
-		value = StringUtils.replace(value, "@PhysicalColumnName", this.getCamelCaseName(
+		value = StringUtils.replace(value, "@PhysicalColumnName", getCamelCaseName(
 				tableView.getPhysicalName(), true));
 
 		contents.append(value);
 		contents.append("\r\n");
 	}
 
-	private void addCompositeIdContent(StringBuilder contents, String template,
+	private static void addCompositeIdContent(StringBuilder contents, String template,
 			String compositeIdClassName, ERTable table) {
 
 		String compositeIdPropertyName = compositeIdClassName.substring(0, 1)
@@ -576,15 +576,13 @@ public class ExportToJavaManager {
 		return clazz.getSimpleName();
 	}
 
-	private String getFullClassName(SqlType type) {
+	private static String getFullClassName(SqlType type) {
 		if (type == null) {
 			return "";
 		}
-		Class clazz = type.getJavaClass();
+		final Class clazz = type.getJavaClass();
 
-		String name = clazz.getCanonicalName();
-
-		return name;
+		return clazz.getCanonicalName();
 	}
 
 	private void writeOut(String dstPath, String content) throws IOException {
@@ -603,8 +601,8 @@ public class ExportToJavaManager {
 
 		content = StringUtils.replace(content, "@package", this.exportJavaSetting
 				.getPackageName());
-		content = StringUtils.replace(content, "@PhysicalTableName", this
-				.getCamelCaseName(table));
+		content = StringUtils.replace(content, "@PhysicalTableName",
+				getCamelCaseName(table));
 		content = StringUtils.replace(content, "@suffix", Format
 				.null2blank(this.exportJavaSetting.getClassNameSuffix()));
 		content = StringUtils.replace(content, "@realTableName", table.getPhysicalName());
@@ -614,12 +612,12 @@ public class ExportToJavaManager {
 		if (table.getPrimaryKeySize() == 1) {
 			for (NormalColumn column : table.getPrimaryKeys()) {
 				String property = HIBERNATE_ID;
-				property = StringUtils.replace(property, "@physicalColumnName", this
-						.getCamelCaseName(column.getPhysicalName(), false));
+				property = StringUtils.replace(property, "@physicalColumnName",
+						getCamelCaseName(column.getPhysicalName(), false));
 				property = StringUtils.replace(property, "@realColumnName", column
 						.getPhysicalName());
-				property = StringUtils.replace(property, "@type", this
-						.getFullClassName(column.getType()));
+				property = StringUtils.replace(property, "@type",
+						getFullClassName(column.getType()));
 				property = StringUtils.replace(property, "@generator", "assigned");
 
 				properties.append(property);
@@ -632,11 +630,11 @@ public class ExportToJavaManager {
 
 			for (NormalColumn column : table.getPrimaryKeys()) {
 				String key = HIBERNATE_COMPOSITE_ID_KEY;
-				key = StringUtils.replace(key, "@physicalColumnName", this
-						.getCamelCaseName(column.getPhysicalName(), false));
+				key = StringUtils.replace(key, "@physicalColumnName",
+						getCamelCaseName(column.getPhysicalName(), false));
 				key = StringUtils.replace(key, "@realColumnName", column
 						.getPhysicalName());
-				key = StringUtils.replace(key, "@type", this.getFullClassName(column
+				key = StringUtils.replace(key, "@type", getFullClassName(column
 						.getType()));
 
 				keys.append(key);
@@ -658,12 +656,12 @@ public class ExportToJavaManager {
 		for (NormalColumn column : table.getExpandedColumns()) {
 			if (!column.isPrimaryKey()) {
 				String property = HIBERNATE_PROPERTY;
-				property = StringUtils.replace(property, "@physicalColumnName", this
-						.getCamelCaseName(column.getPhysicalName(), false));
+				property = StringUtils.replace(property, "@physicalColumnName",
+						getCamelCaseName(column.getPhysicalName(), false));
 				property = StringUtils.replace(property, "@realColumnName", column
 						.getPhysicalName());
-				property = StringUtils.replace(property, "@type", this
-						.getFullClassName(column.getType()));
+				property = StringUtils.replace(property, "@type",
+						getFullClassName(column.getType()));
 				property = StringUtils.replace(property, "@not-null", String
 						.valueOf(column.isNotNull()));
 

@@ -42,8 +42,7 @@ public class TablespaceHtmlReportPageGenerator extends
 			throws IOException {
 		Tablespace tablespace = (Tablespace) object;
 
-		String environments = this
-				.generateEnvironmentTable(diagram, tablespace);
+		String environments = generateEnvironmentTable(diagram, tablespace);
 
 		Tablespace defaultTablespace = diagram.getDiagramContents()
 				.getSettings().getTableViewProperties().getTableSpace();
@@ -81,7 +80,7 @@ public class TablespaceHtmlReportPageGenerator extends
 		return null;
 	}
 
-	private String generateEnvironmentTable(ERDiagram diagram,
+	private static String generateEnvironmentTable(ERDiagram diagram,
 			Tablespace tablespace) throws IOException {
 		StringBuilder sb = new StringBuilder();
 
@@ -97,7 +96,7 @@ public class TablespaceHtmlReportPageGenerator extends
 			}
 
 			Object[] args = { Format.null2blank(environment.getName()),
-					this.generateValueTable(properties) };
+					generateValueTable(properties) };
 			String row = MessageFormat.format(template, args);
 
 			sb.append(row);
@@ -106,7 +105,7 @@ public class TablespaceHtmlReportPageGenerator extends
 		return sb.toString();
 	}
 
-	private String generateValueTable(TablespaceProperties properties)
+	private static String generateValueTable(TablespaceProperties properties)
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
 

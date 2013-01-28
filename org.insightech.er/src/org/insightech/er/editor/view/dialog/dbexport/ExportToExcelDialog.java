@@ -47,6 +47,7 @@ import org.insightech.er.preference.PreferenceInitializer;
 import org.insightech.er.preference.template.TemplatePreferencePage;
 import org.insightech.er.util.Format;
 import org.insightech.er.util.io.FileUtils;
+import org.insightech.er.util.io.IOUtils;
 
 public class ExportToExcelDialog extends AbstractDialog {
 
@@ -287,13 +288,7 @@ public class ExportToExcelDialog extends AbstractDialog {
 			this.diagram.setCurrentCategory(currentCategory,
 					currentCategoryIndex);
 
-			if (stream != null) {
-				try {
-					stream.close();
-				} catch (IOException e) {
-					Activator.showExceptionDialog(e);
-				}
-			}
+			IOUtils.closeQuietly(stream);
 		}
 	}
 
@@ -369,7 +364,7 @@ public class ExportToExcelDialog extends AbstractDialog {
 
 		String str = Activator.getDefault().getPreferenceStore().getString(
 				PreferenceInitializer.TEMPLATE_FILE_LIST);
-		List<String> fileNames = this.parseString(str);
+		List<String> fileNames = parseString(str);
 
 		int index = 1;
 		for (String fileName : fileNames) {
@@ -441,7 +436,7 @@ public class ExportToExcelDialog extends AbstractDialog {
 				.setSelection(exportSetting.isOpenAfterSaved());
 	}
 
-	protected List<String> parseString(String stringList) {
+	protected static List<String> parseString(String stringList) {
 		StringTokenizer st = new StringTokenizer(stringList, "/");
 		List<String> list = new ArrayList<String>();
 

@@ -55,6 +55,7 @@ public abstract class AbstractExportAction extends AbstractBaseAction {
 		this.refreshProject();
 	}
 
+	@SuppressWarnings("static-method")
 	protected String getConfirmOverrideMessage() {
 		return "dialog.message.update.file";
 	}
@@ -90,6 +91,7 @@ public abstract class AbstractExportAction extends AbstractBaseAction {
 
 	protected abstract String getDefaultExtension();
 
+	@SuppressWarnings("static-method")
 	protected String getSaveDirPath(IEditorPart editorPart,
 			GraphicalViewer viewer) {
 

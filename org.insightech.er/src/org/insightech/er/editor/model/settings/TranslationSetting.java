@@ -24,7 +24,7 @@ public class TranslationSetting implements Serializable, Cloneable {
 	 * 
 	 * @return allTranslations
 	 */
-	public List<String> getAllTranslations() {
+	public static List<String> getAllTranslations() {
 		List<String> list = PreferenceInitializer.getAllUserTranslations();
 
 		list.add(ResourceString.getResourceString("label.translation.default"));

@@ -23,20 +23,16 @@ public class ExportToDBAction extends AbstractBaseAction {
 
 	public static final String ID = ExportToDBAction.class.getName();
 
-	private Validator validator;
-
 	public ExportToDBAction(ERDiagramEditor editor) {
 		super(ID, ResourceString.getResourceString("action.title.export.db"),
 				editor);
-
-		this.validator = new Validator();
 	}
 
 	@Override
 	public void execute(Event event) {
 		ERDiagram diagram = this.getDiagram();
 
-		List<ValidateResult> errorList = validator.validate(diagram);
+		List<ValidateResult> errorList = Validator.validate(diagram);
 
 		if (!errorList.isEmpty()) {
 			ExportErrorDialog dialog = new ExportErrorDialog(PlatformUI

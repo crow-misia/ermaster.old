@@ -478,16 +478,13 @@ public class SqlType implements Serializable {
 					str = alias;
 				}
 
-				if (str != null) {
+				Matcher m1 = NEED_LENGTH_PATTERN.matcher(str);
+				Matcher m2 = NEED_DECIMAL_PATTERN1.matcher(str);
+				Matcher m3 = NEED_DECIMAL_PATTERN2.matcher(str);
 
-					Matcher m1 = NEED_LENGTH_PATTERN.matcher(str);
-					Matcher m2 = NEED_DECIMAL_PATTERN1.matcher(str);
-					Matcher m3 = NEED_DECIMAL_PATTERN2.matcher(str);
-
-					if (m1.matches() || m2.matches() || m3.matches()) {
-						errorCount2++;
-						msg.append("×2");
-					}
+				if (m1.matches() || m2.matches() || m3.matches()) {
+					errorCount2++;
+					msg.append("×2");
 				}
 
 				msg.append(str);

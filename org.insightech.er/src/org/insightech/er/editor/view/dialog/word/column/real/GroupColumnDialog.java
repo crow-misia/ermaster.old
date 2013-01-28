@@ -9,6 +9,7 @@ public class GroupColumnDialog extends AbstractRealColumnDialog {
 		super(parentShell, diagram);
 	}
 
+	@SuppressWarnings("static-method")
 	protected int getStyle(int style) {
 		return style;
 	}

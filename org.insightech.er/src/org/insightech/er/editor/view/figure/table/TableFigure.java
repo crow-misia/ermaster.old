@@ -147,6 +147,7 @@ public class TableFigure extends RoundedRectangle {
 		return columns;
 	}
 
+	@SuppressWarnings("static-method")
 	public String getImageKey() {
 		return ImageKey.TABLE;
 	}

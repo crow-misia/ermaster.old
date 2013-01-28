@@ -79,14 +79,14 @@ System.out.println(cellLocation);
 				height = (int) (dimension.getHeight() * rate);
 			}
 
-			HSSFClientAnchor preferredSize = this.getPreferredSize(sheet,
+			HSSFClientAnchor preferredSize = getPreferredSize(sheet,
 					new HSSFClientAnchor(0, 0, 0, 0, (short) cellLocation.c,
 							cellLocation.r, (short) 0, 0), width, height);
 			picture.setAnchor(preferredSize);
 		}
 	}
 
-	public HSSFClientAnchor getPreferredSize(HSSFSheet sheet,
+	public static HSSFClientAnchor getPreferredSize(HSSFSheet sheet,
 			HSSFClientAnchor anchor, float width, float height) {
 		float w = 0.0F;
 		w += getColumnWidthInPixels(sheet, anchor.getCol1())
@@ -124,13 +124,13 @@ System.out.println(cellLocation);
 		return anchor;
 	}
 
-	private float getColumnWidthInPixels(HSSFSheet sheet, int column) {
+	private static float getColumnWidthInPixels(HSSFSheet sheet, int column) {
 		int cw = sheet.getColumnWidth(column);
 		float px = getPixelWidth(sheet, column);
 		return (float) cw / px;
 	}
 
-	private float getRowHeightInPixels(HSSFSheet sheet, int i) {
+	private static float getRowHeightInPixels(HSSFSheet sheet, int i) {
 		HSSFRow row = sheet.getRow(i);
 		float height;
 		if (row != null) {
@@ -142,7 +142,7 @@ System.out.println(cellLocation);
 		return height / 15F;
 	}
 
-	private float getPixelWidth(HSSFSheet sheet, int column) {
+	private static float getPixelWidth(HSSFSheet sheet, int column) {
 		int def = sheet.getDefaultColumnWidth() * 256;
 		int cw = sheet.getColumnWidth(column);
 		return cw != def ? 28.44444444f : 32.0f;

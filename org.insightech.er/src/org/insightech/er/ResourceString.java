@@ -23,10 +23,8 @@ public final class ResourceString {
 	
 	public static String getResourceString(String key, String[] args) {
 		try {
-			String string = resource.getString(key);
-			string = MessageFormat.format(string, args);
-			
-			return string;
+			final String string = resource.getString(key);
+			return  MessageFormat.format(string, (Object[]) args);
 		} catch (MissingResourceException e) {
 			return key;
 		}

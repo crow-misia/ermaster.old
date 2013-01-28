@@ -355,23 +355,23 @@ public class CopyManager {
 
 		Settings settings = (Settings) originalDiagramContents.getSettings()
 				.clone();
-		this.setSettings(nodeElementMap, settings);
+		setSettings(nodeElementMap, settings);
 		copyDiagramContents.setSettings(settings);
 
-		this.setColumnGroup(copyDiagramContents, originalDiagramContents);
+		setColumnGroup(copyDiagramContents, originalDiagramContents);
 
 		copyDiagramContents.setSequenceSet(originalDiagramContents
 				.getSequenceSet().clone());
 		copyDiagramContents.setTriggerSet(originalDiagramContents
 				.getTriggerSet().clone());
 
-		this.setWord(copyDiagramContents, originalDiagramContents);
-		this.setTablespace(copyDiagramContents, originalDiagramContents);
+		setWord(copyDiagramContents, originalDiagramContents);
+		setTablespace(copyDiagramContents, originalDiagramContents);
 
 		return copyDiagramContents;
 	}
 
-	private void setSettings(Map<NodeElement, NodeElement> nodeElementMap,
+	private static void setSettings(Map<NodeElement, NodeElement> nodeElementMap,
 			Settings settings) {
 		for (Category category : settings.getCategorySetting()
 				.getAllCategories()) {
@@ -384,7 +384,7 @@ public class CopyManager {
 		}
 	}
 
-	private void setColumnGroup(DiagramContents copyDiagramContents,
+	private static void setColumnGroup(DiagramContents copyDiagramContents,
 			DiagramContents originalDiagramContents) {
 
 		Map<ColumnGroup, ColumnGroup> columnGroupMap = new HashMap<ColumnGroup, ColumnGroup>();
@@ -415,7 +415,7 @@ public class CopyManager {
 		}
 	}
 
-	private void setWord(DiagramContents copyDiagramContents,
+	private static void setWord(DiagramContents copyDiagramContents,
 			DiagramContents originalDiagramContents) {
 
 		Map<Word, Word> wordMap = new IdentityHashMap<Word, Word>();
@@ -454,7 +454,7 @@ public class CopyManager {
 		copyDictionary.setDirty();
 	}
 
-	private void setTablespace(DiagramContents copyDiagramContents,
+	private static void setTablespace(DiagramContents copyDiagramContents,
 			DiagramContents originalDiagramContents) {
 
 		Map<Tablespace, Tablespace> tablespaceMap = new HashMap<Tablespace, Tablespace>();

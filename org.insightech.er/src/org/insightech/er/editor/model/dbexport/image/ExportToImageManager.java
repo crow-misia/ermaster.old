@@ -38,13 +38,10 @@ public class ExportToImageManager {
 		}
 	}
 
-	private void writeJPGorBMP(Image image, String saveFilePath, int format)
+	private static void writeJPGorBMP(Image image, String saveFilePath, int format)
 			throws IOException {
-		ImageData[] imgData = new ImageData[1];
-		imgData[0] = image.getImageData();
-
-		ImageLoader imgLoader = new ImageLoader();
-		imgLoader.data = imgData;
+		final ImageLoader imgLoader = new ImageLoader();
+		imgLoader.data = new ImageData[] { image.getImageData(), };
 		imgLoader.save(saveFilePath, format);
 	}
 
@@ -52,8 +49,8 @@ public class ExportToImageManager {
 			String formatName) throws IOException, InterruptedException {
 
 		try {
-			ImageLoader loader = new ImageLoader();
-			loader.data = new ImageData[] { image.getImageData() };
+			final ImageLoader loader = new ImageLoader();
+			loader.data = new ImageData[] { image.getImageData(), };
 			loader.save(saveFilePath, format);
 
 		} catch (SWTException e) {

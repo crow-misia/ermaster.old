@@ -69,13 +69,7 @@ public class InsertedImage extends NodeElement {
 			Activator.showExceptionDialog(e);
 
 		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (Exception e) {
-					Activator.showExceptionDialog(e);
-				}
-			}
+			IOUtils.closeQuietly(in);
 		}
 	}
 

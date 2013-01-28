@@ -387,9 +387,7 @@ public class ExportToDDLDialog extends AbstractDialog {
 				.setCategoryNameToExport(this.categoryCombo.getText());
 		this.exportSetting.setOpenAfterSaved(openAfterSaved);
 
-		Validator validator = new Validator();
-
-		List<ValidateResult> errorList = validator.validate(this.diagram);
+		List<ValidateResult> errorList = Validator.validate(this.diagram);
 
 		if (!errorList.isEmpty()) {
 			ExportWarningDialog dialog = new ExportWarningDialog(PlatformUI

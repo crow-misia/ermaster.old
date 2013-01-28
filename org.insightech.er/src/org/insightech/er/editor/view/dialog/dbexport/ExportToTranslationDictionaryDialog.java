@@ -180,15 +180,14 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 			String physicalName = tableView.getPhysicalName();
 			String logicalName = tableView.getLogicalName();
 
-			this
-					.addNewWord(physicalName, logicalName, resources,
+			addNewWord(physicalName, logicalName, resources,
 							newDictionary);
 
 			for (NormalColumn normalColumn : tableView.getExpandedColumns()) {
 				physicalName = normalColumn.getPhysicalName();
 				logicalName = normalColumn.getLogicalName();
 
-				this.addNewWord(physicalName, logicalName, resources,
+				addNewWord(physicalName, logicalName, resources,
 						newDictionary);
 			}
 		}
@@ -200,7 +199,7 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 		}
 	}
 
-	private void addNewWord(String physicalName, String logicalName,
+	private static void addNewWord(String physicalName, String logicalName,
 			TranslationResources resources, Map<String, String> newDictionary) {
 		physicalName = physicalName.toLowerCase();
 		logicalName = logicalName.toLowerCase();

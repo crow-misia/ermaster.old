@@ -69,11 +69,11 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 			boolean displayType, boolean isSelectedReferenced,
 			boolean isSelectedForeignKey, boolean isAdded, boolean isUpdated,
 			boolean isRemoved) {
-		Label label = this.createColumnLabel();
+		Label label = createColumnLabel();
 		label.setForegroundColor(this.getTextColor());
 
 		StringBuilder text = new StringBuilder();
-		text.append(this.getColumnText(viewMode, physicalName, logicalName,
+		text.append(getColumnText(viewMode, physicalName, logicalName,
 				type, isNotNull, uniqueKey, displayDetail, displayType));
 
 		if (displayKey) {
@@ -99,7 +99,7 @@ public class SimpleStyleSupport extends AbstractStyleSupport {
 
 		label.setText(text.toString());
 
-		this.setColumnFigureColor(columnFigure, isSelectedReferenced,
+		setColumnFigureColor(columnFigure, isSelectedReferenced,
 				isSelectedForeignKey, isAdded, isUpdated, isRemoved);
 
 		columnFigure.add(label);

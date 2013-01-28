@@ -71,7 +71,7 @@ public class HorizontalLineAction extends AbstractBaseSelectionAction {
 			return null;
 		}
 
-		NodeElementEditPart firstEditPart = this.getFirstEditPart(list);
+		NodeElementEditPart firstEditPart = getFirstEditPart(list);
 		list.remove(firstEditPart);
 
 		Collections.sort(list, comparator);
@@ -153,7 +153,7 @@ public class HorizontalLineAction extends AbstractBaseSelectionAction {
 		return command.unwrap();
 	}
 
-	private NodeElementEditPart getFirstEditPart(List<NodeElementEditPart> list) {
+	private static NodeElementEditPart getFirstEditPart(List<NodeElementEditPart> list) {
 		NodeElementEditPart firstEditPart = null;
 
 		for (NodeElementEditPart editPart : list) {

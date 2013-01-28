@@ -44,11 +44,11 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 	}
 
 	public void createColumnArea(IFigure columns) {
-		this.initColumnArea(columns);
+		initColumnArea(columns);
 		this.tableFigure.add(columns, BorderLayout.CENTER);
 	}
 
-	protected void initColumnArea(IFigure columns) {
+	protected static void initColumnArea(IFigure columns) {
 		ToolbarLayout layout = new ToolbarLayout();
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
 		layout.setStretchMinorAxis(true);
@@ -64,7 +64,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 	public void createFooter() {
 	}
 
-	protected String getColumnText(int viewMode, String physicalName,
+	protected static String getColumnText(int viewMode, String physicalName,
 			String logicalName, String type, boolean isNotNull,
 			boolean uniqueKey, boolean detail, boolean displayType) {
 		StringBuilder text = new StringBuilder();
@@ -105,7 +105,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		return text.toString();
 	}
 
-	protected Label createColumnLabel() {
+	protected static Label createColumnLabel() {
 		Label label = new Label();
 		label.setBorder(new MarginBorder(new Insets(3, 5, 3, 5)));
 		label.setLabelAlignment(PositionConstants.LEFT);
@@ -113,7 +113,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		return label;
 	}
 
-	protected void setColumnFigureColor(IFigure figure,
+	protected static void setColumnFigureColor(IFigure figure,
 			boolean isSelectedReferenced, boolean isSelectedForeignKey,
 			boolean isAdded, boolean isUpdated, boolean isRemoved) {
 		if (isAdded) {
@@ -149,7 +149,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 	public void addColumnGroup(GroupColumnFigure columnFigure, int viewMode,
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 
-		Label label = this.createColumnLabel();
+		Label label = createColumnLabel();
 
 		label.setForegroundColor(this.getTextColor());
 
@@ -157,7 +157,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		text.append(name);
 		text.append(" (GROUP)");
 
-		this.setColumnFigureColor(columnFigure, false, false, isAdded,
+		setColumnFigureColor(columnFigure, false, false, isAdded,
 				isUpdated, isRemoved);
 
 		label.setText(text.toString());

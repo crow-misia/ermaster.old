@@ -33,20 +33,19 @@ public class SequenceHtmlReportPageGenerator extends
 		Sequence sequence = (Sequence) object;
 
 		return new String[] { Format.null2blank(sequence.getDescription()),
-				this.getValue(sequence.getIncrement()),
-				this.getValue(sequence.getMinValue()),
-				this.getValue(sequence.getMaxValue()),
-				this.getValue(sequence.getStart()),
-				this.getValue(sequence.getCache()),
+				getValue(sequence.getIncrement()),
+				getValue(sequence.getMinValue()),
+				getValue(sequence.getMaxValue()),
+				getValue(sequence.getStart()),
+				getValue(sequence.getCache()),
 				String.valueOf(sequence.isCycle()).toUpperCase() };
 	}
 
-	private String getValue(Number value) {
+	private static String getValue(Number value) {
 		if (value == null) {
 			return "";
-		} else {
-			return String.valueOf(value);
 		}
+		return String.valueOf(value);
 	}
 
 	public String getObjectName(Object object) {

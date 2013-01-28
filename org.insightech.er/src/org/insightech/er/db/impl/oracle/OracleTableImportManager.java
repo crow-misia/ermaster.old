@@ -87,8 +87,8 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			}
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -116,8 +116,8 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			}
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -181,8 +181,8 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -222,8 +222,8 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 

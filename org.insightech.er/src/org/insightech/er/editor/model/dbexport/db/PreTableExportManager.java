@@ -203,7 +203,7 @@ public abstract class PreTableExportManager {
 
 				if (this.newTableNames == null
 						|| this.newTableNames.contains(tableName)) {
-					ddl.append(this.dropForeignKey(tableName, constraintName));
+					ddl.append(dropForeignKey(tableName, constraintName));
 					ddl.append("\r\n");
 				}
 			}
@@ -217,7 +217,7 @@ public abstract class PreTableExportManager {
 		return ddl.toString();
 	}
 
-	private String dropForeignKey(String tableName, String constraintName)
+	private static String dropForeignKey(String tableName, String constraintName)
 			throws SQLException {
 		String sql = "ALTER TABLE " + tableName + " DROP CONSTRAINT "
 				+ constraintName + ";";

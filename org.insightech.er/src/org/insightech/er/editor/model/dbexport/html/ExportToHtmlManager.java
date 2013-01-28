@@ -104,11 +104,11 @@ public class ExportToHtmlManager {
 		}
 
 		// トップ階層
-		String allclasses = overviewPageGenerator.generateAllClasses(diagram,
+		String allclasses = OverviewHtmlReportPageGenerator.generateAllClasses(diagram,
 				htmlReportPageGeneratorList);
 		this.writeOut("allclasses.html", allclasses);
 
-		String overviewFrame = overviewPageGenerator
+		String overviewFrame = OverviewHtmlReportPageGenerator
 				.generateFrame(htmlReportPageGeneratorList);
 		this.writeOut("overview-frame.html", overviewFrame);
 
@@ -224,9 +224,7 @@ public class ExportToHtmlManager {
 			copyOutResource(dstPath, in);
 
 		} finally {
-			if (in != null) {
-				in.close();
-			}
+			IOUtils.closeQuietly(in);
 		}
 	}
 

@@ -221,7 +221,7 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		viewer.setEditPartFactory(editPartFactory);
 
 		this.initViewerAction(viewer);
-		this.initDragAndDrop(viewer);
+		initDragAndDrop(viewer);
 
 		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1),
 				MouseWheelZoomHandler.SINGLETON);
@@ -443,7 +443,7 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 		// this.getActionRegistry().registerAction(action);
 	}
 
-	private void initDragAndDrop(GraphicalViewer viewer) {
+	private static void initDragAndDrop(GraphicalViewer viewer) {
 		AbstractTransferDragSourceListener dragSourceListener = new ERDiagramTransferDragSourceListener(
 				viewer, TemplateTransfer.getInstance());
 		viewer.addDragSourceListener(dragSourceListener);

@@ -83,19 +83,19 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 	 * @param view
 	 */
 	public void setViewData(HSSFWorkbook workbook, HSSFSheet sheet, View view) {
-		POIUtils.replace(sheet, KEYWORD_LOGICAL_VIEW_NAME, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_LOGICAL_VIEW_NAME, getValue(
 				this.keywordsValueMap, KEYWORD_LOGICAL_VIEW_NAME, view
 						.getLogicalName()));
 
-		POIUtils.replace(sheet, KEYWORD_PHYSICAL_VIEW_NAME, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_PHYSICAL_VIEW_NAME, getValue(
 				this.keywordsValueMap, KEYWORD_PHYSICAL_VIEW_NAME, view
 						.getPhysicalName()));
 
-		POIUtils.replace(sheet, KEYWORD_VIEW_DESCRIPTION, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_VIEW_DESCRIPTION, getValue(
 				this.keywordsValueMap, KEYWORD_VIEW_DESCRIPTION, view
 						.getDescription()));
 
-		POIUtils.replace(sheet, KEYWORD_VIEW_SQL, this.getValue(
+		POIUtils.replace(sheet, KEYWORD_VIEW_SQL, getValue(
 				this.keywordsValueMap, KEYWORD_VIEW_SQL, view.getSql()));
 
 		CellLocation cellLocation = POIUtils.findCell(sheet,
@@ -106,7 +106,7 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
 			if (this.columnTemplate == null) {
-				this.columnTemplate = this.loadColumnTemplate(workbook, sheet,
+				this.columnTemplate = loadColumnTemplate(workbook, sheet,
 						cellLocation);
 			}
 
@@ -114,12 +114,12 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 
 			for (NormalColumn normalColumn : view.getExpandedColumns()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-				this.setColumnData(this.keywordsValueMap, columnTemplate, row,
+				setColumnData(this.keywordsValueMap, columnTemplate, row,
 						normalColumn, view, order);
 				order++;
 			}
 
-			this.setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
+			setCellStyle(columnTemplate, sheet, cellLocation.r, rowNum
 					- cellLocation.r, templateRow.getFirstCellNum());
 		}
 
@@ -131,7 +131,7 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 			HSSFRow templateRow = sheet.getRow(rowNum);
 
 			if (this.fkColumnTemplate == null) {
-				this.fkColumnTemplate = this.loadColumnTemplate(workbook,
+				this.fkColumnTemplate = loadColumnTemplate(workbook,
 						sheet, fkCellLocation);
 			}
 
@@ -140,14 +140,14 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 			for (NormalColumn normalColumn : view.getExpandedColumns()) {
 				if (normalColumn.isForeignKey()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-					this.setColumnData(this.keywordsValueMap,
+					setColumnData(this.keywordsValueMap,
 							this.fkColumnTemplate, row, normalColumn, view,
 							order);
 					order++;
 				}
 			}
 
-			this.setCellStyle(this.fkColumnTemplate, sheet, fkCellLocation.r,
+			setCellStyle(this.fkColumnTemplate, sheet, fkCellLocation.r,
 					rowNum - fkCellLocation.r, templateRow.getFirstCellNum());
 		}
 	}

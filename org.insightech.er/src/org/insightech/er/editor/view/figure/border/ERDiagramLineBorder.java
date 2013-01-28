@@ -31,14 +31,14 @@ public class ERDiagramLineBorder extends LineBorder {
 
 		for (int i = 0; i <= 5; i++) {
 			Color color = Resources.getColor(new int[] { b, g, 255 });
-			this.paint1(i, color, tempRect, graphics);
+			paint1(i, color, tempRect, graphics);
 
 			g -= DELTA;
 			b -= DELTA;
 		}
 	}
 
-	private void paint1(int i, Color color, Rectangle tempRect,
+	private static void paint1(int i, Color color, Rectangle tempRect,
 			Graphics graphics) {
 		tempRect.x++;
 		tempRect.y++;

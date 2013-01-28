@@ -372,7 +372,7 @@ public class TestEditor extends EditorPart {
 
 	}
 
-	protected ISourceViewer createSourceViewer(Composite parent,
+	protected static ISourceViewer createSourceViewer(Composite parent,
 			IVerticalRuler ruler, int styles) {
 		return new SourceViewer(parent, ruler, styles);
 	}

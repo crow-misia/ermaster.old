@@ -89,7 +89,7 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 
 	@Override
 	public void runWithEvent(Event event) {
-		Command command = this.createCommand(this.getSelectedObjects(), rgb);
+		Command command = createCommand(this.getSelectedObjects(), rgb);
 		this.getCommandStack().execute(command);
 	}
 
@@ -122,7 +122,7 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 		return true;
 	}
 
-	private Command createCommand(List objects, RGB rgb) {
+	private static Command createCommand(List objects, RGB rgb) {
 		if (objects.isEmpty()) {
 			return null;
 		}

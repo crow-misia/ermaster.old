@@ -169,7 +169,7 @@ public final class ImportTableCommand extends AbstractCommand {
 					if (normalColumn.isForeignKey()) {
 						for (Relation relation : normalColumn.getRelationList()) {
 							if (relation.getSourceTableView() == nodeElement) {
-								this.setSelfRelation(relation);
+								setSelfRelation(relation);
 							}
 						}
 					}
@@ -199,7 +199,7 @@ public final class ImportTableCommand extends AbstractCommand {
 		this.diagram.changeAll(this.nodeElementList);
 	}
 
-	private void setSelfRelation(Relation relation) {
+	private static void setSelfRelation(Relation relation) {
 		boolean anotherSelfRelation = false;
 
 		TableView sourceTable = relation.getSourceTableView();

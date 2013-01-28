@@ -21,7 +21,7 @@ public class UninputTablespaceRule extends TablespaceRule {
 			ValidateResult validateResult = new ValidateResult();
 			validateResult.setMessage(ResourceString
 					.getResourceString(errorMessage)
-					+ this.getMessageSuffix(tablespace, environment));
+					+ getMessageSuffix(tablespace, environment));
 			validateResult.setLocation(tablespace.getName());
 			validateResult.setSeverity(IMarker.SEVERITY_WARNING);
 			validateResult.setObject(tablespace);
@@ -32,7 +32,7 @@ public class UninputTablespaceRule extends TablespaceRule {
 		return true;
 	}
 
-	protected String getMessageSuffix(Tablespace tablespace,
+	private static String getMessageSuffix(Tablespace tablespace,
 			Environment environment) {
 		StringBuilder suffix = new StringBuilder();
 		suffix.append(" ");

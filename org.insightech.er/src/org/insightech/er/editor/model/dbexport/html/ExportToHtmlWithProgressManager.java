@@ -8,6 +8,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.html.page_generator.HtmlReportPageGenerator;
+import org.insightech.er.editor.model.dbexport.html.page_generator.OverviewHtmlReportPageGenerator;
 import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 
@@ -35,7 +36,7 @@ public class ExportToHtmlWithProgressManager extends ExportToHtmlManager
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
 
-		int count = overviewPageGenerator.countAllClasses(diagram,
+		int count = OverviewHtmlReportPageGenerator.countAllClasses(diagram,
 				htmlReportPageGeneratorList);
 
 		monitor.beginTask(ResourceString

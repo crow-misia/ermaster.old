@@ -64,7 +64,7 @@ public class ERDiagramOutlinePage extends ContentOutlinePage {
 		this.diagram = diagram;
 
 		this.outlineActionRegistory = new ActionRegistry();
-		this.registerAction(this.viewer, outlineActionRegistory);
+		registerAction(this.viewer, outlineActionRegistory);
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class ERDiagramOutlinePage extends ContentOutlinePage {
 		this.resetAction(registry);
 	}
 
-	private void registerAction(TreeViewer treeViewer,
+	private static void registerAction(TreeViewer treeViewer,
 			ActionRegistry actionRegistry) {
 		IAction[] actions = { new CreateIndexAction(treeViewer),
 				new CreateSequenceAction(treeViewer),

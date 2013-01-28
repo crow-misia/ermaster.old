@@ -140,7 +140,7 @@ public class ChangeTrackingList implements Serializable {
 					}
 				}
 
-				if (!exists) {
+				if (!exists || oldTable == null) {
 					this.addedNodeElements.add(newTable);
 
 				} else {
@@ -160,7 +160,7 @@ public class ChangeTrackingList implements Serializable {
 								originalColumn = oldColumn;
 								oldColumns.remove(oldColumn);
 
-								if (!this.compareColumn(
+								if (!compareColumn(
 										(NormalColumn) oldColumn,
 										(NormalColumn) newColumn)) {
 									updatedColumns.add(newColumn);
@@ -199,7 +199,7 @@ public class ChangeTrackingList implements Serializable {
 
 	}
 
-	private boolean compareColumn(NormalColumn oldColumn, NormalColumn newColumn) {
+	private static boolean compareColumn(NormalColumn oldColumn, NormalColumn newColumn) {
 		if (!Check.equals(oldColumn.getPhysicalName(), newColumn
 				.getPhysicalName())) {
 			return false;

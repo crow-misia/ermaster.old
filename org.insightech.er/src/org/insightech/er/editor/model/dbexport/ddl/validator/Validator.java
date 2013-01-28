@@ -48,11 +48,11 @@ public class Validator {
 		addRule(new UninputTablespaceRule());
 	}
 
-	public static void addRule(Rule rule) {
+	private static void addRule(Rule rule) {
 		RULE_LIST.add(rule);
 	}
 
-	public List<ValidateResult> validate(ERDiagram diagram) {
+	public static List<ValidateResult> validate(ERDiagram diagram) {
 		List<ValidateResult> errorList = new ArrayList<ValidateResult>();
 
 		for (Rule rule : RULE_LIST) {
@@ -69,4 +69,7 @@ public class Validator {
 		return errorList;
 	}
 
+	private Validator() {
+		// do nothing.
+	}
 }

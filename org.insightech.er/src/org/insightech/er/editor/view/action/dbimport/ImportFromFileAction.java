@@ -108,7 +108,7 @@ public class ImportFromFileAction extends AbstractImportAction {
 			IOUtils.closeQuietly(in);
 		}
 
-		return this.getAllObjects(loadedDiagram);
+		return getAllObjects(loadedDiagram);
 	}
 
 	protected AbstractSelectImportedObjectDialog createSelectImportedObjectDialog(
@@ -136,11 +136,12 @@ public class ImportFromFileAction extends AbstractImportAction {
 		return fileDialog.open();
 	}
 
+	@SuppressWarnings("static-method")
 	protected String[] getFilterExtensions() {
 		return new String[] { "*.erm" };
 	}
 
-	private DBObjectSet getAllObjects(ERDiagram loadedDiagram) {
+	private static DBObjectSet getAllObjects(ERDiagram loadedDiagram) {
 		DBObjectSet dbObjects = new DBObjectSet();
 
 		for (ERTable table : loadedDiagram.getDiagramContents().getContents()

@@ -2,10 +2,12 @@ package org.insightech.er.editor;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -52,6 +54,7 @@ import org.insightech.er.editor.persistent.Persistent;
 import org.insightech.er.editor.view.dialog.category.CategoryNameChangeDialog;
 import org.insightech.er.editor.view.outline.ERDiagramOutlinePage;
 import org.insightech.er.util.Format;
+import org.insightech.er.util.io.IOUtils;
 
 /**
  * <pre>
@@ -74,6 +77,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 
 	@Override
 	protected void createPages() {
+		InputStream in = null;
 		try {
 			IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 			this.setPartName(file.getName());
@@ -85,12 +89,13 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 						new NullProgressMonitor());
 			}
 
-			InputStream in = file.getContents();
-
+			in = file.getContents();
 			this.diagram = persistent.load(in);
 
 		} catch (Exception e) {
 			Activator.showExceptionDialog(e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 
 		if (this.diagram == null) {
@@ -217,21 +222,24 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 
 		IFile file = ((IFileEditorInput) this.getEditorInput()).getFile();
 
+		InputStream source = null;
 		try {
 			diagram.getDiagramContents().getSettings().getModelProperties()
 					.setUpdatedDate(new Date(), true);
 
-			InputStream source = persistent.createInputStream(this.diagram);
+			source = persistent.createInputStream(this.diagram);
 
-			if (!file.exists()) {
-				file.create(source, true, monitor);
+			if (file.exists()) {
+				file.setContents(source, true, false, monitor);
 
 			} else {
-				file.setContents(source, true, false, monitor);
+				file.create(source, true, monitor);
 			}
 
 		} catch (Exception e) {
 			Activator.showExceptionDialog(e);
+		} finally {
+			IOUtils.closeQuietly(source);
 		}
 
 		for (int i = 0; i < this.getPageCount(); i++) {
@@ -255,7 +263,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 	protected void pageChange(int newPageIndex) {
 		super.pageChange(newPageIndex);
 
-		for (int i = 0; i < this.getPageCount(); i++) {
+		for (int i = 0, n = this.getPageCount(); i < n; i++) {
 			ERDiagramEditor editor = (ERDiagramEditor) this.getEditor(i);
 			editor.removeSelection();
 		}
@@ -323,8 +331,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 					file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 					editor.clearMarkedObject();
 
-					Validator validator = new Validator();
-					List<ValidateResult> errorList = validator
+					List<ValidateResult> errorList = Validator
 							.validate(diagram);
 
 					for (ValidateResult error : errorList) {
@@ -371,18 +378,18 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				.getTableSet()) {
 
 			String description = table.getDescription();
-			resultList.addAll(this.createTodo(description, table
+			resultList.addAll(createTodo(description, table
 					.getLogicalName(), table));
 
 			for (final NormalColumn column : table.getNormalColumns()) {
 				description = column.getDescription();
-				resultList.addAll(this.createTodo(description, table
+				resultList.addAll(createTodo(description, table
 						.getLogicalName(), table));
 			}
 
 			for (Index index : table.getIndexes()) {
 				description = index.getDescription();
-				resultList.addAll(this.createTodo(description, index.getName(),
+				resultList.addAll(createTodo(description, index.getName(),
 						index));
 			}
 		}
@@ -391,12 +398,11 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				.getViewSet().getList()) {
 
 			String description = view.getDescription();
-			resultList.addAll(this
-					.createTodo(description, view.getName(), view));
+			resultList.addAll(createTodo(description, view.getName(), view));
 
 			for (NormalColumn column : view.getNormalColumns()) {
 				description = column.getDescription();
-				resultList.addAll(this.createTodo(description, view
+				resultList.addAll(createTodo(description, view
 						.getLogicalName(), view));
 			}
 		}
@@ -405,7 +411,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				.getTriggerSet().getTriggerList()) {
 
 			String description = trigger.getDescription();
-			resultList.addAll(this.createTodo(description, trigger.getName(),
+			resultList.addAll(createTodo(description, trigger.getName(),
 					trigger));
 		}
 
@@ -413,36 +419,38 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				.getSequenceSet().getSequenceList()) {
 
 			String description = sequence.getDescription();
-			resultList.addAll(this.createTodo(description, sequence.getName(),
+			resultList.addAll(createTodo(description, sequence.getName(),
 					sequence));
 		}
 
 		return resultList;
 	}
 
-	private List<ValidateResult> createTodo(String description,
+	private static List<ValidateResult> createTodo(String description,
 			String location, Object object) {
+		if (StringUtils.isBlank(description)) {
+			return Collections.emptyList();
+		}
+		
 		List<ValidateResult> resultList = new ArrayList<ValidateResult>();
 
-		if (description != null) {
-			StringTokenizer tokenizer = new StringTokenizer(description, "\n\r");
+		StringTokenizer tokenizer = new StringTokenizer(description, "\n\r");
 
-			while (tokenizer.hasMoreElements()) {
-				String token = tokenizer.nextToken();
-				int startIndex = token.indexOf("// TODO");
+		while (tokenizer.hasMoreElements()) {
+			String token = tokenizer.nextToken();
+			int startIndex = token.indexOf("// TODO");
 
-				if (startIndex != -1) {
-					String message = token.substring(
-							startIndex + "// TODO".length()).trim();
+			if (startIndex != -1) {
+				String message = token.substring(
+						startIndex + "// TODO".length()).trim();
 
-					ValidateResult result = new ValidateResult();
+				ValidateResult result = new ValidateResult();
 
-					result.setLocation(location);
-					result.setMessage(message);
-					result.setObject(object);
+				result.setLocation(location);
+				result.setMessage(message);
+				result.setObject(object);
 
-					resultList.add(result);
-				}
+				resultList.add(result);
 			}
 		}
 

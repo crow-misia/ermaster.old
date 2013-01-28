@@ -130,8 +130,8 @@ public class DB2TableImportManager extends ImportFromDBManagerBase {
 			return null;
 
 		} finally {
-			this.close(rs);
-			this.close(stmt);
+			close(rs);
+			close(stmt);
 		}
 	}
 

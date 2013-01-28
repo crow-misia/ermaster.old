@@ -277,7 +277,7 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 		RepeatTestDataDef dataDef = new RepeatTestDataDef();
 
 		dataDef.setType(this.typeCombo.getText());
-		dataDef.setRepeatNum(this.getIntValue(this.repeatNum));
+		dataDef.setRepeatNum(getIntValue(this.repeatNum));
 		dataDef.setTemplate(this.template.getText());
 		dataDef.setFrom(this.from.getText());
 		dataDef.setTo(this.to.getText());
@@ -300,7 +300,7 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 		return dataDef;
 	}
 
-	private int getIntValue(Text textField) {
+	private static int getIntValue(Text textField) {
 		try {
 			return Integer.parseInt(textField.getText().trim());
 

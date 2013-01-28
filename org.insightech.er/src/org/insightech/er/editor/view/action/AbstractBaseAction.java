@@ -86,6 +86,7 @@ public abstract class AbstractBaseAction extends Action {
 				.execute(command);
 	}
 
+	@SuppressWarnings("static-method")
 	protected Settings getChangedSettings() {
 		return null;
 	}

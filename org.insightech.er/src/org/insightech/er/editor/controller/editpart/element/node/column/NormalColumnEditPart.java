@@ -228,7 +228,7 @@ public class NormalColumnEditPart extends ColumnEditPart {
 
 					NormalColumn column = (NormalColumn) childEditPart.getModel();
 					if (column.getColumnHolder() == columnHolder) {
-						this.setGroupColumnFigureColor(
+						setGroupColumnFigureColor(
 								(TableViewEditPart) parent,
 								(ColumnGroup) columnHolder, isSelected);
 					}
@@ -245,7 +245,7 @@ public class NormalColumnEditPart extends ColumnEditPart {
 
 	}
 
-	private void setGroupColumnFigureColor(TableViewEditPart parentEditPart,
+	private static void setGroupColumnFigureColor(TableViewEditPart parentEditPart,
 			ColumnGroup columnGroup, boolean selected) {
 		for (NormalColumn column : columnGroup.getColumns()) {
 			for (Object editPart : parentEditPart.getChildren()) {

@@ -20,7 +20,7 @@ public class RepeatTestData implements Cloneable {
 		RepeatTestDataDef dataDef = this.dataDefMap.get(normalColumn);
 
 		if (dataDef == null) {
-			dataDef = this.createDataDef(normalColumn);
+			dataDef = createDataDef(normalColumn);
 			this.dataDefMap.put(normalColumn, dataDef);
 		}
 
@@ -56,7 +56,7 @@ public class RepeatTestData implements Cloneable {
 		return clone;
 	}
 
-	private RepeatTestDataDef createDataDef(NormalColumn normalColumn) {
+	private static RepeatTestDataDef createDataDef(NormalColumn normalColumn) {
 		RepeatTestDataDef dataDef = new RepeatTestDataDef();
 
 		SqlType sqlType = normalColumn.getType();

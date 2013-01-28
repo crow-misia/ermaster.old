@@ -50,7 +50,7 @@ public class IndexHtmlReportPageGenerator extends
 		String tableId = this.getObjectId(table);
 		String tableName = Format.null2blank(table.getName());
 
-		String unique = this.getUniqueString(index);
+		String unique = getUniqueString(index);
 
 		List<NormalColumn> normalColumnList = index.getColumns();
 		List<Boolean> descs = index.getDescs();
@@ -59,10 +59,10 @@ public class IndexHtmlReportPageGenerator extends
 				normalColumnList, descs);
 
 		return new String[] { description, tableId, tableName,
-				this.getType(index), unique, indexAttribute };
+				getType(index), unique, indexAttribute };
 	}
 
-	private String getType(Index index) {
+	private static String getType(Index index) {
 		if (index.isFullText()) {
 			return "FULLTEXT";
 		}
@@ -83,11 +83,10 @@ public class IndexHtmlReportPageGenerator extends
 		return index.getDescription();
 	}
 
-	private String getUniqueString(Index index) {
+	private static String getUniqueString(Index index) {
 		if (!index.isNonUnique()) {
 			return "UNIQUE";
-		} else {
-			return "";
 		}
+		return "";
 	}
 }

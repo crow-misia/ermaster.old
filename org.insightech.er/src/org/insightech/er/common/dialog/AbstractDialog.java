@@ -87,10 +87,12 @@ public abstract class AbstractDialog extends Dialog {
 		return this.numColumns;
 	}
 
+	@SuppressWarnings("static-method")
 	protected int getErrorLine() {
 		return 1;
 	}
 
+	@SuppressWarnings("static-method")
 	protected Object createLayoutData() {
 		return new GridData(GridData.FILL_BOTH);
 	}
@@ -107,7 +109,7 @@ public abstract class AbstractDialog extends Dialog {
 		this.errorMessageText.setLayoutData(gridData);
 	}
 
-	protected Integer getIntegerValue(Text text) {
+	protected static Integer getIntegerValue(Text text) {
 		String value = text.getText();
 		if (Check.isEmpty(value)) {
 			return null;
@@ -121,7 +123,7 @@ public abstract class AbstractDialog extends Dialog {
 		}
 	}
 
-	final public boolean validate() {
+	public final boolean validate() {
 		if (!this.initialized) {
 			return true;
 		}

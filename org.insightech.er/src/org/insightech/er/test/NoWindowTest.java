@@ -23,7 +23,8 @@ import org.insightech.er.editor.persistent.Persistent;
 
 public class NoWindowTest {
 
-    public static void main(String[] args) {
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
 		// ERDiagramMultiPageEditor multiPageEditor = new
 		// ERDiagramMultiPageEditor();
 		// multiPageEditor.createPartControl(null);

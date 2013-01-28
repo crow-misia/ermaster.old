@@ -49,7 +49,7 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 		this.tabItem = new TabItem(this.tabFolder, SWT.NONE);
 		this.tabItem.setText(ResourceString.getResourceString("label.detail"));
 
-		Composite detailComposite = this.createDetailTab(this.tabFolder);
+		Composite detailComposite = createDetailTab(this.tabFolder);
 		this.initializeDetailTab(detailComposite);
 		this.tabItem.setControl(detailComposite);
 
@@ -81,11 +81,12 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 				"label.column.default.value", numColumns - 1);
 	}
 
+	@SuppressWarnings("static-method")
 	protected int getCheckBoxCompositeNumColumns() {
 		return 2;
 	}
 
-	private Composite createDetailTab(TabFolder tabFolder) {
+	private static Composite createDetailTab(TabFolder tabFolder) {
 		GridLayout gridLayout = new GridLayout();
 
 		gridLayout.numColumns = 2;
