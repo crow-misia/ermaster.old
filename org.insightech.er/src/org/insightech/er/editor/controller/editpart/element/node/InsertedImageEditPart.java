@@ -17,6 +17,8 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.node
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
+import org.insightech.er.editor.model.diagram_contents.element.node.Location;
+import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.image.InsertedImage;
 import org.insightech.er.editor.view.dialog.element.InsertedImageDialog;
 import org.insightech.er.editor.view.figure.InsertedImageFigure;
@@ -79,7 +81,7 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 			figure.setImg(this.image, model.isFixAspectRatio(), model
 					.getAlpha());
 
-			this.refreshVisuals();
+			refreshVisuals();
 
 			if (ERDiagramEditPart.isUpdateable()) {
 				this.getFigure().repaint();
@@ -96,8 +98,13 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 				this.imageData.height, this.imageData.depth,
 				this.imageData.palette);
 
-		for (int x = 0; x < this.imageData.width; x++) {
-			for (int y = 0; y < this.imageData.height; y++) {
+		model.setImage(newImageData);
+
+		final int w = this.imageData.width;
+		final int h = this.imageData.height;
+
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
 				RGB rgb = this.imageData.palette.getRGB(this.imageData
 						.getPixel(x, y));
 				float[] hsb = rgb.getHSB();

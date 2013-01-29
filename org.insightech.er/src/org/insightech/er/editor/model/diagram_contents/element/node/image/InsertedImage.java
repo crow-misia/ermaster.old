@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.codec.binary.Base64;
+import org.eclipse.swt.graphics.ImageData;
 import org.insightech.er.Activator;
+import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.util.io.IOUtils;
 
@@ -29,7 +31,9 @@ public class InsertedImage extends NodeElement {
 	private int alpha;
 	
 	private boolean fixAspectRatio;
-	
+
+	private ImageData imageData;
+
 	public InsertedImage() {
 		this.alpha = 255;
 	}
@@ -115,5 +119,31 @@ public class InsertedImage extends NodeElement {
 
 	public void setDirty() {
 		this.firePropertyChange(PROPERTY_CHANGE_IMAGE, null, null);
+	}
+
+	public void setImage(final ImageData imageData) {
+		this.imageData = imageData;
+	}
+
+	@Override
+	public void setLocation(final Location location) {
+		if (imageData != null && isFixAspectRatio()) {
+			int w = location.width;
+			int h = location.height;
+			
+			final double aspect = (double) imageData.width / imageData.height;
+			final double realAspect = (double) w / h;
+
+			if (aspect < realAspect) {
+				h = (int) (w / aspect);
+			} else {
+				w = (int) (h * aspect);
+			}
+
+			location.width = w;
+			location.height = h;
+		}
+
+		super.setLocation(location);
 	}
 }
