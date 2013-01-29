@@ -20,11 +20,15 @@ public final class PasteCommand extends AbstractCommand {
 
 	private final GraphicalViewer viewer;
 
+	private final int x;
+
+	private final int y;
+
 	// 貼り付け対象の一覧
 	private final NodeSet nodeElements;
 
 	// 貼り付け時に追加するグループ列の一覧
-	private final GroupSet columnGroups;
+	private GroupSet columnGroups;
 
 	/**
 	 * 貼り付けコマンドを作成します。
@@ -32,13 +36,16 @@ public final class PasteCommand extends AbstractCommand {
 	 * @param editor
 	 * @param nodeElements
 	 */
-	public PasteCommand(ERDiagramEditor editor, NodeSet nodeElements, int x,
-			int y) {
+	public PasteCommand(ERDiagramEditor editor, NodeSet nodeElements, int x, int y) {
 		this.viewer = editor.getGraphicalViewer();
 		this.diagram = (ERDiagram) viewer.getContents().getModel();
+		this.x = x;
+		this.y = y;
 
 		this.nodeElements = nodeElements;
+	}
 
+	private void createGroupSet() {
 		this.columnGroups = new GroupSet();
 
 		// 貼り付け対象に対して処理を繰り返します
@@ -76,6 +83,9 @@ public final class PasteCommand extends AbstractCommand {
 	 */
 	@Override
 	protected void doExecute() {
+		// 追加するグループ列を作成する
+		createGroupSet();
+
 		// 描画更新をとめます。
 		ERDiagramEditPart.setUpdateable(false);
 
@@ -121,10 +131,12 @@ public final class PasteCommand extends AbstractCommand {
 		this.diagram.getDiagramContents().getDictionary().setDirty();
 
 		// グループ列を削除します。
-		for (ColumnGroup columnGroup : this.columnGroups.getGroupList()) {
-			columnGroupSet.remove(columnGroup, false);
+		if (this.columnGroups != null) {
+			for (ColumnGroup columnGroup : this.columnGroups.getGroupList()) {
+				columnGroupSet.remove(columnGroup, false);
+			}
+			columnGroupSet.setDirty();
 		}
-		columnGroupSet.setDirty();
 
 		// 描画更新を再開します。
 		ERDiagramEditPart.setUpdateable(true);

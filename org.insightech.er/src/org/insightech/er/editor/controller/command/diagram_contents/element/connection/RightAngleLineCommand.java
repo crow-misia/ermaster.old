@@ -23,9 +23,11 @@ public final class RightAngleLineCommand extends AbstractCommand {
 
 	private final ConnectionElement connection;
 
-	private final List<Bendpoint> oldBendpointList;
+	private final Rectangle sourceRectangle;
 
-	private final List<Bendpoint> newBendpointList;
+	private final Rectangle targetRectangle;
+
+	private List<Bendpoint> oldBendpointList;
 
 	public RightAngleLineCommand(int sourceX, int sourceY, int targetX,
 			int targetY, ConnectionEditPart connectionEditPart) {
@@ -35,9 +37,20 @@ public final class RightAngleLineCommand extends AbstractCommand {
 		this.targetY = targetY;
 		this.connection = (ConnectionElement) connectionEditPart.getModel();
 
+		final NodeElementEditPart sourceEditPart = (NodeElementEditPart) connectionEditPart
+				.getSource();
+		this.sourceRectangle = sourceEditPart.getFigure().getBounds();
+
+		final NodeElementEditPart targetEditPart = (NodeElementEditPart) connectionEditPart
+				.getTarget();
+		this.targetRectangle = targetEditPart.getFigure().getBounds();
+	}
+
+	@Override
+	protected void doExecute() {
 		this.oldBendpointList = this.connection.getBendpoints();
 
-		this.newBendpointList = new ArrayList<Bendpoint>();
+		final List<Bendpoint> newBendpointList = new ArrayList<Bendpoint>();
 
 		if (oldBendpointList.size() > 0) {
 			if (!oldBendpointList.get(0).isRelative()) {
@@ -85,7 +98,7 @@ public final class RightAngleLineCommand extends AbstractCommand {
 
 					if ((x == prevX && prevX == prev2X)
 							|| (y == prevY && prevY == prev2Y)) {
-						this.newBendpointList.remove(this.newBendpointList
+						newBendpointList.remove(newBendpointList
 								.size() - 1);
 					} else {
 						prev2X = prevX;
@@ -94,21 +107,14 @@ public final class RightAngleLineCommand extends AbstractCommand {
 
 					prevX = x;
 					prevY = y;
-					this.newBendpointList.add(newBendpoint);
+					newBendpointList.add(newBendpoint);
 				}
 			}
 
 		} else {
 			if (this.sourceX != this.targetX && this.sourceY != this.targetY) {
-				NodeElementEditPart sourceEditPart = (NodeElementEditPart) connectionEditPart
-						.getSource();
-				Rectangle sourceRectangle = sourceEditPart.getFigure()
-						.getBounds();
-
-				NodeElementEditPart targetEditPart = (NodeElementEditPart) connectionEditPart
-						.getTarget();
-				Rectangle targetRectangle = targetEditPart.getFigure()
-						.getBounds();
+				final Rectangle sourceRectangle = this.sourceRectangle;
+				final Rectangle targetRectangle = this.targetRectangle;
 
 				if (sourceRectangle.y - SPACE < targetY
 						&& sourceRectangle.y + sourceRectangle.height + SPACE > targetRectangle.y) {
@@ -122,13 +128,10 @@ public final class RightAngleLineCommand extends AbstractCommand {
 					}
 
 					Bendpoint newBendpoint1 = new Bendpoint(x, sourceY);
-					this.newBendpointList.add(newBendpoint1);
+					newBendpointList.add(newBendpoint1);
 
 					Bendpoint newBendpoint2 = new Bendpoint(x, targetY);
-					this.newBendpointList.add(newBendpoint2);
-
-//				} else if (targetRectangle.x - SPACE < sourceX
-//						&& targetRectangle.x + targetRectangle.width + SPACE > sourceX) {
+					newBendpointList.add(newBendpoint2);
 
 				} else {
 					int y = 0;
@@ -141,28 +144,21 @@ public final class RightAngleLineCommand extends AbstractCommand {
 					}
 
 					Bendpoint newBendpoint1 = new Bendpoint(this.sourceX, y);
-					this.newBendpointList.add(newBendpoint1);
+					newBendpointList.add(newBendpoint1);
 
 					Bendpoint newBendpoint2 = new Bendpoint(this.targetX, y);
-					this.newBendpointList.add(newBendpoint2);
-
-//				} else {
-//					Bendpoint newBendpoint = new Bendpoint(sourceX, targetY);
-//					this.newBendpointList.add(newBendpoint);
-
+					newBendpointList.add(newBendpoint2);
 				}
 			}
 		}
 
-	}
-
-	@Override
-	protected void doExecute() {
-		this.connection.setBendpoints(this.newBendpointList, true);
+		this.connection.setBendpoints(newBendpointList, true);
 	}
 
 	@Override
 	protected void doUndo() {
-		this.connection.setBendpoints(this.oldBendpointList, true);
+		if (this.oldBendpointList != null) {
+			this.connection.setBendpoints(this.oldBendpointList, true);
+		}
 	}
 }

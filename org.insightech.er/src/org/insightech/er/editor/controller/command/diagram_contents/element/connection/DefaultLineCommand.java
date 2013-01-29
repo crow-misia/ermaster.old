@@ -20,7 +20,7 @@ public final class DefaultLineCommand extends AbstractCommand {
 
 	private final ConnectionElement connection;
 
-	private final List<Bendpoint> oldBendpointList;
+	private List<Bendpoint> oldBendpointList;
 
 	public DefaultLineCommand(ERDiagram diagram, ConnectionElement connection) {
 		this.sourceXp = connection.getSourceXp();
@@ -29,11 +29,12 @@ public final class DefaultLineCommand extends AbstractCommand {
 		this.targetYp = connection.getTargetYp();
 
 		this.connection = connection;
-		this.oldBendpointList = this.connection.getBendpoints();
 	}
 
 	@Override
 	protected void doExecute() {
+		this.oldBendpointList = this.connection.getBendpoints();
+
 		this.connection.setBendpoints(new ArrayList<Bendpoint>(), true);
 		this.connection.setSourceLocationp(-1, -1);
 		this.connection.setTargetLocationp(-1, -1);
@@ -42,9 +43,11 @@ public final class DefaultLineCommand extends AbstractCommand {
 
 	@Override
 	protected void doUndo() {
-		this.connection.setBendpoints(this.oldBendpointList, true);
-		this.connection.setSourceLocationp(this.sourceXp, this.sourceYp);
-		this.connection.setTargetLocationp(this.targetXp, this.targetYp);
-		this.connection.setParentMove();
+		if (this.oldBendpointList != null) {
+			this.connection.setBendpoints(this.oldBendpointList, true);
+			this.connection.setSourceLocationp(this.sourceXp, this.sourceYp);
+			this.connection.setTargetLocationp(this.targetXp, this.targetYp);
+			this.connection.setParentMove();
+		}
 	}
 }

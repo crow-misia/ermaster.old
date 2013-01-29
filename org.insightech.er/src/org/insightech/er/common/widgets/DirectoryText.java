@@ -1,5 +1,6 @@
 package org.insightech.er.common.widgets;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
@@ -41,11 +42,7 @@ public final class DirectoryText {
 	}
 
 	public boolean isBlank() {
-		if (this.text.getText().trim().length() == 0) {
-			return true;
-		}
-
-		return false;
+		return StringUtils.isBlank(this.text.getText());
 	}
 
 	public String getFilePath() {

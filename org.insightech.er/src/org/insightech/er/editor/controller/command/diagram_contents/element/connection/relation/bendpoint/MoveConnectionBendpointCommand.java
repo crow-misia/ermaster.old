@@ -11,33 +11,41 @@ public final class MoveConnectionBendpointCommand extends AbstractCommand {
 
 	private final Bendpoint bendPoint;
 
-	private final Bendpoint oldBendpoint;
-
 	private final int index;
 
-	private final boolean relative;
+	private Bendpoint oldBendpoint;
 
-	public MoveConnectionBendpointCommand(ConnectionEditPart editPart, int x,
-			int y, int index) {
+	private boolean relative;
+
+	private int sourceXp;
+	private int sourceYp;
+	private int targetXp;
+	private int targetYp;
+
+	public MoveConnectionBendpointCommand(final ConnectionEditPart editPart,
+			final int x, final int y, final int index) {
 		this.connection = (ConnectionElement) editPart.getModel();
 		this.bendPoint = new Bendpoint(x, y);
 		this.index = index;
-		this.relative = connection.getBendpoints().get(0).isRelative();
-
-		if (relative) {
-			this.oldBendpoint = connection.getBendpoints().get(0);
-		} else {
-			this.oldBendpoint = connection.getBendpoints().get(index);
-		}
 	}
 
 	@Override
 	protected void doExecute() {
-		if (relative) {
+		final Bendpoint firstBendpoint = connection.getBendpoints().get(0);
+		
+		this.relative = firstBendpoint.isRelative();
+
+		if (this.relative) {
+			this.oldBendpoint = firstBendpoint;
+			this.sourceXp = connection.getSourceXp();
+			this.sourceYp = connection.getSourceYp();
+			this.targetXp = connection.getTargetXp();
+			this.targetYp = connection.getTargetYp();
+
 			this.bendPoint.setRelative(true);
 
-			float rateX = (100f - (bendPoint.getX() / 2)) / 100;
-			float rateY = (100f - (bendPoint.getY() / 2)) / 100;
+			final float rateX = (100f - (bendPoint.getX() / 2)) / 100;
+			final float rateY = (100f - (bendPoint.getY() / 2)) / 100;
 
 			connection.setSourceLocationp(100, (int) (100 * rateY));
 			connection.setTargetLocationp((int) (100 * rateX), 100);
@@ -45,28 +53,26 @@ public final class MoveConnectionBendpointCommand extends AbstractCommand {
 			connection.setParentMove();
 
 			connection.replaceBendpoint(0, this.bendPoint, true);
-
 		} else {
+			this.oldBendpoint = connection.getBendpoints().get(index);
+
 			connection.replaceBendpoint(index, this.bendPoint, true);
 		}
 	}
 
 	@Override
 	protected void doUndo() {
-		if (relative) {
-			float rateX = (100f - (this.oldBendpoint.getX() / 2)) / 100;
-			float rateY = (100f - (this.oldBendpoint.getY() / 2)) / 100;
-
-			connection.setSourceLocationp(100, (int) (100 * rateY));
-			connection.setTargetLocationp((int) (100 * rateX), 100);
+		if (this.oldBendpoint == null) {
+			return;
+		}
+		
+		if (this.relative) {
+			connection.setSourceLocationp(this.sourceXp, this.sourceYp);
+			connection.setTargetLocationp(this.targetXp, this.targetYp);
 
 			connection.setParentMove();
-
-			connection.replaceBendpoint(0, this.oldBendpoint, true);
-
-		} else {
-			connection.replaceBendpoint(index, this.oldBendpoint, true);
 		}
+		connection.replaceBendpoint(index, this.oldBendpoint, true);
 	}
 
 }

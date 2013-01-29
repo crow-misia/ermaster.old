@@ -38,6 +38,8 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 
 	@Override
 	protected void doExecute() {
+		super.doExecute();
+
 		if (this.oldTargetCopyTable == null) {
 			for (NormalColumn foreignKey : relation.getForeignKeyColumns()) {
 				NormalColumn referencedColumn = foreignKey
@@ -49,7 +51,7 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 			this.oldTargetCopyTable = this.oldTargetTable.copyData();
 		}
 
-		Dictionary dictionary = this.oldTargetTable.getDiagram()
+		final Dictionary dictionary = this.oldTargetTable.getDiagram()
 				.getDiagramContents().getDictionary();
 
 		this.relation.delete(this.removeForeignKey, dictionary);
@@ -59,14 +61,15 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 	protected void doUndo() {
 		super.doUndo();
 
-		Dictionary dictionary = this.oldTargetTable.getDiagram().getDiagramContents().getDictionary();
-		for (NormalColumn foreignKey : this.referencedColumnMap.keySet()) {
+		final Dictionary dictionary = this.oldTargetTable.getDiagram().getDiagramContents().getDictionary();
+		for (final Map.Entry<NormalColumn, NormalColumn> entry : this.referencedColumnMap.entrySet()) {
+			final NormalColumn foreignKey = entry.getKey();
+			
 			if (!this.removeForeignKey) {
 				dictionary.remove(foreignKey, false);
 			}
 
-			foreignKey.addReference(this.referencedColumnMap.get(foreignKey),
-					this.relation);
+			foreignKey.addReference(entry.getValue(), this.relation);
 		}
 
 		this.oldTargetCopyTable.restructureData(this.oldTargetTable);
@@ -83,7 +86,7 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 					return false;
 				}
 
-				this.removeForeignKey = false;
+				this.removeForeignKey = Boolean.FALSE;
 
 				this.referencedColumnMap = new HashMap<NormalColumn, NormalColumn>();
 
@@ -100,10 +103,10 @@ public final class DeleteRelationCommand extends DeleteConnectionCommand {
 			if (Activator.showConfirmDialog(
 					"dialog.message.confirm.remove.foreign.key", SWT.YES,
 					SWT.NO)) {
-				this.removeForeignKey = true;
+				this.removeForeignKey = Boolean.TRUE;
 
 			} else {
-				this.removeForeignKey = false;
+				this.removeForeignKey = Boolean.FALSE;
 
 				this.referencedColumnMap = new HashMap<NormalColumn, NormalColumn>();
 
