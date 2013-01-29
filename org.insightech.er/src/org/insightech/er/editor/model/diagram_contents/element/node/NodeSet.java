@@ -48,10 +48,10 @@ public class NodeSet extends AbstractModel implements Iterable<NodeElement> {
 			this.viewSet.add((View) nodeElement);
 
 		} else if (nodeElement instanceof Note) {
-			this.noteSet.add((Note) nodeElement, true);
+			this.noteSet.add((Note) nodeElement);
 
 		} else if (nodeElement instanceof InsertedImage) {
-			this.insertedImageSet.add((InsertedImage) nodeElement, true);
+			this.insertedImageSet.add((InsertedImage) nodeElement);
 
 		}
 
@@ -70,10 +70,10 @@ public class NodeSet extends AbstractModel implements Iterable<NodeElement> {
 			this.viewSet.remove((View) nodeElement);
 
 		} else if (nodeElement instanceof Note) {
-			this.noteSet.remove((Note) nodeElement, true);
+			this.noteSet.remove((Note) nodeElement);
 
 		} else if (nodeElement instanceof InsertedImage) {
-			this.insertedImageSet.remove((InsertedImage) nodeElement, true);
+			this.insertedImageSet.remove((InsertedImage) nodeElement);
 
 		}
 

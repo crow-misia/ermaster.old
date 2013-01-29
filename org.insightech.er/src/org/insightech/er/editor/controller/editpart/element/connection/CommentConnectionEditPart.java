@@ -7,7 +7,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.swt.SWT;
 import org.insightech.er.editor.controller.editpolicy.element.connection.CommentConnectionEditPolicy;
-import org.insightech.er.editor.controller.editpolicy.element.connection.ERDiagramBendpointEditPolicy;
+import org.insightech.er.editor.controller.editpolicy.element.connection.ConnectionBendpointEditPolicy;
 import org.insightech.er.editor.view.figure.connection.ERDiagramConnection;
 
 public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
@@ -31,14 +31,14 @@ public class CommentConnectionEditPart extends ERDiagramConnectionEditPart {
 		this.installEditPolicy(EditPolicy.CONNECTION_ROLE,
 				new CommentConnectionEditPolicy());
 		this.installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
-				new ERDiagramBendpointEditPolicy());
+				new ConnectionBendpointEditPolicy());
 	}
 	
-   @Override
-    protected void refreshVisuals() {
-        super.refreshVisuals();
-        
-        super.refreshBendpoints();
-   }
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+
+		super.refreshBendpoints();
+ 	  }
 
 }

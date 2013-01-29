@@ -14,7 +14,7 @@ import org.insightech.er.editor.view.editmanager.NoteEditManager;
 import org.insightech.er.editor.view.editmanager.NoteEditorLocator;
 import org.insightech.er.editor.view.figure.NoteFigure;
 
-public class NoteEditPart extends NodeElementEditPart implements IResizable {
+public class NoteEditPart extends NodeElementXYEditPart {
 
 	private NoteEditManager editManager = null;
 

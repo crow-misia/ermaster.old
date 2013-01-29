@@ -21,19 +21,15 @@ public class NoteSet extends AbstractModel implements ObjectListModel,
 		this.noteList = new ArrayList<Note>();
 	}
 
-	public void add(Note note, final boolean fire) {
+	public void add(Note note) {
 		this.noteList.add(note);
-		if (fire) {
-			setDirty();
-		}
+		setDirty();
 	}
 
-	public int remove(Note note, final boolean fire) {
+	public int remove(Note note) {
 		int index = this.noteList.indexOf(note);
 		this.noteList.remove(index);
-		if (fire) {
-			setDirty();
-		}
+		setDirty();
 
 		return index;
 	}

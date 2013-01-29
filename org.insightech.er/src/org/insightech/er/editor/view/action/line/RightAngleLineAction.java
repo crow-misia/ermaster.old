@@ -15,10 +15,9 @@ import org.eclipse.swt.widgets.Event;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.ERDiagramEditor;
 import org.insightech.er.editor.controller.command.diagram_contents.element.connection.RightAngleLineCommand;
-import org.insightech.er.editor.controller.editpart.element.connection.RelationEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.IResizable;
 import org.insightech.er.editor.controller.editpart.element.node.NodeElementEditPart;
-import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
+import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 import org.insightech.er.editor.view.action.AbstractBaseSelectionAction;
 
 public class RightAngleLineAction extends AbstractBaseSelectionAction {
@@ -46,8 +45,8 @@ public class RightAngleLineAction extends AbstractBaseSelectionAction {
 				}
 			}
 
-		} else if (editPart instanceof AbstractConnectionEditPart) {
-			AbstractConnectionEditPart connectionEditPart = (AbstractConnectionEditPart) editPart;
+		} else if (editPart instanceof ConnectionEditPart) {
+			ConnectionEditPart connectionEditPart = (ConnectionEditPart) editPart;
 
 			if (connectionEditPart.getSource() != connectionEditPart
 					.getTarget()) {
@@ -59,38 +58,34 @@ public class RightAngleLineAction extends AbstractBaseSelectionAction {
 	}
 
 	public static Command getCommand(
-			AbstractConnectionEditPart connectionEditPart) {
+			final ConnectionEditPart connectionEditPart) {
 		int sourceX = -1;
 		int sourceY = -1;
 		int targetX = -1;
 		int targetY = -1;
 
-		if (connectionEditPart instanceof RelationEditPart) {
-			RelationEditPart relationEditPart = (RelationEditPart) connectionEditPart;
+		ConnectionElement connection = (ConnectionElement) connectionEditPart.getModel();
 
-			Relation relation = (Relation) relationEditPart.getModel();
+		if (connection.getSourceXp() != -1) {
+			NodeEditPart editPart = (NodeEditPart) connectionEditPart
+					.getSource();
+			Rectangle bounds = editPart.getFigure().getBounds();
 
-			if (relation.getSourceXp() != -1) {
-				NodeEditPart editPart = (NodeEditPart) relationEditPart
-						.getSource();
-				Rectangle bounds = editPart.getFigure().getBounds();
+			sourceX = bounds.x
+					+ (bounds.width * connection.getSourceXp() / 100);
+			sourceY = bounds.y
+					+ (bounds.height * connection.getSourceYp() / 100);
+		}
 
-				sourceX = bounds.x
-						+ (bounds.width * relation.getSourceXp() / 100);
-				sourceY = bounds.y
-						+ (bounds.height * relation.getSourceYp() / 100);
-			}
+		if (connection.getTargetXp() != -1) {
+			NodeEditPart editPart = (NodeEditPart) connectionEditPart
+					.getTarget();
+			Rectangle bounds = editPart.getFigure().getBounds();
 
-			if (relation.getTargetXp() != -1) {
-				NodeEditPart editPart = (NodeEditPart) relationEditPart
-						.getTarget();
-				Rectangle bounds = editPart.getFigure().getBounds();
-
-				targetX = bounds.x
-						+ (bounds.width * relation.getTargetXp() / 100);
-				targetY = bounds.y
-						+ (bounds.height * relation.getTargetYp() / 100);
-			}
+			targetX = bounds.x
+					+ (bounds.width * connection.getTargetXp() / 100);
+			targetY = bounds.y
+					+ (bounds.height * connection.getTargetYp() / 100);
 		}
 
 		if (sourceX == -1) {

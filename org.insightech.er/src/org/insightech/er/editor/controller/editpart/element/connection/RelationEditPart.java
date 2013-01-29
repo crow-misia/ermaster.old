@@ -11,8 +11,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.ui.PlatformUI;
-import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
-import org.insightech.er.editor.controller.editpolicy.element.connection.RelationBendpointEditPolicy;
+import org.insightech.er.editor.controller.editpolicy.element.connection.ConnectionBendpointEditPolicy;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
@@ -49,7 +48,7 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 		this.installEditPolicy(EditPolicy.CONNECTION_ROLE,
 				new RelationEditPolicy());
 		this.installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
-				new RelationBendpointEditPolicy());
+				new ConnectionBendpointEditPolicy());
 	}
 
 	@Override

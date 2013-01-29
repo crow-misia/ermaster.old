@@ -21,8 +21,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.image.Insert
 import org.insightech.er.editor.view.dialog.element.InsertedImageDialog;
 import org.insightech.er.editor.view.figure.InsertedImageFigure;
 
-public class InsertedImageEditPart extends NodeElementEditPart implements
-		IResizable {
+public class InsertedImageEditPart extends NodeElementXYEditPart {
 
 	private Image image;
 

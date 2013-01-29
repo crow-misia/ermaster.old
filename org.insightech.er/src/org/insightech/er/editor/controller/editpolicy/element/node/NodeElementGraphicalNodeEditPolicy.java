@@ -73,6 +73,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 			Command command = getRelationCreateCommand(request, object);
 
 			if (command != null) {
+				request.setStartCommand(command);
 				return command;
 			}
 		}
@@ -109,8 +110,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 					.getReferencedComplexUniqueKey());
 			relation.setReferencedColumn(temp.getReferencedColumn());
 
-			request.setStartCommand(command);
-
 			return command;
 
 		} else if (object instanceof RelatedTable) {
@@ -127,8 +126,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 				command.setSourcePoint(point.x, point.y);
 			}
 
-			request.setStartCommand(command);
-
 			return command;
 
 		} else if (object instanceof SelfRelation) {
@@ -141,8 +138,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 
 			command.setSource(sourceEditPart);
 
-			request.setStartCommand(command);
-
 			return command;
 
 		} else if (object instanceof RelationByExistingColumns) {
@@ -150,8 +145,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 
 			EditPart source = request.getTargetEditPart();
 			command.setSource(source);
-
-			request.setStartCommand(command);
 
 			return command;
 		}

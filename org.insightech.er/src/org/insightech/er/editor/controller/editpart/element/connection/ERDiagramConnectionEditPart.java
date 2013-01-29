@@ -65,6 +65,10 @@ public abstract class ERDiagramConnectionEditPart extends
 			} else if (event.getPropertyName().equals(
 					ConnectionElement.PROPERTY_CHANGE_CONNECTION_ATTRIBUTE)) {
 				this.refreshVisuals();
+
+			} else if (event.getPropertyName().equals(
+						ConnectionElement.PROPERTY_CHANGE_CONNECTION)) {
+				this.refreshVisuals();
 			}
 
 		} catch (Exception e) {
@@ -91,63 +95,65 @@ public abstract class ERDiagramConnectionEditPart extends
 
 		ERDiagram diagram = this.getDiagram();
 
-		if (diagram != null) {
-			this.figure.setVisible(false);
+		if (diagram == null) {
+			return;
+		}
+		final Category category = this.getCurrentCategory();
 
-			Category category = this.getCurrentCategory();
+		if (category == null) {
+			return;
+		}
 
-			if (category != null) {
-				CategorySetting categorySettings = this.getDiagram()
-						.getDiagramContents().getSettings()
-						.getCategorySetting();
+		this.figure.setVisible(false);
 
-				if (sourceEditPart != null && targetEditPart != null) {
-					NodeElement sourceModel = (NodeElement) sourceEditPart
-							.getModel();
-					NodeElement targetModel = (NodeElement) targetEditPart
-							.getModel();
+		final CategorySetting categorySettings = this.getDiagram()
+				.getDiagramContents().getSettings()
+				.getCategorySetting();
 
-					boolean containsSource = false;
+		if (sourceEditPart != null && targetEditPart != null) {
+			NodeElement sourceModel = (NodeElement) sourceEditPart
+					.getModel();
+			NodeElement targetModel = (NodeElement) targetEditPart
+					.getModel();
 
-					if (category.contains(sourceModel)) {
+			boolean containsSource = false;
+
+			if (category.contains(sourceModel)) {
+				containsSource = true;
+
+			} else if (categorySettings.isShowReferredTables()) {
+				for (NodeElement referringElement : sourceModel
+						.getReferringElementList()) {
+					if (category.contains(referringElement)) {
 						containsSource = true;
-
-					} else if (categorySettings.isShowReferredTables()) {
-						for (NodeElement referringElement : sourceModel
-								.getReferringElementList()) {
-							if (category.contains(referringElement)) {
-								containsSource = true;
-								break;
-							}
-						}
+						break;
 					}
+				}
+			}
 
-					if (containsSource) {
-						if (category.contains(targetModel)) {
+			if (containsSource) {
+				if (category.contains(targetModel)) {
+					this.figure.setVisible(true);
+
+				} else if (categorySettings.isShowReferredTables()) {
+					for (NodeElement referringElement : targetModel
+							.getReferringElementList()) {
+						if (category.contains(referringElement)) {
 							this.figure.setVisible(true);
-
-						} else if (categorySettings.isShowReferredTables()) {
-							for (NodeElement referringElement : targetModel
-									.getReferringElementList()) {
-								if (category.contains(referringElement)) {
-									this.figure.setVisible(true);
-									break;
-								}
-							}
+							break;
 						}
 					}
 				}
-
-			} else {
-				this.figure.setVisible(true);
 			}
 		}
+
+		this.figure.setVisible(true);
 	}
 
 	protected void refreshBendpoints() {
-        this.calculateAnchorLocation();
+		calculateAnchorLocation();
 
-        // ベンド・ポイントの位置情報の取得
+		// ベンド・ポイントの位置情報の取得
 		ConnectionElement connection = (ConnectionElement) this.getModel();
 
 		// 実際のベンド・ポイントのリスト
@@ -225,7 +231,7 @@ public abstract class ERDiagramConnectionEditPart extends
 		this.getConnectionFigure().setRoutingConstraint(constraint);
 	}
 
-    protected void calculateAnchorLocation() {
+    private void calculateAnchorLocation() {
         ConnectionElement connection = (ConnectionElement) this.getModel();
 
         NodeElementEditPart sourceEditPart = (NodeElementEditPart) this.getSource();

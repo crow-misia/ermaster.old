@@ -16,21 +16,20 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.handles.BendpointMoveHandle;
 import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.swt.SWT;
-import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.bendpoint.MoveRelationBendpointCommand;
+import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.bendpoint.MoveConnectionBendpointCommand;
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
-import org.insightech.er.editor.controller.editpart.element.connection.RelationEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.ERTableEditPart;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Bendpoint;
-import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
+import org.insightech.er.editor.model.diagram_contents.element.connection.ConnectionElement;
 
-public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
+public class ConnectionBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 
 	@Override
 	protected void showMoveBendpointFeedback(BendpointRequest bendpointrequest) {
-		Relation relation = (Relation) getHost().getModel();
-		RelationEditPart editPart = (RelationEditPart) this.getHost();
+		ConnectionElement connection = (ConnectionElement) getHost().getModel();
+		ConnectionEditPart editPart = (ConnectionEditPart) this.getHost();
 
-		if (relation.getSource() == relation.getTarget()) {
+		if (connection.getSource() == connection.getTarget()) {
 			if (bendpointrequest.getIndex() != 1) {
 				return;
 			}
@@ -52,9 +51,9 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 			rect.width = (int) (bounds.width * rate.getX() / 100);
 			rect.height = (int) (bounds.height * rate.getY() / 100);
 
-			relation.setSourceLocationp(100, (int) (100 * rateY));
+			connection.setSourceLocationp(100, (int) (100 * rateY));
 
-			relation.setTargetLocationp((int) (100 * rateX), 100);
+			connection.setTargetLocationp((int) (100 * rateX), 100);
 
 			LayerManager manager = (LayerManager) tableEditPart.getRoot();
 			IFigure layer = manager.getLayer(LayerConstants.PRIMARY_LAYER);
@@ -95,9 +94,9 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 
 	@Override
 	protected void showCreateBendpointFeedback(BendpointRequest bendpointrequest) {
-		Relation relation = (Relation) getHost().getModel();
+		ConnectionElement connection = (ConnectionElement) getHost().getModel();
 
-		if (relation.getSource() == relation.getTarget()) {
+		if (connection.getSource() == connection.getTarget()) {
 			return;
 		}
 		super.showCreateBendpointFeedback(bendpointrequest);
@@ -111,10 +110,10 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 
 	@Override
 	protected Command getMoveBendpointCommand(BendpointRequest bendpointrequest) {
-		Relation relation = (Relation) getHost().getModel();
-		RelationEditPart editPart = (RelationEditPart) this.getHost();
+		ConnectionElement connection = (ConnectionElement) getHost().getModel();
+		ConnectionEditPart editPart = (ConnectionEditPart) this.getHost();
 
-		if (relation.getSource() == relation.getTarget()) {
+		if (connection.getSource() == connection.getTarget()) {
 			if (bendpointrequest.getIndex() != 1) {
 				return null;
 
@@ -122,7 +121,7 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 				Point point = bendpointrequest.getLocation();
 				Bendpoint rate = this.getRate(point);
 
-				MoveRelationBendpointCommand command = new MoveRelationBendpointCommand(
+				MoveConnectionBendpointCommand command = new MoveConnectionBendpointCommand(
 						editPart, rate.getX(), rate.getY(), bendpointrequest
 								.getIndex());
 
@@ -133,14 +132,14 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 		Point point = bendpointrequest.getLocation();
 		this.getConnection().translateToRelative(point);
 
-		MoveRelationBendpointCommand command = new MoveRelationBendpointCommand(
+		MoveConnectionBendpointCommand command = new MoveConnectionBendpointCommand(
 				editPart, point.x, point.y, bendpointrequest.getIndex());
 
 		return command;
 	}
 
 	private Bendpoint getRate(Point point) {
-		RelationEditPart editPart = (RelationEditPart) this.getHost();
+		ConnectionEditPart editPart = (ConnectionEditPart) this.getHost();
 
 		ERTableEditPart tableEditPart = (ERTableEditPart) editPart.getSource();
 		Rectangle rectangle = tableEditPart.getFigure().getBounds();
@@ -157,7 +156,7 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 	protected void showSelection() {
 		super.showSelection();
 
-		RelationEditPart editPart = (RelationEditPart) this.getHost();
+		ConnectionEditPart editPart = (ConnectionEditPart) this.getHost();
 		editPart.refresh();
 	}
 
@@ -165,15 +164,15 @@ public class RelationBendpointEditPolicy extends ERDiagramBendpointEditPolicy {
 	protected void hideSelection() {
 		super.hideSelection();
 
-		RelationEditPart editPart = (RelationEditPart) this.getHost();
+		ConnectionEditPart editPart = (ConnectionEditPart) this.getHost();
 		editPart.refresh();
 	}
 
 	@Override
 	protected List createSelectionHandles() {
-		Relation relation = (Relation) getHost().getModel();
+		ConnectionElement connection = (ConnectionElement) getHost().getModel();
 
-		if (relation.getSource() == relation.getTarget()) {
+		if (connection.getSource() == connection.getTarget()) {
 			List<BendpointMoveHandle> list = new ArrayList<BendpointMoveHandle>();
 
 			ConnectionEditPart connEP = (ConnectionEditPart) getHost();

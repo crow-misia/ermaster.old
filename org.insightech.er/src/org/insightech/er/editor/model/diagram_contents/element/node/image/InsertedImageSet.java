@@ -20,19 +20,15 @@ public class InsertedImageSet extends AbstractModel implements ObjectListModel,
 		this.insertedImageList = new ArrayList<InsertedImage>();
 	}
 
-	public void add(InsertedImage insertedImage, final boolean fire) {
+	public void add(InsertedImage insertedImage) {
 		this.insertedImageList.add(insertedImage);
-		if (fire) {
-			setDirty();
-		}
+		setDirty();
 	}
 
-	public int remove(InsertedImage insertedImage, final boolean fire) {
+	public int remove(InsertedImage insertedImage) {
 		int index = this.insertedImageList.indexOf(insertedImage);
 		this.insertedImageList.remove(index);
-		if (fire) {
-			setDirty();
-		}
+		setDirty();
 
 		return index;
 	}
