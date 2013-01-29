@@ -490,7 +490,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 		});
 	}
 
-	private void execute(Command command) {
+	protected final void execute(final Command command) {
 		ERDiagramEditor selectedEditor = (ERDiagramEditor) this
 				.getActiveEditor();
 

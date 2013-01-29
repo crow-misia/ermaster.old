@@ -54,7 +54,7 @@ public abstract class AbstractOutlineEditPart extends AbstractTreeEditPart
 
 	abstract protected void refreshOutlineVisuals();
 
-	protected final void executeCommand(Command command) {
+	protected final void execute(final Command command) {
 		this.getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 }

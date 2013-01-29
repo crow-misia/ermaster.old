@@ -89,8 +89,8 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 
 	@Override
 	public void runWithEvent(Event event) {
-		Command command = createCommand(this.getSelectedObjects(), rgb);
-		this.getCommandStack().execute(command);
+		final Command command = createCommand(this.getSelectedObjects(), rgb);
+		this.execute(command);
 	}
 
 	@SuppressWarnings("unchecked")

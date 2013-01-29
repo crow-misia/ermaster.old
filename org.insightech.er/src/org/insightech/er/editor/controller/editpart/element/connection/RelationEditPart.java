@@ -8,8 +8,8 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationBendpointEditPolicy;
@@ -90,19 +90,16 @@ public class RelationEditPart extends ERDiagramConnectionEditPart {
 
 	@Override
 	public void performRequest(Request request) {
-		Relation relation = (Relation) this.getModel();
 
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			Relation copy = relation.copy();
+			final Relation relation = (Relation) this.getModel();
 
-			RelationDialog dialog = new RelationDialog(PlatformUI
-					.getWorkbench().getActiveWorkbenchWindow().getShell(), copy);
+			final Command command = RelationDialog.openDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					relation);
 
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				ChangeRelationPropertyCommand command = new ChangeRelationPropertyCommand(
-						relation, copy);
-				this.getViewer().getEditDomain().getCommandStack().execute(
-						command);
+			if (command != null) {
+				this.execute(command);
 			}
 		}
 

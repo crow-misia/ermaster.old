@@ -45,8 +45,7 @@ public class TriggerOutlineEditPart extends AbstractOutlineEditPart implements
 			if (dialog.open() == IDialogConstants.OK_ID) {
 				EditTriggerCommand command = new EditTriggerCommand(diagram,
 						trigger, dialog.getResult());
-				this.getViewer().getEditDomain().getCommandStack().execute(
-						command);
+				this.execute(command);
 			}
 		}
 

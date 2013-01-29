@@ -9,12 +9,10 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.tools.SelectEditPartTracker;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
 import org.insightech.er.editor.controller.editpart.DeleteableEditPart;
-import org.insightech.er.editor.controller.editpart.element.node.ViewEditPart;
 import org.insightech.er.editor.controller.editpart.outline.AbstractOutlineEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
@@ -40,22 +38,17 @@ public class ViewOutlineEditPart extends AbstractOutlineEditPart implements
 
 	@Override
 	public void performRequest(Request request) {
-		View view = (View) this.getModel();
-		ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
-
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			View copyView = view.copyData();
+			final View view = (View) this.getModel();
+			final ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
 
-			ViewDialog dialog = new ViewDialog(PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getShell(), this.getViewer(),
-					copyView, diagram.getDiagramContents().getGroups());
+			final Command command = ViewDialog.openDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					this.getViewer(), diagram,
+					view, diagram.getDiagramContents().getGroups());
 
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				Command command = ViewEditPart
-						.createChangeViewPropertyCommand(diagram, view,
-								copyView);
-
-				this.executeCommand(command);
+			if (command != null) {
+				this.execute(command);
 			}
 		}
 

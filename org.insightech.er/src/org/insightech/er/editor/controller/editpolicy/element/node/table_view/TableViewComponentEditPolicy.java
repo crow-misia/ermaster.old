@@ -23,11 +23,6 @@ public class TableViewComponentEditPolicy extends
 		NodeElementComponentEditPolicy {
 
 	@Override
-	public void showTargetFeedback(Request request) {
-		super.showTargetFeedback(request);
-	}
-
-	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if (ERDiagramTransferDragSourceListener.REQUEST_TYPE_ADD_COLUMN_GROUP
 				.equals(request.getType())

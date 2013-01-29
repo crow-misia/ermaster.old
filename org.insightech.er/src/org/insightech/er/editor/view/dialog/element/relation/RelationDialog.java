@@ -3,6 +3,8 @@ package org.insightech.er.editor.view.dialog.element.relation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -15,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 import org.insightech.er.ResourceString;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.widgets.CompositeFactory;
+import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -24,7 +27,7 @@ import org.insightech.er.util.Format;
 
 public class RelationDialog extends AbstractDialog {
 
-	private Relation relation;
+	private final Relation relation;
 
 	private Text nameText;
 
@@ -42,10 +45,23 @@ public class RelationDialog extends AbstractDialog {
 
 	private ColumnComboInfo columnComboInfo;
 
-	public RelationDialog(Shell parentShell, Relation relation) {
+	private RelationDialog(Shell parentShell, Relation relation) {
 		super(parentShell, 2);
 
 		this.relation = relation;
+	}
+
+	public static Command openDialog(
+			final Shell parentShell, final Relation relation) {
+		final Relation copy = relation.copy();
+
+		final RelationDialog dialog = new RelationDialog(
+				parentShell, copy);
+
+		if (dialog.open() == IDialogConstants.OK_ID) {
+			return new ChangeRelationPropertyCommand(relation, copy);
+		}
+		return null;
 	}
 
 	@Override

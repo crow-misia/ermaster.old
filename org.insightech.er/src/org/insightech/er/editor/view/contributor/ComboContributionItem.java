@@ -80,7 +80,7 @@ public abstract class ComboContributionItem extends ContributionItem {
 				}
 
 				if (!compoundCommand.getCommands().isEmpty()) {
-					executeCommand(compoundCommand);
+					execute(compoundCommand);
 				}
 			}
 
@@ -109,7 +109,7 @@ public abstract class ComboContributionItem extends ContributionItem {
 
 	abstract protected void setData(Combo combo);
 
-	private void executeCommand(Command command) {
+	protected final void execute(Command command) {
 		ERDiagramMultiPageEditor multiPageEditor = (ERDiagramMultiPageEditor) this.workbenchPage
 				.getActiveEditor();
 		ERDiagramEditor editor = (ERDiagramEditor) multiPageEditor

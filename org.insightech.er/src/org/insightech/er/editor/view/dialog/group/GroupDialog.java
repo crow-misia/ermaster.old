@@ -32,7 +32,7 @@ public class GroupDialog extends AbstractDialog implements
 
 	private ERDiagram diagram;
 
-	public GroupDialog(Shell parentShell, GroupSet columnGroups,
+	private GroupDialog(Shell parentShell, GroupSet columnGroups,
 			ERDiagram diagram, int editTargetIndex) {
 		super(parentShell, 2);
 
@@ -70,7 +70,7 @@ public class GroupDialog extends AbstractDialog implements
 	}
 
 	@Override
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ "unchecked", "unused" })
 	protected void initialize(Composite composite) {
 		this.groupNameText = CompositeFactory.createText(this, composite,
 				"label.group.name", 1, 200, true);

@@ -42,7 +42,7 @@ public class GroupOutlineEditPart extends AbstractOutlineEditPart implements
 					.getActiveWorkbenchWindow().getShell(), columnGroup, diagram);
 
 			if (command != null) {
-				this.executeCommand(command);
+				this.execute(command);
 			}
 		}
 

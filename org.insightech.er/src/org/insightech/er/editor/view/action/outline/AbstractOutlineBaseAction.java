@@ -35,7 +35,7 @@ public abstract class AbstractOutlineBaseAction extends Action {
 		}
 	}
 
-	protected void execute(Command command) {
+	protected final void execute(final Command command) {
 		this.treeViewer.getEditDomain().getCommandStack().execute(command);
 	}
 

@@ -158,7 +158,7 @@ public class WordOutlineEditPart extends AbstractOutlineEditPart {
 			if (dialog.open() == IDialogConstants.OK_ID) {
 				EditWordCommand command = new EditWordCommand(word, dialog
 						.getWord(), diagram);
-				this.executeCommand(command);
+				this.execute(command);
 			}
 		}
 

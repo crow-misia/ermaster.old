@@ -152,7 +152,7 @@ public class InsertedImageEditPart extends NodeElementEditPart implements
 					diagram, insertedImage, dialog.getNewInsertedImage(),
 					oldInsertedImage);
 
-			this.executeCommand(command);
+			this.execute(command);
 
 		} else {
 			ChangeInsertedImagePropertyCommand command = new ChangeInsertedImagePropertyCommand(

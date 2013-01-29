@@ -44,7 +44,7 @@ public abstract class AbstractModelEditPart extends AbstractGraphicalEditPart
 		return this.getDiagram().getCurrentCategory();
 	}
 
-	protected final void executeCommand(Command command) {
+	protected final void execute(final Command command) {
 		this.getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 

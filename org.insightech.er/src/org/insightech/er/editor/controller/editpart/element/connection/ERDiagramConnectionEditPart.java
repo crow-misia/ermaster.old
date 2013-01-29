@@ -14,6 +14,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.insightech.er.Activator;
 import org.insightech.er.editor.controller.editpart.element.node.NodeElementEditPart;
@@ -69,6 +70,10 @@ public abstract class ERDiagramConnectionEditPart extends
 		} catch (Exception e) {
 			Activator.showExceptionDialog(e);
 		}
+	}
+
+	protected final void execute(final Command command) {
+		this.getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 
 	protected ERDiagram getDiagram() {

@@ -78,8 +78,7 @@ public class MovablePanningSelectionTool extends PanningSelectionTool {
 				}
 			}
 
-			this.getCurrentViewer().getEditDomain().getCommandStack().execute(
-					command.unwrap());
+			this.executeCommand(command.unwrap());
 		}
 
 		return super.handleKeyDown(event);

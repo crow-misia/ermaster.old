@@ -54,7 +54,7 @@ public abstract class AbstractBaseSelectionAction extends SelectionAction {
 	}
 
 	@Override
-	protected void execute(Command command) {
+	protected final void execute(Command command) {
 		this.editor.getGraphicalViewer().getEditDomain().getCommandStack()
 				.execute(command);
 	}

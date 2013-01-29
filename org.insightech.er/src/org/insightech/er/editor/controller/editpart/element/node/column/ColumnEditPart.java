@@ -87,7 +87,7 @@ public abstract class ColumnEditPart extends AbstractModelEditPart {
 		}
 
 		if (command != null) {
-			this.executeCommand(command);
+			this.execute(command);
 			setSelected(getSelected());
 		}
 	}

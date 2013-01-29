@@ -9,14 +9,12 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.tools.SelectEditPartTracker;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
 import org.insightech.er.editor.controller.editpart.DeleteableEditPart;
-import org.insightech.er.editor.controller.editpart.element.node.ERTableEditPart;
 import org.insightech.er.editor.controller.editpart.outline.AbstractOutlineEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.AbstractModel;
@@ -134,22 +132,17 @@ public class TableOutlineEditPart extends AbstractOutlineEditPart implements
 
 	@Override
 	public void performRequest(Request request) {
-		ERTable table = (ERTable) this.getModel();
-		ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
-
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			ERTable copyTable = table.copyData();
+			final ERTable table = (ERTable) this.getModel();
+			final ERDiagram diagram = (ERDiagram) this.getRoot().getContents().getModel();
 
-			TableDialog dialog = new TableDialog(PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getShell(), this.getViewer(),
-					copyTable, diagram.getDiagramContents().getGroups());
+			final Command command = TableDialog.openDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					this.getViewer(), diagram,
+					table, diagram.getDiagramContents().getGroups());
 
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				CompoundCommand command = ERTableEditPart
-						.createChangeTablePropertyCommand(diagram, table,
-								copyTable);
-
-				this.executeCommand(command.unwrap());
+			if (command != null) {
+				this.execute(command);
 			}
 		}
 

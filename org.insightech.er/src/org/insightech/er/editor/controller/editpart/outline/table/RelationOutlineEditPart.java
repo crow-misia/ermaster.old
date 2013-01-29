@@ -6,12 +6,11 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.tools.SelectEditPartTracker;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
-import org.insightech.er.editor.controller.command.diagram_contents.element.connection.relation.ChangeRelationPropertyCommand;
 import org.insightech.er.editor.controller.editpart.outline.AbstractOutlineEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.connection.RelationEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
@@ -81,18 +80,15 @@ public class RelationOutlineEditPart extends AbstractOutlineEditPart {
 
 	@Override
 	public void performRequest(Request request) {
-		Relation relation = (Relation) this.getModel();
-
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			Relation copy = relation.copy();
+			final Relation relation = (Relation) this.getModel();
 
-			RelationDialog dialog = new RelationDialog(PlatformUI
-					.getWorkbench().getActiveWorkbenchWindow().getShell(), copy);
+			final Command command = RelationDialog.openDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					relation);
 
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				ChangeRelationPropertyCommand command = new ChangeRelationPropertyCommand(
-						relation, copy);
-				this.executeCommand(command);
+			if (command != null) {
+				this.execute(command);
 			}
 		}
 

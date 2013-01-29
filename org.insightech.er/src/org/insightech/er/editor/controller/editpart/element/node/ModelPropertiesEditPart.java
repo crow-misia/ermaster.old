@@ -89,7 +89,7 @@ public class ModelPropertiesEditPart extends NodeElementEditPart implements
 			ChangeModelPropertiesCommand command = new ChangeModelPropertiesCommand(
 					diagram, copyModelProperties);
 
-			this.executeCommand(command);
+			this.execute(command);
 		}
 	}
 

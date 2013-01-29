@@ -81,7 +81,7 @@ public abstract class AbstractBaseAction extends Action {
 
 	abstract public void execute(Event event) throws Exception;
 
-	protected void execute(Command command) {
+	protected final void execute(final Command command) {
 		this.editor.getGraphicalViewer().getEditDomain().getCommandStack()
 				.execute(command);
 	}
