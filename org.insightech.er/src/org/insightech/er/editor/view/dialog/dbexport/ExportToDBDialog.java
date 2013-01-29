@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.widgets.Composite;
@@ -18,7 +19,6 @@ import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.db.ExportToDBManager;
 import org.insightech.er.editor.model.settings.DBSetting;
-import org.insightech.er.util.Check;
 
 public class ExportToDBDialog extends AbstractDialog {
 
@@ -65,7 +65,7 @@ public class ExportToDBDialog extends AbstractDialog {
 	@Override
 	protected void perfomeOK() throws InputException {
 		String executeDDL = this.textArea.getSelectionText();
-		if (Check.isEmpty(executeDDL)) {
+		if (StringUtils.isEmpty(executeDDL)) {
 			executeDDL = this.textArea.getText();
 		}
 

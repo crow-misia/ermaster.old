@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.common;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -25,7 +26,6 @@ import org.insightech.er.db.impl.standard_sql.StandardSQLDBManager;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.settings.DBSetting;
 import org.insightech.er.preference.PreferenceInitializer;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public abstract class AbstractDBSettingDialog extends AbstractDialog {
@@ -172,7 +172,7 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 
 		String database = this.getDBSName();
 
-		if (!Check.isEmpty(database)) {
+		if (StringUtils.isNotEmpty(database)) {
 			if (!this.useDefaultDriverButton.getSelection()) {
 				if (isBlank(this.url)) {
 					return "error.url.is.empty";
@@ -255,7 +255,7 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 			this.driverClassName.setText(Format.null2blank(this.dbSetting
 					.getDriverClassName()));
 
-			if (!Check.isEmpty(database)
+			if (StringUtils.isNotEmpty(database)
 					&& this.useDefaultDriverButton.getSelection()) {
 				DBManager manager = DBManagerFactory.getDBManager(this
 						.getDBSName());
@@ -286,7 +286,7 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 	private void enableUseDefaultDriver() {
 		String database = this.getDBSName();
 
-		if (!Check.isEmpty(database)) {
+		if (StringUtils.isNotEmpty(database)) {
 			DBManager dbManager = DBManagerFactory.getDBManager(database);
 
 			if (StandardSQLDBManager.ID.equals(dbManager.getId())) {

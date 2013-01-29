@@ -2,6 +2,7 @@ package org.insightech.er.preference.jdbc;
 
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
@@ -17,7 +18,6 @@ import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.settings.JDBCDriverSetting;
 import org.insightech.er.preference.MultiFileFieldEditor;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public class JDBCPathDialog extends AbstractDialog {
@@ -117,14 +117,14 @@ public class JDBCPathDialog extends AbstractDialog {
 		if (this.databaseCombo != null) {
 			selectedDatabase = this.databaseCombo.getText();
 
-			if (Check.isEmpty(selectedDatabase)) {
+			if (StringUtils.isBlank(selectedDatabase)) {
 				return "error.database.name.is.empty";
 			}
 		}
 
 		String text = this.driverClassNameText.getText();
 
-		if (Check.isEmpty(text)) {
+		if (StringUtils.isBlank(text)) {
 			return "error.driver.class.name.is.empty";
 
 		} else {

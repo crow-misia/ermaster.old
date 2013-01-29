@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.word;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -363,14 +364,14 @@ public abstract class AbstractWordDialog extends AbstractDialog {
 			}
 		}
 
-		String logicalName = this.logicalNameText.getText().trim();
-		if (Check.isEmpty(text) && Check.isEmpty(logicalName)) {
+		String logicalName = this.logicalNameText.getText();
+		if (StringUtils.isEmpty(text) && StringUtils.isBlank(logicalName)) {
 			return "error.column.name.empty";
 		}
 
 		text = lengthText.getText();
 
-		if (!text.equals("")) {
+		if (StringUtils.isNotEmpty(text)) {
 			try {
 				int len = Integer.parseInt(text);
 				if (len < 0) {

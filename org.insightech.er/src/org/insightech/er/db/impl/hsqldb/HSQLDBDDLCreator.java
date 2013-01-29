@@ -5,7 +5,6 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.dbexport.ddl.DDLCreator;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
-import org.insightech.er.util.Check;
 
 public class HSQLDBDDLCreator extends DDLCreator {
 
@@ -23,7 +22,7 @@ public class HSQLDBDDLCreator extends DDLCreator {
 		StringBuilder ddl = new StringBuilder();
 
 		String description = sequence.getDescription();
-		if (this.semicolon && !Check.isEmpty(description)
+		if (this.semicolon && StringUtils.isNotBlank(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
 			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
@@ -34,7 +33,7 @@ public class HSQLDBDDLCreator extends DDLCreator {
 		ddl.append("SEQUENCE ");
 		ddl.append(filter(this.getNameWithSchema(sequence.getSchema(), sequence
 				.getName())));
-		if (!Check.isEmpty(sequence.getDataType())) {
+		if (StringUtils.isNotBlank(sequence.getDataType())) {
 			ddl.append(" AS ");
 			String dataType = sequence.getDataType();
 			ddl.append(dataType);
@@ -59,7 +58,7 @@ public class HSQLDBDDLCreator extends DDLCreator {
 			ddl.append(" CYCLE");
 		}
 		if (this.semicolon) {
-			ddl.append(";");
+			ddl.append(';');
 		}
 
 		return ddl.toString();

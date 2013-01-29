@@ -12,7 +12,7 @@ import java.io.Writer;
 
 public final class IOUtils {
 
-	public static void closeQuietly(Closeable s) {
+	public static void closeQuietly(final Closeable s) {
 		if (s != null) {
 			try {
 				s.close();

@@ -12,7 +12,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.column
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public class H2DDLCreator extends DDLCreator {
@@ -31,7 +30,7 @@ public class H2DDLCreator extends DDLCreator {
 		StringBuilder ddl = new StringBuilder();
 
 		String description = sequence.getDescription();
-		if (this.semicolon && !Check.isEmpty(description)
+		if (this.semicolon && StringUtils.isNotBlank(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
 			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
@@ -42,7 +41,7 @@ public class H2DDLCreator extends DDLCreator {
 		ddl.append("SEQUENCE ");
 		ddl.append(filter(this.getNameWithSchema(sequence.getSchema(), sequence
 				.getName())));
-		if (!Check.isEmpty(sequence.getDataType())) {
+		if (StringUtils.isNotBlank(sequence.getDataType())) {
 			ddl.append(" AS ");
 			String dataType = sequence.getDataType();
 			ddl.append(dataType);
@@ -72,7 +71,7 @@ public class H2DDLCreator extends DDLCreator {
 		StringBuilder ddl = new StringBuilder();
 
 		String description = index.getDescription();
-		if (this.semicolon && !Check.isEmpty(description)
+		if (this.semicolon && StringUtils.isNotBlank(description)
 				&& this.ddlTarget.inlineTableComment) {
 			ddl.append("-- ");
 			ddl.append(StringUtils.replace(description, "\n", "\n-- "));
@@ -134,7 +133,7 @@ public class H2DDLCreator extends DDLCreator {
 		StringBuilder ddl = new StringBuilder();
 
 		String description = normalColumn.getDescription();
-		if (this.semicolon && !Check.isEmpty(description)
+		if (this.semicolon && StringUtils.isNotEmpty(description)
 				&& this.ddlTarget.inlineColumnComment) {
 			ddl.append("\t-- ");
 			ddl.append(StringUtils.replace(description, "\n", "\n\t-- "));
@@ -148,7 +147,7 @@ public class H2DDLCreator extends DDLCreator {
 		ddl.append(filter(Format.formatType(normalColumn.getType(),
 				normalColumn.getTypeData(), dbManager)));
 
-		if (!Check.isEmpty(normalColumn.getDefaultValue())) {
+		if (StringUtils.isNotEmpty(normalColumn.getDefaultValue())) {
 			String defaultValue = normalColumn.getDefaultValue();
 			if (ResourceString.getResourceString("label.current.date.time")
 					.equals(defaultValue)) {
@@ -189,7 +188,7 @@ public class H2DDLCreator extends DDLCreator {
 			String comment = this.filterComment(normalColumn.getLogicalName(),
 					normalColumn.getDescription(), true);
 
-			if (!Check.isEmpty(comment)) {
+			if (StringUtils.isNotEmpty(comment)) {
 				ddl.append(" COMMENT '");
 				ddl.append(StringUtils.replace(comment, "'", "''"));
 				ddl.append("'");

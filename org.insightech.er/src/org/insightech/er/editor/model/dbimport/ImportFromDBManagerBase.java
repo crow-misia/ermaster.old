@@ -47,7 +47,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequ
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.settings.DBSetting;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
@@ -750,10 +749,10 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 					.equalsIgnoreCase(autoIncrementColumnName);
 
 			String logicalName = null;
-			if (this.useCommentAsLogicalName && !Check.isEmpty(description)) {
-				logicalName = description.replaceAll("[\r\n]", "");
+			if (this.useCommentAsLogicalName && StringUtils.isNotEmpty(description)) {
+				logicalName = StringUtils.replaceChars(description, "\r\n", "");
 			}
-			if (Check.isEmpty(logicalName)) {
+			if (StringUtils.isEmpty(logicalName)) {
 				logicalName = this.translationResources.translate(columnName);
 			}
 

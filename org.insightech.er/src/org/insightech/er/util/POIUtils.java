@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -18,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.insightech.er.util.io.IOUtils;
 
 public class POIUtils {
 
@@ -127,6 +129,10 @@ public class POIUtils {
 	}
 
 	public static CellLocation findCell(HSSFSheet sheet, String str, int colNum) {
+		if (str == null) {
+			return null;
+		}
+		
 		final int lastRow = sheet.getLastRowNum();
 		for (int rowNum = sheet.getFirstRowNum(); rowNum <= lastRow; rowNum++) {
 			HSSFRow row = sheet.getRow(rowNum);
@@ -141,10 +147,8 @@ public class POIUtils {
 			}
 			HSSFRichTextString cellValue = cell.getRichStringCellValue();
 
-			if (!Check.isEmpty(cellValue.getString())) {
-				if (cellValue.getString().equals(str)) {
-					return new CellLocation(rowNum, (short) colNum);
-				}
+			if (StringUtils.equals(cellValue.getString(), str)) {
+				return new CellLocation(rowNum, (short) colNum);
 			}
 		}
 
@@ -274,9 +278,7 @@ public class POIUtils {
 			return new HSSFWorkbook(bis);
 
 		} finally {
-			if (bis != null) {
-				bis.close();
-			}
+			IOUtils.closeQuietly(bis);
 		}
 	}
 

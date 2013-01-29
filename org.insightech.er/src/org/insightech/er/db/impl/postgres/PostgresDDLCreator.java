@@ -17,7 +17,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnG
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
-import org.insightech.er.util.Check;
 
 public class PostgresDDLCreator extends DDLCreator {
 
@@ -60,7 +59,7 @@ public class PostgresDDLCreator extends DDLCreator {
 		String tableComment = this.filterComment(table.getLogicalName(), table
 				.getDescription(), false);
 
-		if (!Check.isEmpty(tableComment)) {
+		if (StringUtils.isNotBlank(tableComment)) {
 			StringBuilder ddl = new StringBuilder();
 
 			ddl.append("COMMENT ON TABLE ");
@@ -83,7 +82,7 @@ public class PostgresDDLCreator extends DDLCreator {
 				String comment = this.filterComment(normalColumn
 						.getLogicalName(), normalColumn.getDescription(), true);
 
-				if (!Check.isEmpty(comment)) {
+				if (StringUtils.isNotBlank(comment)) {
 					StringBuilder ddl = new StringBuilder();
 
 					ddl.append("COMMENT ON COLUMN ");
@@ -109,7 +108,7 @@ public class PostgresDDLCreator extends DDLCreator {
 							.getLogicalName(), normalColumn.getDescription(),
 							true);
 
-					if (!Check.isEmpty(comment)) {
+					if (StringUtils.isNotBlank(comment)) {
 						StringBuilder ddl = new StringBuilder();
 
 						ddl.append("COMMENT ON COLUMN ");
@@ -144,7 +143,7 @@ public class PostgresDDLCreator extends DDLCreator {
 		ddl.append(filter(tablespace.getName()));
 		ddl.append("\r\n");
 
-		if (!Check.isEmpty(tablespaceProperties.getOwner())) {
+		if (StringUtils.isNotEmpty(tablespaceProperties.getOwner())) {
 			ddl.append(" OWNER ");
 			ddl.append(tablespaceProperties.getOwner());
 			ddl.append("\r\n");
@@ -220,7 +219,7 @@ public class PostgresDDLCreator extends DDLCreator {
 								.getType().getId())) {
 					String autoIncrementSettingDDL = getAutoIncrementSettingDDL(
 							table, column);
-					if (!Check.isEmpty(autoIncrementSettingDDL)) {
+					if (StringUtils.isNotEmpty(autoIncrementSettingDDL)) {
 						ddl.append(autoIncrementSettingDDL);
 						ddl.append("\r\n");
 						first = false;

@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.insightech.er.Activator;
 import org.insightech.er.db.DBManagerBase;
@@ -44,7 +45,6 @@ import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequ
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.TriggerSet;
-import org.insightech.er.util.Check;
 
 public class OracleDBManager extends DBManagerBase {
 
@@ -185,7 +185,7 @@ public class OracleDBManager extends DBManagerBase {
         if (autoIncrementColumn != null) {
             String columnName = autoIncrementColumn.getPhysicalName();
 
-            if (!Check.isEmpty(columnName)) {
+            if (StringUtils.isNotEmpty(columnName)) {
                 String triggerName = "TRI_" + tableName + "_" + columnName;
                 String sequenceName = "SEQ_" + tableName + "_" + columnName;
 
@@ -241,7 +241,7 @@ public class OracleDBManager extends DBManagerBase {
                 String columnName = oldAutoIncrementColumn
                         .getPhysicalName();
 
-                if (!Check.isEmpty(columnName)) {
+                if (StringUtils.isNotEmpty(columnName)) {
                     String triggerName = "TRI_" + oldTableName + "_"
                             + columnName;
                     String sequenceName = "SEQ_" + oldTableName + "_"

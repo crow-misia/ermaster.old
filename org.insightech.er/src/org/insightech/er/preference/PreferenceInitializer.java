@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -19,7 +20,6 @@ import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.impl.standard_sql.StandardSQLDBManager;
 import org.insightech.er.editor.model.settings.DBSetting;
 import org.insightech.er.editor.model.settings.JDBCDriverSetting;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
@@ -330,7 +330,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		String values = preferenceStore
 				.getString(PreferenceInitializer.TRANSLATION_FILE_LIST);
 
-		if (Check.isEmpty(values)) {
+		if (StringUtils.isEmpty(values)) {
 			values = value;
 		} else {
 			values = values + FileListEditor.VALUE_SEPARATOR + value;

@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.element;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.FocusAdapter;
@@ -23,7 +24,6 @@ import org.eclipse.swt.widgets.Text;
 import org.insightech.er.ResourceString;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.editor.model.diagram_contents.element.node.model_properties.ModelProperties;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 import org.insightech.er.util.NameValue;
 
@@ -287,15 +287,17 @@ public class ModelPropertiesDialog extends AbstractDialog {
 	protected void perfomeOK() {
 		this.modelProperties.clear();
 
-		for (int i = 0; i < this.table.getItemCount(); i++) {
+		for (int i = 0, n = this.table.getItemCount(); i < n; i++) {
 			TableItem item = this.table.getItem(i);
 
-			if (Check.isEmpty(item.getText(0))
-					&& Check.isEmpty(item.getText(1))) {
+			final String text0 = item.getText(0);
+			final String text1 = item.getText(1);
+			if (StringUtils.isEmpty(text0)
+					&& StringUtils.isEmpty(text1)) {
 				continue;
 			}
 
-			NameValue property = new NameValue(item.getText(0), item.getText(1));
+			NameValue property = new NameValue(text0, text1);
 			this.modelProperties.addProperty(property);
 		}
 	}

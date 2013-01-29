@@ -2,24 +2,25 @@ package org.insightech.er.util;
 
 public class Check {
 
-	public static boolean isAlphabet(String str) {
-		char[] ch = str.toCharArray();
+	public static boolean isAlphabet(final String str) {
+		final char[] ch = str.toCharArray();
 		final int n = ch.length;
 
 		for (int i = 0; i < n; i++) {
-			if (ch[i] < '0' || 'z' < ch[i]) {
+			final char c = ch[i];
+			if (c < '0' || 'z' < c) {
 				return false;
 			}
 
-			if ('9' < ch[i] && ch[i] < 'A') {
+			if ('9' < c && c < 'A') {
 				return false;
 			}
 
-			if ('z' < ch[i] && ch[i] < '_') {
+			if ('z' < c && c < '_') {
 				return false;
 			}
 
-			if ('_' < ch[i] && ch[i] < 'a') {
+			if ('_' < c && c < 'a') {
 				return false;
 			}
 		}
@@ -27,7 +28,7 @@ public class Check {
 		return true;
 	}
 
-	public static boolean equals(Object str1, Object str2) {
+	public static boolean equals(final Object str1, final Object str2) {
 		if (str1 == null) {
 			if (str2 == null) {
 				return true;
@@ -37,19 +38,5 @@ public class Check {
 		}
 
 		return str1.equals(str2);
-	}
-
-	public static boolean isEmpty(String str) {
-		if (str == null || str.equals("")) {
-			return true;
-		}
-		return false;
-	}
-
-	public static boolean isEmptyTrim(String str) {
-		if (str == null || str.trim().equals("")) {
-			return true;
-		}
-		return false;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
@@ -325,7 +326,7 @@ public class IndexDialog extends AbstractDialog {
 			this.descriptionText.setText(Format.null2blank(this.targetIndex
 					.getDescription()));
 
-			if (this.typeCombo != null && !Check.isEmpty(this.targetIndex.getType())) {
+			if (this.typeCombo != null && StringUtils.isNotEmpty(this.targetIndex.getType())) {
 				boolean selected = false;
 
 				for (int i = 0, n = this.typeCombo.getItemCount(); i < n; i++) {

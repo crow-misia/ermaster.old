@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.insightech.er.db.sqltype.SqlType.TypeKey;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.POIUtils;
 import org.insightech.er.util.io.IOUtils;
 
@@ -47,7 +47,7 @@ public final class SqlTypeFactory {
 				HSSFRow row = sheet.getRow(rowNum);
 
 				String sqlTypeId = POIUtils.getCellValue(sheet, rowNum, 0);
-				if (Check.isEmpty(sqlTypeId)) {
+				if (StringUtils.isEmpty(sqlTypeId)) {
 					break;
 				}
 				Class javaClass = Class.forName(POIUtils.getCellValue(sheet,
@@ -64,11 +64,11 @@ public final class SqlTypeFactory {
 
 					String dbId = POIUtils.getCellValue(sheet, 0, colNum);
 
-					if (Check.isEmpty(dbId)) {
+					if (StringUtils.isEmpty(dbId)) {
 						dbId = POIUtils.getCellValue(sheet, 0, colNum - 1);
 						String key = POIUtils.getCellValue(sheet, rowNum,
 								colNum);
-						if (!Check.isEmpty(key)) {
+						if (StringUtils.isNotEmpty(key)) {
 							sqlType.addToSqlTypeMap(key, dbId);
 						}
 
@@ -79,7 +79,7 @@ public final class SqlTypeFactory {
 							String alias = POIUtils.getCellValue(sheet, rowNum,
 									colNum);
 
-							if (Check.isEmpty(alias)) {
+							if (StringUtils.isEmpty(alias)) {
 								alias = sqlTypeId;
 							}
 

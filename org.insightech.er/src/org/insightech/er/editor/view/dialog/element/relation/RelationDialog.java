@@ -3,6 +3,7 @@ package org.insightech.er.editor.view.dialog.element.relation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -301,13 +302,13 @@ public class RelationDialog extends AbstractDialog {
 		if (this.relation.getOnDeleteAction() != null) {
 			this.onDeleteCombo.setText(this.relation.getOnDeleteAction());
 		}
-		if (!Check.isEmpty(this.relation.getParentCardinality())) {
+		if (StringUtils.isNotEmpty(this.relation.getParentCardinality())) {
 			this.parentCardinalityCombo.setText(this.relation
 					.getParentCardinality());
 		} else {
 			this.parentCardinalityCombo.select(0);
 		}
-		if (!Check.isEmpty(this.relation.getChildCardinality())) {
+		if (StringUtils.isNotEmpty(this.relation.getChildCardinality())) {
 			this.childCardinalityCombo.setText(this.relation
 					.getChildCardinality());
 		} else {

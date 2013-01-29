@@ -17,7 +17,6 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.settings.export.ExportJavaSetting;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 import org.insightech.er.util.io.FileUtils;
 import org.insightech.er.util.io.IOUtils;
@@ -384,7 +383,7 @@ public class ExportToJavaManager {
 
 	private String replaceClassInfo(String content, String classDescription,
 			String className, String classNameSufix) {
-		if (Check.isEmptyTrim(this.exportJavaSetting.getPackageName())) {
+		if (StringUtils.isBlank(this.exportJavaSetting.getPackageName())) {
 			content = StringUtils.replace(content, "package @package;\r\n\r\n", "");
 
 		} else {
@@ -402,7 +401,7 @@ public class ExportToJavaManager {
 	}
 
 	private String replaceExtendInfo(String content) throws IOException {
-		if (Check.isEmpty(this.exportJavaSetting.getExtendsClass())) {
+		if (StringUtils.isEmpty(this.exportJavaSetting.getExtendsClass())) {
 			content = StringUtils.replace(content, "@import extends\r\n", "");
 			content = StringUtils.replace(content, "@extends ", "");
 

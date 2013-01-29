@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.mysql;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
@@ -11,7 +12,6 @@ import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.view.dialog.element.table.tab.AdvancedComposite;
-import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
 public class MySQLAdvancedComposite extends AdvancedComposite {
@@ -128,7 +128,7 @@ public class MySQLAdvancedComposite extends AdvancedComposite {
 		Integer length = null;
 
 		try {
-			if (!Check.isEmptyTrim(str)) {
+			if (StringUtils.isNotBlank(str)) {
 				length = Integer.valueOf(str);
 			}
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ package org.insightech.er.editor.view.dialog.element.table;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -27,7 +28,6 @@ import org.insightech.er.editor.view.dialog.element.table.tab.ComplexUniqueKeyTa
 import org.insightech.er.editor.view.dialog.element.table.tab.ConstraintTabWrapper;
 import org.insightech.er.editor.view.dialog.element.table.tab.DescriptionTabWrapper;
 import org.insightech.er.editor.view.dialog.element.table.tab.IndexTabWrapper;
-import org.insightech.er.util.Check;
 
 public class TableDialog extends AbstractDialog {
 
@@ -73,8 +73,8 @@ public class TableDialog extends AbstractDialog {
 
 		String tableName = copyTable.getPhysicalName();
 
-		if (!Check.isEmpty(tableName)) {
-		    diagram.getDBManager().createAutoIncrement(diagram, table, copyTable, command, tableName);
+		if (StringUtils.isNotEmpty(tableName)) {
+			diagram.getDBManager().createAutoIncrement(diagram, table, copyTable, command, tableName);
 		}
 
 		return command.unwrap();

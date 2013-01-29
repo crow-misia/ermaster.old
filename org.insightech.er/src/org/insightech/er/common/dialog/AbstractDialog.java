@@ -1,5 +1,6 @@
 package org.insightech.er.common.dialog;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -18,7 +19,6 @@ import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
 import org.insightech.er.common.exception.InputException;
 import org.insightech.er.common.widgets.CompositeFactory;
-import org.insightech.er.util.Check;
 
 public abstract class AbstractDialog extends Dialog {
 
@@ -111,7 +111,7 @@ public abstract class AbstractDialog extends Dialog {
 
 	protected static Integer getIntegerValue(Text text) {
 		String value = text.getText();
-		if (Check.isEmpty(value)) {
+		if (StringUtils.isBlank(value)) {
 			return null;
 		}
 
@@ -179,11 +179,7 @@ public abstract class AbstractDialog extends Dialog {
 	}
 
 	protected static boolean isBlank(Combo combo) {
-		if (combo.getText().trim().length() == 0) {
-			return true;
-		}
-
-		return false;
+		return StringUtils.isBlank(combo.getText());
 	}
 
 	protected void enabledButton(boolean enabled) {

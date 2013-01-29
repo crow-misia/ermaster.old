@@ -99,17 +99,19 @@ public final class FileUtils {
 		if (destFile.exists() && destFile.isDirectory())
 			throw new IOException("Destination '" + destFile
 					+ "' exists but is a directory");
-		FileInputStream input = new FileInputStream(srcFile);
+		FileOutputStream output = null;
+		FileInputStream input = null;
 		try {
-			FileOutputStream output = new FileOutputStream(destFile);
-			try {
-				IOUtils.copy(input, output);
-			} finally {
-				IOUtils.closeQuietly(output);
-			}
+			input = new FileInputStream(srcFile);
+			output = new FileOutputStream(destFile);
+
+			IOUtils.copy(input, output);
+
 		} finally {
 			IOUtils.closeQuietly(input);
+			IOUtils.closeQuietly(output);
 		}
+
 		if (srcFile.length() != destFile.length())
 			throw new IOException("Failed to copy full contents from '"
 					+ srcFile + "' to '" + destFile + "'");
@@ -121,8 +123,7 @@ public final class FileUtils {
 		java.io.InputStream in = null;
 		try {
 			in = new FileInputStream(file);
-			byte abyte0[] = IOUtils.toByteArray(in);
-			return abyte0;
+			return IOUtils.toByteArray(in);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}

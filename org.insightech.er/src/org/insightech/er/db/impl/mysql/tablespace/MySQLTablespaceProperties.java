@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
-import org.insightech.er.util.Check;
 
 public class MySQLTablespaceProperties implements TablespaceProperties {
 
@@ -144,13 +144,13 @@ public class MySQLTablespaceProperties implements TablespaceProperties {
 	public List<String> validate() {
 		List<String> errorMessage = new ArrayList<String>();
 
-		if (Check.isEmptyTrim(this.getDataFile())) {
+		if (StringUtils.isBlank(this.getDataFile())) {
 			errorMessage.add("error.tablespace.data.file.empty");
 		}
-		if (Check.isEmptyTrim(this.getLogFileGroup())) {
+		if (StringUtils.isBlank(this.getLogFileGroup())) {
 			errorMessage.add("error.tablespace.log.file.group.empty");
 		}
-		if (Check.isEmptyTrim(this.getEngine())) {
+		if (StringUtils.isBlank(this.getEngine())) {
 			errorMessage.add("error.tablespace.storage.engine.empty");
 		}
 
