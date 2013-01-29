@@ -141,15 +141,14 @@ public class ERDiagramConnection extends PolylineConnection {
 					p2 = nextPoint;
 				}
 
-				for (double t = 0.0; t <= 1.0; t = t + DELTA) {
-					Point point = new Point();
-
-					point.x = (int) (p0.x * (1 - t) * (1 - t) + 2 * p1.x * t
-							* (1 - t) + p2.x * t * t);
-
-					point.y = (int) (p0.y * (1 - t) * (1 - t) + 2 * p1.y * t
-							* (1 - t) + p2.y * t * t);
-
+				for (double t = 0.0; t < 1.0; t += DELTA) {
+					final double c = 1.0 - t;
+					
+					final Point point = new Point();
+					
+					point.x = (int) (c * c * p0.x + 2 * t * c * p1.x + t * t * p2.x);
+					point.y = (int) (c * c * p0.y + 2 * t * c * p1.y + t * t * p2.y);
+					
 					pointList.addPoint(point);
 				}
 
