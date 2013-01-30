@@ -18,6 +18,7 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.node
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
+import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.image.InsertedImage;
 import org.insightech.er.editor.view.dialog.element.InsertedImageDialog;
 import org.insightech.er.editor.view.figure.InsertedImageFigure;
@@ -39,8 +40,7 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 		this.imageData = new ImageData(in);
 		this.changeImage();
 
-		InsertedImageFigure figure = new InsertedImageFigure(this.image, model
-				.isFixAspectRatio(), model.getAlpha());
+		InsertedImageFigure figure = new InsertedImageFigure(this.image, model.getAlpha());
 		figure.setMinimumSize(new Dimension(1, 1));
 
 		return figure;
@@ -73,11 +73,15 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 		if (event.getPropertyName().equals(InsertedImage.PROPERTY_CHANGE_IMAGE)) {
 			changeImage();
 
-			InsertedImageFigure figure = (InsertedImageFigure) this.getFigure();
-			InsertedImage model = (InsertedImage) this.getModel();
+			final InsertedImageFigure figure = (InsertedImageFigure) this.getFigure();
+			final InsertedImage model = (InsertedImage) this.getModel();
 
-			figure.setImg(this.image, model.isFixAspectRatio(), model
-					.getAlpha());
+			// 縦横比率固定の場合、要素のサイズを調整する
+			if (model.isFixAspectRatio()) {
+				model.setLocation(new Location(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
+				figure.setSize(model.getWidth(), model.getHeight());
+			}
+			figure.setImg(this.image, model.getAlpha());
 
 			refreshVisuals();
 
