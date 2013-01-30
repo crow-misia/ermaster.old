@@ -10,6 +10,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -17,8 +18,6 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.node
 import org.insightech.er.editor.controller.editpart.element.ERDiagramEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.NodeElementComponentEditPolicy;
 import org.insightech.er.editor.model.ERDiagram;
-import org.insightech.er.editor.model.diagram_contents.element.node.Location;
-import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
 import org.insightech.er.editor.model.diagram_contents.element.node.image.InsertedImage;
 import org.insightech.er.editor.view.dialog.element.InsertedImageDialog;
 import org.insightech.er.editor.view.figure.InsertedImageFigure;
@@ -54,12 +53,11 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 		super.disposeFont();
 	}
 
-	protected void disposeImage() {
+	private void disposeImage() {
 		if (this.image != null && !this.image.isDisposed()) {
 			this.image.dispose();
 			this.image = null;
 		}
-		super.disposeFont();
 	}
 
 	@Override
@@ -92,9 +90,9 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 	}
 
 	private void changeImage() {
-		InsertedImage model = (InsertedImage) this.getModel();
+		final InsertedImage model = (InsertedImage) this.getModel();
 
-		ImageData newImageData = new ImageData(this.imageData.width,
+		final ImageData newImageData = new ImageData(this.imageData.width,
 				this.imageData.height, this.imageData.depth,
 				this.imageData.palette);
 
@@ -103,37 +101,43 @@ public class InsertedImageEditPart extends NodeElementXYEditPart {
 		final int w = this.imageData.width;
 		final int h = this.imageData.height;
 
-		for (int x = 0; x < w; x++) {
-			for (int y = 0; y < h; y++) {
-				RGB rgb = this.imageData.palette.getRGB(this.imageData
-						.getPixel(x, y));
-				float[] hsb = rgb.getHSB();
+		final float saturation = (float) (model.getSaturation() / 100f);
+		final float brightness = (float) (model.getBrightness() / 100f);
+		final float hue = model.getHue() & 360;
+		final boolean isHue = model.getHue() != 0;
+		
+		final int[] pixels = new int[w];
+		final PaletteData palette = this.imageData.palette;
 
-				if (model.getHue() != 0) {
-					hsb[0] = model.getHue() & 360;
+		for (int y = 0; y < h; y++) {
+			this.imageData.getPixels(0, y, w, pixels, 0);
+			for (int x = 0; x < w; x++) {
+				final RGB rgb = palette.getRGB(pixels[x]);
+				final float[] hsb = rgb.getHSB();
+
+				if (isHue) {
+					hsb[0] = hue;
 				}
 
-				hsb[1] = hsb[1] + (model.getSaturation() / 100f);
+				hsb[1] += saturation;
 				if (hsb[1] > 1.0f) {
 					hsb[1] = 1.0f;
 				} else if (hsb[1] < 0) {
 					hsb[1] = 0f;
 				}
 
-				hsb[2] = hsb[2] + (model.getBrightness() / 100f);
+				hsb[2] += brightness;
 				if (hsb[2] > 1.0f) {
 					hsb[2] = 1.0f;
-
 				} else if (hsb[2] < 0) {
 					hsb[2] = 0f;
 				}
 
-				RGB newRGB = new RGB(hsb[0], hsb[1], hsb[2]);
+				final RGB newRGB = new RGB(hsb[0], hsb[1], hsb[2]);
 
-				int pixel = imageData.palette.getPixel(newRGB);
-
-				newImageData.setPixel(x, y, pixel);
+				pixels[x] = imageData.palette.getPixel(newRGB);
 			}
+			newImageData.setPixels(0, y, w, pixels, 0);
 		}
 
 		disposeImage();
