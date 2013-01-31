@@ -108,7 +108,7 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 
 	@Override
 	public IFigure getContentPane() {
-		TableFigure figure = (TableFigure) super.getContentPane();
+		final  TableFigure figure = (TableFigure) super.getContentPane();
 
 		return figure.getColumns();
 	}

@@ -5,50 +5,49 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
 public class UpdatedNodeElement implements Serializable {
 
 	private static final long serialVersionUID = -1547406607441505291L;
 
-	private NodeElement nodeElement;
+	private final NodeElement nodeElement;
 
-	private Set<Column> addedColumns;
+	private final Set<AbstractModel> addedColumns;
 
-	private Set<Column> updatedColumns;
+	private final Set<AbstractModel> updatedColumns;
 
-	private Set<Column> removedColumns;
+	private final Set<AbstractModel> removedColumns;
 
 	public UpdatedNodeElement(NodeElement nodeElement) {
 		this.nodeElement = nodeElement;
 
-		this.addedColumns = new HashSet<Column>();
-		this.updatedColumns = new HashSet<Column>();
-		this.removedColumns = new HashSet<Column>();
+		this.addedColumns = new HashSet<AbstractModel>();
+		this.updatedColumns = new HashSet<AbstractModel>();
+		this.removedColumns = new HashSet<AbstractModel>();
 	}
 
 	public NodeElement getNodeElement() {
 		return nodeElement;
 	}
 
-	public void setAddedColumns(Collection<NormalColumn> columns) {
+	public void setAddedColumns(Collection<? extends AbstractModel> columns) {
 		this.addedColumns.clear();
 		this.addedColumns.addAll(columns);
 	}
 
-	public void setUpdatedColumns(Collection<NormalColumn> columns) {
+	public void setUpdatedColumns(Collection<? extends AbstractModel> columns) {
 		this.updatedColumns.clear();
 		this.updatedColumns.addAll(columns);
 	}
 
-	public void setRemovedColumns(Collection<NormalColumn> columns) {
+	public void setRemovedColumns(Collection<? extends AbstractModel> columns) {
 		this.removedColumns.clear();
 		this.removedColumns.addAll(columns);
 	}
 
-	public boolean isAdded(Column column) {
+	public boolean isAdded(AbstractModel column) {
 		if (this.addedColumns.contains(column)) {
 			return true;
 		}
@@ -56,7 +55,7 @@ public class UpdatedNodeElement implements Serializable {
 		return false;
 	}
 
-	public boolean isUpdated(Column column) {
+	public boolean isUpdated(AbstractModel column) {
 		if (this.updatedColumns.contains(column)) {
 			return true;
 		}
@@ -64,7 +63,7 @@ public class UpdatedNodeElement implements Serializable {
 		return false;
 	}
 
-	public Set<Column> getRemovedColumns() {
+	public Set<? extends AbstractModel> getRemovedColumns() {
 		return removedColumns;
 	}
 

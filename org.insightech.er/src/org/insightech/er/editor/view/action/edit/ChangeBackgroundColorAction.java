@@ -31,7 +31,7 @@ import org.insightech.er.ImageKey;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.ERDiagramEditor;
 import org.insightech.er.editor.controller.command.common.ChangeBackgroundColorCommand;
-import org.insightech.er.editor.controller.editpart.element.node.column.NormalColumnEditPart;
+import org.insightech.er.editor.controller.editpart.element.node.column.ColumnEditPart;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ViewableModel;
 
@@ -98,8 +98,8 @@ public class ChangeBackgroundColorAction extends SelectionAction {
 	protected List getSelectedObjects() {
 		List objs = super.getSelectedObjects();
 		List objects = new ArrayList(objs.size());
-		for (Object obj : objs) {
-			if (!(obj instanceof NormalColumnEditPart)) {
+		for (final Object obj : objs) {
+			if (!(obj instanceof ColumnEditPart)) {
 				objects.add(obj);
 			}
 		}

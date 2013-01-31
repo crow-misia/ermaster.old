@@ -16,6 +16,7 @@ import org.insightech.er.ImageKey;
 import org.insightech.er.Resources;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 import org.insightech.er.editor.view.figure.table.style.AbstractStyleSupport;
 
@@ -113,7 +114,8 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 		this.nameLabel.setFont(titleFont);
 	}
 
-	public void addColumn(NormalColumnFigure columnFigure, int viewMode,
+	@Override
+	public void addColumn(NormalColumnFigure figure, int viewMode,
 			String physicalName, String logicalName, String type,
 			boolean primaryKey, boolean foreignKey, boolean isNotNull,
 			boolean uniqueKey, boolean displayKey, boolean displayDetail,
@@ -133,12 +135,12 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 				ImageFigure image = new ImageFigure();
 				image.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
 				image.setImage(Activator.getImage(ImageKey.PRIMARY_KEY));
-				columnFigure.add(image);
+				figure.add(image);
 
 			} else {
 				Label filler = new Label();
 				filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
-				columnFigure.add(filler);
+				figure.add(filler);
 
 			}
 
@@ -146,12 +148,12 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 				ImageFigure image = new ImageFigure();
 				image.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
 				image.setImage(Activator.getImage(ImageKey.FOREIGN_KEY));
-				columnFigure.add(image);
+				figure.add(image);
 
 			} else {
 				Label filler = new Label();
 				filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
-				columnFigure.add(filler);
+				figure.add(filler);
 
 			}
 
@@ -169,29 +171,29 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 
 		label.setText(text.toString());
 
-		setColumnFigureColor(columnFigure, isSelectedReferenced,
+		setColumnFigureColor(figure, isSelectedReferenced,
 				isSelectedForeignKey, isAdded, isUpdated, isRemoved);
 
-		columnFigure.add(label);
+		figure.add(label);
 	}
 
 	@Override
-	public void addColumnGroup(GroupColumnFigure columnFigure, int viewMode,
+	public void addColumnGroup(GroupColumnFigure figure, int viewMode,
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 
 		Label filler = new Label();
 		filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
-		columnFigure.add(filler);
+		figure.add(filler);
 
 		filler = new Label();
 		filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
-		columnFigure.add(filler);
+		figure.add(filler);
 
 		StringBuilder text = new StringBuilder();
 		text.append(name);
 		text.append(" (GROUP)");
 
-		setColumnFigureColor(columnFigure, false, false, isAdded,
+		setColumnFigureColor(figure, false, false, isAdded,
 				isUpdated, isRemoved);
 
 		Label label = createColumnLabel();
@@ -200,6 +202,32 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 
 		label.setText(text.toString());
 
-		columnFigure.add(label);
+		figure.add(label);
+	}
+
+	@Override
+	public void addIndex(IndexFigure figure, int viewMode, String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
+
+		final Label label = createColumnLabel();
+		label.setForegroundColor(ColorConstants.black);
+
+		final StringBuilder text = new StringBuilder();
+		text.append(name);
+
+		final Label filler = new Label();
+		filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
+		figure.add(filler);
+
+		final ImageFigure image = new ImageFigure();
+		image.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
+		image.setImage(Activator.getImage(ImageKey.INDEX));
+		figure.add(image);
+
+		label.setText(text.toString());
+
+		setColumnFigureColor(figure, false, false, isAdded,
+				isUpdated, isRemoved);
+
+		figure.add(label);
 	}
 }

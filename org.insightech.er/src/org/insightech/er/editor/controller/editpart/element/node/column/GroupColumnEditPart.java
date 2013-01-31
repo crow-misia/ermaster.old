@@ -19,8 +19,7 @@ public class GroupColumnEditPart extends ColumnEditPart {
 	
 	@Override
 	protected IFigure createFigure() {
-		GroupColumnFigure figure = new GroupColumnFigure();
-		return figure;
+		return new GroupColumnFigure();
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class GroupColumnEditPart extends ColumnEditPart {
 				isUpdated = updated.isUpdated(column);
 			}
 
-			if ((notationLevel == Settings.NOTATION_LEVLE_KEY)) {
+			if (notationLevel == Settings.NOTATION_LEVLE_KEY) {
 				columnFigure.clearLabel();
 				return;
 			}

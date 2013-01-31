@@ -13,14 +13,17 @@ import org.insightech.er.Activator;
 import org.insightech.er.editor.controller.editpart.element.AbstractModelEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.table_view.ColumnSelectionHandlesEditPolicy;
 import org.insightech.er.editor.controller.editpolicy.element.node.table_view.NormalColumnComponentEditPolicy;
+import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.ColumnHolder;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.tracking.UpdatedNodeElement;
+import org.insightech.er.editor.view.dialog.element.table.sub.IndexDialog;
 import org.insightech.er.editor.view.dialog.group.GroupDialog;
 import org.insightech.er.editor.view.dialog.word.column.ViewColumnDialog;
 import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
@@ -71,19 +74,23 @@ public abstract class ColumnEditPart extends AbstractModelEditPart {
 	}
 
 	protected void performRequestOpen() {
-		final Column column = (Column) this.getModel();
-		final ColumnHolder columnHolder = column.getColumnHolder();
+		final AbstractModel column = (AbstractModel) this.getModel();
 		final ERDiagram diagram = this.getDiagram();
 		final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
 		Command command = null;
+		ColumnHolder columnHolder = null;
+		if (column instanceof Column) {
+			columnHolder = ((Column) column).getColumnHolder();
+		}
 		if (columnHolder instanceof ERTable) {
 			command = ColumnDialog.openDialog(shell, (ERTable) columnHolder, (NormalColumn) column);
 		} else if (columnHolder instanceof View) {
 			command = ViewColumnDialog.openDialog(shell, (View) columnHolder, (NormalColumn) column);
 		} else if (columnHolder instanceof ColumnGroup) {
 			command = GroupDialog.openDialog(shell, (ColumnGroup) columnHolder, diagram);
-
+		} else if (column instanceof Index) {
+			command = IndexDialog.openDialog(shell, diagram, (Index) column, ((Index) column).getTable());
 		}
 
 		if (command != null) {

@@ -6,12 +6,11 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.tools.SelectEditPartTracker;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.Activator;
 import org.insightech.er.ImageKey;
-import org.insightech.er.editor.controller.command.diagram_contents.not_element.index.ChangeIndexCommand;
 import org.insightech.er.editor.controller.editpart.DeleteableEditPart;
 import org.insightech.er.editor.controller.editpart.outline.AbstractOutlineEditPart;
 import org.insightech.er.editor.controller.editpolicy.not_element.index.IndexComponentEditPolicy;
@@ -50,18 +49,15 @@ public class IndexOutlineEditPart extends AbstractOutlineEditPart implements
 
 	@Override
 	public void performRequest(Request request) {
-		Index index = (Index) this.getModel();
-		ERDiagram diagram = this.getDiagram();
+		final Index index = (Index) this.getModel();
+		final ERDiagram diagram = this.getDiagram();
 
 		if (request.getType().equals(RequestConstants.REQ_OPEN)) {
-			IndexDialog dialog = new IndexDialog(PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getShell(), index, index
-					.getTable());
+			final Command command = IndexDialog.openDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					diagram, index, index.getTable());
 
-			if (dialog.open() == IDialogConstants.OK_ID) {
-				ChangeIndexCommand command = new ChangeIndexCommand(diagram,
-						index, dialog.getResultIndex());
-
+			if (command != null) {
 				this.execute(command);
 			}
 		}

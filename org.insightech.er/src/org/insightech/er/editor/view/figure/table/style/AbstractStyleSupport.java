@@ -1,6 +1,7 @@
 package org.insightech.er.editor.view.figure.table.style;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -14,6 +15,8 @@ import org.insightech.er.Resources;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexFigure;
+import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 
 public abstract class AbstractStyleSupport implements StyleSupport {
 
@@ -45,7 +48,14 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 
 	public void createColumnArea(IFigure columns) {
 		initColumnArea(columns);
+
 		this.tableFigure.add(columns, BorderLayout.CENTER);
+	}
+
+	public void createIndexArea(IFigure indexes) {
+		initIndexArea(indexes);
+
+		this.tableFigure.add(indexes, BorderLayout.CENTER);
 	}
 
 	protected static void initColumnArea(IFigure columns) {
@@ -59,6 +69,9 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 
 		columns.setBackgroundColor(null);
 		columns.setOpaque(false);
+	}
+
+	protected static void initIndexArea(IFigure indexes) {
 	}
 
 	public void createFooter() {
@@ -146,7 +159,47 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		return tableFigure;
 	}
 
-	public void addColumnGroup(GroupColumnFigure columnFigure, int viewMode,
+	public void addColumn(NormalColumnFigure figure, int viewMode,
+			String physicalName, String logicalName, String type,
+			boolean primaryKey, boolean foreignKey, boolean isNotNull,
+			boolean uniqueKey, boolean displayKey, boolean displayDetail,
+			boolean displayType, boolean isSelectedReferenced,
+			boolean isSelectedForeignKey, boolean isAdded, boolean isUpdated,
+			boolean isRemoved) {
+		Label label = createColumnLabel();
+		label.setForegroundColor(this.getTextColor());
+
+		StringBuilder text = new StringBuilder();
+		text.append(getColumnText(viewMode, physicalName, logicalName,
+				type, isNotNull, uniqueKey, displayDetail, displayType));
+
+		if (displayKey) {
+			if (primaryKey && foreignKey) {
+				label.setForegroundColor(ColorConstants.blue);
+
+				text.append(" (PFK)");
+
+			} else if (primaryKey) {
+				label.setForegroundColor(ColorConstants.red);
+
+				text.append(" (PK)");
+
+			} else if (foreignKey) {
+				label.setForegroundColor(ColorConstants.darkGreen);
+
+				text.append(" (FK)");
+			}
+		}
+
+		label.setText(text.toString());
+
+		setColumnFigureColor(figure, isSelectedReferenced,
+				isSelectedForeignKey, isAdded, isUpdated, isRemoved);
+
+		figure.add(label);
+	}
+
+	public void addColumnGroup(GroupColumnFigure figure, int viewMode,
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 
 		Label label = createColumnLabel();
@@ -157,11 +210,28 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		text.append(name);
 		text.append(" (GROUP)");
 
-		setColumnFigureColor(columnFigure, false, false, isAdded,
+		setColumnFigureColor(figure, false, false, isAdded,
 				isUpdated, isRemoved);
 
 		label.setText(text.toString());
 
-		columnFigure.add(label);
+		figure.add(label);
+	}
+
+	public void addIndex(IndexFigure figure, int viewMode, String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
+		Label label = createColumnLabel();
+
+		label.setForegroundColor(this.getTextColor());
+
+		StringBuilder text = new StringBuilder();
+		text.append(name);
+		text.append(" (INDEX)");
+
+		setColumnFigureColor(figure, false, false, isAdded,
+				isUpdated, isRemoved);
+
+		label.setText(text.toString());
+
+		figure.add(label);
 	}
 }

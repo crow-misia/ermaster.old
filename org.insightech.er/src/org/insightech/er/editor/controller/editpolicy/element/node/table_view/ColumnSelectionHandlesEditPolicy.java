@@ -27,7 +27,6 @@ import org.insightech.er.editor.controller.command.diagram_contents.element.node
 import org.insightech.er.editor.controller.command.diagram_contents.element.node.table_view.ChangeColumnOrderCommand;
 import org.insightech.er.editor.controller.command.diagram_contents.element.node.table_view.ChangeTableViewPropertyCommand;
 import org.insightech.er.editor.controller.editpart.element.node.column.ColumnEditPart;
-import org.insightech.er.editor.controller.editpart.element.node.column.NormalColumnEditPart;
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
@@ -54,7 +53,6 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 
 	private Rectangle getColumnRectangle() {
 		ColumnEditPart columnEditPart = (ColumnEditPart) this.getHost();
-		NormalColumn column = (NormalColumn) columnEditPart.getModel();
 
 		IFigure figure = columnEditPart.getFigure();
 		Rectangle rect = figure.getBounds();
@@ -62,7 +60,11 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		int startY = 0;
 		int endY = 0;
 
-		if (column.getColumnHolder() instanceof ColumnGroup) {
+		Column column = null;
+		if (columnEditPart.getModel() instanceof Column) {
+			column = (Column) columnEditPart.getModel();
+		}
+		if (column != null && column.getColumnHolder() instanceof ColumnGroup) {
 			ColumnGroup columnGroup = (ColumnGroup) column.getColumnHolder();
 
 			final List<NormalColumn> columns = columnGroup.getColumns();
@@ -70,14 +72,14 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			NormalColumn finalColumn = columns.get(columns.size() - 1);
 
 			for (Object editPart : columnEditPart.getParent().getChildren()) {
-				NormalColumnEditPart normalColumnEditPart = (NormalColumnEditPart) editPart;
-				if (normalColumnEditPart.getModel() == firstColumn) {
-					Rectangle bounds = normalColumnEditPart.getFigure()
+				ColumnEditPart childrenColumnEditPart = (ColumnEditPart) editPart;
+				if (childrenColumnEditPart.getModel() == firstColumn) {
+					Rectangle bounds = childrenColumnEditPart.getFigure()
 							.getBounds();
 					startY = bounds.y;
 
-				} else if (normalColumnEditPart.getModel() == finalColumn) {
-					Rectangle bounds = normalColumnEditPart.getFigure()
+				} else if (childrenColumnEditPart.getModel() == finalColumn) {
+					Rectangle bounds = childrenColumnEditPart.getFigure()
 							.getBounds();
 					endY = bounds.y + bounds.height;
 				}
@@ -99,11 +101,12 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			double zoom = zoomManager.getZoom();
 
 			Rectangle columnRectangle = this.getColumnRectangle();
-			int center = (int) ((columnRectangle.y + (columnRectangle.height / 2)) * zoom);
+			int center = (int) ((columnRectangle.y + (columnRectangle.height / 2.0)) * zoom);
 
 			DirectEditRequest directEditRequest = (DirectEditRequest) request;
 
 			int y = 0;
+			System.out.println(center + "  -> "  + directEditRequest.getLocation().y);
 
 			if (directEditRequest.getLocation().y < center) {
 				y = columnRectangle.y - 1;
@@ -408,7 +411,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		ColumnEditPart columnEditPart = (ColumnEditPart) this.getHost();
 
 		Column column = (Column) columnEditPart.getModel();
-		TableView newTableView = (TableView) this.getHost().getParent()
+		TableView newTableView = (TableView) columnEditPart.getParent()
 				.getModel();
 
 		List<Column> columns = newTableView.getColumns();

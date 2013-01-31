@@ -14,18 +14,22 @@ import org.eclipse.swt.widgets.Display;
 import org.insightech.er.Activator;
 import org.insightech.er.editor.controller.editpart.element.node.column.ColumnEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.column.GroupColumnEditPart;
+import org.insightech.er.editor.controller.editpart.element.node.column.IndexEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.column.NormalColumnEditPart;
 import org.insightech.er.editor.controller.editpolicy.element.node.table_view.TableViewComponentEditPolicy;
 import org.insightech.er.editor.controller.editpolicy.element.node.table_view.TableViewGraphicalNodeEditPolicy;
+import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
-import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.index.IndexSet;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.model.tracking.UpdatedNodeElement;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 
 public abstract class TableViewEditPart extends NodeElementXYEditPart {
@@ -33,33 +37,35 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 	private Font titleFont;
 
 	@Override
-	protected List getModelChildren() {
-		List<Object> modelChildren = new ArrayList<Object>();
+	protected List<Object> getModelChildren() {
+		final TableView tableView = (TableView) this.getModel();
 
-		TableView tableView = (TableView) this.getModel();
-
-		ERDiagram diagram = this.getDiagram();
+		final ERDiagram diagram = this.getDiagram();
 		if (diagram.getDiagramContents().getSettings().isNotationExpandGroup()) {
-			modelChildren.addAll(tableView.getExpandedColumns());
-			
-		} else {
-			modelChildren.addAll(tableView.getColumns());
+			return new ArrayList<Object>(tableView.getExpandedColumns());
 		}
 
-		return modelChildren;
+		return new ArrayList<Object>(tableView.getColumns());
 	}
 
 	@Override
-	public void doPropertyChange(PropertyChangeEvent event) {
-		if (event.getPropertyName().equals(
+	public void doPropertyChange(final PropertyChangeEvent event) {
+		final String propertyName = event.getPropertyName();
+
+		if (propertyName.equals(
 				TableView.PROPERTY_CHANGE_PHYSICAL_NAME)) {
 			refreshVisuals();
-		} else if (event.getPropertyName().equals(
+		} else if (propertyName.equals(
 				TableView.PROPERTY_CHANGE_LOGICAL_NAME)) {
 			refreshVisuals();
 
-		} else if (event.getPropertyName().equals(
+		} else if (propertyName.equals(
 				TableView.PROPERTY_CHANGE_COLUMNS)) {
+			this.refreshChildren();
+			refreshVisuals();
+
+		} else if (propertyName.equals(
+				IndexSet.PROPERTY_CHANGE_INDEXES)) {
 			this.refreshChildren();
 			refreshVisuals();
 		}
@@ -111,18 +117,19 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 	}
 
 	public static void showRemovedColumns(ERDiagram diagram,
-			TableFigure tableFigure, Collection<Column> removedColumns,
+			TableFigure tableFigure, Collection<? extends AbstractModel> removedColumns,
 			boolean isRemoved) {
 
 		int notationLevel = diagram.getDiagramContents().getSettings()
 				.getNotationLevel();
 
-		for (Column removedColumn : removedColumns) {
+		for (final AbstractModel removedColumn : removedColumns) {
 
 			if (removedColumn instanceof ColumnGroup) {
+				final ColumnGroup columnGroup = (ColumnGroup) removedColumn;
+
 				if (diagram.getDiagramContents().getSettings()
 						.isNotationExpandGroup()) {
-					ColumnGroup columnGroup = (ColumnGroup) removedColumn;
 
 					for (NormalColumn normalColumn : columnGroup.getColumns()) {
 						if (notationLevel == Settings.NOTATION_LEVLE_KEY
@@ -149,11 +156,11 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 					tableFigure.getColumns().add(columnFigure);
 
 					GroupColumnEditPart.addGroupColumnFigure(diagram,
-							tableFigure, columnFigure, removedColumn, false,
+							tableFigure, columnFigure, columnGroup, false,
 							false, isRemoved);
 				}
 
-			} else {
+			} else if (removedColumn instanceof NormalColumn) {
 				NormalColumn normalColumn = (NormalColumn) removedColumn;
 				if (notationLevel == Settings.NOTATION_LEVLE_KEY
 						&& !normalColumn.isPrimaryKey()
@@ -168,6 +175,18 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 				NormalColumnEditPart.addColumnFigure(diagram, tableFigure,
 						columnFigure, normalColumn, false, false, false,
 						false, isRemoved);
+
+			} else if (removedColumn instanceof Index) {
+				Index index = (Index) removedColumn;
+				if (notationLevel == Settings.NOTATION_LEVLE_KEY) {
+					continue;
+				}
+
+				IndexFigure figure = new IndexFigure();
+				tableFigure.getColumns().add(figure);
+
+				IndexEditPart.addIndexFigure(diagram, tableFigure,
+						figure, index, false, false, isRemoved);
 			}
 		}
 	}
@@ -218,7 +237,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 
 	@Override
 	public IFigure getContentPane() {
-		TableFigure figure = (TableFigure) super.getContentPane();
+		final TableFigure figure = (TableFigure) super.getContentPane();
 
 		return figure.getColumns();
 	}

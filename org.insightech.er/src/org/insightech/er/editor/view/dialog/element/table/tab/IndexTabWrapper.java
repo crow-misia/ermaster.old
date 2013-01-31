@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -136,11 +135,12 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				IndexDialog dialog = new IndexDialog(PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getShell(), null, copyData);
+				final Index index = IndexDialog.openDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						null, copyData);
 
-				if (dialog.open() == IDialogConstants.OK_ID) {
-					addIndexData(dialog.getResultIndex(), true);
+				if (index != null) {
+					addIndexData(index, true);
 				}
 			}
 		});
@@ -154,12 +154,12 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 					return;
 				}
 
-				IndexDialog dialog = new IndexDialog(PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getShell(), targetIndex,
-						copyData);
+				final Index index = IndexDialog.openDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						targetIndex, copyData);
 
-				if (dialog.open() == IDialogConstants.OK_ID) {
-					addIndexData(dialog.getResultIndex(), false);
+				if (index != null) {
+					addIndexData(index, false);
 				}
 			}
 		});

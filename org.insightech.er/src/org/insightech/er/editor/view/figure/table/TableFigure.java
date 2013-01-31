@@ -12,6 +12,7 @@ import org.insightech.er.ImageKey;
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToFrameAction;
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToSimpleAction;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 import org.insightech.er.editor.view.figure.table.style.StyleSupport;
 import org.insightech.er.editor.view.figure.table.style.frame.FrameStyleSupport;
@@ -20,7 +21,7 @@ import org.insightech.er.editor.view.figure.table.style.simple.SimpleStyleSuppor
 
 public class TableFigure extends RoundedRectangle {
 
-	private Figure columns;
+	private final Figure columns;
 
 	private StyleSupport styleSupport;
 
@@ -91,7 +92,7 @@ public class TableFigure extends RoundedRectangle {
 		this.columns.removeAll();
 	}
 
-	public void addColumn(NormalColumnFigure columnFigure, int viewMode,
+	public void addColumn(NormalColumnFigure figure, int viewMode,
 			String physicalName, String logicalName, String type,
 			boolean primaryKey, boolean foreignKey, boolean isNotNull,
 			boolean uniqueKey, boolean displayKey, boolean displayDetail,
@@ -99,23 +100,33 @@ public class TableFigure extends RoundedRectangle {
 			boolean isSelectedForeignKey, boolean isAdded, boolean isUpdated,
 			boolean isRemoved) {
 
-		columnFigure.removeAll();
-		columnFigure.setBackgroundColor(null);
+		figure.removeAll();
+		figure.setBackgroundColor(null);
 
-		this.styleSupport.addColumn(columnFigure, viewMode, physicalName,
+		this.styleSupport.addColumn(figure, viewMode, physicalName,
 				logicalName, type, primaryKey, foreignKey, isNotNull,
 				uniqueKey, displayKey, displayDetail, displayType,
 				isSelectedReferenced, isSelectedForeignKey, isAdded, isUpdated,
 				isRemoved);
 	}
 
-	public void addColumnGroup(GroupColumnFigure columnFigure, int viewMode,
+	public void addColumnGroup(GroupColumnFigure figure, int viewMode,
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 
-		columnFigure.removeAll();
-		columnFigure.setBackgroundColor(null);
+		figure.removeAll();
+		figure.setBackgroundColor(null);
 
-		this.styleSupport.addColumnGroup(columnFigure, viewMode, name, isAdded,
+		this.styleSupport.addColumnGroup(figure, viewMode, name, isAdded,
+				isUpdated, isRemoved);
+	}
+
+	public void addIndex(IndexFigure figure, int viewMode,
+			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
+
+		figure.removeAll();
+		figure.setBackgroundColor(null);
+
+		this.styleSupport.addIndex(figure, viewMode, name, isAdded,
 				isUpdated, isRemoved);
 	}
 

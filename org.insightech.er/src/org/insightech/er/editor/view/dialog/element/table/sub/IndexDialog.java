@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
@@ -32,6 +33,8 @@ import org.insightech.er.common.widgets.CompositeFactory;
 import org.insightech.er.db.DBManager;
 import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.db.SupportFunctions;
+import org.insightech.er.editor.controller.command.diagram_contents.not_element.index.ChangeIndexCommand;
+import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
@@ -83,13 +86,33 @@ public class IndexDialog extends AbstractDialog {
 
 	private Map<Column, TableEditor> columnCheckMap = new HashMap<Column, TableEditor>();
 
-	public IndexDialog(Shell parentShell, Index targetIndex, ERTable table) {
+	private IndexDialog(Shell parentShell, Index targetIndex, ERTable table) {
 		super(parentShell);
 
 		this.targetIndex = targetIndex;
 		this.table = table;
 		this.allColumns = table.getExpandedColumns();
 		this.selectedColumns = new ArrayList<NormalColumn>();
+	}
+
+	public static Command openDialog(final Shell parentShell,
+			final ERDiagram diagram, final Index index, final ERTable table) {
+		final IndexDialog dialog = new IndexDialog(parentShell, index, table);
+
+		if (dialog.open() == IDialogConstants.OK_ID) {
+			return new ChangeIndexCommand(diagram, index, dialog.getResultIndex());
+		}
+		return null;
+	}
+
+	public static Index openDialog(final Shell parentShell,
+			final Index index, final ERTable table) {
+		final IndexDialog dialog = new IndexDialog(parentShell, index, table);
+
+		if (dialog.open() == IDialogConstants.OK_ID) {
+			return dialog.getResultIndex();
+		}
+		return null;
 	}
 
 	@Override

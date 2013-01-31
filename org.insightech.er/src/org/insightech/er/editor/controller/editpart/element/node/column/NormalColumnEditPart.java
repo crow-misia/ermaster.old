@@ -7,7 +7,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.graphics.Color;
 import org.insightech.er.editor.controller.editpart.element.node.TableViewEditPart;
 import org.insightech.er.editor.model.ERDiagram;
@@ -30,8 +30,7 @@ public class NormalColumnEditPart extends ColumnEditPart {
 
 	@Override
 	protected IFigure createFigure() {
-		NormalColumnFigure figure = new NormalColumnFigure();
-		return figure;
+		return new NormalColumnFigure();
 	}
 
 	@Override
@@ -224,13 +223,15 @@ public class NormalColumnEditPart extends ColumnEditPart {
 		if (columnHolder instanceof ColumnGroup) {
 			if (parent != null) {
 				for (Object child : parent.getChildren()) {
-					AbstractGraphicalEditPart childEditPart = (AbstractGraphicalEditPart) child;
+					final GraphicalEditPart childEditPart = (GraphicalEditPart) child;
 
-					NormalColumn column = (NormalColumn) childEditPart.getModel();
-					if (column.getColumnHolder() == columnHolder) {
-						setGroupColumnFigureColor(
-								(TableViewEditPart) parent,
-								(ColumnGroup) columnHolder, isSelected);
+					if (childEditPart.getModel() instanceof NormalColumn) {
+						final NormalColumn column = (NormalColumn) childEditPart.getModel();
+						if (column.getColumnHolder() == columnHolder) {
+							setGroupColumnFigureColor(
+									(TableViewEditPart) parent,
+									(ColumnGroup) columnHolder, isSelected);
+						}
 					}
 				}
 			}
@@ -247,12 +248,11 @@ public class NormalColumnEditPart extends ColumnEditPart {
 
 	private static void setGroupColumnFigureColor(TableViewEditPart parentEditPart,
 			ColumnGroup columnGroup, boolean selected) {
-		for (NormalColumn column : columnGroup.getColumns()) {
-			for (Object editPart : parentEditPart.getChildren()) {
-				NormalColumnEditPart childEditPart = (NormalColumnEditPart) editPart;
+		for (final NormalColumn column : columnGroup.getColumns()) {
+			for (final Object editPart : parentEditPart.getChildren()) {
+				final ColumnEditPart childEditPart = (ColumnEditPart) editPart;
 				if (childEditPart.getModel() == column) {
-					NormalColumnFigure columnFigure = (NormalColumnFigure) childEditPart
-							.getFigure();
+					final IFigure columnFigure = childEditPart.getFigure();
 					if (selected) {
 						columnFigure
 								.setBackgroundColor(ColorConstants.titleBackground);
@@ -264,7 +264,7 @@ public class NormalColumnEditPart extends ColumnEditPart {
 						columnFigure.setForegroundColor(null);
 					}
 
-					childEditPart.selected = selected;
+					((NormalColumnEditPart) childEditPart).selected = selected;
 					break;
 				}
 			}

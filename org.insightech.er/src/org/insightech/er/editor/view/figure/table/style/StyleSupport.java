@@ -4,27 +4,30 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Font;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 
 public interface StyleSupport {
 
-	public void init();
+	void init();
 
-    public void setDependence(final Boolean dependence);
+    void setDependence(final Boolean dependence);
 
-	public void createTitleBar();
+	void createTitleBar();
 
-	public void createColumnArea(IFigure columns);
+	void createColumnArea(IFigure columns);
 
-	public void createFooter();
+	void createIndexArea(IFigure indexes);
 
-	public void setName(String name);
+	void createFooter();
 
-	public void setFont(Font font, Font titleFont);
+	void setName(String name);
 
-	public void adjustBounds(Rectangle rect);
+	void setFont(Font font, Font titleFont);
 
-	public void addColumn(NormalColumnFigure columnFigure, int viewMode,
+	void adjustBounds(Rectangle rect);
+
+	void addColumn(NormalColumnFigure figure, int viewMode,
 			String physicalName, String logicalName, String type,
 			boolean primaryKey, boolean foreignKey, boolean isNotNull,
 			boolean uniqueKey, boolean displayKey, boolean displayDetail,
@@ -32,7 +35,10 @@ public interface StyleSupport {
 			boolean isSelectedForeignKey, boolean isAdded, boolean isUpdated,
 			boolean isRemoved);
 
-	public void addColumnGroup(GroupColumnFigure columnFigure, int viewMode,
+	void addColumnGroup(GroupColumnFigure figure, int viewMode,
+			String name, boolean isAdded, boolean isUpdated, boolean isRemoved);
+
+	void addIndex(IndexFigure figure, int viewMode,
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved);
 
 }
