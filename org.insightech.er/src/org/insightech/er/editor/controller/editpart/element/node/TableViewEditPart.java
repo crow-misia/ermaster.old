@@ -1,7 +1,6 @@
 package org.insightech.er.editor.controller.editpart.element.node;
 
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,16 +35,17 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 
 	private Font titleFont;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected List<Object> getModelChildren() {
 		final TableView tableView = (TableView) this.getModel();
 
 		final ERDiagram diagram = this.getDiagram();
 		if (diagram.getDiagramContents().getSettings().isNotationExpandGroup()) {
-			return new ArrayList<Object>(tableView.getExpandedColumns());
+			return (List) tableView.getExpandedColumns();
 		}
 
-		return new ArrayList<Object>(tableView.getColumns());
+		return (List) tableView.getColumns();
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 						}
 
 						NormalColumnFigure columnFigure = new NormalColumnFigure();
-						tableFigure.getColumns().add(columnFigure);
+						tableFigure.getContent().add(columnFigure);
 
 						NormalColumnEditPart.addColumnFigure(diagram, tableFigure,
 								columnFigure, normalColumn, false, false, false,
@@ -153,7 +153,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 					}
 
 					GroupColumnFigure columnFigure = new GroupColumnFigure();
-					tableFigure.getColumns().add(columnFigure);
+					tableFigure.getContent().add(columnFigure);
 
 					GroupColumnEditPart.addGroupColumnFigure(diagram,
 							tableFigure, columnFigure, columnGroup, false,
@@ -170,7 +170,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 				}
 
 				NormalColumnFigure columnFigure = new NormalColumnFigure();
-				tableFigure.getColumns().add(columnFigure);
+				tableFigure.getContent().add(columnFigure);
 
 				NormalColumnEditPart.addColumnFigure(diagram, tableFigure,
 						columnFigure, normalColumn, false, false, false,
@@ -183,7 +183,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 				}
 
 				IndexFigure figure = new IndexFigure();
-				tableFigure.getColumns().add(figure);
+				tableFigure.getContent().add(figure);
 
 				IndexEditPart.addIndexFigure(diagram, tableFigure,
 						figure, index, false, false, isRemoved);
@@ -239,7 +239,7 @@ public abstract class TableViewEditPart extends NodeElementXYEditPart {
 	public IFigure getContentPane() {
 		final TableFigure figure = (TableFigure) super.getContentPane();
 
-		return figure.getColumns();
+		return figure.getContent();
 	}
 
 	@Override

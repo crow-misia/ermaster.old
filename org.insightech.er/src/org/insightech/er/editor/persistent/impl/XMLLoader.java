@@ -1072,7 +1072,9 @@ public final class XMLLoader {
 			settings.setNotationDependence(getBooleanValue(element,
 					"notation_dependence", true));
 			settings.setNotationExpandGroup(getBooleanValue(element,
-					"notation_expand_group"));
+					"notation_expand_group", true));
+			settings.setNotationIndex(getBooleanValue(element,
+					"notation_index", true));
 
 			settings.setViewMode(getIntValue(element, "view_mode"));
 			settings.setOutlineViewMode(getIntValue(element,

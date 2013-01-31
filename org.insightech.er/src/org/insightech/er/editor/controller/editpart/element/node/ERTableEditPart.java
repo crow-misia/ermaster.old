@@ -7,6 +7,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.PlatformUI;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.index.IndexHeader;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.table.TableDialog;
 import org.insightech.er.editor.view.figure.table.TableFigure;
@@ -18,9 +19,14 @@ public final class ERTableEditPart extends TableViewEditPart implements IResizab
 		final List<Object> modelChildren = super.getModelChildren();
 
 		final ERTable table = (ERTable) this.getModel();
+		final ERDiagram diagram = this.getDiagram();
 
 		// add Index
-		modelChildren.addAll(table.getIndexes());
+		if (diagram.getDiagramContents().getSettings().isNotationIndex() &&
+				table.getIndexes().size() > 0) {
+			modelChildren.add(IndexHeader.INSTANCE);
+			modelChildren.addAll(table.getIndexes());
+		}
 
 		return modelChildren;
 	}

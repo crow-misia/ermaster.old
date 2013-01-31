@@ -35,6 +35,7 @@ import org.insightech.er.editor.view.action.option.OptionSettingAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeCapitalAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeNotationDependenceAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeNotationExpandGroupAction;
+import org.insightech.er.editor.view.action.option.notation.ChangeNotationIndexAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeStampAction;
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToFrameAction;
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToFunnyAction;
@@ -84,6 +85,7 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 		final IAction changeNotationLevelToNameAndKeyAction = getAction(ChangeNotationLevelToNameAndKeyAction.ID);
 
 		final IAction changeNotationExpandGroupAction = getAction(ChangeNotationExpandGroupAction.ID);
+		final IAction changeNotationIndexAction = getAction(ChangeNotationIndexAction.ID);
 
 		final IAction changeDesignToFunnyAction = getAction(ChangeDesignToFunnyAction.ID);
 		final IAction changeDesignToFrameAction = getAction(ChangeDesignToFrameAction.ID);
@@ -160,6 +162,7 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 		notationLevelMenu.add(new Separator());
 
 		notationLevelMenu.add(changeNotationExpandGroupAction);
+		notationLevelMenu.add(changeNotationIndexAction);
 
 		displayMenu.add(notationLevelMenu);
 
@@ -283,6 +286,7 @@ public class ERDiagramPopupMenuManager extends MenuManager {
 				}
 
 				changeNotationExpandGroupAction.setChecked(settings.isNotationExpandGroup());
+				changeNotationIndexAction.setChecked(settings.isNotationIndex());
 
 				changeDesignToFunnyAction.setChecked(false);
 				changeDesignToFrameAction.setChecked(false);

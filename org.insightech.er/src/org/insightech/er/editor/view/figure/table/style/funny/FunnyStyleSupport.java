@@ -17,6 +17,7 @@ import org.insightech.er.Resources;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
 import org.insightech.er.editor.view.figure.table.column.IndexFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexHeaderFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 import org.insightech.er.editor.view.figure.table.style.AbstractStyleSupport;
 
@@ -68,8 +69,8 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 	}
 
 	@Override
-	public void createColumnArea(IFigure columns) {
-		initColumnArea(columns);
+	public void createContentArea(IFigure columns) {
+		initContentArea(columns);
 
 		columns.setBorder(new MarginBorder(0, 0, 0, 0));
 		columns.setBackgroundColor(ColorConstants.white);
@@ -206,22 +207,23 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 	}
 
 	@Override
-	public void addIndex(IndexFigure figure, int viewMode, String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
-
+	public void addIndex(IndexFigure figure, int viewMode, String name, boolean displayIcon, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 		final Label label = createColumnLabel();
 		label.setForegroundColor(ColorConstants.black);
 
 		final StringBuilder text = new StringBuilder();
 		text.append(name);
 
-		final Label filler = new Label();
-		filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
-		figure.add(filler);
+		if (displayIcon) {
+			final Label filler = new Label();
+			filler.setBorder(new MarginBorder(new Insets(0, 0, 0, 16)));
+			figure.add(filler);
 
-		final ImageFigure image = new ImageFigure();
-		image.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
-		image.setImage(Activator.getImage(ImageKey.INDEX));
-		figure.add(image);
+			final ImageFigure image = new ImageFigure();
+			image.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
+			image.setImage(Activator.getImage(ImageKey.INDEX));
+			figure.add(image);
+		}
 
 		label.setText(text.toString());
 
@@ -229,5 +231,16 @@ public class FunnyStyleSupport extends AbstractStyleSupport {
 				isUpdated, isRemoved);
 
 		figure.add(label);
+	}
+
+	@Override
+	public void addIndexHeader(IndexHeaderFigure figure) {
+		final Figure separater = new Figure();
+		separater.setBorder(new MarginBorder(new Insets(0, 0, 0, 0)));
+		separater.setSize(-1, 4);
+		figure.setBackgroundColor(Resources.VERY_LIGHT_GRAY);
+		figure.setOpaque(true);
+
+		figure.add(separater);
 	}
 }

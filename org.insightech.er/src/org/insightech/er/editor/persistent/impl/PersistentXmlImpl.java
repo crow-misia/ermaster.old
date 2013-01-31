@@ -612,6 +612,9 @@ public final class PersistentXmlImpl extends Persistent {
 		xml.append(tab).append("\t<notation_expand_group>")
 				.append(settings.isNotationExpandGroup())
 				.append("</notation_expand_group>\n");
+		xml.append(tab).append("\t<notation_index>")
+				.append(settings.isNotationIndex())
+				.append("</notation_index>\n");
 		xml.append(tab).append("\t<view_mode>").append(settings.getViewMode())
 				.append("</view_mode>\n");
 		xml.append(tab).append("\t<outline_view_mode>")

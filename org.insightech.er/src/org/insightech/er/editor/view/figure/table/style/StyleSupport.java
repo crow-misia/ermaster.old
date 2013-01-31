@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Font;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
 import org.insightech.er.editor.view.figure.table.column.IndexFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexHeaderFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 
 public interface StyleSupport {
@@ -15,9 +16,7 @@ public interface StyleSupport {
 
 	void createTitleBar();
 
-	void createColumnArea(IFigure columns);
-
-	void createIndexArea(IFigure indexes);
+	void createContentArea(IFigure content);
 
 	void createFooter();
 
@@ -39,6 +38,7 @@ public interface StyleSupport {
 			String name, boolean isAdded, boolean isUpdated, boolean isRemoved);
 
 	void addIndex(IndexFigure figure, int viewMode,
-			String name, boolean isAdded, boolean isUpdated, boolean isRemoved);
+			String name, boolean displayIcon, boolean isAdded, boolean isUpdated, boolean isRemoved);
 
+	void addIndexHeader(IndexHeaderFigure figure);
 }

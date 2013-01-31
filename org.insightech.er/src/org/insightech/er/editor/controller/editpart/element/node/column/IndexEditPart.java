@@ -45,7 +45,9 @@ public class IndexEditPart extends ColumnEditPart {
 		int notationLevel = diagram.getDiagramContents().getSettings()
 				.getNotationLevel();
 
-		if (notationLevel != Settings.NOTATION_LEVLE_TITLE) {
+		if (notationLevel == Settings.NOTATION_LEVLE_TITLE) {
+			figure.clearLabel();
+		} else {
 			TableFigure tableFigure = (TableFigure) parent.getFigure();
 
 			boolean isAdded = false;
@@ -55,11 +57,6 @@ public class IndexEditPart extends ColumnEditPart {
 				isUpdated = updated.isUpdated(index);
 			}
 
-			if (notationLevel == Settings.NOTATION_LEVLE_KEY) {
-				figure.clearLabel();
-				return;
-			}
-
 			addIndexFigure(diagram, tableFigure, figure, index,
 					isAdded, isUpdated, false);
 
@@ -67,19 +64,20 @@ public class IndexEditPart extends ColumnEditPart {
 				figure.setBackgroundColor(ColorConstants.titleBackground);
 				figure.setForegroundColor(ColorConstants.titleForeground);
 			}
-
-		} else {
-			figure.clearLabel();
-			return;
 		}
 	}
 
 	public static void addIndexFigure(ERDiagram diagram,
 			TableFigure tableFigure, IndexFigure figure, Index index,
 			boolean isAdded, boolean isUpdated, boolean isRemoved) {
+		final int notationLevel = diagram.getDiagramContents().getSettings()
+				.getNotationLevel();
+
+		final boolean displayIcon = notationLevel == Settings.NOTATION_LEVLE_DETAIL;
+
 		tableFigure.addIndex(figure, diagram.getDiagramContents()
 				.getSettings().getViewMode(), diagram.filter(index.getName()),
-				isAdded, isUpdated, isRemoved);
+				displayIcon, isAdded, isUpdated, isRemoved);
 	}
 
 	@Override

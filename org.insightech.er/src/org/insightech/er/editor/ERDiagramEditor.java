@@ -89,6 +89,7 @@ import org.insightech.er.editor.view.action.option.OptionSettingAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeCapitalAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeNotationDependenceAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeNotationExpandGroupAction;
+import org.insightech.er.editor.view.action.option.notation.ChangeNotationIndexAction;
 import org.insightech.er.editor.view.action.option.notation.ChangeStampAction;
 import org.insightech.er.editor.view.action.option.notation.LockEditAction;
 import org.insightech.er.editor.view.action.option.notation.TooltipAction;
@@ -315,6 +316,7 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 						new ChangeNotationLevelToOnlyKeyAction(this),
 						new ChangeNotationLevelToNameAndKeyAction(this),
 						new ChangeNotationExpandGroupAction(this),
+						new ChangeNotationIndexAction(this),
 						new ChangeDesignToFunnyAction(this),
 						new ChangeDesignToFrameAction(this),
 						new ChangeDesignToSimpleAction(this),

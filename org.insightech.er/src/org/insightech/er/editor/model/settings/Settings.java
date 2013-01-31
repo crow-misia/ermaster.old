@@ -38,6 +38,8 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 
 	private boolean notationExpandGroup;
 
+	private boolean notationIndex;
+
 	private boolean notationDependencs;
 
 	private String tableStyle;
@@ -87,6 +89,7 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 	public Settings() {
 		this.capital = true;
 		this.notationExpandGroup = true;
+		this.notationIndex = true;
 
 		this.tableStyle = null;
 		this.viewMode = VIEW_MODE_PHYSICAL;
@@ -120,6 +123,14 @@ public class Settings implements Serializable, Cloneable, TablePropertiesHolder 
 
 	public void setNotationExpandGroup(boolean notationExpandGroup) {
 		this.notationExpandGroup = notationExpandGroup;
+	}
+
+	public boolean isNotationIndex() {
+		return notationIndex;
+	}
+
+	public void setNotationIndex(boolean notationIndex) {
+		this.notationIndex = notationIndex;
 	}
 
 	public boolean isNotationDependence() {

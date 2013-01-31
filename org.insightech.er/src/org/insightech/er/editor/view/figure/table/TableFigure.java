@@ -13,6 +13,7 @@ import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignT
 import org.insightech.er.editor.view.action.option.notation.design.ChangeDesignToSimpleAction;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
 import org.insightech.er.editor.view.figure.table.column.IndexFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexHeaderFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 import org.insightech.er.editor.view.figure.table.style.StyleSupport;
 import org.insightech.er.editor.view.figure.table.style.frame.FrameStyleSupport;
@@ -21,14 +22,14 @@ import org.insightech.er.editor.view.figure.table.style.simple.SimpleStyleSuppor
 
 public class TableFigure extends RoundedRectangle {
 
-	private final Figure columns;
+	private final Figure content;
 
 	private StyleSupport styleSupport;
 
 	private Color foregroundColor;
 
 	public TableFigure(String tableStyle) {
-		this.columns = new Figure();
+		this.content = new Figure();
 		this.setLayoutManager(new BorderLayout());
 		this.setTableStyle(tableStyle);
 	}
@@ -56,9 +57,9 @@ public class TableFigure extends RoundedRectangle {
 
 		this.styleSupport.createTitleBar();
 
-		this.columns.removeAll();
+		clear();
 
-		this.styleSupport.createColumnArea(this.columns);
+		this.styleSupport.createContentArea(this.content);
 
 		this.styleSupport.createFooter();
 	}
@@ -76,7 +77,7 @@ public class TableFigure extends RoundedRectangle {
 	}
 
 	public void setDependence(final Boolean dependence) {
-	    this.styleSupport.setDependence(dependence);
+		this.styleSupport.setDependence(dependence);
 	}
 
 	public void setName(String name) {
@@ -88,8 +89,8 @@ public class TableFigure extends RoundedRectangle {
 		this.styleSupport.setFont(font, titleFont);
 	}
 
-	public void clearColumns() {
-		this.columns.removeAll();
+	public void clear() {
+		this.content.removeAll();
 	}
 
 	public void addColumn(NormalColumnFigure figure, int viewMode,
@@ -121,13 +122,21 @@ public class TableFigure extends RoundedRectangle {
 	}
 
 	public void addIndex(IndexFigure figure, int viewMode,
-			String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
+			String name, boolean displayIcon, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 
 		figure.removeAll();
 		figure.setBackgroundColor(null);
 
-		this.styleSupport.addIndex(figure, viewMode, name, isAdded,
-				isUpdated, isRemoved);
+		this.styleSupport.addIndex(figure, viewMode, name, displayIcon,
+				isAdded, isUpdated, isRemoved);
+	}
+
+	public void addIndexHeader(IndexHeaderFigure figure) {
+
+		figure.removeAll();
+		figure.setBackgroundColor(null);
+
+		this.styleSupport.addIndexHeader(figure);
 	}
 
 	@Override
@@ -150,12 +159,12 @@ public class TableFigure extends RoundedRectangle {
 	}
 
 	/**
-	 * columns を取得します.
+	 * content を取得します.
 	 * 
-	 * @return columns
+	 * @return content
 	 */
-	public Figure getColumns() {
-		return columns;
+	public Figure getContent() {
+		return content;
 	}
 
 	@SuppressWarnings("static-method")

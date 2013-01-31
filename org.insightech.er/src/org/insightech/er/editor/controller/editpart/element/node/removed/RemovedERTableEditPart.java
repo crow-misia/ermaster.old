@@ -100,7 +100,7 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 
 		ERDiagram diagram = this.getDiagram();
 
-		tableFigure.clearColumns();
+		tableFigure.clear();
 
 		TableViewEditPart.showRemovedColumns(diagram, tableFigure, table
 				.getColumns(), false);
@@ -110,6 +110,6 @@ public class RemovedERTableEditPart extends RemovedNodeElementEditPart
 	public IFigure getContentPane() {
 		final  TableFigure figure = (TableFigure) super.getContentPane();
 
-		return figure.getColumns();
+		return figure.getContent();
 	}
 }

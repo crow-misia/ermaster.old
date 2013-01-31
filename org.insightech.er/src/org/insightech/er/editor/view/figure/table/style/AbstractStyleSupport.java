@@ -16,11 +16,12 @@ import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.figure.table.TableFigure;
 import org.insightech.er.editor.view.figure.table.column.GroupColumnFigure;
 import org.insightech.er.editor.view.figure.table.column.IndexFigure;
+import org.insightech.er.editor.view.figure.table.column.IndexHeaderFigure;
 import org.insightech.er.editor.view.figure.table.column.NormalColumnFigure;
 
 public abstract class AbstractStyleSupport implements StyleSupport {
 
-	private TableFigure tableFigure;
+	private final TableFigure tableFigure;
 
 	public AbstractStyleSupport(TableFigure tableFigure) {
 		super();
@@ -46,19 +47,13 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		return this.tableFigure.getTextColor();
 	}
 
-	public void createColumnArea(IFigure columns) {
-		initColumnArea(columns);
+	public void createContentArea(IFigure content) {
+		initContentArea(content);
 
-		this.tableFigure.add(columns, BorderLayout.CENTER);
+		this.tableFigure.add(content, BorderLayout.CENTER);
 	}
 
-	public void createIndexArea(IFigure indexes) {
-		initIndexArea(indexes);
-
-		this.tableFigure.add(indexes, BorderLayout.CENTER);
-	}
-
-	protected static void initColumnArea(IFigure columns) {
+	protected static void initContentArea(IFigure columns) {
 		ToolbarLayout layout = new ToolbarLayout();
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
 		layout.setStretchMinorAxis(true);
@@ -69,9 +64,6 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 
 		columns.setBackgroundColor(null);
 		columns.setOpaque(false);
-	}
-
-	protected static void initIndexArea(IFigure indexes) {
 	}
 
 	public void createFooter() {
@@ -218,7 +210,7 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		figure.add(label);
 	}
 
-	public void addIndex(IndexFigure figure, int viewMode, String name, boolean isAdded, boolean isUpdated, boolean isRemoved) {
+	public void addIndex(IndexFigure figure, int viewMode, String name, boolean displayIcon, boolean isAdded, boolean isUpdated, boolean isRemoved) {
 		Label label = createColumnLabel();
 
 		label.setForegroundColor(this.getTextColor());
@@ -233,5 +225,9 @@ public abstract class AbstractStyleSupport implements StyleSupport {
 		label.setText(text.toString());
 
 		figure.add(label);
+	}
+
+	public void addIndexHeader(IndexHeaderFigure figure) {
+		// do nothing.
 	}
 }

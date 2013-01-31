@@ -12,6 +12,7 @@ import org.insightech.er.editor.controller.editpart.element.node.NoteEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.ViewEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.column.GroupColumnEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.column.IndexEditPart;
+import org.insightech.er.editor.controller.editpart.element.node.column.IndexHeaderEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.column.NormalColumnEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.removed.RemovedERTableEditPart;
 import org.insightech.er.editor.controller.editpart.element.node.removed.RemovedNoteEditPart;
@@ -25,6 +26,7 @@ import org.insightech.er.editor.model.diagram_contents.element.node.note.Note;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.index.IndexHeader;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.not_element.group.ColumnGroup;
 import org.insightech.er.editor.model.tracking.RemovedERTable;
@@ -83,6 +85,9 @@ public final class ERDiagramEditPartFactory implements EditPartFactory {
 
 		} else if (model instanceof Index) {
 			editPart = new IndexEditPart();
+
+		} else if (model instanceof IndexHeader) {
+			editPart = new IndexHeaderEditPart();
 
 		}
 
