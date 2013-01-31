@@ -96,17 +96,18 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 	@Override
 	public void showTargetFeedback(Request request) {
 		if (request instanceof DirectEditRequest) {
-			ZoomManager zoomManager = ((ScalableFreeformRootEditPart) this
-					.getHost().getRoot()).getZoomManager();
-			double zoom = zoomManager.getZoom();
+			final ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) this.getHost().getRoot();
+			final ZoomManager zoomManager = rootEditPart.getZoomManager();
+			final Rectangle clientArea = zoomManager.getViewport().getClientArea();
+			
+			final double zoom = zoomManager.getZoom();
 
 			Rectangle columnRectangle = this.getColumnRectangle();
-			int center = (int) ((columnRectangle.y + (columnRectangle.height / 2.0)) * zoom);
+			int center = (int) ((columnRectangle.y + (columnRectangle.height / 2.0)) * zoom) - clientArea.y;
 
 			DirectEditRequest directEditRequest = (DirectEditRequest) request;
 
 			int y = 0;
-			System.out.println(center + "  -> "  + directEditRequest.getLocation().y);
 
 			if (directEditRequest.getLocation().y < center) {
 				y = columnRectangle.y - 1;
@@ -404,9 +405,11 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 	}
 
 	private int getColumnIndex(DirectEditRequest editRequest) {
-		ZoomManager zoomManager = ((ScalableFreeformRootEditPart) this
-				.getHost().getRoot()).getZoomManager();
-		double zoom = zoomManager.getZoom();
+		final ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) this.getHost().getRoot();
+		final ZoomManager zoomManager = rootEditPart.getZoomManager();
+		final Rectangle clientArea = zoomManager.getViewport().getClientArea();
+
+		final double zoom = zoomManager.getZoom();
 
 		ColumnEditPart columnEditPart = (ColumnEditPart) this.getHost();
 
@@ -422,7 +425,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 		int index = columns.indexOf(column);
 
 		Rectangle columnRectangle = this.getColumnRectangle();
-		int center = (int) ((columnRectangle.y + (columnRectangle.height / 2)) * zoom);
+		final int center = (int) ((columnRectangle.y + (columnRectangle.height / 2)) * zoom) - clientArea.y;
 
 		if (editRequest.getLocation().y >= center) {
 			index++;
