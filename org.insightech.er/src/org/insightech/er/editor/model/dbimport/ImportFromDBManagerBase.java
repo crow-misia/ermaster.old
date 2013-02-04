@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -66,7 +67,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 	protected DBSetting dbSetting;
 
-	private ERDiagram diagram;
+	protected ERDiagram diagram;
 
 	private List<DBObject> dbObjectList;
 
@@ -74,7 +75,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 	protected Map<String, String> tableCommentMap;
 
-	protected Map<String, Map<String, ColumnData>> columnDataCash;
+	protected Map<String, Map<String, ColumnData>> columnDataCache;
 
 	private Map<String, List<ForeignKeyData>> tableForeignKeyDataMap;
 
@@ -98,7 +99,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 	private boolean mergeWord;
 
-	protected static class ColumnData {
+	public static class ColumnData {
 		public String columnName;
 
 		public String type;
@@ -155,7 +156,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 	public ImportFromDBManagerBase() {
 		this.tableMap = new HashMap<String, ERTable>();
 		this.tableCommentMap = new HashMap<String, String>();
-		this.columnDataCash = new HashMap<String, Map<String, ColumnData>>();
+		this.columnDataCache = new HashMap<String, Map<String, ColumnData>>();
 		this.tableForeignKeyDataMap = new HashMap<String, List<ForeignKeyData>>();
 		this.dictionary = new HashMap<UniqueWord, Word>();
 	}
@@ -199,7 +200,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 			this.setForeignKeys(this.importedTables);
 
-			this.importedViews = this.importViews(this.dbObjectList);
+			this.importedViews = this.importViews(this.dbObjectList, monitor);
 
 		} catch (InterruptedException e) {
 			throw e;
@@ -213,7 +214,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		monitor.done();
 	}
 
-	protected void cashColumnData(String schemaName, String tableName,
+	protected void cacheTableColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
 		ResultSet columnSet = null;
@@ -223,13 +224,13 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 			String oldTable = null;
 			String oldSchema = null;
-			Map<String, ColumnData> cash = null;
+			Map<String, ColumnData> cache = null;
 
 			while (columnSet.next()) {
 				String table = columnSet.getString("TABLE_NAME");
 				String schema = columnSet.getString("TABLE_SCHEM");
 
-				if (cash == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
+				if (cache == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
 					oldSchema = schema;
 					oldTable = table;
 					String tableNameWithSchema = this.dbSetting
@@ -237,19 +238,19 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 					if (monitor != null) {
 						monitor.subTask("reading : " + tableNameWithSchema);
 					}
-					cash = this.columnDataCash
+					cache = this.columnDataCache
 							.get(tableNameWithSchema);
-					if (cash == null) {
-						cash = new LinkedHashMap<String, ColumnData>();
-						this.columnDataCash.put(tableNameWithSchema, cash);
+					if (cache == null) {
+						cache = new LinkedHashMap<String, ColumnData>();
+						this.columnDataCache.put(tableNameWithSchema, cache);
 					}
 				}
 
-				ColumnData columnData = this.createColumnData(columnSet);
+				ColumnData columnData = this.createTableColumnData(columnSet);
 
-				this.cashOtherColumnData(table, schema, columnData);
+				this.cacheOtherColumnData(table, schema, columnData);
 
-				cash.put(columnData.columnName, columnData);
+				cache.put(columnData.columnName, columnData);
 
 				if (monitor != null && monitor.isCanceled()) {
 					throw new InterruptedException("Cancel has been requested.");
@@ -257,14 +258,12 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			}
 
 		} finally {
-			if (columnSet != null) {
-				columnSet.close();
-			}
+			close(columnSet);
 		}
 	}
 
 	@SuppressWarnings("static-method")
-	protected ColumnData createColumnData(ResultSet columnSet)
+	protected ColumnData createTableColumnData(ResultSet columnSet)
 			throws SQLException {
 		ColumnData columnData = new ColumnData();
 		columnData.columnName = columnSet.getString("COLUMN_NAME");
@@ -291,11 +290,18 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return columnData;
 	}
 
-	protected void cashOtherColumnData(String tableName, String schema,
+	@SuppressWarnings("static-method")
+	protected ColumnData createViewColumnData(ResultSet columnSet) throws SQLException {
+		ColumnData columnData = new ColumnData();
+
+		return columnData;
+	}
+
+	protected void cacheOtherColumnData(String tableName, String schema,
 			ColumnData columnData) throws SQLException {
 	}
 
-	protected void cashTableComment(IProgressMonitor monitor)
+	protected void cacheTableComment(IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
 	}
 
@@ -389,7 +395,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			IProgressMonitor monitor) throws SQLException, InterruptedException {
 		List<ERTable> list = new ArrayList<ERTable>();
 
-		this.cashTableComment(monitor);
+		this.cacheTableComment(monitor);
 
 		int i = 0;
 
@@ -402,7 +408,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				String tableNameWithSchema = this.dbSetting
 						.getTableNameWithSchema(tableName, schema);
 
-				this.cashColumnData(schema, tableName, dbObjectList, monitor);
+				this.cacheTableColumnData(schema, tableName, dbObjectList, monitor);
 
 				monitor.subTask("(" + i + "/" + this.dbObjectList.size() + ") "
 						+ tableNameWithSchema);
@@ -488,7 +494,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 	}
 
 	protected void setForeignKeys(List<ERTable> list) throws SQLException {
-		this.cashForeignKeyData();
+		this.cacheForeignKeyData();
 
 		for (ERTable target : list) {
 			if (this.tableForeignKeyDataMap != null) {
@@ -661,7 +667,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 	protected Map<String, ColumnData> getColumnDataMap(
 			String tableNameWithSchema, String tableName, String schema)
 			throws SQLException, InterruptedException {
-		return this.columnDataCash.get(tableNameWithSchema);
+		return this.columnDataCache.get(tableNameWithSchema);
 	}
 
 	private List<Column> getColumns(String tableNameWithSchema,
@@ -838,7 +844,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return true;
 	}
 
-	private void cashForeignKeyData() throws SQLException {
+	private void cacheForeignKeyData() throws SQLException {
 		ResultSet foreignKeySet = null;
 		try {
 			foreignKeySet = metaData.getImportedKeys(null, null, null);
@@ -1128,27 +1134,45 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return importedViews;
 	}
 
-	private List<View> importViews(List<DBObject> dbObjectList)
-			throws SQLException {
-		List<View> list = new ArrayList<View>();
+	private List<View> importViews(final List<DBObject> dbObjectList, final IProgressMonitor monitor)
+			throws SQLException, InterruptedException {
+		final List<View> list = new ArrayList<View>();
 
+		if (dbObjectList.isEmpty()) {
+			return list;
+		}
+
+		int i = 0;
 		for (DBObject dbObject : dbObjectList) {
 			if (DBObject.TYPE_VIEW.equals(dbObject.getType())) {
+				i++;
+
 				String schema = dbObject.getSchema();
 				String name = dbObject.getName();
 
-				View view = this.importView(schema, name);
+				String viewNameWithSchema = this.dbSetting
+						.getTableNameWithSchema(name, schema);
+
+				monitor.subTask("(" + i + "/" + this.dbObjectList.size() + ") "
+						+ viewNameWithSchema);
+				monitor.worked(1);
+
+				View view = this.importView(schema, name, monitor);
 
 				if (view != null) {
 					list.add(view);
 				}
+			}
+
+			if (monitor.isCanceled()) {
+				throw new InterruptedException("Cancel has been requested.");
 			}
 		}
 
 		return list;
 	}
 
-	protected View importView(String schema, String viewName)
+	protected View importView(final String schema, final String viewName, final IProgressMonitor monitor)
 			throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -1164,10 +1188,8 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			if (schema != null) {
 				stmt.setString(1, schema);
 				stmt.setString(2, viewName);
-
 			} else {
 				stmt.setString(1, viewName);
-
 			}
 
 			rs = stmt.executeQuery();
@@ -1182,7 +1204,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				view.setSql(definitionSQL);
 				view.getTableViewProperties().setSchema(schema);
 
-				List<Column> columnList = this.getViewColumnList(definitionSQL);
+				List<Column> columnList = this.getViewColumnList(schema, viewName, definitionSQL, monitor);
 				view.setColumns(columnList, false);
 
 				view.setDirty();
@@ -1198,29 +1220,40 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		}
 	}
 
-	protected abstract String getViewDefinitionSQL(String schema);
+	protected abstract String getViewDefinitionSQL(final String schema);
 
-	private List<Column> getViewColumnList(String sql) {
-		List<Column> columnList = new ArrayList<Column>();
+	@SuppressWarnings("static-method")
+	protected String getMaterializedViewDefinitionSQL(final String schema) {
+		return null;
+	}
 
-		String upperSql = sql.toUpperCase();
+	/**
+	 * ビューのカラム一覧を取得する
+	 * @param schema スキーマ名
+	 * @param viewName ビュー名
+	 * @param definitionSQL SQL定義
+	 * @return カラム一覧
+	 */
+	protected List<Column> getViewColumnList(final String schema, final String viewName, final String definitionSQL, final IProgressMonitor monitor) throws SQLException {
+		String upperSql = definitionSQL.toUpperCase();
 		int selectIndex = upperSql.indexOf("SELECT ");
 		int fromIndex = upperSql.indexOf(" FROM ");
 
 		if (selectIndex == -1) {
-			return null;
+			return Collections.emptyList();
 		}
 
+		List<Column> columnList = new ArrayList<Column>();
 		String columnsPart = null;
 		String fromPart = null;
 
 		if (fromIndex != -1) {
-			columnsPart = sql.substring(selectIndex + "SELECT ".length(),
+			columnsPart = definitionSQL.substring(selectIndex + "SELECT ".length(),
 					fromIndex);
-			fromPart = sql.substring(fromIndex + " FROM ".length());
+			fromPart = definitionSQL.substring(fromIndex + " FROM ".length());
 
 		} else {
-			columnsPart = sql.substring(selectIndex + "SELECT ".length());
+			columnsPart = definitionSQL.substring(selectIndex + "SELECT ".length());
 			fromPart = "";
 		}
 
@@ -1238,7 +1271,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 			String tableName = fromTokenizer.nextToken().trim();
 
 			// テーブル名 AS エリアス名 の「 AS」部を削除する
-			tableName = tableName.replaceAll(" [Aa][Ss]", "");
+			tableName = StringUtils.remove(tableName, " AS");
 
 			String tableAlias = null;
 
@@ -1374,7 +1407,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return columnList;
 	}
 
-	private void addColumnToView(List<Column> columnList,
+	protected void addColumnToView(List<Column> columnList,
 			NormalColumn targetColumn, String columnAlias) {
 		Word word = null;
 

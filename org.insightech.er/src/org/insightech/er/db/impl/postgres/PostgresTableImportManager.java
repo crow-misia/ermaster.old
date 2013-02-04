@@ -26,9 +26,9 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected ColumnData createColumnData(ResultSet columnSet)
+	protected ColumnData createTableColumnData(ResultSet columnSet)
 			throws SQLException {
-		ColumnData columnData = super.createColumnData(columnSet);
+		ColumnData columnData = super.createTableColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
 		if (type.startsWith("time")) {
@@ -51,7 +51,7 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected void cashOtherColumnData(String tableName, String schema,
+	protected void cacheOtherColumnData(String tableName, String schema,
 			ColumnData columnData) throws SQLException {
 
 		if (columnData.type.equals("interval")) {

@@ -14,10 +14,16 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.dbimport.DBObject;
 import org.insightech.er.editor.model.dbimport.ImportFromDBManagerBase;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.column.Column;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.RealWord;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.TypeData;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.editor.model.diagram_contents.not_element.sequence.Sequence;
 import org.insightech.er.editor.model.diagram_contents.not_element.trigger.Trigger;
 
@@ -36,9 +42,9 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			.compile("timestamp\\((.)\\).*");
 
 	@Override
-	protected void cashColumnData(String schemaName, String tableName,
+	protected void cacheTableColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor) throws SQLException, InterruptedException {
-		super.cashColumnData(schemaName, tableName, dbObjectList, monitor);
+		super.cacheTableColumnData(schemaName, tableName, dbObjectList, monitor);
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -63,7 +69,7 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 
 			String oldTable = null;
 			String oldSchema = null;
-			Map<String, ColumnData> cash = null;
+			Map<String, ColumnData> cache = null;
 
 			while (rs.next()) {
 				String table = rs.getString("TABLE_NAME");
@@ -71,15 +77,15 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 				String columnName = rs.getString("COLUMN_NAME");
 				String comments = rs.getString("COMMENTS");
 
-				if (cash == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
+				if (cache == null || !StringUtils.equals(table, oldTable) || !StringUtils.equals(schema, oldSchema)) {
 					oldSchema = schema;
 					oldTable = table;
 					String tableNameWithSchema = this.dbSetting.getTableNameWithSchema(table, schema);
 
-					cash = this.columnDataCash.get(tableNameWithSchema);
+					cache = this.columnDataCache.get(tableNameWithSchema);
 				}
-				if (cash != null) {
-					ColumnData columnData = cash.get(columnName);
+				if (cache != null) {
+					ColumnData columnData = cache.get(columnName);
 					if (columnData != null) {
 						columnData.description = comments;
 					}
@@ -93,7 +99,7 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected void cashTableComment(IProgressMonitor monitor)
+	protected void cacheTableComment(IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -125,10 +131,76 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	protected String getViewDefinitionSQL(String schema) {
 		if (schema != null) {
 			return "SELECT TEXT FROM ALL_VIEWS WHERE OWNER = ? AND VIEW_NAME = ?";
+		}
+		return "SELECT TEXT FROM ALL_VIEWS WHERE VIEW_NAME = ?";
+	}
 
-		} else {
-			return "SELECT TEXT FROM ALL_VIEWS WHERE VIEW_NAME = ?";
+	@Override
+	protected List<Column> getViewColumnList(final String schemaName, final String viewName, final String definitionSQL, final IProgressMonitor monitor) throws SQLException {
+		final List<Column> retval = new ArrayList<Column>();
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
+		try {
+			final StringBuilder sql = new StringBuilder("SELECT COLUMN_NAME, DATA_TYPE, NULLABLE, NVL(DATA_PRECISION, CHAR_LENGTH) DATA_SIZE, DATA_SCALE, CHAR_USED, DATA_DEFAULT FROM ALL_TAB_COLUMNS WHERE");
+			if (StringUtils.isNotEmpty(schemaName)) {
+				sql.append(" OWNER = ? AND ");
+			}
+			sql.append(" TABLE_NAME = ? ORDER BY COLUMN_ID");
+			stmt = this.con.prepareStatement(sql.toString());
+			int paramNum = 1;
+			if (StringUtils.isNotEmpty(schemaName)) {
+				stmt.setString(paramNum++, schemaName);
+			}
+			stmt.setString(paramNum++, viewName);
+			rs = stmt.executeQuery();
+			
+			final String database = this.diagram.getDatabase();
+			final String dbSystem = this.dbSetting.getDbsystem();
+
+			while (rs.next()) {
+				final String columnName = rs.getString("COLUMN_NAME");
+				String dataType = rs.getString("DATA_TYPE");
+				final int size = rs.getInt("DATA_SIZE");
+				final int decimal = rs.getInt("DATA_SCALE");
+				final String charUsed = rs.getString("CHAR_USED");
+				final String defaultValue = rs.getString("DATA_DEFAULT");
+				final boolean notnull = "N".equals(rs.getString("NULLABLE"));
+
+				// 型にパラメータを付与する
+				String unit;
+				if (charUsed == null) {
+					// 数値
+					if (size > 0) {
+						if (decimal == 0) {
+							dataType += "(P)";
+						} else {
+							dataType += "(P,S)";
+						}
+					}
+					unit = null;
+				} else {
+					dataType += "(N)";
+					unit = "B".equals(charUsed) ? "BYTE" : "CHAR";
+				}
+
+				final SqlType sqlType = SqlType.valueOf(dbSystem, dataType, size);
+				final TypeData typeData = new TypeData(
+						size == 0 ? null : size,
+						decimal == 0 ? null : decimal,
+						false, null, false, "", unit);
+
+				final Word word = new RealWord(columnName, columnName, sqlType, typeData, "", database);
+
+				final NormalColumn column = new NormalColumn(word, notnull, false, false, false, defaultValue, null, null, null, null);
+				retval.add(column);
+			}
+
+			return retval;
+		} finally {
+			close(rs);
+			close(stmt);
 		}
 	}
 
@@ -313,9 +385,9 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected ColumnData createColumnData(ResultSet columnSet)
+	protected ColumnData createTableColumnData(ResultSet columnSet)
 			throws SQLException {
-		ColumnData columnData = super.createColumnData(columnSet);
+		ColumnData columnData = super.createTableColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
 		if (type.equals("number")) {

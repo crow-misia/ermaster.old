@@ -16,9 +16,9 @@ public class H2TableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected ColumnData createColumnData(ResultSet columnSet)
+	protected ColumnData createTableColumnData(ResultSet columnSet)
 			throws SQLException {
-		ColumnData columnData = super.createColumnData(columnSet);
+		ColumnData columnData = super.createTableColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
 		if (type.startsWith("decimal")) {
