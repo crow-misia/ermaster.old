@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.diagram_contents.element.node.Location;
 import org.insightech.er.editor.model.diagram_contents.element.node.NodeElement;
@@ -15,6 +16,8 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	private static final long serialVersionUID = 5311013351131568260L;
 
+	public static final int FORMAT_VERSION = 2;
+	
 	public static final String PROPERTY_CHANGE_MODEL_PROPERTIES = "model_properties";
 
 	public static final String KEY_PROJECT_NAME = ResourceString.getResourceString("label.project.name");
@@ -39,13 +42,17 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	private Date updatedDate;
 
-	public ModelProperties() {
+    private int formatVersion;
+
+    public ModelProperties() {
 		this.creationDate = new Date();
 		this.updatedDate = new Date();
 
 		this.setLocation(new Location(50, 50, -1, -1));
 
 		this.properties = new ArrayList<NameValue>();
+
+		this.formatVersion = FORMAT_VERSION;
 	}
 
 	public void init() {
@@ -112,7 +119,15 @@ public class ModelProperties extends NodeElement implements Cloneable {
 		}
 	}
 
-	@Override
+    public int getFormatVersion() {
+        return this.formatVersion;
+    }
+
+    public void setFormatVersion(final int version) {
+        this.formatVersion = version;
+    }
+
+    @Override
 	public void setLocation(Location location) {
 		location.width = -1;
 		location.height = -1;
@@ -157,5 +172,26 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	public void setDirty() {
 		this.firePropertyChange(PROPERTY_CHANGE_MODEL_PROPERTIES, null, null);
+	}
+
+	public void formatUpgrade() {
+	    switch (this.formatVersion) {
+	    case 1:
+	        // version → バージョン(Ja)
+	        for (int i = 0; i < this.properties.size(); i++) {
+	            final NameValue v = this.properties.get(i);
+
+	            if (StringUtils.equals(v.getName(), "version")) {
+	                v.setName(ModelProperties.KEY_VERSION);
+	            } else if (StringUtils.equals(v.getName(), KEY_COMPANY_NAME)) {
+	                this.properties.add(i + 1, new NameValue(KEY_DEPARTMENT_NAME, ""));
+                } else if (StringUtils.equals(v.getName(), KEY_AUTHOR)) {
+                    this.properties.add(i + 1, new NameValue(KEY_UPDATER, ""));
+	            }
+	        }
+	        break;
+	    }
+
+	    this.formatVersion = FORMAT_VERSION;
 	}
 }

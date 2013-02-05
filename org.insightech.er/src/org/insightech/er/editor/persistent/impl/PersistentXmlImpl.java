@@ -1200,6 +1200,8 @@ public final class PersistentXmlImpl extends Persistent {
 
 		createXMLNodeElement(xml, tab2, modelProperties, context);
 
+        xml.append(tab).append("\t<format_version>").append(modelProperties.getFormatVersion())
+                .append("</format_version>\n");
 		xml.append(tab).append("\t<display>").append(modelProperties.isDisplay())
 				.append("</display>\n");
 		xml.append(tab).append("\t<creation_date>")

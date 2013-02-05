@@ -1342,7 +1342,9 @@ public final class XMLLoader {
 		loadLocation(modelProperties, element);
 		loadColor(modelProperties, element);
 
-		modelProperties.setDisplay(getBooleanValue(element, "display"), false);
+        modelProperties.setFormatVersion(getIntValue(element, "format_version", 1));
+
+        modelProperties.setDisplay(getBooleanValue(element, "display"), false);
 		modelProperties.setCreationDate(getDateValue(element, "creation_date"));
 		modelProperties.setUpdatedDate(getDateValue(element, "updated_date"), false);
 
@@ -1357,6 +1359,9 @@ public final class XMLLoader {
 
 			modelProperties.addProperty(nameValue);
 		}
+		
+		modelProperties.formatUpgrade();
+		
 		modelProperties.setDirty();
 	}
 
