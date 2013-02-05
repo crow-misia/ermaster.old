@@ -2,7 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.element.node.model_prope
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.diagram_contents.element.node.Location;
@@ -15,7 +17,21 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	public static final String PROPERTY_CHANGE_MODEL_PROPERTIES = "model_properties";
 
-	private boolean display;
+	public static final String KEY_PROJECT_NAME = ResourceString.getResourceString("label.project.name");
+
+    public static final String KEY_MODEL_NAME = ResourceString.getResourceString("label.model.name");
+
+    public static final String KEY_VERSION = ResourceString.getResourceString("label.version");
+
+    public static final String KEY_COMPANY_NAME = ResourceString.getResourceString("label.company.name");
+
+    public static final String KEY_DEPARTMENT_NAME = ResourceString.getResourceString("label.department.name");
+
+    public static final String KEY_AUTHOR = ResourceString.getResourceString("label.author");
+
+    public static final String KEY_UPDATER = ResourceString.getResourceString("label.updater");
+
+    private boolean display;
 
 	private List<NameValue> properties;
 
@@ -33,16 +49,13 @@ public class ModelProperties extends NodeElement implements Cloneable {
 	}
 
 	public void init() {
-		properties.add(new NameValue(ResourceString
-				.getResourceString("label.project.name"), ""));
-		properties.add(new NameValue(ResourceString
-				.getResourceString("label.model.name"), ""));
-		properties.add(new NameValue(ResourceString
-				.getResourceString("label.version"), ""));
-		properties.add(new NameValue(ResourceString
-				.getResourceString("label.company.name"), ""));
-		properties.add(new NameValue(ResourceString
-				.getResourceString("label.author"), ""));
+		properties.add(new NameValue(KEY_PROJECT_NAME, ""));
+		properties.add(new NameValue(KEY_MODEL_NAME, ""));
+		properties.add(new NameValue(KEY_VERSION, ""));
+		properties.add(new NameValue(KEY_COMPANY_NAME, ""));
+        properties.add(new NameValue(KEY_DEPARTMENT_NAME, ""));
+		properties.add(new NameValue(KEY_AUTHOR, ""));
+        properties.add(new NameValue(KEY_UPDATER, ""));
 	}
 
 	public void clear() {
@@ -67,6 +80,16 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	public Date getUpdatedDate() {
 		return updatedDate;
+	}
+
+	public Map<String, String> getMap() {
+	    final Map<String, String> retval = new HashMap<String, String>();
+	    
+	    for (final NameValue n : this.properties) {
+	        retval.put(n.getName(), n.getValue());
+	    }
+	    
+	    return retval;
 	}
 
 	public void setUpdatedDate(Date updatedDate, final boolean fire) {
@@ -99,11 +122,11 @@ public class ModelProperties extends NodeElement implements Cloneable {
 
 	@Override
 	public ModelProperties clone() {
-		ModelProperties clone = (ModelProperties) super.clone();
+		final ModelProperties clone = (ModelProperties) super.clone();
 
-		List<NameValue> list = new ArrayList<NameValue>(this.properties.size());
+		final List<NameValue> list = new ArrayList<NameValue>(this.properties.size());
 
-		for (NameValue nameValue : this.properties) {
+		for (final NameValue nameValue : this.properties) {
 			list.add(nameValue.clone());
 		}
 

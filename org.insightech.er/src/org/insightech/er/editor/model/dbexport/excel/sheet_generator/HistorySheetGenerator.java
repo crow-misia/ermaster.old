@@ -70,7 +70,10 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 			HSSFFont linkCellFont = null;
 			int linkCol = -1;
 
-			for (ChangeTracking changeTracking : diagram
+            final FastDateFormat format = FastDateFormat.getInstance(
+                    this.keywordsValueMap.get(KEYWORD_DATE_FORMAT));
+
+            for (ChangeTracking changeTracking : diagram
 					.getChangeTrackingList().getList()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 
@@ -85,16 +88,8 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 
 					} else {
 						if (KEYWORD_DATE.equals(template)) {
-							FastDateFormat format = FastDateFormat.getInstance(
-									this.keywordsValueMap.get(KEYWORD_DATE_FORMAT));
-							try {
-								value = format.format(changeTracking
-										.getUpdatedDate());
-
-							} catch (Exception e) {
-								value = changeTracking.getUpdatedDate()
-										.toString();
-							}
+						    value = getDateString(format,
+						            changeTracking.getUpdatedDate());
 
 						} else if (KEYWORD_CONTENTS.equals(template)) {
 							value = changeTracking.getComment();

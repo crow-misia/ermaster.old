@@ -1,10 +1,12 @@
 package org.insightech.er.editor.model.dbexport.excel.sheet_generator;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -529,4 +531,12 @@ public abstract class AbstractSheetGenerator {
 	public abstract int getKeywordsColumnNo();
 
 	public abstract String[] getKeywords();
+
+	public static String getDateString(final FastDateFormat format, final Date date) {
+        try {
+            return format.format(date);
+        } catch (Exception e) {
+            return date.toString();
+        }
+	}
 }
