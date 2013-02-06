@@ -33,6 +33,7 @@ public class AllTriggerSheetGenerator extends TriggerSheetGenerator {
 
 		HSSFSheet oldSheet = workbook.getSheetAt(sheetNo);
 
+		final boolean pageBreak = loopDefinition.pageBreak;
 		boolean first = true;
 
 		for (Trigger trigger : diagram.getDiagramContents().getTriggerSet()) {
@@ -50,8 +51,10 @@ public class AllTriggerSheetGenerator extends TriggerSheetGenerator {
 
 			this.setTriggerData(workbook, newSheet, trigger);
 
-			newSheet.setRowBreak(newSheet.getLastRowNum()
-					+ loopDefinition.spaceLine);
+			if (pageBreak) {
+				newSheet.setRowBreak(newSheet.getLastRowNum()
+						+ loopDefinition.spaceLine);
+			}
 
 			monitor.worked(1);
 		}

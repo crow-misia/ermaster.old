@@ -44,6 +44,7 @@ public class AllTablesSheetGenerator extends TableSheetGenerator {
 					.getTableSet().getList();
 		}
 
+		final boolean pageBreak = loopDefinition.pageBreak;
 		boolean first = true;
 
 		for (ERTable table : tableContents) {
@@ -61,8 +62,10 @@ public class AllTablesSheetGenerator extends TableSheetGenerator {
 
 			this.setTableData(workbook, newSheet, table);
 
-			newSheet.setRowBreak(newSheet.getLastRowNum()
-					+ loopDefinition.spaceLine);
+			if (pageBreak) {
+				newSheet.setRowBreak(newSheet.getLastRowNum()
+						+ loopDefinition.spaceLine);
+			}
 
 			monitor.worked(1);
 		}

@@ -257,9 +257,7 @@ public class POIUtils {
 			return readExcelBook(fis);
 
 		} finally {
-			if (fis != null) {
-				fis.close();
-			}
+			IOUtils.closeQuietly(fis);
 		}
 	}
 
@@ -301,12 +299,8 @@ public class POIUtils {
 			workbook.write(bos);
 
 		} finally {
-			if (bos != null) {
-				bos.close();
-			}
-			if (fos != null) {
-				fos.close();
-			}
+			IOUtils.closeQuietly(bos);
+			IOUtils.closeQuietly(fos);
 		}
 	}
 
@@ -319,7 +313,7 @@ public class POIUtils {
 	 */
 	public static CellRangeAddress getMergedRegion(HSSFSheet sheet,
 			CellLocation location) {
-		for (int i = 0; i < sheet.getNumMergedRegions(); i++) {
+		for (int i = 0, n = sheet.getNumMergedRegions(); i < n; i++) {
 			CellRangeAddress region = sheet.getMergedRegion(i);
 
 			int rowFrom = region.getFirstRow();
@@ -346,9 +340,10 @@ public class POIUtils {
 	 */
 	public static List<CellRangeAddress> getMergedRegionList(HSSFSheet sheet,
 			int rowNum) {
-		List<CellRangeAddress> regionList = new ArrayList<CellRangeAddress>();
+		final int n = sheet.getNumMergedRegions();
+		final List<CellRangeAddress> regionList = new ArrayList<CellRangeAddress>(n);
 
-		for (int i = 0; i < sheet.getNumMergedRegions(); i++) {
+		for (int i = 0; i < n; i++) {
 			CellRangeAddress region = sheet.getMergedRegion(i);
 
 			int rowFrom = region.getFirstRow();
@@ -375,8 +370,8 @@ public class POIUtils {
 		HSSFRow newTopRow = newSheet.getRow(newStartRowNum);
 
 		if (oldAboveRow != null) {
-			for (int colNum = newTopRow.getFirstCellNum(); colNum <= newTopRow
-					.getLastCellNum(); colNum++) {
+			for (int colNum = newTopRow.getFirstCellNum(), n = newTopRow
+					.getLastCellNum(); colNum <= n; colNum++) {
 				HSSFCell oldAboveCell = oldAboveRow.getCell(colNum);
 				if (oldAboveCell != null) {
 					HSSFCell newTopCell = newTopRow.getCell(colNum);

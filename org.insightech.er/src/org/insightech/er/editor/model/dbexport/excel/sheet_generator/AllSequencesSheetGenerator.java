@@ -33,6 +33,7 @@ public class AllSequencesSheetGenerator extends SequenceSheetGenerator {
 
 		HSSFSheet oldSheet = workbook.getSheetAt(sheetNo);
 
+		final boolean pageBreak = loopDefinition.pageBreak;
 		boolean first = true;
 
 		for (Sequence sequence : diagram.getDiagramContents().getSequenceSet()) {
@@ -50,8 +51,10 @@ public class AllSequencesSheetGenerator extends SequenceSheetGenerator {
 
 			this.setSequenceData(workbook, newSheet, sequence);
 
-			newSheet.setRowBreak(newSheet.getLastRowNum()
-					+ loopDefinition.spaceLine);
+			if (pageBreak) {
+				newSheet.setRowBreak(newSheet.getLastRowNum()
+						+ loopDefinition.spaceLine);
+			}
 
 			monitor.worked(1);
 		}

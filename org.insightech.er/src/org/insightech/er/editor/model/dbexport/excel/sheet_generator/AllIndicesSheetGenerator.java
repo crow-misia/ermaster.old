@@ -34,6 +34,8 @@ public class AllIndicesSheetGenerator extends IndexSheetGenerator {
 				.getIndexSet());
 
 		HSSFSheet oldSheet = workbook.getSheetAt(sheetNo);
+		
+		final boolean pageBreak = loopDefinition.pageBreak;
 
 		boolean first = true;
 
@@ -58,8 +60,10 @@ public class AllIndicesSheetGenerator extends IndexSheetGenerator {
 
 				this.setIndexData(workbook, newSheet, index);
 
-				newSheet.setRowBreak(newSheet.getLastRowNum()
-						+ loopDefinition.spaceLine);
+				if (pageBreak) {
+					newSheet.setRowBreak(newSheet.getLastRowNum()
+							+ loopDefinition.spaceLine);
+				}
 
 				monitor.worked(1);
 			}

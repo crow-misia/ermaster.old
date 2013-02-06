@@ -73,16 +73,19 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 
 	public static class LoopDefinition {
 
-		public int startLine;
+		public final int startLine;
 
-		public int spaceLine;
+		public final int spaceLine;
 
-		public String sheetName;
+		public final String sheetName;
 
-		public LoopDefinition(int startLine, int spaceLine, String sheetName) {
+		public final boolean pageBreak;
+
+		public LoopDefinition(final int startLine, final int spaceLine, final String sheetName, final boolean pageBreak) {
 			this.startLine = startLine;
 			this.spaceLine = spaceLine;
 			this.sheetName = sheetName;
+			this.pageBreak = pageBreak;
 		}
 	}
 
@@ -231,9 +234,10 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 			int firstLine = POIUtils.getIntCellValue(loopsSheet, i, 1);
 			int spaceLine = POIUtils.getIntCellValue(loopsSheet, i, 2);
 			String sheetName = POIUtils.getCellValue(loopsSheet, i, 3);
+			boolean pageBreak = POIUtils.getBooleanCellValue(loopsSheet, i, 4);
 
 			this.loopDefinitionMap.put(templateSheetName, new LoopDefinition(
-					firstLine, spaceLine, sheetName));
+					firstLine, spaceLine, sheetName, pageBreak));
 		}
 	}
 

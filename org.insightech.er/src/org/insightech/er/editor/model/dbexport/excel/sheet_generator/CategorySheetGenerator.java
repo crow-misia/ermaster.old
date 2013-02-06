@@ -44,6 +44,7 @@ public class CategorySheetGenerator extends TableSheetGenerator {
 			sheetObjectMap.put(workbook.getSheetName(workbook
 					.getSheetIndex(newSheet)), category);
 
+			final boolean pageBreak = loopDefinition.pageBreak;
 			boolean first = true;
 
 			for (ERTable table : category.getTableContents()) {
@@ -61,8 +62,10 @@ public class CategorySheetGenerator extends TableSheetGenerator {
 
 				this.setTableData(workbook, newSheet, table);
 
-				newSheet.setRowBreak(newSheet.getLastRowNum()
-						+ loopDefinition.spaceLine);
+				if (pageBreak) {
+					newSheet.setRowBreak(newSheet.getLastRowNum()
+							+ loopDefinition.spaceLine);
+				}
 			}
 
 			if (first) {

@@ -34,6 +34,7 @@ public class AllViewSheetGenerator extends ViewSheetGenerator {
 
 		HSSFSheet oldSheet = workbook.getSheetAt(sheetNo);
 
+		final boolean pageBreak = loopDefinition.pageBreak;
 		boolean first = true;
 
 		for (View view : diagram.getDiagramContents().getContents()
@@ -52,8 +53,10 @@ public class AllViewSheetGenerator extends ViewSheetGenerator {
 
 			this.setViewData(workbook, newSheet, view);
 
-			newSheet.setRowBreak(newSheet.getLastRowNum()
-					+ loopDefinition.spaceLine);
+			if (pageBreak) {
+				newSheet.setRowBreak(newSheet.getLastRowNum()
+						+ loopDefinition.spaceLine);
+			}
 
 			monitor.worked(1);
 		}
