@@ -127,11 +127,13 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = table.getDiagram().getDatabase();
 
 			for (NormalColumn normalColumn : table.getExpandedColumns()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 				setColumnData(this.keywordsValueMap, columnTemplate, row,
-						normalColumn, table, order);
+						table, normalColumn, normalColumn.getWord(),
+						database, order);
 				order++;
 			}
 
@@ -152,13 +154,15 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = table.getDiagram().getDatabase();
 
 			for (NormalColumn normalColumn : table.getExpandedColumns()) {
 				if (normalColumn.isForeignKey()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 					setColumnData(this.keywordsValueMap,
-							this.fkColumnTemplate, row, normalColumn, table,
-							order);
+							this.fkColumnTemplate, row,
+							table, normalColumn, normalColumn.getWord(),
+							database, order);
 					order++;
 				}
 			}

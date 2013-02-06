@@ -40,6 +40,7 @@ public class ColumnSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = diagram.getDatabase();
 
 			for (ERTable table : diagram.getDiagramContents().getContents()
 					.getTableSet()) {
@@ -51,8 +52,9 @@ public class ColumnSheetGenerator extends AbstractSheetGenerator {
 
 				for (NormalColumn normalColumn : table.getExpandedColumns()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
-					setColumnData(this.keywordsValueMap, columnTemplate,
-							row, normalColumn, table, order);
+					setColumnData(this.keywordsValueMap, columnTemplate, row,
+							table, normalColumn, normalColumn.getWord(),
+							database, order);
 					order++;
 				}
 			}

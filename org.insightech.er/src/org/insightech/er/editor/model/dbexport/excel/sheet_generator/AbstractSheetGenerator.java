@@ -21,6 +21,7 @@ import org.insightech.er.editor.model.dbexport.excel.ExportToExcelManager.LoopDe
 import org.insightech.er.editor.model.diagram_contents.element.connection.Relation;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
+import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.util.POIUtils;
 import org.insightech.er.util.POIUtils.CellLocation;
 
@@ -99,6 +100,7 @@ public abstract class AbstractSheetGenerator {
 
 	private static final String[] KEYWORDS_OF_COLUMN = { KEYWORD_ORDER,
 			KEYWORD_LOGICAL_TABLE_NAME, KEYWORD_PHYSICAL_TABLE_NAME,
+			KEYWORD_TABLE_DESCRIPTION,
 			KEYWORD_LOGICAL_COLUMN_NAME, KEYWORD_PHYSICAL_COLUMN_NAME,
 			KEYWORD_TYPE, KEYWORD_LENGTH, KEYWORD_DECIMAL, KEYWORD_PRIMARY_KEY,
 			KEYWORD_NOT_NULL, KEYWORD_UNIQUE_KEY, KEYWORD_FOREIGN_KEY,
@@ -181,9 +183,11 @@ public abstract class AbstractSheetGenerator {
 		return obj.toString();
 	}
 
-	protected static void setColumnData(Map<String, String> keywordsValueMap,
-			ColumnTemplate columnTemplate, HSSFRow row,
-			NormalColumn normalColumn, TableView tableView, int order) {
+	protected void setColumnData(
+			final Map<String, String> keywordsValueMap,
+			final ColumnTemplate columnTemplate, final HSSFRow row,
+			final TableView tableView, final NormalColumn normalColumn, final Word word,
+			final String database, final int order) {
 
 		for (int columnNum : columnTemplate.columnTemplateMap.keySet()) {
 			HSSFCell cell = row.createCell(columnNum);
@@ -194,8 +198,7 @@ public abstract class AbstractSheetGenerator {
 				value = String.valueOf(order);
 
 			} else {
-				value = getColumnValue(keywordsValueMap, normalColumn,
-						tableView, template);
+				value = getColumnValue(keywordsValueMap, tableView, normalColumn, word, database, template);
 			}
 
 			try {
@@ -209,20 +212,25 @@ public abstract class AbstractSheetGenerator {
 		}
 	}
 
-	private static String getColumnValue(Map<String, String> keywordsValueMap,
-			NormalColumn normalColumn, TableView tableView, String template) {
+	protected String getColumnValue(
+			final Map<String, String> keywordsValueMap,
+			final TableView tableView, final NormalColumn normalColumn, final Word word,
+			final String database, final String template) {
 		String str = template;
 
 		for (String keyword : KEYWORDS_OF_COLUMN) {
 			str = StringUtils.replace(str, keyword, getKeywordValue(
-					keywordsValueMap, normalColumn, tableView, keyword));
+					keywordsValueMap, tableView, normalColumn, word, database, keyword));
 		}
 
 		return str;
 	}
 
-	private static String getKeywordValue(Map<String, String> keywordsValueMap,
-			NormalColumn normalColumn, TableView tableView, String keyword) {
+	@SuppressWarnings("static-method")
+	protected String getKeywordValue(
+			final Map<String, String> keywordsValueMap,
+			final TableView tableView, final NormalColumn normalColumn, final Word word,
+			final String database, final String keyword) {
 		Object obj = null;
 
 		if (KEYWORD_LOGICAL_TABLE_NAME.equals(keyword)) {
@@ -230,6 +238,9 @@ public abstract class AbstractSheetGenerator {
 
 		} else if (KEYWORD_PHYSICAL_TABLE_NAME.equals(keyword)) {
 			obj = tableView.getPhysicalName();
+
+		} else if (KEYWORD_TABLE_DESCRIPTION.equals(keyword)) {
+			obj = tableView.getDescription();
 
 		} else if (KEYWORD_LOGICAL_COLUMN_NAME.equals(keyword)) {
 			obj = normalColumn.getLogicalName();
@@ -239,8 +250,7 @@ public abstract class AbstractSheetGenerator {
 
 		} else if (KEYWORD_TYPE.equals(keyword) &&
 			normalColumn.getType() != null) {
-			obj = normalColumn.getType().getAlias(
-					tableView.getDiagram().getDatabase());
+			obj = normalColumn.getType().getAlias(database);
 		} else if (KEYWORD_LENGTH.equals(keyword)) {
 			obj = normalColumn.getTypeData().getLength();
 

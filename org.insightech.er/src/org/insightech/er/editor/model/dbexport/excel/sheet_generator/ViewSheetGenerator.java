@@ -111,11 +111,13 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = view.getDiagram().getDatabase();
 
 			for (NormalColumn normalColumn : view.getExpandedColumns()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 				setColumnData(this.keywordsValueMap, columnTemplate, row,
-						normalColumn, view, order);
+						view, normalColumn, normalColumn.getWord(),
+						database, order);
 				order++;
 			}
 
@@ -136,13 +138,15 @@ public class ViewSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = view.getDiagram().getDatabase();
 
 			for (NormalColumn normalColumn : view.getExpandedColumns()) {
 				if (normalColumn.isForeignKey()) {
 					HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 					setColumnData(this.keywordsValueMap,
-							this.fkColumnTemplate, row, normalColumn, view,
-							order);
+							this.fkColumnTemplate, row,
+							view, normalColumn, normalColumn.getWord(),
+							database, order);
 					order++;
 				}
 			}

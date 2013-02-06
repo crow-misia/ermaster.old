@@ -10,6 +10,7 @@ import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.dbexport.excel.ExportToExcelManager.LoopDefinition;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
+import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.index.Index;
 import org.insightech.er.util.POIUtils;
@@ -100,11 +101,14 @@ public class IndexSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final TableView table = index.getTable();
+			final String database = table.getDiagram().getDatabase();
 
 			for (NormalColumn normalColumn : index.getColumns()) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 				setColumnData(this.keywordsValueMap, columnTemplate, row,
-						normalColumn, index.getTable(), order);
+						table, normalColumn, normalColumn.getWord(),
+						database, order);
 				order++;
 			}
 

@@ -1,11 +1,6 @@
 package org.insightech.er.editor.model.dbexport.excel.sheet_generator;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,12 +13,14 @@ import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTabl
 import org.insightech.er.editor.model.diagram_contents.element.node.table.TableView;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.ColumnSet;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
-import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.UniqueWord;
 import org.insightech.er.editor.model.diagram_contents.not_element.dictionary.Word;
 import org.insightech.er.util.POIUtils;
 import org.insightech.er.util.POIUtils.CellLocation;
 
-public class WordSheetGenerator extends AbstractSheetGenerator {
+public class TableListSheetGenerator extends AbstractSheetGenerator {
+
+	protected static final String[] FIND_KEYWORDS_OF_TABLE = {
+		KEYWORD_LOGICAL_TABLE_NAME, KEYWORD_PHYSICAL_TABLE_NAME };
 
 	private ColumnTemplate columnTemplate;
 
@@ -36,7 +33,7 @@ public class WordSheetGenerator extends AbstractSheetGenerator {
 		this.clear();
 
 		CellLocation cellLocation = POIUtils.findCell(sheet,
-				FIND_KEYWORDS_OF_COLUMN);
+				FIND_KEYWORDS_OF_TABLE);
 
 		if (cellLocation != null) {
 			int rowNum = cellLocation.r;
@@ -48,38 +45,19 @@ public class WordSheetGenerator extends AbstractSheetGenerator {
 			}
 
 			int order = 1;
+			final String database = diagram.getDatabase();
 
-			// 選択されたカテゴリに属する単語のみを抽出する
-			List<UniqueWord> wordList;
-			if (diagram.getCurrentCategory() == null) {
-				wordList = diagram.getDiagramContents().getDictionary().getUniqueWordList();
-			} else {
-				final Set<UniqueWord> check = new HashSet<UniqueWord>();
+			for (ERTable table : diagram.getDiagramContents().getContents()
+					.getTableSet()) {
 
-				for (ERTable table : diagram.getDiagramContents().getContents()
-						.getTableSet()) {
-
-    				if (diagram.getCurrentCategory() != null
-    						&& !diagram.getCurrentCategory().contains(table)) {
-    					continue;
-    				}
-    
-    				for (NormalColumn normalColumn : table.getExpandedColumns()) {
-    					check.add(normalColumn.getWord().getUniqueWord());
-    				}
+				if (diagram.getCurrentCategory() != null
+						&& !diagram.getCurrentCategory().contains(table)) {
+					continue;
 				}
 
-				wordList = new ArrayList<UniqueWord>(check);
-			}
-			
-			// 物理名でソートする
-			Collections.sort(wordList, Word.PHYSICAL_NAME_COMPARATOR);
-
-			final String database = diagram.getDatabase();
-			for (final UniqueWord word : wordList) {
 				HSSFRow row = POIUtils.insertRow(sheet, rowNum++);
 				setColumnData(this.keywordsValueMap, columnTemplate,
-						row, null, null, word, database, order);
+						row, table, null, null, database, order);
 				order++;
 			}
 
@@ -91,30 +69,20 @@ public class WordSheetGenerator extends AbstractSheetGenerator {
 	@Override
 	protected String getKeywordValue(
 			final Map<String, String> keywordsValueMap,
-			final TableView table, final NormalColumn normalColumn, final Word word,
+			final TableView tableView, final NormalColumn normalColumn, final Word word,
 			final String database, final String keyword) {
 		Object obj = null;
 
-		if (KEYWORD_LOGICAL_COLUMN_NAME.equals(keyword)) {
-			obj = word.getLogicalName();
+		if (KEYWORD_LOGICAL_TABLE_NAME.equals(keyword)) {
+			obj = tableView.getLogicalName();
 
-		} else if (KEYWORD_PHYSICAL_COLUMN_NAME.equals(keyword)) {
-			obj = word.getPhysicalName();
+		} else if (KEYWORD_PHYSICAL_TABLE_NAME.equals(keyword)) {
+			obj = tableView.getPhysicalName();
 
-		} else if (KEYWORD_TYPE.equals(keyword) &&
-			word.getType() != null) {
-			obj = word.getType().getAlias(database);
-		} else if (KEYWORD_LENGTH.equals(keyword)) {
-			obj = word.getTypeData().getLength();
-
-		} else if (KEYWORD_DECIMAL.equals(keyword)) {
-			obj = word.getTypeData().getDecimal();
-
-		} else if (KEYWORD_DESCRIPTION.equals(keyword)) {
-			obj = word.getDescription();
-
+		} else if (KEYWORD_TABLE_DESCRIPTION.equals(keyword)) {
+			obj = tableView.getDescription();
 		}
-
+		
 		return getValue(keywordsValueMap, keyword, obj);
 	}
 
@@ -122,7 +90,7 @@ public class WordSheetGenerator extends AbstractSheetGenerator {
 		String name = this.keywordsValueMap.get(KEYWORD_SHEET_NAME);
 
 		if (name == null) {
-			name = "Word";
+			name = "List of Tables";
 		}
 
 		return name;
@@ -147,21 +115,20 @@ public class WordSheetGenerator extends AbstractSheetGenerator {
 
 	@Override
 	public String getTemplateSheetName() {
-		return "word_template";
+		return "tablelist_template";
 	}
 
 	@Override
 	public int getKeywordsColumnNo() {
-		return 36;
+		return 40;
 	}
 
 	@Override
 	public String[] getKeywords() {
 		return new String[] {
-				KEYWORD_ORDER, KEYWORD_LOGICAL_COLUMN_NAME,
-				KEYWORD_PHYSICAL_COLUMN_NAME, KEYWORD_TYPE, KEYWORD_LENGTH,
-				KEYWORD_DECIMAL,
-				KEYWORD_DESCRIPTION, KEYWORD_SHEET_NAME };
+				KEYWORD_LOGICAL_TABLE_NAME, KEYWORD_PHYSICAL_TABLE_NAME, KEYWORD_TABLE_DESCRIPTION,
+				KEYWORD_ORDER,
+				KEYWORD_SHEET_NAME };
 	}
 
 	@Override
