@@ -45,9 +45,6 @@ public class TitleSheetGenerator extends AbstractSheetGenerator {
     // 日付フォーマット
     private static final String KEYWORD_DATE_FORMAT = "$FMT";
 
-    // シート名
-    private static final String KEYWORD_SHEET_NAME = "$SHTN";
-
 	@Override
 	public void generate(IProgressMonitor monitor, HSSFWorkbook workbook,
 			int sheetNo, boolean useLogicalNameAsSheetName,

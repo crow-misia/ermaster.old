@@ -35,6 +35,7 @@ import org.insightech.er.editor.model.dbexport.excel.sheet_generator.TableSheetG
 import org.insightech.er.editor.model.dbexport.excel.sheet_generator.TitleSheetGenerator;
 import org.insightech.er.editor.model.dbexport.excel.sheet_generator.TriggerSheetGenerator;
 import org.insightech.er.editor.model.dbexport.excel.sheet_generator.ViewSheetGenerator;
+import org.insightech.er.editor.model.dbexport.excel.sheet_generator.WordSheetGenerator;
 import org.insightech.er.util.POIUtils;
 import org.insightech.er.util.io.FileUtils;
 
@@ -48,23 +49,24 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 
 	private Map<String, ObjectModel> sheetObjectMap;
 
-	private static final List<AbstractSheetGenerator> SHHET_GENERATOR_LIST = new ArrayList<AbstractSheetGenerator>();
+	private static final List<AbstractSheetGenerator> SHEET_GENERATOR_LIST = new ArrayList<AbstractSheetGenerator>();
 
 	static {
-		SHHET_GENERATOR_LIST.add(new TableSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new IndexSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new SequenceSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new ViewSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new TriggerSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new ColumnSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new AllTablesSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new AllIndicesSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new AllSequencesSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new AllViewSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new AllTriggerSheetGenerator());
-		SHHET_GENERATOR_LIST.add(new CategorySheetGenerator());
-		SHHET_GENERATOR_LIST.add(new HistorySheetGenerator());
-        SHHET_GENERATOR_LIST.add(new TitleSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new TableSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new IndexSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new SequenceSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new ViewSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new TriggerSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new ColumnSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new AllTablesSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new AllIndicesSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new AllSequencesSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new AllViewSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new AllTriggerSheetGenerator());
+		SHEET_GENERATOR_LIST.add(new CategorySheetGenerator());
+		SHEET_GENERATOR_LIST.add(new HistorySheetGenerator());
+        SHEET_GENERATOR_LIST.add(new TitleSheetGenerator());
+        SHEET_GENERATOR_LIST.add(new WordSheetGenerator());
 	}
 
 	public static class LoopDefinition {
@@ -207,7 +209,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 
 		this.initLoopDefinitionMap(loopsSheet);
 
-		for (AbstractSheetGenerator sheetGenerator : SHHET_GENERATOR_LIST) {
+		for (AbstractSheetGenerator sheetGenerator : SHEET_GENERATOR_LIST) {
 			sheetGenerator.init(wordsSheet);
 		}
 
@@ -234,7 +236,7 @@ public class ExportToExcelManager implements IRunnableWithProgress {
 	}
 
 	private static AbstractSheetGenerator getSheetGenerator(String templateSheetName) {
-		for (AbstractSheetGenerator sheetGenerator : SHHET_GENERATOR_LIST) {
+		for (AbstractSheetGenerator sheetGenerator : SHEET_GENERATOR_LIST) {
 			if (sheetGenerator.getTemplateSheetName().equals(templateSheetName)) {
 				return sheetGenerator;
 			}

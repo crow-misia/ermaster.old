@@ -29,9 +29,6 @@ public class HistorySheetGenerator extends AbstractSheetGenerator {
 	// 日付フォーマット
 	private static final String KEYWORD_DATE_FORMAT = "$FMT";
 
-	// シート名
-	private static final String KEYWORD_SHEET_NAME = "$SHTN";
-
 	private static final String[] FIND_KEYWORDS_LIST = { KEYWORD_DATE,
 			KEYWORD_CONTENTS };
 

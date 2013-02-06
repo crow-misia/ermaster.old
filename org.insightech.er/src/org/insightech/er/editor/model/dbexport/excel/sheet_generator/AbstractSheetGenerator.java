@@ -94,6 +94,9 @@ public abstract class AbstractSheetGenerator {
 
 	protected static final String KEYWORD_TABLE_DESCRIPTION = "$TDSC";
 
+	// シート名
+	protected static final String KEYWORD_SHEET_NAME = "$SHTN";
+
 	private static final String[] KEYWORDS_OF_COLUMN = { KEYWORD_ORDER,
 			KEYWORD_LOGICAL_TABLE_NAME, KEYWORD_PHYSICAL_TABLE_NAME,
 			KEYWORD_LOGICAL_COLUMN_NAME, KEYWORD_PHYSICAL_COLUMN_NAME,
