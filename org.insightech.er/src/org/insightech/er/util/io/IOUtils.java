@@ -65,7 +65,7 @@ public final class IOUtils {
 	public static void write(String data, OutputStream output)
 			throws IOException {
 		if (data != null)
-			output.write(data.getBytes());
+			output.write(data.getBytes("UTF-8"));
 	}
 
 	public static void write(String data, OutputStream output, String encoding)

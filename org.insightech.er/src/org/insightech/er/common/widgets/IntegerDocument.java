@@ -58,8 +58,7 @@ public final class IntegerDocument extends PlainDocument {
 			} catch (NumberFormatException e) {
 				throw new BadLocationException(proposedValue, offset);
 			}
-		} else {
-			return 0;
 		}
+		return 0;
 	}
 }

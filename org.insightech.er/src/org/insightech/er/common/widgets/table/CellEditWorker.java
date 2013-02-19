@@ -1,6 +1,8 @@
 package org.insightech.er.common.widgets.table;
 
-public interface CellEditWorker {
+import java.io.Serializable;
+
+public interface CellEditWorker extends Serializable {
 
 	public void addNewRow();
 

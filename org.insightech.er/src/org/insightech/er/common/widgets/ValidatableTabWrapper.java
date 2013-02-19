@@ -7,13 +7,13 @@ import org.insightech.er.ResourceString;
 import org.insightech.er.common.dialog.AbstractDialog;
 import org.insightech.er.common.exception.InputException;
 
-public abstract class ValidatableTabWrapper extends Composite {
+public abstract class ValidatableTabWrapper<E extends AbstractDialog> extends Composite {
 
 	protected final TabItem tabItem;
 
-	protected final AbstractDialog dialog;
+	protected final E dialog;
 
-	public ValidatableTabWrapper(AbstractDialog dialog, TabFolder parent,
+	public ValidatableTabWrapper(E dialog, TabFolder parent,
 			int style, String title) {
 		super(parent, style);
 
@@ -33,16 +33,13 @@ public abstract class ValidatableTabWrapper extends Composite {
 		this.setData();
 	}
 
-	public void reset() {
-	}
+	public abstract void reset();
 
-	abstract protected void initComposite();
+	protected abstract void initComposite();
 
-	protected void addListener() {
-	}
+	protected abstract void addListener();
 
-	protected void setData() {
-	}
+	protected abstract void setData();
 
 	abstract public void perfomeOK();
 

@@ -11,7 +11,7 @@ import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.element.table.tab.AdvancedComposite;
 import org.insightech.er.editor.view.dialog.option.OptionSettingDialog;
 
-public class AdvancedTabWrapper extends ValidatableTabWrapper {
+public final class AdvancedTabWrapper extends ValidatableTabWrapper<OptionSettingDialog> {
 
 	private Settings settings;
 
@@ -63,5 +63,13 @@ public class AdvancedTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

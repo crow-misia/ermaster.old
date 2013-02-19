@@ -21,7 +21,7 @@ import org.insightech.er.editor.model.settings.Environment;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.option.OptionSettingDialog;
 
-public class EnvironmentTabWrapper extends ValidatableTabWrapper {
+public final class EnvironmentTabWrapper extends ValidatableTabWrapper<OptionSettingDialog> {
 
 	private List environmentList;
 
@@ -210,8 +210,6 @@ public class EnvironmentTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	protected void setData() {
-		super.setData();
-
 		this.environmentList.removeAll();
 
 		for (Environment environment : this.settings.getEnvironmentSetting()
@@ -224,4 +222,7 @@ public class EnvironmentTabWrapper extends ValidatableTabWrapper {
 	public void perfomeOK() {
 	}
 
+	@Override
+	public void reset() {
+	}
 }

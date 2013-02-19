@@ -1,6 +1,8 @@
 package org.insightech.er.common.widgets.table;
 
-public interface HeaderClickListener {
+import java.io.Serializable;
+
+public interface HeaderClickListener extends Serializable {
 
 	public void onHeaderClick(int column);
 }

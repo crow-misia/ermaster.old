@@ -191,7 +191,7 @@ public class ERDiagramMultiPageEditor extends MultiPageEditorPart {
 				this.setPageText(i, Format.null2blank(category.getName()));
 			}
 
-			for (int i = this.getPageCount(); i < selectedCategories.size() + 1; i++) {
+			for (int i = this.getPageCount(), n = selectedCategories.size(); i <= n; i++) {
 				Category category = selectedCategories.get(i - 1);
 
 				ERDiagramEditor diagramEditor = new ERDiagramEditor(

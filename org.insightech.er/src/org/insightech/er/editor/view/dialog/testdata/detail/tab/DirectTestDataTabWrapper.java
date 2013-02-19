@@ -20,9 +20,7 @@ import org.insightech.er.editor.model.testdata.DirectTestData;
 import org.insightech.er.editor.view.dialog.testdata.detail.TestDataDialog;
 import org.insightech.er.util.Format;
 
-public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
-
-	private TestDataDialog dialog;
+public final class DirectTestDataTabWrapper extends ValidatableTabWrapper<TestDataDialog> {
 
 	private RowHeaderTable editColumnTable;
 
@@ -33,8 +31,6 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 	public DirectTestDataTabWrapper(TestDataDialog dialog, TabFolder parent,
 			int style) {
 		super(dialog, parent, style, "label.testdata.direct.input");
-
-		this.dialog = dialog;
 
 		this.init();
 	}
@@ -56,6 +52,7 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 				TestDataDialog.WIDTH - 20, TestDataDialog.TABLE_HEIGHT, 75, 25,
 				2, false, true);
 		this.editColumnTable.setCellEditWorker(new CellEditWorker() {
+			private static final long serialVersionUID = -3572027279646284020L;
 
 			public void addNewRow() {
 				addNewRowToTable();
@@ -147,16 +144,17 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 		this.editColumnTable.setVisible(true);
 	}
 
-	private void addNewRowToTable() {
+	protected void addNewRowToTable() {
 		this.editColumnTable.addRow("+", null);
 	}
 
 	private void addTableItem(Map<NormalColumn, String> data) {
-		List<NormalColumn> columns = this.table.getExpandedColumns();
+		final List<NormalColumn> columns = this.table.getExpandedColumns();
 
-		String[] values = new String[columns.size()];
+		final int n = columns.size();
+		String[] values = new String[n];
 
-		for (int i = 0, n = columns.size(); i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			values[i] = data.get(columns.get(i));
 		}
 
@@ -170,5 +168,13 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 
 	public int getTestDataNum() {
 		return this.editColumnTable.getItemCount() - 1;
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

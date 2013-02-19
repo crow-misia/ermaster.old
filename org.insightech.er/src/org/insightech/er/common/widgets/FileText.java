@@ -15,20 +15,8 @@ public final class FileText {
 
 	private final Text text;
 
-	private final String[] filterExtensions;
-
-	public FileText(Composite parent, int style) {
-		this(parent, style, new String[0]);
-	}
-
-	public FileText(Composite parent, int style, String filterExtension) {
-		this(parent, style, new String[] { filterExtension });
-	}
-
-	public FileText(Composite parent, int style, String[] filterExtensions) {
+	public FileText(final Composite parent, final int style, final String... filterExtensions) {
 		this.text = new Text(parent, style);
-
-		this.filterExtensions = filterExtensions;
 
 		final Button openBrowseButton = new Button(parent, SWT.NONE);
 		openBrowseButton.setText(JFaceResources.getString("openBrowse"));
@@ -36,9 +24,9 @@ public final class FileText {
 		openBrowseButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String saveFilePath = Activator.showSaveDialog(text.getText(),
-						FileText.this.filterExtensions);
-				text.setText(saveFilePath);
+				String saveFilePath = Activator.showSaveDialog(getFilePath(),
+						filterExtensions);
+				setTextInner(saveFilePath);
 			}
 		});
 	}
@@ -50,6 +38,10 @@ public final class FileText {
 	public void setText(String text) {
 		this.text.setText(text);
 		this.text.setSelection(text.length());
+	}
+
+	protected void setTextInner(final String text) {
+		this.text.setText(text);
 	}
 
 	public boolean isBlank() {

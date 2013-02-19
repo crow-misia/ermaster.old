@@ -8,7 +8,7 @@ import org.insightech.er.common.widgets.ValidatableTabWrapper;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.View;
 import org.insightech.er.editor.model.diagram_contents.element.node.view.properties.ViewProperties;
 
-public class AdvancedTabWrapper extends ValidatableTabWrapper {
+public final class AdvancedTabWrapper extends ValidatableTabWrapper<AbstractDialog> {
 
 	private View view;
 
@@ -43,5 +43,17 @@ public class AdvancedTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

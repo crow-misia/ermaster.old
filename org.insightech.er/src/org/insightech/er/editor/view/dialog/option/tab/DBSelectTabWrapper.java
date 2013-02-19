@@ -16,20 +16,17 @@ import org.insightech.er.db.DBManagerFactory;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.option.OptionSettingDialog;
 
-public class DBSelectTabWrapper extends ValidatableTabWrapper {
+public final class DBSelectTabWrapper extends ValidatableTabWrapper<OptionSettingDialog> {
 
 	private Combo databaseCombo;
 
 	private Settings settings;
-
-	private OptionSettingDialog dialog;
 
 	public DBSelectTabWrapper(OptionSettingDialog dialog, TabFolder parent,
 			int style, Settings settings) {
 		super(dialog, parent, style, "label.database");
 
 		this.settings = settings;
-		this.dialog = dialog;
 
 		this.init();
 	}
@@ -60,7 +57,7 @@ public class DBSelectTabWrapper extends ValidatableTabWrapper {
 	}
 
 	@Override
-	public void setData() {
+	protected void setData() {
 		for (int i = 0; i < this.databaseCombo.getItemCount(); i++) {
 			String database = this.databaseCombo.getItem(i);
 			if (database.equals(this.settings.getDatabase())) {
@@ -75,7 +72,7 @@ public class DBSelectTabWrapper extends ValidatableTabWrapper {
 		this.settings.setDatabase(this.databaseCombo.getText());
 	}
 
-	private void changeDatabase() {
+	protected void changeDatabase() {
 		MessageBox messageBox = new MessageBox(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(), SWT.ICON_QUESTION
 				| SWT.OK | SWT.CANCEL);
@@ -101,5 +98,13 @@ public class DBSelectTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
 	}
 }

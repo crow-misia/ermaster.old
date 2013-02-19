@@ -37,7 +37,7 @@ import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
 import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
-public class AttributeTabWrapper extends ValidatableTabWrapper implements
+public final class AttributeTabWrapper extends ValidatableTabWrapper<TableDialog> implements
 		ERTableCompositeHolder {
 
 	private static final int GROUP_TABLE_HEIGHT = 75;
@@ -54,8 +54,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 	private Button groupAddButton;
 
-	private TableDialog tableDialog;
-
 	private ERTableComposite tableComposite;
 
 	private ERTableComposite groupTableComposite;
@@ -65,7 +63,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 		super(tableDialog, parent, style, "label.table.attribute");
 
 		this.copyData = copyData;
-		this.tableDialog = tableDialog;
 
 		this.init();
 	}
@@ -87,9 +84,9 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 		header.setLayout(gridLayout);
 
-		this.physicalNameText = CompositeFactory.createText(tableDialog,
+		this.physicalNameText = CompositeFactory.createText(this.dialog,
 				header, "label.physical.name", 1, 200, false);
-		this.logicalNameText = CompositeFactory.createText(tableDialog, header,
+		this.logicalNameText = CompositeFactory.createText(this.dialog, header,
 				"label.logical.name", 1, 200, true);
 
 		this.physicalNameText.setText(Format.null2blank(copyData
@@ -118,7 +115,7 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 		this.tableComposite = new ERTableComposite(this, parent, this.copyData
 				.getDiagram(), this.copyData, this.copyData.getColumns(),
-				columnDialog, this.tableDialog, 2, true, true);
+				columnDialog, this.dialog, 2, true, true);
 	}
 
 	@Override
@@ -242,7 +239,7 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 			index++;
 		}
 
-		this.tableDialog.validate();
+		this.dialog.validate();
 	}
 
 	/**
@@ -288,18 +285,18 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 			public void widgetSelected(SelectionEvent e) {
 				GroupSet groupSet = getColumnGroups();
 
-				GroupManageDialog dialog = new GroupManageDialog(PlatformUI
+				GroupManageDialog manageDialog = new GroupManageDialog(PlatformUI
 						.getWorkbench().getActiveWorkbenchWindow().getShell(),
 						groupSet, copyData.getDiagram(), false, -1);
 
-				if (dialog.open() == IDialogConstants.OK_ID) {
-					List<CopyGroup> newColumnGroups = dialog
+				if (manageDialog.open() == IDialogConstants.OK_ID) {
+					List<CopyGroup> newColumnGroups = manageDialog
 							.getCopyColumnGroups();
 
-					Command command = new ChangeGroupCommand(tableDialog
+					Command command = new ChangeGroupCommand(dialog
 							.getDiagram(), groupSet, newColumnGroups);
 
-					tableDialog.getViewer().getEditDomain().getCommandStack()
+					dialog.getViewer().getEditDomain().getCommandStack()
 							.execute(command);
 
 					restructGroup();
@@ -353,8 +350,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 	@Override
 	protected void addListener() {
-		super.addListener();
-
 		this.physicalNameText.addModifyListener(new ModifyListener() {
 
 			public void modifyText(ModifyEvent e) {
@@ -370,4 +365,11 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 		});
 	}
 
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void setData() {
+	}
 }

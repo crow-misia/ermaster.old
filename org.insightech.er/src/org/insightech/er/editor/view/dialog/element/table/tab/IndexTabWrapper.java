@@ -30,7 +30,7 @@ import org.insightech.er.editor.view.dialog.common.ERTableComposite;
 import org.insightech.er.editor.view.dialog.element.table.sub.IndexDialog;
 import org.insightech.er.util.Format;
 
-public class IndexTabWrapper extends ValidatableTabWrapper {
+public final class IndexTabWrapper extends ValidatableTabWrapper<AbstractDialog> {
 
 	private static final int BUTTON_WIDTH = 60;
 
@@ -353,4 +353,11 @@ public class IndexTabWrapper extends ValidatableTabWrapper {
 	public void perfomeOK() {
 	}
 
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void setData() {
+	}
 }

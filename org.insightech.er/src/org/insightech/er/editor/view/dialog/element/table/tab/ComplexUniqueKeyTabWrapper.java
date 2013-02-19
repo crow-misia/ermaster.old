@@ -31,7 +31,7 @@ import org.insightech.er.editor.view.dialog.common.ERTableComposite;
 import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
-public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
+public final class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper<AbstractDialog> {
 
 	private ERTable copyData;
 
@@ -144,8 +144,6 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	protected void addListener() {
-		super.addListener();
-
 		this.complexUniqueKeyCombo.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -361,5 +359,13 @@ public class ComplexUniqueKeyTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

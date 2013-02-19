@@ -76,7 +76,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 	private CellEditWorker cellEditWorker;
 	private final Map<Integer, PanelCellEditor> cellEditorMap = new HashMap<Integer, PanelCellEditor>();
 
-	protected boolean clipbordOn = true;
+	private boolean clipbordOn = true;
 
 	private HeaderClickListener headerClickListener;
 
@@ -98,15 +98,16 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 			@Override
 			public void editingStopped(ChangeEvent e) {
+				final CellEditWorker worker = getCellEditWorker();
 
-				if (cellEditWorker != null) {
+				if (worker != null) {
 					TableCellEditor editor = getCellEditor();
 					if (editor != null) {
 						Object value = editor.getCellEditorValue();
 
 						if (!"".equals(value.toString())
 								&& getEditingRow() == getRowCount() - 1) {
-							cellEditWorker.addNewRow();
+							worker.addNewRow();
 						}
 
 					}
@@ -118,11 +119,12 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 			@Override
 			public Component prepareRenderer(TableCellRenderer tcr, int row,
 					int column) {
-				Component c = super.prepareRenderer(tcr, row, column);
+				final Component c = super.prepareRenderer(tcr, row, column);
+				final CellEditWorker worker = getCellEditWorker();
 
-				if (cellEditWorker != null) {
+				if (worker != null) {
 					if (!table.isRowSelected(row)) {
-						if (cellEditWorker.isModified(row, column)) {
+						if (worker.isModified(row, column)) {
 							c.setBackground(MODIFIED_COLOR);
 
 						} else {
@@ -183,7 +185,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 			@Override
 			public void keyPressed(KeyEvent keyevent) {
-				if (clipbordOn) {
+				if (getClipbordOn()) {
 					if (editable) {
 						if (keyevent.isControlDown()
 								&& (keyevent.getKeyCode() == 'v' || keyevent
@@ -600,6 +602,10 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 		this.cellEditWorker = cellEditWorker;
 	}
 
+	protected CellEditWorker getCellEditWorker() {
+		return this.cellEditWorker;
+	}
+
 	/**
 	 * カラムテーブルの選択されている部分をコピーします。
 	 */
@@ -722,7 +728,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 			Font font = new Font(fontData.getName(), Font.PLAIN, 12);
 
-			if (clipbordOn) {
+			if (getClipbordOn()) {
 				if (editable) {
 					cutMenu = new JMenuItem(ResourceString
 							.getResourceString("action.title.cut"));
@@ -807,7 +813,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 				});
 
-				if (clipbordOn) {
+				if (getClipbordOn()) {
 					JMenuItem insertPasteMenu = new JMenuItem(ResourceString
 							.getResourceString("action.title.insert.and.paste"));
 					insertPasteMenu.setFont(font);
@@ -983,6 +989,10 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 		this.clipbordOn = clipbordOn;
 	}
 
+	protected boolean getClipbordOn() {
+		return this.clipbordOn;
+	}
+
 	public void lostOwnership(Clipboard clipboard, Transferable contents) {
 	}
 
@@ -998,18 +1008,18 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 		this.headerClickListener = headerClickListener;
 	}
 
-	private void copyRows() {
+	protected void copyRows() {
 		// テーブルからクリップボードへコピー
 		copyToClipboard();
 	}
 
-	private void cutRows() {
+	protected void cutRows() {
 		// テーブルからクリップボードへコピー
 		copyToClipboard();
 		removeSelectedRows();
 	}
 
-	private void pasteRows() {
+	protected void pasteRows() {
 		// 貼り付け
 		int[] selectedRows = getSelection();
 		if (selectedRows.length == 0) {

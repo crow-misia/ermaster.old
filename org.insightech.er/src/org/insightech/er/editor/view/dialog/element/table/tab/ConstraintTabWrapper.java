@@ -11,7 +11,7 @@ import org.insightech.er.editor.view.dialog.element.table.TableDialog;
 import org.insightech.er.util.Check;
 import org.insightech.er.util.Format;
 
-public class ConstraintTabWrapper extends ValidatableTabWrapper {
+public final class ConstraintTabWrapper extends ValidatableTabWrapper<TableDialog> {
 
 	private ERTable copyData;
 
@@ -21,14 +21,11 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 
 	private Text optionText;
 
-	private TableDialog tableDialog;
-
 	public ConstraintTabWrapper(TableDialog tableDialog, TabFolder parent,
 			int style, ERTable copyData) {
 		super(tableDialog, parent, style, "label.constraint.and.option");
 
 		this.copyData = copyData;
-		this.tableDialog = tableDialog;
 
 		this.init();
 	}
@@ -56,7 +53,7 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 
 		CompositeFactory.createLabel(this, "label.table.constraint", 1);
 
-		this.constraintText = CompositeFactory.createTextArea(tableDialog,
+		this.constraintText = CompositeFactory.createTextArea(this.dialog,
 				this, null, -1, 100, 1, false);
 
 		this.constraintText
@@ -64,7 +61,7 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 
 		CompositeFactory.filler(this, 1);
 
-		this.primaryKeyNameText = CompositeFactory.createText(tableDialog,
+		this.primaryKeyNameText = CompositeFactory.createText(this.dialog,
 				this, "label.primary.key.name", 1, false);
 		this.primaryKeyNameText.setText(Format.null2blank(copyData
 				.getPrimaryKeyName()));
@@ -73,7 +70,7 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 
 		CompositeFactory.createLabel(this, "label.option", 1);
 
-		this.optionText = CompositeFactory.createTextArea(tableDialog, this,
+		this.optionText = CompositeFactory.createTextArea(this.dialog, this,
 				null, -1, 100, 1, false);
 
 		this.optionText.setText(Format.null2blank(copyData.getOption()));
@@ -88,4 +85,15 @@ public class ConstraintTabWrapper extends ValidatableTabWrapper {
 	public void perfomeOK() {
 	}
 
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
+	}
 }

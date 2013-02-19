@@ -10,7 +10,7 @@ import org.insightech.er.common.widgets.ValidatableTabWrapper;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.util.Format;
 
-public class DescriptionTabWrapper extends ValidatableTabWrapper {
+public final class DescriptionTabWrapper extends ValidatableTabWrapper<AbstractDialog> {
 
 	private ERTable copyData;
 
@@ -53,4 +53,15 @@ public class DescriptionTabWrapper extends ValidatableTabWrapper {
 	public void perfomeOK() {
 	}
 
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
+	}
 }

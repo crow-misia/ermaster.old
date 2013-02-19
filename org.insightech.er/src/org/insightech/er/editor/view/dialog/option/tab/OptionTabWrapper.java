@@ -9,7 +9,7 @@ import org.insightech.er.common.widgets.ValidatableTabWrapper;
 import org.insightech.er.editor.model.settings.Settings;
 import org.insightech.er.editor.view.dialog.option.OptionSettingDialog;
 
-public class OptionTabWrapper extends ValidatableTabWrapper {
+public final class OptionTabWrapper extends ValidatableTabWrapper<OptionSettingDialog> {
 
 	private Button autoImeChangeCheck;
 
@@ -23,14 +23,11 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 
 	private Settings settings;
 
-	private OptionSettingDialog dialog;
-
 	public OptionTabWrapper(OptionSettingDialog dialog, TabFolder parent,
 			int style, Settings settings) {
 		super(dialog, parent, style, "label.option");
 
 		this.settings = settings;
-		this.dialog = dialog;
 
 		this.init();
 	}
@@ -54,7 +51,7 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 	}
 
 	@Override
-	public void setData() {
+	protected void setData() {
 		this.autoImeChangeCheck.setSelection(this.settings.isAutoImeChange());
 		this.validatePhysicalNameCheck.setSelection(this.settings
 				.isValidatePhysicalName());
@@ -84,5 +81,13 @@ public class OptionTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
 	}
 }

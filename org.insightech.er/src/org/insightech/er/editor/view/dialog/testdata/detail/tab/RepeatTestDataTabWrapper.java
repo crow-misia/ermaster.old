@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.testdata.detail.tab;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,11 +23,9 @@ import org.insightech.er.editor.view.dialog.testdata.detail.RepeatTestDataSettin
 import org.insightech.er.editor.view.dialog.testdata.detail.TestDataDialog;
 import org.insightech.er.util.Format;
 
-public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
+public final class RepeatTestDataTabWrapper extends ValidatableTabWrapper<TestDataDialog> {
 
 	private static final int MAX_REPEAT_PREVIEW_NUM = 50;
-
-	private TestDataDialog dialog;
 
 	private Text testDataNumText;
 
@@ -39,8 +38,6 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 	public RepeatTestDataTabWrapper(TestDataDialog dialog, TabFolder parent,
 			int style) {
 		super(dialog, parent, style, "label.testdata.repeat.input");
-
-		this.dialog = dialog;
 
 		this.init();
 	}
@@ -62,6 +59,7 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 				2, true, true);
 
 		this.editColumnTable.setCellEditWorker(new CellEditWorker() {
+			private static final long serialVersionUID = 8734588469141286719L;
 
 			public void addNewRow() {
 			}
@@ -109,6 +107,7 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 		});
 
 		this.editColumnTable.setHeaderClickListener(new HeaderClickListener() {
+			private static final long serialVersionUID = 4990855506556928464L;
 
 			public void onHeaderClick(final int column) {
 				getDisplay().asyncExec(new Runnable() {
@@ -182,8 +181,6 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	protected void addListener() {
-		super.addListener();
-
 		this.testDataNumText.addModifyListener(new ModifyListener() {
 
 			public void modifyText(ModifyEvent modifyevent) {
@@ -237,15 +234,19 @@ public class RepeatTestDataTabWrapper extends ValidatableTabWrapper {
 	}
 
 	public int getTestDataNum() {
-		String text = testDataNumText.getText();
-		int num = 0;
-		if (!text.equals("")) {
+		final String text = testDataNumText.getText();
+
+		if (StringUtils.isNotBlank(text)) {
 			try {
-				num = Integer.parseInt(text);
+				return Integer.parseInt(text);
 			} catch (Exception e) {
 			}
 		}
 
-		return num;
+		return 0;
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

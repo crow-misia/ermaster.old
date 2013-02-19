@@ -2,6 +2,7 @@ package org.insightech.er;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.FigureCanvas;
@@ -314,11 +315,11 @@ public class Activator extends AbstractUIPlugin {
 	 * @return 保存ダイアログで選択されたファイルのパス
 	 */
 	public static String showSaveDialog(String filePath,
-			String[] filterExtensions) {
+			String... filterExtensions) {
 		String dir = null;
 		String fileName = null;
 
-		if (filePath != null && !"".equals(filePath.trim())) {
+		if (StringUtils.isNotBlank(filePath)) {
 			File file = new File(filePath.trim());
 
 			dir = file.getParent();
@@ -346,7 +347,7 @@ public class Activator extends AbstractUIPlugin {
 	public static String showDirectoryDialog(String filePath) {
 		String fileName = null;
 
-		if (filePath != null && !"".equals(filePath.trim())) {
+		if (StringUtils.isNotBlank(filePath)) {
 			File file = new File(filePath.trim());
 			fileName = file.getPath();
 		}

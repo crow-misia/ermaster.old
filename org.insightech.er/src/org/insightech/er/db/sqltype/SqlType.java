@@ -94,11 +94,11 @@ public class SqlType implements Serializable {
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj == null) {
+			if (!(obj instanceof TypeKey)) {
 				return false;
 			}
 
-			TypeKey other = (TypeKey) obj;
+			final TypeKey other = (TypeKey) obj;
 
 			if (this.alias == null) {
 				if (other.alias == null) {
@@ -154,12 +154,9 @@ public class SqlType implements Serializable {
 	}
 
 	public void addToSqlTypeMap(String typeKeyId, String database) {
-		int size = 0;
-
 		if (!this.isUnsupported(database)) {
-			if (this.isNeedLength(database)) {
-				size = 1;
-			}
+			final int size = this.isNeedLength(database) ? 1 : 0;
+
 			TypeKey typeKey = new TypeKey(typeKeyId, size);
 			Map<TypeKey, SqlType> sqlTypeMap = dbSqlTypeMap.get(database);
 			sqlTypeMap.put(typeKey, this);

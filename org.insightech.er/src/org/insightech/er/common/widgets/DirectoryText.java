@@ -24,8 +24,8 @@ public final class DirectoryText {
 		openBrowseButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String filePath = Activator.showDirectoryDialog(text.getText());
-				text.setText(filePath);
+				String filePath = Activator.showDirectoryDialog(getFilePath());
+				setTextInner(filePath);
 			}
 		});
 	}
@@ -37,6 +37,10 @@ public final class DirectoryText {
 	public void setText(String text) {
 		this.text.setText(text);
 		this.text.setSelection(text.length());
+	}
+
+	protected void setTextInner(final String text) {
+		this.text.setText(text);
 	}
 
 	public boolean isBlank() {

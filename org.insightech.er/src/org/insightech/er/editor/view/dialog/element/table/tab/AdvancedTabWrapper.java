@@ -9,7 +9,7 @@ import org.insightech.er.db.EclipseDBManagerFactory;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.properties.TableProperties;
 
-public class AdvancedTabWrapper extends ValidatableTabWrapper {
+public final class AdvancedTabWrapper extends ValidatableTabWrapper<AbstractDialog> {
 
 	private ERTable table;
 
@@ -46,5 +46,17 @@ public class AdvancedTabWrapper extends ValidatableTabWrapper {
 
 	@Override
 	public void perfomeOK() {
+	}
+
+	@Override
+	public void reset() {
+	}
+
+	@Override
+	protected void addListener() {
+	}
+
+	@Override
+	protected void setData() {
 	}
 }

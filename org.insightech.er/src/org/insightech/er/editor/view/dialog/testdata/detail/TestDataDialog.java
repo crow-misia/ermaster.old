@@ -33,7 +33,7 @@ import org.insightech.er.editor.view.dialog.testdata.detail.tab.DirectTestDataTa
 import org.insightech.er.editor.view.dialog.testdata.detail.tab.RepeatTestDataTabWrapper;
 import org.insightech.er.util.Format;
 
-public class TestDataDialog extends AbstractDialog {
+public final class TestDataDialog extends AbstractDialog {
 
 	public static final int WIDTH = 750;
 
