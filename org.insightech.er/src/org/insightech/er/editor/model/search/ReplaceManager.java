@@ -273,7 +273,7 @@ public class ReplaceManager {
 
 			if (!str.equals("")) {
 				TypeData oldTypeData = word.getTypeData();
-				TypeData newTypeData = new TypeData(Integer.parseInt(str),
+				TypeData newTypeData = new TypeData(Integer.valueOf(str),
 						oldTypeData.getDecimal(), oldTypeData.isArray(),
 						oldTypeData.getArrayDimension(), oldTypeData
 								.isUnsigned(), oldTypeData.getArgs(), oldTypeData.getUnit());
@@ -296,7 +296,7 @@ public class ReplaceManager {
 			if (!str.equals("")) {
 				TypeData oldTypeData = word.getTypeData();
 				TypeData newTypeData = new TypeData(oldTypeData.getLength(),
-						Integer.parseInt(str), oldTypeData.isArray(),
+						Integer.valueOf(str), oldTypeData.isArray(),
 						oldTypeData.getArrayDimension(), oldTypeData
 								.isUnsigned(), oldTypeData.getArgs(), oldTypeData.getUnit());
 

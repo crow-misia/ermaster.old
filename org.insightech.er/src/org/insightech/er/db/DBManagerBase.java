@@ -61,8 +61,7 @@ public abstract class DBManagerBase implements DBManager {
 	public String getURL(String serverName, String dbName, int port) {
 		String url = StringUtils.replace(this.getURL(), "<SERVER NAME>", serverName);
 		url = StringUtils.replace(url, "<PORT>", String.valueOf(port));
-		url = StringUtils.replace(url, "<DB NAME>", dbName);
-		return url;
+		return StringUtils.replace(url, "<DB NAME>", dbName);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,7 +71,7 @@ public abstract class DBManagerBase implements DBManager {
 
 		do {
 			try {
-				if (driverClassName.equals("sun.jdbc.odbc.JdbcOdbcDriver")) {
+				if ("sun.jdbc.odbc.JdbcOdbcDriver".equals(driverClassName)) {
 					return (Class<Driver>) Class
 							.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
@@ -134,15 +133,12 @@ public abstract class DBManagerBase implements DBManager {
 			urls[i] = new URL("file", "", tokenizer.nextToken());
 		}
 
-		URLClassLoader loader = new URLClassLoader(urls, this.getClass()
-				.getClassLoader());
-
-		return loader;
+		return new URLClassLoader(urls, this.getClass().getClassLoader());
 	}
 
 	abstract protected String getURL();
 
-	protected Set<String> getReservedWords() {
+	protected final Set<String> getReservedWords() {
 		Set<String> reservedWords = new HashSet<String>();
 
 		ResourceBundle bundle = ResourceBundle.getBundle(this.getClass()

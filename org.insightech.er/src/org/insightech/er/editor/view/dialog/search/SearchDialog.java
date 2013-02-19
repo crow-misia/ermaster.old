@@ -125,8 +125,6 @@ public class SearchDialog extends Dialog {
 
 	private SearchResult searchResult;
 
-	private boolean all;
-
 	private TabFolder tabFolder;
 
 	public SearchDialog(Shell parentShell, GraphicalViewer viewer,
@@ -659,14 +657,10 @@ public class SearchDialog extends Dialog {
 		} else if (buttonId == SEARCH_NEXT_ID || buttonId == SEARCH_ALL_ID) {
 			this.tabFolder.setSelection(1);
 
-			this.all = false;
-
-			if (buttonId == SEARCH_ALL_ID) {
-				this.all = true;
-			}
+			final boolean all = buttonId == SEARCH_ALL_ID;
 
 			String keyword = this.keywordCombo.getText();
-			this.searchResult = this.searchManager.search(keyword, this.all,
+			this.searchResult = this.searchManager.search(keyword, all,
 					this.physicalWordNameCheckBox.getSelection(),
 					this.logicalWordNameCheckBox.getSelection(),
 					this.wordTypeCheckBox.getSelection(),

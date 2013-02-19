@@ -128,16 +128,13 @@ public class DDLTarget implements Serializable, Cloneable {
 		h = h * 37 + (dropTrigger ? 1231 : 1237);
 		h = h * 37 + (dropView ? 1231 : 1237);
 		h = h * 37 + (inlineColumnComment ? 1231 : 1237);
-		h = h * 37 + (inlineTableComment ? 1231 : 1237);
-		return h;
+		return h * 37 + (inlineTableComment ? 1231 : 1237);
 	}
 
 	@Override
 	public DDLTarget clone() {
 		try {
-			DDLTarget clone = (DDLTarget) super.clone();
-
-			return clone;
+			return (DDLTarget) super.clone();
 
 		} catch (CloneNotSupportedException e) {
 			return null;

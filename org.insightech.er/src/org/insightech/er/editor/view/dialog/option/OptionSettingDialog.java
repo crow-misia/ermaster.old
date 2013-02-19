@@ -21,8 +21,6 @@ import org.insightech.er.editor.view.dialog.option.tab.OptionTabWrapper;
 
 public class OptionSettingDialog extends AbstractDialog {
 
-	private TabFolder tabFolder;
-
 	private List<ValidatableTabWrapper> tabWrapperList;
 
 	private Settings settings;
@@ -46,8 +44,8 @@ public class OptionSettingDialog extends AbstractDialog {
 		gridData.verticalAlignment = GridData.FILL;
 		gridData.horizontalAlignment = GridData.FILL;
 
-		this.tabFolder = new TabFolder(composite, SWT.NONE);
-		this.tabFolder.setLayoutData(gridData);
+		final TabFolder tabFolder = new TabFolder(composite, SWT.NONE);
+		tabFolder.setLayoutData(gridData);
 
 		this.tabWrapperList.add(new DBSelectTabWrapper(this, tabFolder,
 				SWT.NONE, this.settings));

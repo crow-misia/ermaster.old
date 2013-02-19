@@ -213,7 +213,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		monitor.done();
 	}
 
-	protected void cashColumnData(String schemaName, String tableName,
+	protected void cacheColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor)
 			throws SQLException, InterruptedException {
 		ResultSet columnSet = null;
@@ -247,7 +247,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 				ColumnData columnData = this.createColumnData(columnSet);
 
-				this.cashOtherColumnData(table, schema, columnData);
+				this.cacheOtherColumnData(table, schema, columnData);
 
 				cash.put(columnData.columnName, columnData);
 
@@ -291,7 +291,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		return columnData;
 	}
 
-	protected void cashOtherColumnData(String tableName, String schema,
+	protected void cacheOtherColumnData(String tableName, String schema,
 			ColumnData columnData) throws SQLException {
 	}
 
@@ -402,7 +402,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				String tableNameWithSchema = this.dbSetting
 						.getTableNameWithSchema(tableName, schema);
 
-				this.cashColumnData(schema, tableName, dbObjectList, monitor);
+				this.cacheColumnData(schema, tableName, dbObjectList, monitor);
 
 				monitor.subTask("(" + i + "/" + this.dbObjectList.size() + ") "
 						+ tableNameWithSchema);
@@ -698,7 +698,7 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 				array = true;
 				String str = type.substring(arrayStartIndex + 1,
 						type.indexOf("]"));
-				arrayDimension = Integer.parseInt(str);
+				arrayDimension = Integer.valueOf(str);
 				type = type.substring(0, arrayStartIndex);
 			}
 
@@ -1322,49 +1322,47 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 
 			NormalColumn targetColumn = null;
 
-			if (columnName != null) {
-				if (tableName != null) {
-					tableName = tableName.toLowerCase();
-				}
-				columnName = columnName.toLowerCase();
+			if (tableName != null) {
+				tableName = tableName.toLowerCase();
+			}
+			columnName = columnName.toLowerCase();
 
-				if (!"*".equals(columnName)) {
-					for (ERTable table : this.importedTables) {
-						if (tableName == null
-								|| (table.getPhysicalName() != null && tableName
-										.equals(table.getPhysicalName()
-												.toLowerCase()))) {
-							for (NormalColumn column : table
-									.getExpandedColumns()) {
-								if (column.getPhysicalName() != null
-										&& columnName.equals(column
-												.getPhysicalName()
-												.toLowerCase())) {
-									targetColumn = column;
+			if (!"*".equals(columnName)) {
+				for (ERTable table : this.importedTables) {
+					if (tableName == null
+							|| (table.getPhysicalName() != null && tableName
+									.equals(table.getPhysicalName()
+											.toLowerCase()))) {
+						for (NormalColumn column : table
+								.getExpandedColumns()) {
+							if (column.getPhysicalName() != null
+									&& columnName.equals(column
+											.getPhysicalName()
+											.toLowerCase())) {
+								targetColumn = column;
 
-									break;
-								}
-							}
-
-							if (targetColumn != null) {
 								break;
 							}
 						}
 
+						if (targetColumn != null) {
+							break;
+						}
 					}
 
-					this.addColumnToView(columnList, targetColumn, columnAlias);
+				}
 
-				} else {
-					for (ERTable table : this.importedTables) {
-						if (tableName == null
-								|| (table.getPhysicalName() != null && tableName
-										.equals(table.getPhysicalName()
-												.toLowerCase()))) {
-							for (NormalColumn column : table
-									.getExpandedColumns()) {
-								this.addColumnToView(columnList, column, null);
-							}
+				this.addColumnToView(columnList, targetColumn, columnAlias);
+
+			} else {
+				for (ERTable table : this.importedTables) {
+					if (tableName == null
+							|| (table.getPhysicalName() != null && tableName
+									.equals(table.getPhysicalName()
+											.toLowerCase()))) {
+						for (NormalColumn column : table
+								.getExpandedColumns()) {
+							this.addColumnToView(columnList, column, null);
 						}
 					}
 				}

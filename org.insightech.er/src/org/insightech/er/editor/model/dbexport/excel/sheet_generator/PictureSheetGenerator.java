@@ -5,9 +5,10 @@ import java.awt.Dimension;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.insightech.er.util.POIUtils;
 import org.insightech.er.util.POIUtils.CellLocation;
 
@@ -19,32 +20,28 @@ public class PictureSheetGenerator {
 
 	private int pictureIndex;
 
-	private int excelPictureType;
-
 	public PictureSheetGenerator(HSSFWorkbook workbook, byte[] imageBuffer,
 			int excelPictureType) {
 		this.imageBuffer = imageBuffer;
-		this.excelPictureType = excelPictureType;
 
 		if (this.imageBuffer != null) {
-			this.pictureIndex = workbook.addPicture(this.imageBuffer,
-					this.excelPictureType);
+			this.pictureIndex = workbook.addPicture(this.imageBuffer, excelPictureType);
 		}
 	}
 
 	public void setImage(HSSFWorkbook workbook, HSSFSheet sheet) {
 		CellLocation cellLocation = POIUtils.findMatchCell(sheet, "\\"
 				+ KEYWORD_ER + ".*");
-System.out.println(cellLocation);
+
 		if (cellLocation != null) {
 			int width = -1;
 			int height = -1;
 
 			String value = POIUtils.getCellValue(sheet, cellLocation);
 
-			int startIndex = value.indexOf("(");
+			int startIndex = value.indexOf('(');
 			if (startIndex != -1) {
-				int middleIndex = value.indexOf(",", startIndex + 1);
+				int middleIndex = value.indexOf(',', startIndex + 1);
 				if (middleIndex != -1) {
 					width = Integer.parseInt(value.substring(startIndex + 1,
 							middleIndex).trim());
@@ -124,14 +121,14 @@ System.out.println(cellLocation);
 		return anchor;
 	}
 
-	private static float getColumnWidthInPixels(HSSFSheet sheet, int column) {
+	private static float getColumnWidthInPixels(Sheet sheet, int column) {
 		int cw = sheet.getColumnWidth(column);
 		float px = getPixelWidth(sheet, column);
 		return (float) cw / px;
 	}
 
-	private static float getRowHeightInPixels(HSSFSheet sheet, int i) {
-		HSSFRow row = sheet.getRow(i);
+	private static float getRowHeightInPixels(Sheet sheet, int i) {
+		Row row = sheet.getRow(i);
 		float height;
 		if (row != null) {
 			height = row.getHeight();
@@ -142,7 +139,7 @@ System.out.println(cellLocation);
 		return height / 15F;
 	}
 
-	private static float getPixelWidth(HSSFSheet sheet, int column) {
+	private static float getPixelWidth(Sheet sheet, int column) {
 		int def = sheet.getDefaultColumnWidth() * 256;
 		int cw = sheet.getColumnWidth(column);
 		return cw != def ? 28.44444444f : 32.0f;

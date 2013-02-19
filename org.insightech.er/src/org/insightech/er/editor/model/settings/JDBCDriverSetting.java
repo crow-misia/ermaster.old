@@ -39,8 +39,7 @@ public class JDBCDriverSetting implements Serializable,
 		int result = 1;
 		result = prime * result
 				+ ((className == null) ? 0 : className.hashCode());
-		result = prime * result + ((db == null) ? 0 : db.hashCode());
-		return result;
+		return prime * result + ((db == null) ? 0 : db.hashCode());
 	}
 
 	@Override

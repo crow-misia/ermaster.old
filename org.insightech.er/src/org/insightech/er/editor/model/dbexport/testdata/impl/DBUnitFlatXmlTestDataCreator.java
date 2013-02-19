@@ -29,7 +29,7 @@ public class DBUnitFlatXmlTestDataCreator extends AbstractTextTestDataCreator {
 		for (NormalColumn column : table.getExpandedColumns()) {
 			String value = Format.null2blank(data.get(column));
 
-			if (value != null && !"null".equals(value.toLowerCase())) {
+			if (!"null".equals(value.toLowerCase())) {
 				sb.append(" ");
 				sb.append(column.getPhysicalName());
 				sb.append("=\"");
@@ -59,7 +59,7 @@ public class DBUnitFlatXmlTestDataCreator extends AbstractTextTestDataCreator {
 				String value = this.getMergedRepeatTestDataValue(i,
 						repeatTestDataDef, column);
 
-				if (value != null && !"null".equals(value.toLowerCase())) {
+				if (!"null".equals(value.toLowerCase())) {
 					sb.append(" ");
 					sb.append(column.getPhysicalName());
 					sb.append("=\"");

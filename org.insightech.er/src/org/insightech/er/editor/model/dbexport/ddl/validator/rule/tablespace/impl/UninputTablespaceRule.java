@@ -3,6 +3,7 @@ package org.insightech.er.editor.model.dbexport.ddl.validator.rule.tablespace.im
 import org.eclipse.core.resources.IMarker;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.ERDiagram;
+import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.dbexport.ddl.validator.ValidateResult;
 import org.insightech.er.editor.model.dbexport.ddl.validator.rule.tablespace.TablespaceRule;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.Tablespace;
@@ -32,7 +33,7 @@ public class UninputTablespaceRule extends TablespaceRule {
 		return true;
 	}
 
-	private static String getMessageSuffix(Tablespace tablespace,
+	private static String getMessageSuffix(ObjectModel tablespace,
 			Environment environment) {
 		StringBuilder suffix = new StringBuilder();
 		suffix.append(" ");

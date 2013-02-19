@@ -22,40 +22,6 @@ import org.insightech.er.editor.view.dialog.word.column.real.ColumnDialog;
 
 public interface DBManager {
 
-	public static final int SUPPORT_AUTO_INCREMENT = 0;
-
-	public static final int SUPPORT_AUTO_INCREMENT_SETTING = 1;
-
-	public static final int SUPPORT_AUTO_INCREMENT_MINVALUE = 8;
-
-	public static final int SUPPORT_AUTO_INCREMENT_MAXVALUE = 9;
-
-	public static final int SUPPORT_AUTO_INCREMENT_CACHE = 10;
-
-	public static final int SUPPORT_AUTO_INCREMENT_CYCLE = 11;
-
-	public static final int SUPPORT_DESC_INDEX = 2;
-
-	public static final int SUPPORT_FULLTEXT_INDEX = 3;
-
-	public static final int SUPPORT_SCHEMA = 4;
-
-	public static final int SUPPORT_SEQUENCE = 5;
-
-	public static final int SUPPORT_SEQUENCE_MINVALUE = 12;
-
-	public static final int SUPPORT_SEQUENCE_MAXVALUE = 13;
-
-	public static final int SUPPORT_SEQUENCE_CACHE = 14;
-
-	public static final int SUPPORT_SEQUENCE_CYCLE = 15;
-
-	public static final int SUPPORT_SEQUENCE_ORDER = 16;
-
-	public static final int SUPPORT_UNIT = 6;
-
-	public static final int SUPPORT_ARRAY_TYPE = 7;
-
     String getId();
 
     String getURL(String serverName, String dbName, int port);

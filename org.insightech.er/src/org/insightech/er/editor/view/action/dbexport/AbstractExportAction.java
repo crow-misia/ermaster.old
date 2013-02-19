@@ -85,7 +85,7 @@ public abstract class AbstractExportAction extends AbstractBaseAction {
 	protected String getDiagramFileName(IEditorPart editorPart) {
 		IFile file = ((IFileEditorInput) editorPart.getEditorInput()).getFile();
 		String fileName = file.getName();
-		return fileName.substring(0, fileName.lastIndexOf("."))
+		return fileName.substring(0, fileName.lastIndexOf('.'))
 				+ this.getDefaultExtension();
 	}
 

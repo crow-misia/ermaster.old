@@ -60,9 +60,7 @@ public class Environment implements Serializable, Cloneable {
 	@Override
 	public Environment clone() {
 		try {
-			Environment environment = (Environment) super.clone();
-
-			return environment;
+			return (Environment) super.clone();
 
 		} catch (CloneNotSupportedException e) {
 			return null;

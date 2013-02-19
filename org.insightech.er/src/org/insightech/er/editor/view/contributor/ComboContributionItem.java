@@ -24,11 +24,19 @@ import org.insightech.er.editor.model.ViewableModel;
 
 public abstract class ComboContributionItem extends ContributionItem {
 
-	private Combo combo;
+	private static final class ComboFocusListener implements FocusListener {
+		public void focusGained(FocusEvent e) {
+		}
 
-	private ToolItem toolitem;
+		public void focusLost(FocusEvent e) {
+		}
+	}
 
-	private IWorkbenchPage workbenchPage;
+	private Combo combo = null;
+
+	private ToolItem toolitem = null;
+
+	IWorkbenchPage workbenchPage;
 
 	public ComboContributionItem(String id, IWorkbenchPage workbenchPage) {
 		super(id);
@@ -89,13 +97,7 @@ public abstract class ComboContributionItem extends ContributionItem {
 			}
 		});
 
-		this.combo.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-			}
-
-			public void focusLost(FocusEvent e) {
-			}
-		});
+		this.combo.addFocusListener(new ComboFocusListener());
 
 		this.toolitem.setWidth(computeWidth(this.combo));
 		return combo;

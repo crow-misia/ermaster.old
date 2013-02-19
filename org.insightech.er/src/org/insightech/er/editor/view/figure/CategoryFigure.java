@@ -8,18 +8,16 @@ import org.eclipse.draw2d.ToolbarLayout;
 
 public class CategoryFigure extends RectangleFigure {
 
-	private Label label;
-
 	public CategoryFigure(String name) {
 		this.setOpaque(true);
 
 		ToolbarLayout layout = new ToolbarLayout();
 		this.setLayoutManager(layout);
 
-		this.label = new Label();
-		this.label.setText(name);
-		this.label.setBorder(new MarginBorder(7));
-		this.add(this.label);
+		final Label label = new Label();
+		label.setText(name);
+		label.setBorder(new MarginBorder(7));
+		this.add(label);
 	}
 
 	@Override

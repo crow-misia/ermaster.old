@@ -10,8 +10,7 @@ import org.insightech.er.editor.view.dialog.dbimport.SelectImportedObjectFromDBD
 
 public class SequenceTest {
 
-	private Display display = new Display();
-	private Shell shell = new Shell(display);
+	private Shell shell = new Shell(new Display());
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception {

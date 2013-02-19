@@ -122,8 +122,9 @@ public final class ImportTableCommand extends AbstractCommand {
 
 			layout.visit(this.graph);
 
-			for (NodeElement nodeElement : nodeElementNodeMap.keySet()) {
-				Node node = nodeElementNodeMap.get(nodeElement);
+			for (final Map.Entry<NodeElement, Node> entry : nodeElementNodeMap.entrySet()) {
+				final NodeElement nodeElement = entry.getKey();
+				final Node node = entry.getValue();
 
 				if (nodeElement.getWidth() == 0) {
 					nodeElement

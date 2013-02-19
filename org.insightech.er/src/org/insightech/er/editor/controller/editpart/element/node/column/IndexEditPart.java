@@ -70,13 +70,12 @@ public class IndexEditPart extends ColumnEditPart {
 	public static void addIndexFigure(ERDiagram diagram,
 			TableFigure tableFigure, IndexFigure figure, Index index,
 			boolean isAdded, boolean isUpdated, boolean isRemoved) {
-		final int notationLevel = diagram.getDiagramContents().getSettings()
-				.getNotationLevel();
+		final Settings settings = diagram.getDiagramContents().getSettings();
+		final int notationLevel = settings.getNotationLevel();
 
 		final boolean displayIcon = notationLevel == Settings.NOTATION_LEVLE_DETAIL;
 
-		tableFigure.addIndex(figure, diagram.getDiagramContents()
-				.getSettings().getViewMode(), diagram.filter(index.getName()),
+		tableFigure.addIndex(figure, settings.getViewMode(), diagram.filter(index.getName()),
 				displayIcon, isAdded, isUpdated, isRemoved);
 	}
 

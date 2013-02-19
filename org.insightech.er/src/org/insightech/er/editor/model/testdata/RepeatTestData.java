@@ -6,7 +6,7 @@ import java.util.Map;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
-public class RepeatTestData implements Cloneable {
+public final class RepeatTestData implements Cloneable {
 
 	private int testDataNum;
 

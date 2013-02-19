@@ -604,7 +604,7 @@ public abstract class DDLCreator {
 
 		List<NormalColumn> primaryKeys = table.getPrimaryKeys();
 
-		if (primaryKeys.size() != 0) {
+		if (!primaryKeys.isEmpty()) {
 			ddl.append(",\r\n");
 			ddl.append("\t");
 			if (StringUtils.isNotBlank(table.getPrimaryKeyName())) {
@@ -719,7 +719,7 @@ public abstract class DDLCreator {
 	}
 
 	public String getPostDDL(ERTable table) {
-		TableViewProperties commonTableProperties = (TableViewProperties) this
+		TableViewProperties commonTableProperties = this
 				.getDiagram().getDiagramContents().getSettings()
 				.getTableViewProperties();
 
@@ -817,7 +817,7 @@ public abstract class DDLCreator {
 				diagram.getDatabase())));
 		ddl.append("\r\n");
 		ddl.append("\tADD ");
-		if (relation.getName() != null && !relation.getName().trim().equals("")) {
+		if (StringUtils.isNotBlank(relation.getName())) {
 			ddl.append("CONSTRAINT ");
 			ddl.append(filter(relation.getName()));
 			ddl.append(" ");

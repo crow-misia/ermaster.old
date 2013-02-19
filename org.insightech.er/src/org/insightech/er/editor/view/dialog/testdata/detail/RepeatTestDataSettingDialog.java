@@ -61,8 +61,6 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 
 	private Text selects;
 
-	private RepeatTestDataDef dataDef;
-
 	private RepeatTestDataTabWrapper repeatTestDataTabWrapper;
 
 	private int columnIndex;
@@ -214,38 +212,26 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 		this.initialized = false;
 
 		normalColumn = table.getExpandedColumns().get(columnIndex);
-		dataDef = repeatTestDataTabWrapper.getRepeatTestData().getDataDef(
+		final RepeatTestDataDef dataDef = repeatTestDataTabWrapper.getRepeatTestData().getDataDef(
 				normalColumn);
 
 		this.columnCombo.select(this.columnIndex);
 
-		if (dataDef != null) {
-			this.typeCombo.setText(dataDef.getType());
-			this.repeatNum.setText(Format.toString(dataDef.getRepeatNum()));
-			this.template.setText(Format.toString(dataDef.getTemplate()));
-			this.from.setText(Format.toString(dataDef.getFrom()));
-			this.to.setText(Format.toString(dataDef.getTo()));
-			this.increment.setText(Format.toString(dataDef.getIncrement()));
+		this.typeCombo.setText(dataDef.getType());
+		this.repeatNum.setText(Format.toString(dataDef.getRepeatNum()));
+		this.template.setText(Format.toString(dataDef.getTemplate()));
+		this.from.setText(Format.toString(dataDef.getFrom()));
+		this.to.setText(Format.toString(dataDef.getTo()));
+		this.increment.setText(Format.toString(dataDef.getIncrement()));
 
-			StringBuilder sb = new StringBuilder();
-			for (String str : dataDef.getSelects()) {
-				sb.append(str);
-				sb.append("\r\n");
-			}
-			this.selects.setText(sb.toString());
-
-			this.setCardPanel(this.typeCombo.getText());
-
-		} else {
-			this.repeatNum.setText("1");
-			this.template.setText("value_%");
-			this.from.setText("1");
-			this.to.setText("5");
-			this.increment.setText("1");
-
-			this.selects
-					.setText("value_1\r\nvalue_2\r\nvalue_3\r\nvalue_4\r\n");
+		StringBuilder sb = new StringBuilder();
+		for (String str : dataDef.getSelects()) {
+			sb.append(str);
+			sb.append("\r\n");
 		}
+		this.selects.setText(sb.toString());
+
+		this.setCardPanel(this.typeCombo.getText());
 
 		this.initialized = true;
 		// this.validate();
@@ -259,10 +245,10 @@ public class RepeatTestDataSettingDialog extends AbstractDialog {
 	@Override
 	protected String getErrorMessage() {
 		if (this.createContents) {
-			this.dataDef = this.getRepeatTestDataDef();
+			final RepeatTestDataDef dataDef = this.getRepeatTestDataDef();
 
 			this.repeatTestDataTabWrapper.setRepeatTestDataDef(
-					this.normalColumn, this.dataDef);
+					this.normalColumn, dataDef);
 			this.repeatTestDataTabWrapper.initTableData();
 		}
 

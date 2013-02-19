@@ -1,5 +1,6 @@
 package org.insightech.er.db.impl.postgres.tablespace;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.insightech.er.common.widgets.CompositeFactory;
@@ -53,8 +54,7 @@ public class PostgresTablespaceDialog extends TablespaceDialog {
 			return errorMessage;
 		}
 
-		String text = this.location.getText().trim();
-		if (text.equals("")) {
+		if (StringUtils.isBlank(this.location.getText())) {
 			return "error.tablespace.location.empty";
 		}
 

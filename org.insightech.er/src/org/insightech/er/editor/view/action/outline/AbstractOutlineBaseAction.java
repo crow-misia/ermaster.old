@@ -40,10 +40,8 @@ public abstract class AbstractOutlineBaseAction extends Action {
 	}
 
 	protected ERDiagram getDiagram() {
-		EditPart editPart = treeViewer.getContents();
-		ERDiagram diagram = (ERDiagram) editPart.getModel();
-
-		return diagram;
+		final EditPart editPart = treeViewer.getContents();
+		return (ERDiagram) editPart.getModel();
 	}
 
 	protected TreeViewer getTreeViewer() {

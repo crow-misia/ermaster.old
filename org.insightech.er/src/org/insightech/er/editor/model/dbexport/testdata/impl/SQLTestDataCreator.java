@@ -33,13 +33,12 @@ public class SQLTestDataCreator extends AbstractTextTestDataCreator {
 
 			String value = Format.null2blank(data.get(column));
 
-			if (value != null && !"null".equals(value.toLowerCase())) {
+			if ("null".equals(value.toLowerCase())) {
+				valueSb.append("null");
+			} else {
 				valueSb.append("'");
 				valueSb.append(value);
 				valueSb.append("'");
-
-			} else {
-				valueSb.append("null");
 			}
 
 			first = false;
@@ -80,13 +79,12 @@ public class SQLTestDataCreator extends AbstractTextTestDataCreator {
 				String value = this.getMergedRepeatTestDataValue(i,
 						repeatTestDataDef, column);
 
-				if (value != null && !"null".equals(value.toLowerCase())) {
+				if ("null".equals(value.toLowerCase())) {
+					valueSb.append("null");
+				} else {
 					valueSb.append("'");
 					valueSb.append(value);
 					valueSb.append("'");
-
-				} else {
-					valueSb.append("null");
 				}
 
 				first = false;

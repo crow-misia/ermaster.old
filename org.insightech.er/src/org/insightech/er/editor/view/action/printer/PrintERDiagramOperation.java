@@ -19,10 +19,8 @@ public class PrintERDiagramOperation extends PrintGraphicalViewerOperation {
 	}
 
 	protected ERDiagram getDiagram() {
-		EditPart editPart = this.getViewer().getContents();
-		ERDiagram diagram = (ERDiagram) editPart.getModel();
-
-		return diagram;
+		final EditPart editPart = this.getViewer().getContents();
+		return (ERDiagram) editPart.getModel();
 	}
 
 	@Override

@@ -32,10 +32,8 @@ public class ERDiagramBendpointEditPolicy extends BendpointEditPolicy {
 		Point point = bendpointrequest.getLocation();
 		this.getConnection().translateToRelative(point);
 
-		CreateBendpointCommand createBendpointCommand = new CreateBendpointCommand(
+		return new CreateBendpointCommand(
 				connection, point.x, point.y, bendpointrequest.getIndex());
-
-		return createBendpointCommand;
 	}
 
 	@Override
@@ -47,10 +45,8 @@ public class ERDiagramBendpointEditPolicy extends BendpointEditPolicy {
 			return null;
 		}
 
-		DeleteBendpointCommand command = new DeleteBendpointCommand(connection,
+		return new DeleteBendpointCommand(connection,
 				bendpointrequest.getIndex());
-
-		return command;
 	}
 
 	@Override
@@ -60,10 +56,8 @@ public class ERDiagramBendpointEditPolicy extends BendpointEditPolicy {
 		Point point = bendpointrequest.getLocation();
 		this.getConnection().translateToRelative(point);
 
-		MoveBendpointCommand command = new MoveBendpointCommand(editPart,
+		return new MoveBendpointCommand(editPart,
 				point.x, point.y, bendpointrequest.getIndex());
-
-		return command;
 	}
 
 	@Override

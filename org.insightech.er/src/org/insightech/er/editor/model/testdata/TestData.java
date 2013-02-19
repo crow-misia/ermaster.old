@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.insightech.er.editor.model.diagram_contents.element.node.table.ERTable;
 
-public class TestData implements Serializable, Cloneable, Comparable<TestData> {
+public final class TestData implements Serializable, Cloneable, Comparable<TestData> {
 
     private static final long serialVersionUID = -2177225581096782696L;
 

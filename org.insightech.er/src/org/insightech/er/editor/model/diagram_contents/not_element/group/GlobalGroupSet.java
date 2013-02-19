@@ -53,19 +53,19 @@ public class GlobalGroupSet {
 								.get("default_value");
 						String description = columnSection.get("description");
 						String constraint = columnSection.get("constraint");
-						boolean notNull = Boolean.valueOf(
-								columnSection.get("not_null")).booleanValue();
-						boolean unique = Boolean.valueOf(
-								columnSection.get("unique")).booleanValue();
+						boolean notNull = Boolean.parseBoolean(
+								columnSection.get("not_null"));
+						boolean unique = Boolean.parseBoolean(
+								columnSection.get("unique"));
 						Integer length = toInteger(columnSection.get("length"));
 						Integer decimal = toInteger(columnSection
 								.get("decimal"));
-						boolean array = Boolean.valueOf(
-								columnSection.get("array")).booleanValue();
+						boolean array = Boolean.parseBoolean(
+								columnSection.get("array"));
 						Integer arrayDimension = toInteger(columnSection
 								.get("array_dimension"));
-						boolean unsigned = Boolean.valueOf(
-								columnSection.get("unsigned")).booleanValue();
+						boolean unsigned = Boolean.parseBoolean(
+								columnSection.get("unsigned"));
 						String args = columnSection.get("args");
 						String unit = columnSection.get("unit");
 
@@ -157,10 +157,9 @@ public class GlobalGroupSet {
 	}
 
 	private static String getPath() {
-		IPath dataLocation = Activator.getDefault().getStateLocation();
-		String path = dataLocation.append(COLUMN_GOURP_SETTINGS_FILENAME)
+		final IPath dataLocation = Activator.getDefault().getStateLocation();
+		return dataLocation.append(COLUMN_GOURP_SETTINGS_FILENAME)
 				.toOSString();
-		return path;
 	}
 
 	private static String null2Blank(String str) {

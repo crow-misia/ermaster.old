@@ -292,7 +292,7 @@ public class TestEditor extends EditorPart {
 	private SourceViewerConfiguration fConfiguration;
 	private ISourceViewer fSourceViewer;
 	private Image fTitleImage;
-	private IElementStateListener fElementStateListener = new ElementStateListener();
+	private ElementStateListener fElementStateListener = new ElementStateListener();
 	private long fModificationStamp = -1;
 	private boolean fIsSanityCheckEnabled = true;
 	private boolean fIsStateValidationEnabled = true;
@@ -403,14 +403,13 @@ public class TestEditor extends EditorPart {
 			fSourceViewer.showAnnotations(model != null);
 		}
 
-		if (fElementStateListener instanceof IElementStateListenerExtension) {
+		if (fElementStateListener != null) {
 			boolean isStateValidated = false;
 			if (documentProvider instanceof IDocumentProviderExtension)
 				isStateValidated = ((IDocumentProviderExtension) documentProvider)
 						.isStateValidated(input);
 
-			IElementStateListenerExtension extension = (IElementStateListenerExtension) fElementStateListener;
-			extension.elementStateValidationChanged(input, isStateValidated);
+			fElementStateListener.elementStateValidationChanged(input, isStateValidated);
 		}
 
 	}
@@ -782,17 +781,7 @@ public class TestEditor extends EditorPart {
 	}
 
 	@Override
-	public Object getAdapter(Class required) {
-		return super.getAdapter(required);
-	}
-
-	@Override
 	public void setFocus() {
-	}
-
-	@Override
-	protected void firePropertyChange(int property) {
-		super.firePropertyChange(property);
 	}
 
 }

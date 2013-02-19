@@ -49,8 +49,6 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 
 	private Button groupAddButton;
 
-	private Button groupManageButton;
-
 	private ViewDialog viewDialog;
 
 	private ERTableComposite tableComposite;
@@ -260,11 +258,11 @@ public class AttributeTabWrapper extends ValidatableTabWrapper implements
 				this.copyData.getDiagram(), null, null, null, null, 2, false,
 				false, GROUP_TABLE_HEIGHT);
 
-		this.groupManageButton = new Button(group, SWT.NONE);
-		this.groupManageButton.setText(ResourceString
+		final Button groupManageButton = new Button(group, SWT.NONE);
+		groupManageButton.setText(ResourceString
 				.getResourceString("label.button.group.manage"));
 
-		this.groupManageButton.addSelectionListener(new SelectionAdapter() {
+		groupManageButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {

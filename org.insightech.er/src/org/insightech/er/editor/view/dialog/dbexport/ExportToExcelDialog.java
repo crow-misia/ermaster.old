@@ -390,7 +390,7 @@ public class ExportToExcelDialog extends AbstractDialog {
 					.getFile();
 			outputExcel = file.getLocation().toOSString();
 		}
-		outputExcel = outputExcel.substring(0, outputExcel.lastIndexOf("."))
+		outputExcel = outputExcel.substring(0, outputExcel.lastIndexOf('.'))
 				+ ".xls";
 
 		if ("".equals(outputImage)) {
@@ -398,7 +398,7 @@ public class ExportToExcelDialog extends AbstractDialog {
 					.getFile();
 			outputImage = file.getLocation().toOSString();
 			outputImage = outputImage
-					.substring(0, outputImage.lastIndexOf("."))
+					.substring(0, outputImage.lastIndexOf('.'))
 					+ ".png";
 		}
 

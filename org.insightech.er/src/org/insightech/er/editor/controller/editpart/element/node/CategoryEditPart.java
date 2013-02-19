@@ -18,10 +18,8 @@ public class CategoryEditPart extends NodeElementEditPart implements IResizable 
 
 	@Override
 	protected IFigure createFigure() {
-		Category category = (Category) this.getModel();
-		CategoryFigure figure = new CategoryFigure(category.getName());
-
-		return figure;
+		final Category category = (Category) this.getModel();
+		return new CategoryFigure(category.getName());
 	}
 
 	@Override

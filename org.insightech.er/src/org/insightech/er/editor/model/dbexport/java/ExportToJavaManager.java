@@ -176,11 +176,11 @@ public class ExportToJavaManager {
 			className = first.toUpperCase() + other;
 		}
 
-		while (className.indexOf("_") == 0) {
+		while (className.indexOf('_') == 0) {
 			className = className.substring(1);
 		}
 
-		int index = className.indexOf("_");
+		int index = className.indexOf('_');
 
 		while (index != -1) {
 			String before = className.substring(0, index);
@@ -256,9 +256,7 @@ public class ExportToJavaManager {
 				.getClassNameSuffix());
 		content = this.replaceExtendInfo(content);
 		content = this.replaceImportInfo(content);
-		content = this.replaceConstructorInfo(content);
-
-		return content;
+		return this.replaceConstructorInfo(content);
 	}
 
 	private String generateCompositeIdContent(ERDiagram diagram, ERTable table,
@@ -282,9 +280,7 @@ public class ExportToJavaManager {
 				compositeIdClassName, "");
 		content = this.replaceExtendInfo(content);
 		content = this.replaceImportInfo(content);
-		content = this.replaceConstructorInfo(content);
-
-		return content;
+		return this.replaceConstructorInfo(content);
 	}
 
 	private String replacePropertiesInfo(String content, ERTable table,
@@ -330,10 +326,8 @@ public class ExportToJavaManager {
 		}
 
 		content = StringUtils.replace(content, "@properties\r\n", properties.toString());
-		content = StringUtils.replace(content, "@setter_getter\r\n", setterGetters
+		return StringUtils.replace(content, "@setter_getter\r\n", setterGetters
 				.toString());
-
-		return content;
 	}
 
 	private String replaceHashCodeEqualsInfo(String content, ERTable table,
@@ -353,8 +347,7 @@ public class ExportToJavaManager {
 			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@equals logic\r\n",
 					equals.toString());
 
-			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals
-					.toString());
+			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals);
 
 		} else if (table.getPrimaryKeySize() > 0) {
 			StringBuilder hashCodes = new StringBuilder();
@@ -371,8 +364,7 @@ public class ExportToJavaManager {
 			hashCodeEquals = StringUtils.replace(hashCodeEquals, "@equals logic\r\n",
 					equals.toString());
 
-			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals
-					.toString());
+			content = StringUtils.replace(content, "@hashCode_equals\r\n", hashCodeEquals);
 
 		} else {
 			content = StringUtils.replace(content, "@hashCode_equals\r\n", "");
@@ -395,9 +387,7 @@ public class ExportToJavaManager {
 		content = StringUtils.replace(content, "@PhysicalTableName", className);
 		content = StringUtils.replace(content, "@suffix", getCamelCaseName(
 				classNameSufix, true));
-		content = StringUtils.replace(content, "@version", "@version $Id$");
-
-		return content;
+		return StringUtils.replace(content, "@version", "@version $Id$");
 	}
 
 	private String replaceExtendInfo(String content) throws IOException {
@@ -412,7 +402,7 @@ public class ExportToJavaManager {
 			content = StringUtils.replace(content, "@extends", EXTENDS);
 
 			int index = this.exportJavaSetting.getExtendsClass().lastIndexOf(
-					".");
+					'.');
 
 			String extendsClassWithoutPackage = null;
 
@@ -442,9 +432,7 @@ public class ExportToJavaManager {
 			imports.append(";\r\n");
 		}
 
-		content = StringUtils.replace(content, "@import\r\n", imports.toString());
-
-		return content;
+		return StringUtils.replace(content, "@import\r\n", imports.toString());
 	}
 
 	private String replaceConstructorInfo(String content) {
@@ -459,10 +447,8 @@ public class ExportToJavaManager {
 			constructor.append(">();\r\n");
 		}
 
-		content = StringUtils.replace(content,
+		return StringUtils.replace(content,
 				"@constructor\r\n", constructor.toString());
-
-		return content;
 	}
 
 	private void addContent(StringBuilder contents, String template,
@@ -668,8 +654,6 @@ public class ExportToJavaManager {
 			}
 		}
 
-		content = StringUtils.replace(content, "@properties\r\n", properties.toString());
-
-		return content;
+		return StringUtils.replace(content, "@properties\r\n", properties.toString());
 	}
 }

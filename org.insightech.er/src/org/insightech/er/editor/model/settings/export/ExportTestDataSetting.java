@@ -65,16 +65,13 @@ public class ExportTestDataSetting implements Serializable, Cloneable {
 		int h = 0;
 		h = h * 37 + (exportFileEncoding == null ? 0 : exportFileEncoding.hashCode());
 		h = h * 37 + (exportFilePath == null ? 0 : exportFilePath.hashCode());
-		h = h * 37 + exportFormat;
-		return h;
+		return h * 37 + exportFormat;
 	}
 
 	@Override
 	public ExportTestDataSetting clone() {
 		try {
-			ExportTestDataSetting clone = (ExportTestDataSetting) super.clone();
-
-			return clone;
+			return (ExportTestDataSetting) super.clone();
 
 		} catch (CloneNotSupportedException e) {
 			return null;

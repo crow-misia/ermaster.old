@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
 
-public class MySQLTablespaceProperties implements TablespaceProperties {
+public final class MySQLTablespaceProperties implements TablespaceProperties {
 
 	private static final long serialVersionUID = 7900101196638704362L;
 

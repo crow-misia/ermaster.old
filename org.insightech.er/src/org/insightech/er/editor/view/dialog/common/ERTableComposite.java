@@ -54,7 +54,7 @@ public class ERTableComposite extends Composite {
 
 	public static final int UNIQUE_KEY_WIDTH = 70;
 
-	private Table table;
+	protected Table table;
 
 	private Button columnAddButton;
 
@@ -175,14 +175,13 @@ public class ERTableComposite extends Composite {
 
 				@Override
 				public void mouseDoubleClick(MouseEvent e) {
-					Column targetColumn = getTargetColumn();
+					final CopyColumn targetColumn = getTargetColumn();
 
-					if (targetColumn == null
-							|| !(targetColumn instanceof CopyColumn)) {
+					if (targetColumn == null) {
 						return;
 					}
 
-					addOrEditColumn((CopyColumn) targetColumn, false);
+					addOrEditColumn(targetColumn, false);
 				}
 			});
 		}
@@ -221,14 +220,13 @@ public class ERTableComposite extends Composite {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Column targetColumn = getTargetColumn();
+				final CopyColumn targetColumn = getTargetColumn();
 
-				if (targetColumn == null
-						|| !(targetColumn instanceof CopyColumn)) {
+				if (targetColumn == null) {
 					return;
 				}
 
-				addOrEditColumn((CopyColumn) targetColumn, false);
+				addOrEditColumn(targetColumn, false);
 			}
 
 		});
@@ -526,7 +524,7 @@ public class ERTableComposite extends Composite {
 		this.parentDialog.validate();
 	}
 
-	private void removeColumn() {
+	protected void removeColumn() {
 		int index = this.table.getSelectionIndex();
 
 		if (index != -1) {
@@ -599,7 +597,7 @@ public class ERTableComposite extends Composite {
 		messageBox.open();
 	}
 
-	private void upColumn() {
+	protected void upColumn() {
 		int index = this.table.getSelectionIndex();
 
 		if (index != -1 && index != 0) {
@@ -641,13 +639,13 @@ public class ERTableComposite extends Composite {
 	}
 
 	private void addOrEditColumn(final CopyColumn targetColumn, final boolean add) {
-		final NormalColumn column = addOrEditColumn(this.columnDialog, this.ertable, targetColumn);
+		final NormalColumn column = openDialog(this.columnDialog, this.ertable, targetColumn);
 		if (column != null) {
 			addTableData(column, add);
 		}
 	}
 
-	public static NormalColumn addOrEditColumn(final AbstractColumnDialog dialog,
+	public static NormalColumn openDialog(final AbstractColumnDialog dialog,
 			final ERTable table, final CopyColumn targetColumn) {
 		boolean foreignKey = false;
 		boolean isRefered = false;

@@ -38,8 +38,8 @@ public class ConnectionBendpointEditPolicy extends ERDiagramBendpointEditPolicy 
 			Bendpoint rate = this.getRate(point);
 			rate.setRelative(true);
 
-			float rateX = (100f - (rate.getX() / 2)) / 100;
-			float rateY = (100f - (rate.getY() / 2)) / 100;
+			final double rateX = (100.0 - (rate.getX() / 2)) / 100.0;
+			final double rateY = (100.0 - (rate.getY() / 2)) / 100.0;
 
 			ERTableEditPart tableEditPart = (ERTableEditPart) editPart
 					.getSource();
@@ -121,21 +121,17 @@ public class ConnectionBendpointEditPolicy extends ERDiagramBendpointEditPolicy 
 				Point point = bendpointrequest.getLocation();
 				Bendpoint rate = this.getRate(point);
 
-				MoveConnectionBendpointCommand command = new MoveConnectionBendpointCommand(
+				return new MoveConnectionBendpointCommand(
 						editPart, rate.getX(), rate.getY(), bendpointrequest
 								.getIndex());
-
-				return command;
 			}
 		}
 
 		Point point = bendpointrequest.getLocation();
 		this.getConnection().translateToRelative(point);
 
-		MoveConnectionBendpointCommand command = new MoveConnectionBendpointCommand(
+		return new MoveConnectionBendpointCommand(
 				editPart, point.x, point.y, bendpointrequest.getIndex());
-
-		return command;
 	}
 
 	private Bendpoint getRate(Point point) {

@@ -102,7 +102,7 @@ public final class XMLLoader {
 		}
 	};
 
-	private class LoadContext {
+	private static class LoadContext {
 		private Map<String, NodeElement> nodeElementMap;
 
 		private Map<String, NormalColumn> columnMap;
@@ -284,7 +284,9 @@ public final class XMLLoader {
 		for (int i = 0; i < n; i++) {
 			Node node = nodeList.item(i);
 			node = node.getFirstChild();
-			if (node != null) {
+			if (node == null) {
+				values[i] = null;
+			} else {
 				values[i] = node.getNodeValue();
 			}
 		}
@@ -308,7 +310,7 @@ public final class XMLLoader {
 
 		String value = node.getFirstChild().getNodeValue();
 
-		return Boolean.valueOf(value).booleanValue();
+		return Boolean.parseBoolean(value);
 	}
 
 	private static int getIntValue(Element element, String tagname) {
@@ -405,7 +407,7 @@ public final class XMLLoader {
 
 		String value = node.getFirstChild().getNodeValue();
 
-		return Double.valueOf(value).doubleValue();
+		return Double.parseDouble(value);
 	}
 
 	private static Date getDateValue(Element element, String tagname) {
@@ -593,9 +595,7 @@ public final class XMLLoader {
 				Element tablespaceElemnt = (Element) nodeList.item(i);
 				Tablespace tablespace = this.loadTablespace(tablespaceElemnt,
 						context);
-				if (tablespace != null) {
-					tablespaceSet.addTablespace(tablespace, false);
-				}
+				tablespaceSet.addTablespace(tablespace, false);
 			}
 			tablespaceSet.setDirty();
 		}
@@ -1031,9 +1031,7 @@ public final class XMLLoader {
 		boolean isForeignKey = false;
 
 		String[] relationIds = getTagValues(element, "relation");
-		if (relationIds != null) {
-			context.columnRelationMap.put(normalColumn, relationIds);
-		}
+		context.columnRelationMap.put(normalColumn, relationIds);
 
 		String[] referencedColumnIds = getTagValues(element,
 				"referenced_column");

@@ -20,12 +20,9 @@ public class SequenceHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getSequenceSet()
+		return (List) diagram.getDiagramContents().getSequenceSet()
 				.getSequenceList();
-
-		return list;
 	}
 
 	@Override

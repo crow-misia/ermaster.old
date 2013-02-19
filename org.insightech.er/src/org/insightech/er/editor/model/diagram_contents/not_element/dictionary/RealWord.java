@@ -95,7 +95,6 @@ public class RealWord extends Word {
 		this.typeData = typeData;
 	}
 
-	@Override
 	public String getDescription() {
 		return this.description;
 	}

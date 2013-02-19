@@ -103,6 +103,6 @@ public class AccessDBManager extends DBManagerBase {
 		return false;
 	}
 
-    public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
-    }
+	public void createAutoIncrement(ERDiagram diagram, ERTable table, ERTable copyTable, CompoundCommand command, String tableName) {
+	}
 }

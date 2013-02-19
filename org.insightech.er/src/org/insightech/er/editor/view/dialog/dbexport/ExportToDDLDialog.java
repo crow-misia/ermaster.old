@@ -484,7 +484,7 @@ public class ExportToDDLDialog extends AbstractDialog {
 			IFile file = ((IFileEditorInput) editorPart.getEditorInput())
 					.getFile();
 			outputFile = file.getLocation().toOSString();
-			outputFile = outputFile.substring(0, outputFile.lastIndexOf("."))
+			outputFile = outputFile.substring(0, outputFile.lastIndexOf('.'))
 					+ ".sql";
 		}
 

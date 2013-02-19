@@ -41,8 +41,6 @@ public class ChangeTrackingDialog extends Dialog {
 
 	private Text textArea = null;
 
-	private Button registerButton;
-
 	private Button updateButton;
 
 	private Button deleteButton;
@@ -102,8 +100,8 @@ public class ChangeTrackingDialog extends Dialog {
 		this.textArea = CompositeFactory.createTextArea(null, composite, null,
 				-1, 100, 6, true);
 
-		this.registerButton = new Button(composite, SWT.NONE);
-		this.registerButton.setText(ResourceString
+		final Button registerButton = new Button(composite, SWT.NONE);
+		registerButton.setText(ResourceString
 				.getResourceString("label.button.register"));
 
 		this.updateButton = new Button(composite, SWT.NONE);
@@ -150,7 +148,7 @@ public class ChangeTrackingDialog extends Dialog {
 			}
 		});
 
-		this.registerButton.addSelectionListener(new SelectionAdapter() {
+		registerButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {

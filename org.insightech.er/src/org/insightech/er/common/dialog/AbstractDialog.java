@@ -171,11 +171,7 @@ public abstract class AbstractDialog extends Dialog {
 	}
 
 	protected static boolean isBlank(Text text) {
-		if (text.getText().trim().length() == 0) {
-			return true;
-		}
-
-		return false;
+		return StringUtils.isBlank(text.getText());
 	}
 
 	protected static boolean isBlank(Combo combo) {

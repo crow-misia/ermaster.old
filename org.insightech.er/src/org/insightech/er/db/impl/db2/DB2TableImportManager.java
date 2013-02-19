@@ -21,27 +21,27 @@ public class DB2TableImportManager extends ImportFromDBManagerBase {
 		ColumnData columnData = super.createColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
-		if (type.equals("decimal")) {
+		if ("decimal".equals(type)) {
 			if (columnData.size == 5 && columnData.decimalDigits == 0) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("clob")) {
+		} else if ("clob".equals(type)) {
 			if (columnData.size == 1048576) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("blob")) {
+		} else if ("blob".equals(type)) {
 			if (columnData.size == 1048576) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("dbclob")) {
+		} else if ("dbclob".equals(type)) {
 			if (columnData.size == 2097152) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("decfloat")) {
+		} else if ("decfloat".equals(type)) {
 			if (columnData.size == 34) {
 				columnData.size = 0;
 			}
@@ -110,17 +110,11 @@ public class DB2TableImportManager extends ImportFromDBManagerBase {
 				sequence.setStart(rs.getLong("START"));
 				sequence.setCache(rs.getInt("CACHE"));
 
-				boolean cycle = false;
-				if ("Y".equals(rs.getString("CYCLE"))) {
-					cycle = true;
-				}
+				boolean cycle = "Y".equals(rs.getString("CYCLE"));
 
 				sequence.setCycle(cycle);
 
-				boolean order = false;
-				if ("Y".equals(rs.getString("ORDER"))) {
-					order = true;
-				}
+				boolean order = "Y".equals(rs.getString("ORDER"));
 
 				sequence.setOrder(order);
 

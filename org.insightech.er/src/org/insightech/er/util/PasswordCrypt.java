@@ -55,8 +55,7 @@ public class PasswordCrypt {
         if (KEY_FILE.exists()) {
             byte[] key = FileUtils.readFileToByteArray(KEY_FILE);
 
-            SecretKeySpec keySpec = new SecretKeySpec(key, KEY_ALGORITHM);
-            return keySpec;
+            return new SecretKeySpec(key, KEY_ALGORITHM);
 
         } else {
             Key key = generateKey();
@@ -67,13 +66,11 @@ public class PasswordCrypt {
     }
 
     private static Key generateKey() throws Exception {
-        KeyGenerator generator = KeyGenerator.getInstance(KEY_ALGORITHM);
+        final KeyGenerator generator = KeyGenerator.getInstance(KEY_ALGORITHM);
 
-        SecureRandom random = new SecureRandom();
+        final SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
         generator.init(128, random);
-        Key key = generator.generateKey();
-
-        return key;
+        return generator.generateKey();
     }
 
 }

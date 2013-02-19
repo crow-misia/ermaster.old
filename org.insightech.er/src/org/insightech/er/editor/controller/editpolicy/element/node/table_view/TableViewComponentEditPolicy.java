@@ -3,9 +3,11 @@ package org.insightech.er.editor.controller.editpolicy.element.node.table_view;
 import java.util.Map;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.requests.DirectEditRequest;
@@ -104,19 +106,20 @@ public class TableViewComponentEditPolicy extends
 	}
 
 	private int getColumnIndex(DirectEditRequest editRequest) {
-		ZoomManager zoomManager = ((ScalableFreeformRootEditPart) this
+		final ZoomManager zoomManager = ((ScalableFreeformRootEditPart) this
 				.getHost().getRoot()).getZoomManager();
-		double zoom = zoomManager.getZoom();
+		final double zoom = zoomManager.getZoom();
 
-		IFigure figure = ((TableViewEditPart) this.getHost()).getFigure();
+		final TableViewEditPart editPart = (TableViewEditPart) this.getHost();
+		IFigure figure = editPart.getFigure();
 
-		int center = (int) (figure.getBounds().y + (figure.getBounds().height / 2)
-				* zoom);
+		final Rectangle rect = figure.getBounds();
+		int center = (int) (rect.y + (rect.height / 2.0) * zoom);
 
 		int index = 0;
 
 		if (editRequest.getLocation().y >= center) {
-			TableView newTableView = (TableView) this.getHost().getModel();
+			TableView newTableView = (TableView) editPart.getModel();
 
 			index = newTableView.getColumns().size();
 		}

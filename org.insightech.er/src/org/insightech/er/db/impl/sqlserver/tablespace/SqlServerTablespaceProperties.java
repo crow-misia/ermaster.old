@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
 
-public class SqlServerTablespaceProperties implements TablespaceProperties {
+public final class SqlServerTablespaceProperties implements TablespaceProperties {
 
 	private static final long serialVersionUID = 3581869274788998047L;
 
@@ -200,7 +200,6 @@ public class SqlServerTablespaceProperties implements TablespaceProperties {
 	}
 
 	public List<String> validate() {
-		List<String> errorMessage = new ArrayList<String>();
-		return errorMessage;
+		return new ArrayList<String>();
 	}
 }

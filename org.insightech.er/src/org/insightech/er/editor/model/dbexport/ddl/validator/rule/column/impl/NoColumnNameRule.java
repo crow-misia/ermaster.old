@@ -1,5 +1,6 @@
 package org.insightech.er.editor.model.dbexport.ddl.validator.rule.column.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IMarker;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.dbexport.ddl.validator.ValidateResult;
@@ -11,8 +12,7 @@ public class NoColumnNameRule extends ColumnRule {
 
 	@Override
 	public boolean validate(ERTable table, NormalColumn column) {
-		if (column.getPhysicalName() == null
-				|| column.getPhysicalName().trim().equals("")) {
+		if (StringUtils.isBlank(column.getPhysicalName())) {
 			ValidateResult validateResult = new ValidateResult();
 			validateResult.setMessage(ResourceString
 					.getResourceString("error.validate.no.column.name")

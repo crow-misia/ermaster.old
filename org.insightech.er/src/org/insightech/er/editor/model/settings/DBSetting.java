@@ -76,7 +76,7 @@ public class DBSetting implements Serializable, Comparable<DBSetting> {
 		return useDefaultDriver;
 	}
 
-	public String getUrl() {
+	public String getURL() {
 		return url;
 	}
 
@@ -127,7 +127,7 @@ public class DBSetting implements Serializable, Comparable<DBSetting> {
 			}
 		}
 
-		compareTo = this.getUrl().compareTo(other.getUrl());
+		compareTo = this.getURL().compareTo(other.getURL());
 		if (compareTo != 0) {
 			return compareTo;
 		}
@@ -169,12 +169,12 @@ public class DBSetting implements Serializable, Comparable<DBSetting> {
 
 		Properties info = new Properties();
 		if (this.getUser() != null) {
-			info.put("user", this.getUser());
+			info.setProperty("user", this.getUser());
 		}
 		if (this.getPassword() != null) {
-			info.put("password", this.getPassword());
+			info.setProperty("password", this.getPassword());
 		}
 
-		return driver.connect(this.getUrl(), info);
+		return driver.connect(this.getURL(), info);
 	}
 }

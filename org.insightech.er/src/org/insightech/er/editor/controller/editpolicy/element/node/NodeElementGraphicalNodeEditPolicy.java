@@ -192,10 +192,7 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 			yp = 100 * (point.y - bounds.y) / bounds.height;
 		}
 
-		ReconnectSourceCommand command = new ReconnectSourceCommand(connection,
-				xp, yp);
-
-		return command;
+		return new ReconnectSourceCommand(connection, xp, yp);
 	}
 
 	@Override
@@ -239,9 +236,6 @@ public class NodeElementGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy 
 			xp = 100 * (point.x - bounds.x) / bounds.width;
 			yp = 100 * (point.y - bounds.y) / bounds.height;
 		}
-		ReconnectTargetCommand command = new ReconnectTargetCommand(connection,
-				xp, yp);
-
-		return command;
+		return new ReconnectTargetCommand(connection, xp, yp);
 	}
 }

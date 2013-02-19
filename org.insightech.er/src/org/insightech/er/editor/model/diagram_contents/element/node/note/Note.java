@@ -57,12 +57,8 @@ public class Note extends NodeElement implements Comparable<Note> {
 	}
 
 	public int compareTo(Note other) {
-		int compareTo = 0;
-
-		compareTo = Format.null2blank(this.text).compareTo(
-				Format.null2blank(other.text));
-
-		return compareTo;
+		return Format.null2blank(this.text)
+				.compareTo(Format.null2blank(other.text));
 	}
 
 	public String getName() {

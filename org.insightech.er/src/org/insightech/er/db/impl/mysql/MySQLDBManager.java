@@ -140,13 +140,11 @@ public class MySQLDBManager extends DBManagerBase {
 			try {
 				String values = CHARACTER_SET_RESOURCE.getString(characterset);
 
-				if (values != null) {
-					StringTokenizer tokenizer = new StringTokenizer(values, ",");
+				StringTokenizer tokenizer = new StringTokenizer(values, ",");
 
-					while (tokenizer.hasMoreElements()) {
-						String token = tokenizer.nextToken().trim();
-						list.add(token);
-					}
+				while (tokenizer.hasMoreElements()) {
+					String token = tokenizer.nextToken().trim();
+					list.add(token);
 				}
 			} catch (MissingResourceException e) {
 			}

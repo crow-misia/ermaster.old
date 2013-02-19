@@ -14,6 +14,7 @@ import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.SimpleRootEditPart;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -80,7 +81,7 @@ public class ExportToImageAction extends AbstractExportAction {
 		}
 	}
 
-	public static int outputImage(ProgressMonitorDialog monitor,
+	public static int outputImage(IRunnableContext monitor,
 			GraphicalViewer viewer, String saveFilePath)
 			throws InterruptedException {
 		int format = getFormatType(saveFilePath);
@@ -142,7 +143,7 @@ public class ExportToImageAction extends AbstractExportAction {
 	public static int getFormatType(String saveFilePath) {
 		int format = -1;
 
-		int index = saveFilePath.lastIndexOf(".");
+		int index = saveFilePath.lastIndexOf('.');
 		String ext = null;
 		if (index != -1 && index != saveFilePath.length() - 1) {
 			ext = saveFilePath.substring(index + 1, saveFilePath.length());
@@ -285,7 +286,8 @@ public class ExportToImageAction extends AbstractExportAction {
 				}
 			}
 
-			for (NodeElement sourceElement : visibleElements.keySet()) {
+			for (final Map.Entry<NodeElement, IFigure> entry : visibleElements.entrySet()) {
+				final NodeElement sourceElement = entry.getKey();
 				for (ConnectionElement connection : sourceElement
 						.getOutgoings()) {
 					if (visibleElements.containsKey(connection.getTarget())) {
@@ -294,8 +296,7 @@ public class ExportToImageAction extends AbstractExportAction {
 							int y = bendpoint.getY();
 
 							if (bendpoint.isRelative()) {
-								IFigure figure = visibleElements
-										.get(sourceElement);
+								final IFigure figure = entry.getValue();
 								Rectangle figureRectangle = figure.getBounds();
 								x = figureRectangle.x + figureRectangle.width
 										* 2;

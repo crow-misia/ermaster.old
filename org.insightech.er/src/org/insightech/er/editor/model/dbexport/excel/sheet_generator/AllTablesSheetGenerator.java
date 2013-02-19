@@ -85,10 +85,4 @@ public class AllTablesSheetGenerator extends TableSheetGenerator {
 		return "all_tables_template";
 	}
 
-	@Override
-	public int count(ERDiagram diagram) {
-		return diagram.getDiagramContents().getContents().getTableSet()
-				.getList().size();
-	}
-
 }

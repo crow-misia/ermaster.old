@@ -92,27 +92,26 @@ public final class CreateRelationByExistingColumnsCommand extends
 
 		for (final NormalColumn normalColumn : targetTable.getNormalColumns()) {
 			NormalColumn rootReferencedColumn = normalColumn.getRootReferencedColumn();
-			if (rootReferencedColumn != null) {
-				List<NormalColumn> foreignKeyList = referencedMap
-						.get(rootReferencedColumn);
 
-				if (foreignKeyList == null) {
-					foreignKeyList = new ArrayList<NormalColumn>();
-					referencedMap.put(rootReferencedColumn, foreignKeyList);
+			List<NormalColumn> foreignKeyList = referencedMap
+					.get(rootReferencedColumn);
+
+			if (foreignKeyList == null) {
+				foreignKeyList = new ArrayList<NormalColumn>();
+				referencedMap.put(rootReferencedColumn, foreignKeyList);
+			}
+
+			foreignKeyList.add(normalColumn);
+
+			for (Relation relation : normalColumn.getRelationList()) {
+				Set<NormalColumn> foreignKeySet = foreignKeySetMap
+						.get(relation);
+				if (foreignKeySet == null) {
+					foreignKeySet = new HashSet<NormalColumn>();
+					foreignKeySetMap.put(relation, foreignKeySet);
 				}
 
-				foreignKeyList.add(normalColumn);
-
-				for (Relation relation : normalColumn.getRelationList()) {
-					Set<NormalColumn> foreignKeySet = foreignKeySetMap
-							.get(relation);
-					if (foreignKeySet == null) {
-						foreignKeySet = new HashSet<NormalColumn>();
-						foreignKeySetMap.put(relation, foreignKeySet);
-					}
-
-					foreignKeySet.add(normalColumn);
-				}
+				foreignKeySet.add(normalColumn);
 			}
 		}
 

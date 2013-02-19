@@ -68,20 +68,18 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	}
 
 	public static String getTemplatePath(String fileName) {
-		IPath dataLocation = Activator.getDefault().getStateLocation();
-		String path = dataLocation.append(PreferenceInitializer.TEMPLATE_DIR)
-				.append(fileName).toOSString();
-
-		return path;
+		final IPath dataLocation = Activator.getDefault().getStateLocation();
+		return dataLocation
+				.append(PreferenceInitializer.TEMPLATE_DIR)
+				.append(fileName)
+				.toOSString();
 	}
 
 	public static String getTranslationPath(String fileName) {
-		IPath dataLocation = Activator.getDefault().getStateLocation();
-		String path = dataLocation
+		final IPath dataLocation = Activator.getDefault().getStateLocation();
+		return dataLocation
 				.append(PreferenceInitializer.TRANSLATION_DIR).append(fileName)
 				.toOSString();
-
-		return path;
 	}
 
 	public static void saveJDBCDriverSettingList(
@@ -250,7 +248,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				PreferenceInitializer.DB_SETTING_USE_DEFAULT_DRIVER + no,
 				dbSetting.isUseDefaultDriver());
 		store.setValue(PreferenceInitializer.DB_SETTING_URL + no, Format
-				.null2blank(dbSetting.getUrl()));
+				.null2blank(dbSetting.getURL()));
 		store.setValue(PreferenceInitializer.DB_SETTING_DRIVER_CLASS_NAME + no,
 				Format.null2blank(dbSetting.getDriverClassName()));
 	}

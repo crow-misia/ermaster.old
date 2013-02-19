@@ -21,4 +21,5 @@ public enum SupportFunctions {
 	COLUMN_UNIT,
 	COLUMN_CHARSET,
 	ARRAY_TYPE,
+	MATERIALIZED_VIEW,
 }

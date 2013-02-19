@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.insightech.er.editor.model.diagram_contents.element.node.table.column.NormalColumn;
 
-public class DirectTestData implements Cloneable {
+public final class DirectTestData implements Cloneable {
 
 	private List<Map<NormalColumn, String>> dataList;
 

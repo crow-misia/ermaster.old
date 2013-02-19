@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
 
-public class OracleTablespaceProperties implements TablespaceProperties {
+public final class OracleTablespaceProperties implements TablespaceProperties {
 
 	private static final long serialVersionUID = -6976279893674797115L;
 

@@ -42,7 +42,7 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		boolean valid = super.validatePage();
 		if (valid) {
 			String fileName = this.getFileName();
-			if (fileName.indexOf(".") != -1 && !fileName.endsWith(EXTENSION)) {
+			if (fileName.indexOf('.') != -1 && !fileName.endsWith(EXTENSION)) {
 				this.setErrorMessage(ResourceString
 						.getResourceString("error.erm.extension"));
 				valid = false;
@@ -50,7 +50,7 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		}
 		if (valid) {
 			String fileName = this.getFileName();
-			if (fileName.indexOf(".") == -1) {
+			if (fileName.indexOf('.') == -1) {
 				fileName = fileName + EXTENSION;
 			}
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -88,8 +88,7 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 		Persistent persistent = Persistent.getInstance();
 
 		try {
-			InputStream in = persistent.createInputStream(this.diagram);
-			return in;
+			return persistent.createInputStream(this.diagram);
 
 		} catch (IOException e) {
 			Activator.showExceptionDialog(e);
@@ -101,7 +100,7 @@ public class NewDiagramWizardPage1 extends WizardNewFileCreationPage {
 	@Override
 	public IFile createNewFile() {
 		String fileName = this.getFileName();
-		if (fileName.indexOf(".") == -1) {
+		if (fileName.indexOf('.') == -1) {
 			this.setFileName(fileName + EXTENSION);
 		}
 

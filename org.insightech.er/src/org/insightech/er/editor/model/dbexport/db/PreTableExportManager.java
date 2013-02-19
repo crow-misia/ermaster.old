@@ -135,10 +135,7 @@ public abstract class PreTableExportManager {
 	}
 
 	private String dropSequence(String sequenceName) throws SQLException {
-		String sql = "DROP SEQUENCE " + this.ifExistsOption + sequenceName
-				+ ";";
-
-		return sql;
+		return "DROP SEQUENCE " + this.ifExistsOption + sequenceName + ";";
 	}
 
 	private String dropViews() throws SQLException {
@@ -173,9 +170,7 @@ public abstract class PreTableExportManager {
 	}
 
 	private String dropView(String viewName) throws SQLException {
-		String sql = "DROP VIEW " + this.ifExistsOption + viewName + ";";
-
-		return sql;
+		return "DROP VIEW " + this.ifExistsOption + viewName + ";";
 	}
 
 	protected String dropForeignKeys() throws SQLException {
@@ -219,10 +214,8 @@ public abstract class PreTableExportManager {
 
 	private static String dropForeignKey(String tableName, String constraintName)
 			throws SQLException {
-		String sql = "ALTER TABLE " + tableName + " DROP CONSTRAINT "
+		return "ALTER TABLE " + tableName + " DROP CONSTRAINT "
 				+ constraintName + ";";
-
-		return sql;
 	}
 
 	private String dropTables() throws SQLException, InterruptedException {
@@ -265,9 +258,7 @@ public abstract class PreTableExportManager {
 	}
 
 	private String dropTable(String tableName) throws SQLException {
-		String sql = "DROP TABLE " + this.ifExistsOption + tableName + ";";
-
-		return sql;
+		return "DROP TABLE " + this.ifExistsOption + tableName + ";";
 	}
 
 	private String executeDDL() throws SQLException {

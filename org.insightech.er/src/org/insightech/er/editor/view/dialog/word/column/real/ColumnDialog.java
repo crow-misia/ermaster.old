@@ -62,7 +62,7 @@ public class ColumnDialog extends AbstractRealColumnDialog {
 				.getActiveWorkbenchWindow().getShell(), erTable);
 		final CopyColumn targetColumn = CopyColumn.getInstance(column);
 		
-		final NormalColumn retval = ERTableComposite.addOrEditColumn(dialog, erTable, targetColumn);
+		final NormalColumn retval = ERTableComposite.openDialog(dialog, erTable, targetColumn);
 		if (retval != null) {
 			return new ChangeColumnCommand(erTable, column, retval);
 		}

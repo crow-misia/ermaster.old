@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.insightech.er.editor.model.ERDiagram;
 import org.insightech.er.editor.model.ObjectModel;
@@ -234,10 +236,10 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		}
 	}
 
-	private static void setIndexMatrixColor(HSSFWorkbook workbook,
-			HSSFCellStyle indexStyle) {
+	private static void setIndexMatrixColor(Workbook workbook,
+			CellStyle indexStyle) {
 		indexStyle.setFillForegroundColor(HSSFColor.WHITE.index);
-		HSSFFont font = workbook.getFontAt(indexStyle.getFontIndex());
+		Font font = workbook.getFontAt(indexStyle.getFontIndex());
 		font.setColor(HSSFColor.BLACK.index);
 	}
 
@@ -351,7 +353,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		HSSFRow headerRow = sheet.createRow(rowNum++);
 
-		for (int i = 0; i < num + 1; i++) {
+		for (int i = 0; i <= num; i++) {
 			HSSFCell cell = headerRow.createCell(columnNum + i);
 
 			if (i == 0) {
@@ -456,7 +458,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 
 		HSSFRow headerRow = sheet.createRow(rowNum++);
 
-		for (int i = 0; i < num + 1; i++) {
+		for (int i = 0; i <= num; i++) {
 			HSSFCell cell = headerRow.createCell(columnNum + i);
 
 			if (i == 0) {

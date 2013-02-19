@@ -226,9 +226,9 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 
 		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1),
 				MouseWheelZoomHandler.SINGLETON);
-		viewer.setProperty(SnapToGrid.PROPERTY_GRID_ENABLED, true);
-		viewer.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, true);
-		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, true);
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_ENABLED, Boolean.TRUE);
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, Boolean.TRUE);
+		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, Boolean.TRUE);
 
 		MenuManager menuMgr = new ERDiagramPopupMenuManager(this
 				.getActionRegistry(), this.diagram);
@@ -528,8 +528,6 @@ public class ERDiagramEditor extends GraphicalEditorWithPalette {
 	public String getProjectFilePath(String extention) {
 		IFile file = ((IFileEditorInput) this.getEditorInput()).getFile();
 		String filePath = file.getLocation().toOSString();
-		filePath = filePath.substring(0, filePath.lastIndexOf(".")) + extention;
-
-		return filePath;
+		return filePath.substring(0, filePath.lastIndexOf('.')) + extention;
 	}
 }

@@ -3,7 +3,7 @@ package org.insightech.er.editor.model.diagram_contents.element.node.table.index
 import org.insightech.er.editor.model.AbstractModel;
 import org.insightech.er.editor.model.ObjectModel;
 
-public class IndexHeader extends AbstractModel implements ObjectModel {
+public final class IndexHeader extends AbstractModel implements ObjectModel {
 
 	private static final long serialVersionUID = -1071894911784864112L;
 

@@ -110,7 +110,7 @@ public class OracleDDLCreator extends DDLCreator {
 				this.getDiagram().getDatabase())));
 		ddl.append("\r\n");
 		ddl.append("\tADD ");
-		if (relation.getName() != null && !relation.getName().trim().equals("")) {
+		if (StringUtils.isNotBlank(relation.getName())) {
 			ddl.append("CONSTRAINT ");
 			ddl.append(filter(relation.getName()));
 			ddl.append(" ");

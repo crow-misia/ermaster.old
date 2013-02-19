@@ -41,10 +41,6 @@ public abstract class ColumnEditPart extends AbstractModelEditPart {
 	}
 
 	@Override
-	public void doPropertyChange(PropertyChangeEvent evt) {
-	}
-
-	@Override
 	public EditPart getTargetEditPart(Request request) {
 		EditPart editPart = super.getTargetEditPart(request);
 

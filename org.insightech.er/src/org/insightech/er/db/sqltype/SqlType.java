@@ -189,7 +189,7 @@ public class SqlType implements Serializable {
 	public static SqlType valueOf(String database, String alias) {
 		int size = 0;
 
-		if (alias.indexOf("(") != -1) {
+		if (alias.indexOf('(') != -1) {
 			size = 1;
 		}
 

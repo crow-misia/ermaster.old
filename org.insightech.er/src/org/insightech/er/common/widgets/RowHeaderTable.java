@@ -76,7 +76,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 	private CellEditWorker cellEditWorker;
 	private final Map<Integer, PanelCellEditor> cellEditorMap = new HashMap<Integer, PanelCellEditor>();
 
-	private boolean clipbordOn = true;
+	protected boolean clipbordOn = true;
 
 	private HeaderClickListener headerClickListener;
 

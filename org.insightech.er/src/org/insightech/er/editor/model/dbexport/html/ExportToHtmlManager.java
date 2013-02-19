@@ -187,7 +187,7 @@ public class ExportToHtmlManager {
 			return content;
 
 		} finally {
-			in.close();
+			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -200,7 +200,7 @@ public class ExportToHtmlManager {
 	}
 
 	private void copyOut(String dstPath, String key)
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		String content = getTemplate(key);
 		this.writeOut(dstPath, content);
 	}

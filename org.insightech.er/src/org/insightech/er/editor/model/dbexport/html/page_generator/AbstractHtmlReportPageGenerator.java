@@ -72,8 +72,6 @@ public abstract class AbstractHtmlReportPageGenerator implements
 				this.getObjectName(object) };
 	}
 
-	public abstract List<Object> getObjectList(ERDiagram diagram);
-
 	public String generatePackageSummary(
 			HtmlReportPageGenerator prevPageGenerator,
 			HtmlReportPageGenerator nextPageGenerator, ERDiagram diagram)
@@ -460,10 +458,8 @@ public abstract class AbstractHtmlReportPageGenerator implements
 			body.append(row);
 		}
 
-		template = MessageFormat.format(template, new Object[] {
+		return MessageFormat.format(template, new Object[] {
 				header.toString(), body.toString() });
-
-		return template;
 	}
 
 	public static String generateComplexUniqueKeyMatrix(
@@ -528,11 +524,9 @@ public abstract class AbstractHtmlReportPageGenerator implements
 			}
 		}
 
-		template = MessageFormat.format(template, new Object[] {
+		return MessageFormat.format(template, new Object[] {
 				header.toString(), body.toString(),
 				complexUniqueKeyList.size() + 1 });
-
-		return template;
 	}
 
 	private static String getPKString(NormalColumn normalColumn) {

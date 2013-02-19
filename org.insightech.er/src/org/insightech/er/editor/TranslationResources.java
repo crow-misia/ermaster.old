@@ -21,7 +21,7 @@ import org.insightech.er.editor.model.settings.TranslationSetting;
 import org.insightech.er.preference.PreferenceInitializer;
 import org.insightech.er.util.io.IOUtils;
 
-public class TranslationResources {
+public final class TranslationResources {
 
 	private final Map<String, String> translationMap;
 	private final Map<String, Pattern> cache;

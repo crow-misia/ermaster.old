@@ -47,10 +47,8 @@ public abstract class AbstractBaseAction extends Action {
 	}
 
 	protected ERDiagram getDiagram() {
-		EditPart editPart = this.editor.getGraphicalViewer().getContents();
-		ERDiagram diagram = (ERDiagram) editPart.getModel();
-
-		return diagram;
+		final EditPart editPart = this.editor.getGraphicalViewer().getContents();
+		return (ERDiagram) editPart.getModel();
 	}
 
 	protected GraphicalViewer getGraphicalViewer() {

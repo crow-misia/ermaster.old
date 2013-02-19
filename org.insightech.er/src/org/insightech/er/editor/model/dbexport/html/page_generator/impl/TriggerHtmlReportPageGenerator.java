@@ -20,12 +20,9 @@ public class TriggerHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getTriggerSet()
+		return (List) diagram.getDiagramContents().getTriggerSet()
 				.getTriggerList();
-
-		return list;
 	}
 
 	@Override

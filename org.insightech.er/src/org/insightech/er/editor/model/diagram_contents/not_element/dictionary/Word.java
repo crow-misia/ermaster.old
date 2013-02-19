@@ -36,8 +36,6 @@ public abstract class Word extends AbstractModel implements ObjectModel,
 
 	protected abstract void setTypeData(TypeData typeData);
 
-	public abstract String getDescription();
-
 	public abstract void setDescription(String description);
 
 	public void copyTo(Word to) {

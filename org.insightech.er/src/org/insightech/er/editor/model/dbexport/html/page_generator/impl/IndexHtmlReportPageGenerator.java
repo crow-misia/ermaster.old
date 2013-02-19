@@ -24,7 +24,6 @@ public class IndexHtmlReportPageGenerator extends
 		return "index";
 	}
 
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
 		List<Object> list = new ArrayList<Object>();
 

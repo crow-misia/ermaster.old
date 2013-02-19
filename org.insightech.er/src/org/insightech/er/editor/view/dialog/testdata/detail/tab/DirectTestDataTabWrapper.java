@@ -73,10 +73,6 @@ public class DirectTestDataTabWrapper extends ValidatableTabWrapper {
 	}
 
 	@Override
-	protected void setData() {
-	}
-
-	@Override
 	public void validatePage() throws InputException {
 		this.saveTableData();
 	}

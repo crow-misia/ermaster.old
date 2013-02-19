@@ -35,9 +35,7 @@ public class POIUtils {
 
 		@Override
 		public String toString() {
-			String str = "(" + this.r + ", " + this.c + ")";
-
-			return str;
+			return "(" + this.r + ", " + this.c + ")";
 		}
 	}
 
@@ -490,7 +488,7 @@ public class POIUtils {
 
 	public static HSSFFont copyFont(HSSFWorkbook workbook, HSSFFont font) {
 
-		HSSFFont newFont = workbook.createFont();
+		return workbook.createFont();
 
 		// newFont.setBoldweight(font.getBoldweight());
 		// newFont.setCharSet(font.getCharSet());
@@ -502,8 +500,6 @@ public class POIUtils {
 		// newFont.setStrikeout(font.getStrikeout());
 		// newFont.setTypeOffset(font.getTypeOffset());
 		// newFont.setUnderline(font.getUnderline());
-
-		return newFont;
 	}
 
 	public static HSSFRow insertRow(HSSFSheet sheet, int rowNum) {

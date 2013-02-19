@@ -207,8 +207,7 @@ public class TypeData implements Serializable, Comparable<TypeData> {
 				+ ((arrayDimension == null) ? 0 : arrayDimension.hashCode());
 		result = prime * result + (unsigned ? 1231 : 1237);
 		result = prime * result + ((args == null) ? 0 : args.hashCode());
-		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
-		return result;
+		return prime * result + ((unit == null) ? 0 : unit.hashCode());
 	}
 
 	@Override

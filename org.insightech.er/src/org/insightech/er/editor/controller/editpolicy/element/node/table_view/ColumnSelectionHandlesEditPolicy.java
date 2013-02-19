@@ -273,7 +273,7 @@ public class ColumnSelectionHandlesEditPolicy extends NonResizableEditPolicy {
 			}
 
 			DeleteRelationCommand deleteOldRelationCommand = new DeleteRelationCommand(
-					oldRelation, true);
+					oldRelation, Boolean.TRUE);
 			command.add(deleteOldRelationCommand);
 
 			Relation newRelation = new Relation(oldRelation.isReferenceForPK(),

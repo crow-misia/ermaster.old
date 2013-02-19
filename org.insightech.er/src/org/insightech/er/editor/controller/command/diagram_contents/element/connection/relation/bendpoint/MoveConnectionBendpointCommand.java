@@ -44,8 +44,8 @@ public final class MoveConnectionBendpointCommand extends AbstractCommand {
 
 			this.bendPoint.setRelative(true);
 
-			final float rateX = (100f - (bendPoint.getX() / 2)) / 100;
-			final float rateY = (100f - (bendPoint.getY() / 2)) / 100;
+			final double rateX = (100.0 - (bendPoint.getX() / 2)) / 100.0;
+			final double rateY = (100.0 - (bendPoint.getY() / 2)) / 100.0;
 
 			connection.setSourceLocationp(100, (int) (100 * rateY));
 			connection.setTargetLocationp((int) (100 * rateX), 100);

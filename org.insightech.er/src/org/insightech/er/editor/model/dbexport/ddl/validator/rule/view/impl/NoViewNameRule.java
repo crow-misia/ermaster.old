@@ -1,5 +1,6 @@
 package org.insightech.er.editor.model.dbexport.ddl.validator.rule.view.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IMarker;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.dbexport.ddl.validator.ValidateResult;
@@ -10,8 +11,7 @@ public class NoViewNameRule extends ViewRule {
 
 	@Override
 	public boolean validate(View view) {
-		if (view.getPhysicalName() == null
-				|| view.getPhysicalName().trim().equals("")) {
+		if (StringUtils.isBlank(view.getPhysicalName())) {
 			ValidateResult validateResult = new ValidateResult();
 			validateResult.setMessage(ResourceString
 					.getResourceString("error.validate.no.view.name"));

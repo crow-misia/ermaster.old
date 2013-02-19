@@ -42,9 +42,7 @@ public abstract class PanelCellEditor extends AbstractCellEditor implements
 	protected static Font getAwtFont() {
 		FontData fontData = Display.getCurrent().getSystemFont().getFontData()[0];
 
-		Font font = new Font(fontData.getName(), Font.PLAIN, 12);
-
-		return font;
+		return new Font(fontData.getName(), Font.PLAIN, 12);
 	}
 
 	protected void addComponent(Component component, int x, int y, int w, int h) {

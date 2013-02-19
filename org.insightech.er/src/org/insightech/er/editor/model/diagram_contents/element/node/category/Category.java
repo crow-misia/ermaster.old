@@ -151,19 +151,13 @@ public class Category extends NodeElement implements IResizable,
 	}
 
 	public int compareTo(Category other) {
-		int compareTo = 0;
-
-		compareTo = Format.null2blank(this.name).compareTo(
-				Format.null2blank(other.name));
-
-		return compareTo;
+		return Format.null2blank(this.name)
+				.compareTo(Format.null2blank(other.name));
 	}
 
 	@Override
 	public Category clone() {
-		Category clone = (Category) super.clone();
-
-		return clone;
+		return (Category) super.clone();
 	}
 
 	public String getDescription() {

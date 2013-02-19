@@ -146,8 +146,7 @@ public class NodeElementSelectionEditPolicy extends ResizableEditPolicy {
 	}
 
 	static Handle createHandle(GraphicalEditPart owner, int direction) {
-		ResizeHandle handle = new ERDiagramResizeHandle(owner, direction);
-		return handle;
+		return new ERDiagramResizeHandle(owner, direction);
 	}
 
 }

@@ -356,7 +356,7 @@ public class GroupManageDialog extends AbstractDialog implements
 
 				initGroupList();
 
-				if (copyGroups.size() == 0) {
+				if (copyGroups.isEmpty()) {
 					editTargetIndex = -1;
 
 				} else if (editTargetIndex >= copyGroups.size()) {

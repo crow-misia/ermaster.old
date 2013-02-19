@@ -28,11 +28,8 @@ public class WordHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getDictionary().getUniqueWordList();
-
-		return list;
+		return (List) diagram.getDiagramContents().getDictionary().getUniqueWordList();
 	}
 
 	@Override

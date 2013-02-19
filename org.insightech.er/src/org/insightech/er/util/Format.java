@@ -47,9 +47,7 @@ public class Format {
 				}
 
 				if (typeData.isArray() && manager.isSupported(SupportFunctions.ARRAY_TYPE)) {
-					for (int i=0,n=typeData.getArrayDimension(); i <n; i++) {
-						type += "[]";
-					}
+					type += StringUtils.repeat("[]", typeData.getArrayDimension());
 				}
 
 				if (sqlType.isNumber() && typeData.isUnsigned()
@@ -103,9 +101,7 @@ public class Format {
 
 	public static String escapeSQL(String str) {
 		str = StringUtils.replace(str, "'", "''");
-		str = StringUtils.replace(str, "\\", "\\\\");
-
-		return str;
+		return StringUtils.replace(str, "\\", "\\\\");
 	}
 
 	public static String toString(Object value) {

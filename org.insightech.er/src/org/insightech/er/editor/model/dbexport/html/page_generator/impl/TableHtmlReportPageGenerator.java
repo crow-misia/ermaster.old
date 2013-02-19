@@ -25,12 +25,9 @@ public class TableHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getContents().getTableSet()
+		return (List) diagram.getDiagramContents().getContents().getTableSet()
 				.getList();
-
-		return list;
 	}
 
 	@Override

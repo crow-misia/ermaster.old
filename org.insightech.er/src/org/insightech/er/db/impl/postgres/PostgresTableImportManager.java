@@ -31,7 +31,7 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 		ColumnData columnData = super.createColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
-		if (type.startsWith("time")) {
+		if ("time".equals(type)) {
 			if (columnData.decimalDigits == 6) {
 				columnData.size = 0;
 			} else {
@@ -40,7 +40,7 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 
 			columnData.decimalDigits = 0;
 
-		} else if (type.equals("numeric")) {
+		} else if ("numeric".equals(type)) {
 			if (columnData.size == 131089 && columnData.decimalDigits == 0) {
 				columnData.size = 0;
 			}
@@ -51,14 +51,15 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected void cashOtherColumnData(String tableName, String schema,
+	protected void cacheOtherColumnData(String tableName, String schema,
 			ColumnData columnData) throws SQLException {
+		final String type = columnData.type.toLowerCase();
 
-		if (columnData.type.equals("interval")) {
+		if ("interval".equals(type)) {
 			String restrictType = this.getRestrictType(tableName, schema,
 					columnData);
 
-			if (restrictType != null && restrictType.indexOf("(") != -1) {
+			if (restrictType != null && restrictType.indexOf('(') != -1) {
 				columnData.size = columnData.decimalDigits;
 
 			} else {

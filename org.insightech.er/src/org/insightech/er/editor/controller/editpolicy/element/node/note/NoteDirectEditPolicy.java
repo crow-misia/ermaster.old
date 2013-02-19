@@ -10,11 +10,8 @@ public class NoteDirectEditPolicy extends DirectEditPolicy {
 
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
-		String text = (String) request.getCellEditor().getValue();
-		NoteEditCommand command = new NoteEditCommand((Note) getHost()
-				.getModel(), text);
-
-		return command;
+		final String text = (String) request.getCellEditor().getValue();
+		return new NoteEditCommand((Note) getHost().getModel(), text);
 	}
 
 	@Override

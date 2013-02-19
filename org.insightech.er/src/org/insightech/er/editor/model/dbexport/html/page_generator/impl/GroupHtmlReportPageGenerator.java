@@ -22,11 +22,8 @@ public class GroupHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
-		List list = diagram.getDiagramContents().getGroups().getGroupList();
-
-		return list;
+		return (List) diagram.getDiagramContents().getGroups().getGroupList();
 	}
 
 	@Override

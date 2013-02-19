@@ -63,15 +63,14 @@ public abstract class TestDataCreator {
 		if (modifiedValue != null) {
 			return modifiedValue;
 
-		} else {
-			String value = this.getRepeatTestDataValue(count,
-					repeatTestDataDef, column);
-			if (value == null) {
-				return "null";
-			}
-
-			return value;
 		}
+		String value = this.getRepeatTestDataValue(count,
+				repeatTestDataDef, column);
+		if (value == null) {
+			return "null";
+		}
+
+		return value;
 	}
 
 	public String getRepeatTestDataValue(int count,
@@ -90,17 +89,20 @@ public abstract class TestDataCreator {
 			String toStr = repeatTestDataDef.getTo();
 
 			int fromDecimalPlaces = 0;
-			if (fromStr.indexOf(".") != -1) {
-				fromDecimalPlaces = fromStr.length() - fromStr.indexOf(".") - 1;
+			int index = fromStr.indexOf('.');
+			if (index != -1) {
+				fromDecimalPlaces = fromStr.length() - index - 1;
 			}
 			int incrementDecimalPlaces = 0;
-			if (incrementStr.indexOf(".") != -1) {
+			index = incrementStr.indexOf('.');
+			if (index != -1) {
 				incrementDecimalPlaces = incrementStr.length()
-						- incrementStr.indexOf(".") - 1;
+						- index - 1;
 			}
 			int toDecimalPlaces = 0;
-			if (toStr.indexOf(".") != -1) {
-				toDecimalPlaces = toStr.length() - toStr.indexOf(".") - 1;
+			index = toStr.indexOf('.');
+			if (index != -1) {
+				toDecimalPlaces = toStr.length() - index - 1;
 			}
 
 			int decimalPlaces = Math.max(Math.max(fromDecimalPlaces,
@@ -168,7 +170,7 @@ public abstract class TestDataCreator {
 			List<String> referencedValueList = this
 					.getValueList(referencedColumn);
 
-			if (referencedValueList.size() == 0) {
+			if (referencedValueList.isEmpty()) {
 				return null;
 			}
 
@@ -212,7 +214,7 @@ public abstract class TestDataCreator {
 						valueList.add(value);
 					}
 
-					for (int i = 0; i < repeatTestData.getTestDataNum(); i++) {
+					for (int i = 0, n = repeatTestData.getTestDataNum(); i < n; i++) {
 						String value = this.getMergedRepeatTestDataValue(i,
 								repeatTestData.getDataDef(column), column);
 						valueList.add(value);

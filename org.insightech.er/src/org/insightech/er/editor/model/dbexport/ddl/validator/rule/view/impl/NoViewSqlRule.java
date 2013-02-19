@@ -1,5 +1,6 @@
 package org.insightech.er.editor.model.dbexport.ddl.validator.rule.view.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IMarker;
 import org.insightech.er.ResourceString;
 import org.insightech.er.editor.model.dbexport.ddl.validator.ValidateResult;
@@ -10,7 +11,7 @@ public class NoViewSqlRule extends ViewRule {
 
 	@Override
 	public boolean validate(View view) {
-		if (view.getSql() == null || view.getSql().trim().equals("")) {
+		if (StringUtils.isBlank(view.getSql())) {
 			ValidateResult validateResult = new ValidateResult();
 			validateResult.setMessage(ResourceString
 					.getResourceString("error.validate.no.view.sql"));

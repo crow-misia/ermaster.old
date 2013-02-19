@@ -28,8 +28,6 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 
 	protected Text constraintText;
 
-	private TabFolder tabFolder;
-
 	protected TabItem tabItem;
 
 	public AbstractRealColumnDialog(Shell parentShell, ERDiagram diagram) {
@@ -38,18 +36,18 @@ public abstract class AbstractRealColumnDialog extends AbstractColumnDialog {
 
 	@Override
 	protected Composite createRootComposite(Composite parent) {
-		this.tabFolder = new TabFolder(parent, SWT.NONE);
+		final TabFolder tabFolder = new TabFolder(parent, SWT.NONE);
 
-		this.tabItem = new TabItem(this.tabFolder, SWT.NONE);
+		this.tabItem = new TabItem(tabFolder, SWT.NONE);
 		this.tabItem.setText(ResourceString.getResourceString("label.basic"));
 
-		Composite composite = super.createRootComposite(this.tabFolder);
+		Composite composite = super.createRootComposite(tabFolder);
 		this.tabItem.setControl(composite);
 
-		this.tabItem = new TabItem(this.tabFolder, SWT.NONE);
+		this.tabItem = new TabItem(tabFolder, SWT.NONE);
 		this.tabItem.setText(ResourceString.getResourceString("label.detail"));
 
-		Composite detailComposite = createDetailTab(this.tabFolder);
+		Composite detailComposite = createDetailTab(tabFolder);
 		this.initializeDetailTab(detailComposite);
 		this.tabItem.setControl(detailComposite);
 

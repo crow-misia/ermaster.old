@@ -258,8 +258,7 @@ public class ExportSetting implements Serializable, Cloneable {
 		h = h * 37 + (imageOutput == null ? 0 : imageOutput.hashCode());
 		h = h * 37 + (openAfterSaved ? 1231 : 1237);
 		h = h * 37 + (putERDiagramOnExcel ? 1231 : 1237);
-		h = h * 37 + (useLogicalNameAsSheet ? 1231 : 1237);
-		return h;
+		return h * 37 + (useLogicalNameAsSheet ? 1231 : 1237);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.insightech.er.common.widgets;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
@@ -13,8 +14,6 @@ import org.insightech.er.Activator;
 public final class FileText {
 
 	private final Text text;
-
-	private final Button openBrowseButton;
 
 	private final String[] filterExtensions;
 
@@ -31,10 +30,10 @@ public final class FileText {
 
 		this.filterExtensions = filterExtensions;
 
-		this.openBrowseButton = new Button(parent, SWT.NONE);
-		this.openBrowseButton.setText(JFaceResources.getString("openBrowse"));
+		final Button openBrowseButton = new Button(parent, SWT.NONE);
+		openBrowseButton.setText(JFaceResources.getString("openBrowse"));
 
-		this.openBrowseButton.addSelectionListener(new SelectionAdapter() {
+		openBrowseButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String saveFilePath = Activator.showSaveDialog(text.getText(),
@@ -54,11 +53,7 @@ public final class FileText {
 	}
 
 	public boolean isBlank() {
-		if (this.text.getText().trim().length() == 0) {
-			return true;
-		}
-
-		return false;
+		return StringUtils.isBlank(this.text.getText());
 	}
 
 	public String getFilePath() {

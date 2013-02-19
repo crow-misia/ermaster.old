@@ -33,14 +33,6 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 	private Table table;
 
-	private Button addButton;
-
-	private Button deleteButton;
-
-	private Button upButton;
-
-	private Button downButton;
-
 	private ModelProperties modelProperties;
 
 	private TableEditor tableEditor;
@@ -174,12 +166,12 @@ public class ModelPropertiesDialog extends AbstractDialog {
 		GridData buttonGridData = new GridData();
 		buttonGridData.widthHint = BUTTON_WIDTH;
 
-		this.addButton = new Button(composite, SWT.NONE);
-		this.addButton.setText(ResourceString
+		final Button addButton = new Button(composite, SWT.NONE);
+		addButton.setText(ResourceString
 				.getResourceString("label.button.add"));
-		this.addButton.setLayoutData(buttonGridData);
+		addButton.setLayoutData(buttonGridData);
 
-		this.addButton.addSelectionListener(new SelectionAdapter() {
+		addButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -188,12 +180,12 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		});
 
-		this.deleteButton = new Button(composite, SWT.NONE);
-		this.deleteButton.setText(ResourceString
+		final Button deleteButton = new Button(composite, SWT.NONE);
+		deleteButton.setText(ResourceString
 				.getResourceString("label.button.delete"));
-		this.deleteButton.setLayoutData(buttonGridData);
+		deleteButton.setLayoutData(buttonGridData);
 
-		this.deleteButton.addSelectionListener(new SelectionAdapter() {
+		deleteButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -207,12 +199,12 @@ public class ModelPropertiesDialog extends AbstractDialog {
 		fillerGridData.widthHint = 30;
 		filler.setLayoutData(fillerGridData);
 
-		this.upButton = new Button(composite, SWT.NONE);
-		this.upButton.setText(ResourceString
+		final Button upButton = new Button(composite, SWT.NONE);
+		upButton.setText(ResourceString
 				.getResourceString("label.up.arrow"));
-		this.upButton.setLayoutData(buttonGridData);
+		upButton.setLayoutData(buttonGridData);
 
-		this.upButton.addSelectionListener(new SelectionAdapter() {
+		upButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -221,12 +213,12 @@ public class ModelPropertiesDialog extends AbstractDialog {
 
 		});
 
-		this.downButton = new Button(composite, SWT.NONE);
-		this.downButton.setText(ResourceString
+		final Button downButton = new Button(composite, SWT.NONE);
+		downButton.setText(ResourceString
 				.getResourceString("label.down.arrow"));
-		this.downButton.setLayoutData(buttonGridData);
+		downButton.setLayoutData(buttonGridData);
 
-		this.downButton.addSelectionListener(new SelectionAdapter() {
+		downButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {

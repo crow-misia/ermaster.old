@@ -34,10 +34,8 @@ public abstract class AbstractBaseSelectionAction extends SelectionAction {
 	}
 
 	protected ERDiagram getDiagram() {
-		EditPart editPart = this.editor.getGraphicalViewer().getContents();
-		ERDiagram diagram = (ERDiagram) editPart.getModel();
-
-		return diagram;
+		final EditPart editPart = this.editor.getGraphicalViewer().getContents();
+		return (ERDiagram) editPart.getModel();
 	}
 
 	protected GraphicalViewer getGraphicalViewer() {

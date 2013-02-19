@@ -1,6 +1,6 @@
 package org.insightech.er.editor.model.testdata;
 
-public class TableTestData implements Cloneable {
+public final class TableTestData implements Cloneable {
 
 	private DirectTestData directTestData;
 

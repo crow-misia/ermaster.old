@@ -36,9 +36,9 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 			.compile("timestamp\\((.)\\).*");
 
 	@Override
-	protected void cashColumnData(String schemaName, String tableName,
+	protected void cacheColumnData(String schemaName, String tableName,
 			List<DBObject> dbObjectList, IProgressMonitor monitor) throws SQLException, InterruptedException {
-		super.cashColumnData(schemaName, tableName, dbObjectList, monitor);
+		super.cacheColumnData(schemaName, tableName, dbObjectList, monitor);
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -256,10 +256,10 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 
 	@Override
 	protected int getLength(String type, int size) {
-		int startIndex = type.indexOf("(");
+		int startIndex = type.indexOf('(');
 
 		if (startIndex > 0) {
-			int endIndex = type.indexOf(")", startIndex + 1);
+			int endIndex = type.indexOf(')', startIndex + 1);
 			if (endIndex != -1) {
 				String str = type.substring(startIndex + 1, endIndex);
 				return Integer.parseInt(str);
@@ -272,7 +272,7 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	@Override
 	protected List<ERTable> importSynonyms() throws SQLException,
 			InterruptedException {
-		List<ERTable> list = new ArrayList<ERTable>();
+		return new ArrayList<ERTable>();
 
 		// if (this.isOnlyUserTable()) {
 		// PreparedStatement stmt = null;
@@ -308,8 +308,6 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		// this.close(stmt);
 		// }
 		// }
-
-		return list;
 	}
 
 	@Override
@@ -318,22 +316,22 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 		ColumnData columnData = super.createColumnData(columnSet);
 		String type = columnData.type.toLowerCase();
 
-		if (type.equals("number")) {
+		if ("number".equals(type)) {
 			if (columnData.size == 22 && columnData.decimalDigits == 0) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("float")) {
+		} else if ("float".equals(type)) {
 			if (columnData.size == 126 && columnData.decimalDigits == 0) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("urowid")) {
+		} else if ("urowid".equals(type)) {
 			if (columnData.size == 4000) {
 				columnData.size = 0;
 			}
 
-		} else if (type.equals("anydata")) {
+		} else if ("anydata".equals(type)) {
 			columnData.size = 0;
 
 		} else {

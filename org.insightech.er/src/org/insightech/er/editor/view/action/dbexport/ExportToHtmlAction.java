@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.draw2d.IFigure;
@@ -139,7 +141,7 @@ public class ExportToHtmlAction extends AbstractExportAction {
 
 	@Override
 	protected String[] getFilterExtensions() {
-		return null;
+		return ArrayUtils.EMPTY_STRING_ARRAY;
 	}
 
 	public static Map<TableView, Location> getTableLocationMap(

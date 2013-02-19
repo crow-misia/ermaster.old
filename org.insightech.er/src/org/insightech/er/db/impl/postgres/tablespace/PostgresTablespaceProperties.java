@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.insightech.er.editor.model.diagram_contents.not_element.tablespace.TablespaceProperties;
 
-public class PostgresTablespaceProperties implements TablespaceProperties {
+public final class PostgresTablespaceProperties implements TablespaceProperties {
 
 	private static final long serialVersionUID = -1168759105844875794L;
 

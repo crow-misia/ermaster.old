@@ -141,7 +141,7 @@ public class DBSettingListDialog extends AbstractDialog {
 			}
 			item.setText(3, dbSetting.getDatabase());
 			item.setText(4, dbSetting.getUser());
-			item.setText(5, Format.null2blank(dbSetting.getUrl()));
+			item.setText(5, Format.null2blank(dbSetting.getURL()));
 		}
 
 		this.setButtonEnabled(false);

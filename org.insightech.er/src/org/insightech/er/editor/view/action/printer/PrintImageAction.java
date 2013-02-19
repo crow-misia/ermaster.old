@@ -8,18 +8,17 @@ import org.eclipse.swt.printing.PrintDialog;
 import org.eclipse.swt.printing.Printer;
 import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.ui.IWorkbenchPart;
-import org.insightech.er.editor.ERDiagramEditor;
 
 public class PrintImageAction extends PrintAction {
 
-	public PrintImageAction(ERDiagramEditor part) {
-		super((IWorkbenchPart) part);
+	public PrintImageAction(final IWorkbenchPart part) {
+		super(part);
 	}
 
 	@Override
 	public void run() {
-		GraphicalViewer viewer;
-		viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(
+		final IWorkbenchPart workbenchPart = getWorkbenchPart();
+		GraphicalViewer viewer = (GraphicalViewer) workbenchPart.getAdapter(
 				GraphicalViewer.class);
 
 		PrintDialog dialog = new PrintDialog(viewer.getControl().getShell(),
@@ -31,7 +30,7 @@ public class PrintImageAction extends PrintAction {
 			PrintGraphicalViewerOperation op = new PrintERDiagramOperation(
 					printer, viewer);
 
-			op.run(getWorkbenchPart().getTitle());
+			op.run(workbenchPart.getTitle());
 		}
 	}
 

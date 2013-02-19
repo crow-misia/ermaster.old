@@ -99,7 +99,6 @@ public class UniqueWord extends Word {
 		word.setTypeData(typeData);
 	}
 
-	@Override
 	public String getDescription() {
 		return word.getDescription();
 	}
@@ -137,9 +136,8 @@ public class UniqueWord extends Word {
 				* result
 				+ ((this.getPhysicalName() == null) ? 0 : this
 						.getPhysicalName().hashCode());
-		result = PRIME * result
+		return PRIME * result
 				+ ((this.getType() == null) ? 0 : this.getType().hashCode());
-		return result;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class InsertImageTool extends CreationToolEntry {
 		return tool;
 	}
 
-	private class InsertedImageTool extends CreationTool {
+	private static class InsertedImageTool extends CreationTool {
 
 		@Override
 		protected void performCreation(int button) {
@@ -45,7 +45,7 @@ public class InsertImageTool extends CreationToolEntry {
 			}
 		}
 
-		private String getLoadFilePath() {
+		private static String getLoadFilePath() {
 
 			FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow().getShell(), SWT.OPEN);

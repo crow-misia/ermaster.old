@@ -15,15 +15,13 @@ public final class DirectoryText {
 
 	private final Text text;
 
-	private final Button openBrowseButton;
-
 	public DirectoryText(Composite parent, int style) {
 		this.text = new Text(parent, style);
 
-		this.openBrowseButton = new Button(parent, SWT.NONE);
-		this.openBrowseButton.setText(JFaceResources.getString("openBrowse"));
+		final Button openBrowseButton = new Button(parent, SWT.NONE);
+		openBrowseButton.setText(JFaceResources.getString("openBrowse"));
 
-		this.openBrowseButton.addSelectionListener(new SelectionAdapter() {
+		openBrowseButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String filePath = Activator.showDirectoryDialog(text.getText());

@@ -85,12 +85,6 @@ public final class ListenerAppender {
 
 				super.focusGained(e);
 			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				// text.clearSelection();
-				super.focusLost(e);
-			}
 		});
 	}
 
@@ -175,10 +169,6 @@ public final class ListenerAppender {
 						button.getShell().setImeInputMode(SWT.ALPHA);
 					}
 				}
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
 			}
 		});
 	}

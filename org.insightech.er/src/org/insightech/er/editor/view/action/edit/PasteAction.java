@@ -100,11 +100,9 @@ public class PasteAction extends SelectionAction {
 		EditPart editPart = this.editor.getGraphicalViewer().getContents();
 		ERDiagram diagram = (ERDiagram) editPart.getModel();
 
-		Command command = new PasteCommand(editor, pasteList,
+		return new PasteCommand(editor, pasteList,
 				diagram.mousePoint.x - x + (numberOfCopy - 1) * 20,
 				diagram.mousePoint.y - y + (numberOfCopy - 1) * 20);
-
-		return command;
 	}
 
 }

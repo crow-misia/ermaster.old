@@ -21,7 +21,6 @@ public class CategoryHtmlReportPageGenerator extends
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Object> getObjectList(ERDiagram diagram) {
 		List list = diagram.getDiagramContents().getSettings()
 				.getCategorySetting().getSelectedCategories();

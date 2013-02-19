@@ -47,26 +47,26 @@ public class MySQLTableImportManager extends ImportFromDBManagerBase {
 	}
 
 	@Override
-	protected void cashOtherColumnData(String tableName, String schema,
+	protected void cacheOtherColumnData(String tableName, String schema,
 			ColumnData columnData) throws SQLException {
 		String tableNameWithSchema = this.dbSetting.getTableNameWithSchema(
 				tableName, schema);
 
 		SqlType sqlType = SqlType.valueOfId(columnData.type);
+		final String type = columnData.type.toLowerCase();
 
 		if (sqlType != null && sqlType.doesNeedArgs()) {
 			String restrictType = this.getRestrictType(tableNameWithSchema,
 					columnData);
 
-			Pattern p = Pattern.compile(columnData.type.toLowerCase()
-					+ "\\((.*)\\)");
+			Pattern p = Pattern.compile(type + "\\((.*)\\)");
 			Matcher m = p.matcher(restrictType);
 
 			if (m.matches()) {
 				columnData.enumData = m.group(1);
 			}
 
-		} else if (columnData.type.equals("year")) {
+		} else if ("year".equals(type)) {
 			String restrictType = this.getRestrictType(tableNameWithSchema,
 					columnData);
 			columnData.type = restrictType;
@@ -92,12 +92,8 @@ public class MySQLTableImportManager extends ImportFromDBManagerBase {
 			}
 
 		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			close(rs);
+			close(ps);
 		}
 
 		return type;

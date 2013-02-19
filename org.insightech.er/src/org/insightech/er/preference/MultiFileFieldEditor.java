@@ -35,7 +35,7 @@ public class MultiFileFieldEditor extends FileFieldEditor {
 		}
 
 		File[] d = getFile(f);
-		if (d == null || d.length == 0) {
+		if (d.length == 0) {
 			return null;
 		}
 
@@ -66,17 +66,13 @@ public class MultiFileFieldEditor extends FileFieldEditor {
 		String[] fileNames = dialog.getFileNames();
 
 		final int num = fileNames.length;
-		if (num > 0) {
-			File[] files = new File[num];
+		File[] files = new File[num];
 
-			for (int i = 0; i < num; i++) {
-				files[i] = new File(dialog.getFilterPath(), fileNames[i]);
-			}
-
-			return files;
+		for (int i = 0; i < num; i++) {
+			files[i] = new File(dialog.getFilterPath(), fileNames[i]);
 		}
 
-		return null;
+		return files;
 	}
 
 	@Override

@@ -98,9 +98,7 @@ public class DBUnitXLSTestDataCreator extends TestDataCreator {
 
 			String value = Format.null2blank(data.get(column));
 
-			if (value == null || "null".equals(value.toLowerCase())) {
-
-			} else {
+			if (!"null".equals(value.toLowerCase())) {
 				cell.setCellValue(new HSSFRichTextString(value));
 			}
 		}
@@ -124,9 +122,7 @@ public class DBUnitXLSTestDataCreator extends TestDataCreator {
 				String value = this.getMergedRepeatTestDataValue(i,
 						repeatTestDataDef, column);
 
-				if (value == null || "null".equals(value.toLowerCase())) {
-
-				} else {
+				if (!"null".equals(value.toLowerCase())) {
 					cell.setCellValue(new HSSFRichTextString(value));
 				}
 			}

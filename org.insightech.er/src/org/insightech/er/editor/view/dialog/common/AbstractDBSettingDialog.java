@@ -251,7 +251,7 @@ public abstract class AbstractDBSettingDialog extends AbstractDialog {
 			this.userName.setText(Format.null2blank(this.dbSetting.getUser()));
 			this.password.setText(Format.null2blank(this.dbSetting
 					.getPassword()));
-			this.url.setText(Format.null2blank(this.dbSetting.getUrl()));
+			this.url.setText(Format.null2blank(this.dbSetting.getURL()));
 			this.driverClassName.setText(Format.null2blank(this.dbSetting
 					.getDriverClassName()));
 

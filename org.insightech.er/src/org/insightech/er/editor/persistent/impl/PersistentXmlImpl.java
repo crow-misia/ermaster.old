@@ -278,7 +278,7 @@ public final class PersistentXmlImpl extends Persistent {
 		xml.append(tab).append("<use_default_driver>")
 				.append(dbSetting.isUseDefaultDriver())
 				.append("</use_default_driver>\n");
-		xml.append(tab).append("<url>").append(escape(dbSetting.getUrl()))
+		xml.append(tab).append("<url>").append(escape(dbSetting.getURL()))
 				.append("</url>\n");
 		xml.append(tab).append("<driver_class_name>")
 				.append(escape(dbSetting.getDriverClassName()))

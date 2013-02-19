@@ -57,11 +57,6 @@ public class ExportDBSettingDialog extends AbstractDBSettingDialog {
 	}
 
 	@Override
-	protected void initialize(Composite parent) {
-		super.initialize(parent);
-	}
-
-	@Override
 	protected String getErrorMessage() {
 		if (this.settingAddButton != null) {
 			this.settingAddButton.setEnabled(false);

@@ -58,8 +58,6 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 
 	private Table attributeTable;
 
-	private TableEditor tableEditor;
-
 	private ERDiagram diagram;
 
 	private DiagramContents diagramContents;
@@ -218,11 +216,10 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 				.getResourceString("label.unique.key"));
 		new CenteredContentCellPaint(this.attributeTable, 11);
 
-		this.tableEditor = new TableEditor(this.attributeTable);
-		this.tableEditor.grabHorizontal = true;
+		final TableEditor tableEditor = new TableEditor(this.attributeTable);
+		tableEditor.grabHorizontal = true;
 
-		ListenerAppender.addTableEditListener(this.attributeTable,
-				this.tableEditor, this);
+		ListenerAppender.addTableEditListener(this.attributeTable, tableEditor, this);
 	}
 
 	private Combo createTypeCombo(NormalColumn targetColumn) {
@@ -694,7 +691,7 @@ public class EditAllAttributesDialog extends AbstractDialog implements
 
 							TypeData oldTypeData = word.getTypeData();
 							TypeData newTypeData = new TypeData(Integer
-									.parseInt(((Text) control).getText()),
+									.valueOf(((Text) control).getText()),
 									oldTypeData.getDecimal(), oldTypeData
 											.isArray(), oldTypeData
 											.getArrayDimension(), oldTypeData
