@@ -1468,15 +1468,23 @@ public abstract class ImportFromDBManagerBase implements ImportFromDBManager,
 		}
 	}
 
-	protected static void close(ResultSet rs) throws SQLException {
+	public static void close(ResultSet rs) {
 		if (rs != null) {
-			rs.close();
+			try {
+				rs.close();
+			} catch (final SQLException e) {
+				// do nothig.
+			}
 		}
 	}
 
-	protected static void close(Statement stmt) throws SQLException {
+	public static void close(Statement stmt) {
 		if (stmt != null) {
-			stmt.close();
+			try {
+				stmt.close();
+			} catch (final SQLException e) {
+				// do nothig.
+			}
 		}
 	}
 

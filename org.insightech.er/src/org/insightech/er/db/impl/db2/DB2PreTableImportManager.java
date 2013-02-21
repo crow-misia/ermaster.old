@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.insightech.er.editor.model.dbimport.DBObject;
+import org.insightech.er.editor.model.dbimport.ImportFromDBManagerBase;
 import org.insightech.er.editor.model.dbimport.PreImportFromDBManager;
 
 public class DB2PreTableImportManager extends PreImportFromDBManager {
@@ -46,14 +47,8 @@ public class DB2PreTableImportManager extends PreImportFromDBManager {
 				}
 
 			} finally {
-				if (resultSet != null) {
-					resultSet.close();
-					resultSet = null;
-				}
-				if (stmt != null) {
-					stmt.close();
-					stmt = null;
-				}
+				ImportFromDBManagerBase.close(resultSet);
+				ImportFromDBManagerBase.close(stmt);
 			}
 		}
 

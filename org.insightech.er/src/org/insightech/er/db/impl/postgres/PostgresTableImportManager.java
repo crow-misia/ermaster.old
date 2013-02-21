@@ -16,13 +16,11 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 
 	@Override
 	protected String getViewDefinitionSQL(String schema) {
-		if (schema != null) {
-			return "SELECT definition FROM pg_views WHERE schemaname = ? and viewname = ? ";
-
-		} else {
+		if (schema == null) {
 			return "SELECT definition FROM pg_views WHERE viewname = ? ";
-
 		}
+
+		return "SELECT definition FROM pg_views WHERE schemaname = ? and viewname = ? ";
 	}
 
 	@Override
@@ -157,12 +155,8 @@ public class PostgresTableImportManager extends ImportFromDBManagerBase {
 			}
 
 		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			close(rs);
+			close(ps);
 		}
 
 		return type;
