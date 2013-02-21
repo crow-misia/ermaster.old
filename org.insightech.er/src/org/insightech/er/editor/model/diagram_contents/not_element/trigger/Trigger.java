@@ -1,9 +1,8 @@
 package org.insightech.er.editor.model.diagram_contents.not_element.trigger;
 
-import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.WithSchemaModel;
 
-public class Trigger extends WithSchemaModel implements ObjectModel {
+public final class Trigger extends WithSchemaModel {
 
 	private static final long serialVersionUID = -4766050732350578313L;
 

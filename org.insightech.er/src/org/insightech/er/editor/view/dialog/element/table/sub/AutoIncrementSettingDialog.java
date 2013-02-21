@@ -2,6 +2,7 @@ package org.insightech.er.editor.view.dialog.element.table.sub;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -70,11 +71,12 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		}
 	}
 
-	@Override
+	@SuppressWarnings("unused")
+    @Override
 	protected String getErrorMessage() {
 		String text = incrementText.getText();
 
-		if (!text.equals("")) {
+		if (StringUtils.isNotEmpty(text)) {
 			try {
 				Integer.parseInt(text);
 
@@ -86,7 +88,7 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		if (minValueText != null) {
 			text = minValueText.getText();
 
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				try {
 					Long.parseLong(text);
 
@@ -99,10 +101,9 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		if (maxValueText != null) {
 			text = maxValueText.getText();
 
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				try {
-					@SuppressWarnings("unused")
-					BigDecimal tmp = new BigDecimal(text);
+					new BigDecimal(text);
 
 				} catch (NumberFormatException e) {
 					return "error.sequence.maxValue.digit";
@@ -112,7 +113,7 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 
 		text = startText.getText();
 
-		if (!text.equals("")) {
+		if (StringUtils.isNotEmpty(text)) {
 			try {
 				Long.parseLong(text);
 
@@ -124,7 +125,7 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		if (cacheText != null) {
 			text = cacheText.getText();
 
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				try {
 					Integer.parseInt(text);
 
@@ -153,32 +154,32 @@ public class AutoIncrementSettingDialog extends AbstractDialog {
 		Integer cache = null;
 
 		String text = incrementText.getText();
-		if (!text.equals("")) {
+		if (StringUtils.isNotEmpty(text)) {
 			increment = Integer.valueOf(text);
 		}
 
 		if (minValueText != null) {
 			text = minValueText.getText();
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				minValue = Long.valueOf(text);
 			}
 		}
 
 		if (maxValueText != null) {
 			text = maxValueText.getText();
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				maxValue = new BigDecimal(text);
 			}
 		}
 
 		text = startText.getText();
-		if (!text.equals("")) {
+		if (StringUtils.isNotEmpty(text)) {
 			start = Long.valueOf(text);
 		}
 
 		if (cacheText != null) {
 			text = cacheText.getText();
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				cache = Integer.valueOf(text);
 			}
 		}

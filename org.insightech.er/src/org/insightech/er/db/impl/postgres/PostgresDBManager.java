@@ -138,9 +138,10 @@ public class PostgresDBManager extends DBManagerBase {
 
 	@Override
 	public void setEnabledBySqlType(final SqlType sqlType, final ColumnDialog dialog) {
-		if (SqlType.SQL_TYPE_ID_BIG_SERIAL.equals(sqlType.getId())
-				|| SqlType.SQL_TYPE_ID_SERIAL.equals(sqlType
-						.getId())) {
+		final String id = sqlType.getId();
+
+		if (SqlType.SQL_TYPE_ID_BIG_SERIAL.equals(id)
+				|| SqlType.SQL_TYPE_ID_SERIAL.equals(id)) {
 			dialog.setAutoIncrementSettingButtonEnabled(true);
 		} else {
 			dialog.setAutoIncrementSettingButtonEnabled(false);

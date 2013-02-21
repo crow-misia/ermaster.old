@@ -2,10 +2,9 @@ package org.insightech.er.editor.model.diagram_contents.not_element.sequence;
 
 import java.math.BigDecimal;
 
-import org.insightech.er.editor.model.ObjectModel;
 import org.insightech.er.editor.model.WithSchemaModel;
 
-public class Sequence extends WithSchemaModel implements ObjectModel {
+public final class Sequence extends WithSchemaModel {
 
 	private static final long serialVersionUID = -4492787972500741281L;
 

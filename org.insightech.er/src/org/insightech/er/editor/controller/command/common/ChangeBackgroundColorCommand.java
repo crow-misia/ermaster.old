@@ -38,7 +38,7 @@ public final class ChangeBackgroundColorCommand extends AbstractCommand {
 	@Override
 	protected void doUndo() {
 		if (this.oldColor != null) {
-			this.model.setColor(this.oldColor[0], this.oldColor[1], this.oldColor[2]);
+			this.model.setColor(this.oldColor);
 		}
 	}
 }

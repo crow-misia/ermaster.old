@@ -1,13 +1,13 @@
 package org.insightech.er.common.exception;
 
-public class InputException extends Exception {
+public final class InputException extends Exception {
 
 	private static final long serialVersionUID = -6325812774566059357L;
 
-	private String[] args;
+	private final String[] args;
 	
 	public InputException(String message) {
-		super(message);
+		this(message, null);
 	}
 
 	public InputException(String message, String[] args) {

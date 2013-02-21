@@ -438,7 +438,7 @@ public class TableSheetGenerator extends AbstractSheetGenerator {
 		HSSFRow headerTemplateRow = sheet.getRow(rowNum);
 		HSSFCell headerTemplateCell = headerTemplateRow.getCell(columnNum);
 
-		int num = table.getComplexUniqueKeyList().size();
+		final int num = table.getComplexUniqueKeyList().size();
 
 		if (num == 0) {
 			headerTemplateRow.removeCell(headerTemplateCell);

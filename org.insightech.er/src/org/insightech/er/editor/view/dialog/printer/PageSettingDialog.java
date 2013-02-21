@@ -130,6 +130,7 @@ public class PageSettingDialog extends AbstractDialog {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void initSizeGroup(Composite parent) {
 		GridData sizeGroupGridData = new GridData();
 		sizeGroupGridData.grabExcessHorizontalSpace = true;
@@ -166,8 +167,8 @@ public class PageSettingDialog extends AbstractDialog {
 		marginCompositeLayout.numColumns = 6;
 		marginComposite.setLayout(marginCompositeLayout);
 
-		label = new Label(marginComposite, SWT.NONE);
-		label = new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label.setBackground(ColorConstants.white);
@@ -176,8 +177,8 @@ public class PageSettingDialog extends AbstractDialog {
 		topMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
 		setMarginSpinner(topMarginSpinner);
 
-		label = new Label(marginComposite, SWT.NONE);
-		label = new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label.setBackground(ColorConstants.white);
@@ -186,8 +187,8 @@ public class PageSettingDialog extends AbstractDialog {
 		leftMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
 		setMarginSpinner(leftMarginSpinner);
 
-		label = new Label(marginComposite, SWT.NONE);
-		label = new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label.setBackground(ColorConstants.white);
@@ -196,8 +197,8 @@ public class PageSettingDialog extends AbstractDialog {
 		rightMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
 		setMarginSpinner(rightMarginSpinner);
 
-		label = new Label(marginComposite, SWT.NONE);
-		label = new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
 
 		label = new Label(marginComposite, SWT.NONE);
 		label.setBackground(ColorConstants.white);
@@ -206,8 +207,8 @@ public class PageSettingDialog extends AbstractDialog {
 		bottomMarginSpinner = new Spinner(marginComposite, SWT.BORDER);
 		setMarginSpinner(bottomMarginSpinner);
 
-		label = new Label(marginComposite, SWT.NONE);
-		label = new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
+		new Label(marginComposite, SWT.NONE);
 	}
 
 	private static void setMarginSpinner(Spinner spinner) {

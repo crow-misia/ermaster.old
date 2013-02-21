@@ -50,6 +50,7 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 		this.diagram = diagram;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected void initialize(Composite parent) {
 		GridData gridData2 = new GridData();
@@ -64,8 +65,8 @@ public class ExportToTranslationDictionaryDialog extends AbstractDialog {
 						.getResourceString("dialog.message.export.translation.dictionary"));
 		label.setLayoutData(gridData2);
 
-		label = new Label(parent, SWT.NONE);
-		label = new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
 
 		label = new Label(parent, SWT.NONE);
 		label.setText(ResourceString

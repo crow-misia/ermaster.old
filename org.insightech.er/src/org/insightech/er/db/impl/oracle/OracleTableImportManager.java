@@ -57,7 +57,7 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 				stmt.setString(paramNum++, schemaName);
 			}
 			if (StringUtils.isNotEmpty(tableName)) {
-				stmt.setString(paramNum++, tableName);
+				stmt.setString(paramNum, tableName);
 			}
 			rs = stmt.executeQuery();
 
@@ -234,10 +234,11 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 	@Override
 	protected List<Index> getIndexes(ERTable table, DatabaseMetaData metaData,
 			List<PrimaryKeyData> primaryKeys) throws SQLException {
-		if (!isValidObjectName(table.getPhysicalName())) {
+		final String physicalName = table.getPhysicalName();
+		if (!isValidObjectName(physicalName)) {
 			logger
 					.info("is not valid object name : "
-							+ table.getPhysicalName());
+							+ physicalName);
 			return new ArrayList<Index>();
 		}
 
@@ -246,7 +247,7 @@ public class OracleTableImportManager extends ImportFromDBManagerBase {
 
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 38029) {
-				logger.info(table.getPhysicalName() + " : " + e.getMessage());
+				logger.info(physicalName + " : " + e.getMessage());
 				return new ArrayList<Index>();
 			}
 

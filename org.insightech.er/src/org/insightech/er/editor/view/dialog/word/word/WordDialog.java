@@ -1,5 +1,6 @@
 package org.insightech.er.editor.view.dialog.word.word;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.widgets.Shell;
 import org.insightech.er.db.sqltype.SqlType;
 import org.insightech.er.editor.model.ERDiagram;
@@ -61,7 +62,7 @@ public class WordDialog extends AbstractWordDialog {
 		if (this.arrayDimensionText != null) {
 			text = arrayDimensionText.getText();
 
-			if (!text.equals("")) {
+			if (StringUtils.isNotEmpty(text)) {
 				int len = Integer.parseInt(text);
 				arrayDimension = Integer.valueOf(len);
 			}
@@ -74,8 +75,6 @@ public class WordDialog extends AbstractWordDialog {
 		if (this.unsignedCheck != null) {
 			unsigned = this.unsignedCheck.getSelection();
 		}
-
-		text = physicalNameText.getText();
 
 		String database = this.diagram.getDatabase();
 

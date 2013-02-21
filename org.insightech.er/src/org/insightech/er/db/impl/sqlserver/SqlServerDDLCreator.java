@@ -26,12 +26,12 @@ public class SqlServerDDLCreator extends DDLCreator {
 			Sequence sequence = normalColumn.getAutoIncrementSetting();
 
 			if (sequence.getIncrement() != null || sequence.getStart() != null) {
-				ddl.append("(");
+				ddl.append('(');
 				if (sequence.getStart() != null) {
 					ddl.append(sequence.getStart());
 
 				} else {
-					ddl.append("1");
+					ddl.append('1');
 				}
 
 				if (sequence.getIncrement() != null) {
@@ -39,7 +39,7 @@ public class SqlServerDDLCreator extends DDLCreator {
 					ddl.append(sequence.getIncrement());
 				}
 
-				ddl.append(")");
+				ddl.append(')');
 			}
 		}
 
@@ -56,7 +56,7 @@ public class SqlServerDDLCreator extends DDLCreator {
 		ddl.append("CREATE ");
 		if (StringUtils.isNotEmpty(tablespaceProperties.getType())) {
 			ddl.append(tablespaceProperties.getType());
-			ddl.append(" ");
+			ddl.append(' ');
 		}
 
 		ddl.append("TABLESPACE ");
@@ -94,7 +94,7 @@ public class SqlServerDDLCreator extends DDLCreator {
 		}
 
 		if (this.semicolon) {
-			ddl.append(";");
+			ddl.append(';');
 		}
 
 		return ddl.toString();

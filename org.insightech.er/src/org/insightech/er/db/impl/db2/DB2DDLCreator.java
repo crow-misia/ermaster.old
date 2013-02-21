@@ -24,20 +24,22 @@ public class DB2DDLCreator extends DDLCreator {
 		if (normalColumn.isAutoIncrement()) {
 			ddl.append(" GENERATED ALWAYS AS IDENTITY ");
 
-			Sequence sequence = normalColumn.getAutoIncrementSetting();
+			final Sequence sequence = normalColumn.getAutoIncrementSetting();
+			final Long start = sequence.getStart();
+			final Integer increment = sequence.getIncrement();
 
-			if (sequence.getIncrement() != null || sequence.getStart() != null) {
+			if (start != null || increment != null) {
 				ddl.append("(START WITH ");
-				if (sequence.getStart() != null) {
-					ddl.append(sequence.getStart());
-
-				} else {
+				
+				if (start == null) {
 					ddl.append("1");
+				} else {
+					ddl.append(start);
 				}
 
-				if (sequence.getIncrement() != null) {
+				if (increment != null) {
 					ddl.append(", INCREMENT BY ");
-					ddl.append(sequence.getIncrement());
+					ddl.append(increment);
 				}
 
 				ddl.append(")");
@@ -49,14 +51,17 @@ public class DB2DDLCreator extends DDLCreator {
 
 	@Override
 	protected String getDDL(Tablespace tablespace) {
-		DB2TablespaceProperties tablespaceProperties = (DB2TablespaceProperties) tablespace
+		final DB2TablespaceProperties properties = (DB2TablespaceProperties) tablespace
 				.getProperties(this.environment, this.getDiagram());
+		final String type = properties.getType();
+		final String pageSize = properties.getPageSize();
+		final String extentSize = properties.getExtentSize();
 
-		StringBuilder ddl = new StringBuilder();
+		final StringBuilder ddl = new StringBuilder();
 
 		ddl.append("CREATE ");
-		if (StringUtils.isNotEmpty(tablespaceProperties.getType())) {
-			ddl.append(tablespaceProperties.getType());
+		if (StringUtils.isNotEmpty(type)) {
+			ddl.append(type);
 			ddl.append(" ");
 		}
 
@@ -64,33 +69,33 @@ public class DB2DDLCreator extends DDLCreator {
 		ddl.append(filter(tablespace.getName()));
 		ddl.append("\r\n");
 
-		if (StringUtils.isNotEmpty(tablespaceProperties.getPageSize())) {
+		if (StringUtils.isNotEmpty(pageSize)) {
 			ddl.append(" PAGESIZE ");
-			ddl.append(tablespaceProperties.getPageSize());
+			ddl.append(pageSize);
 			ddl.append("\r\n");
 		}
 
 		ddl.append(" MANAGED BY ");
-		ddl.append(tablespaceProperties.getManagedBy());
+		ddl.append(properties.getManagedBy());
 		ddl.append(" USING(");
-		ddl.append(tablespaceProperties.getContainer());
+		ddl.append(properties.getContainer());
 		ddl.append(")\r\n");
 
-		if (StringUtils.isNotEmpty(tablespaceProperties.getExtentSize())) {
+		if (StringUtils.isNotEmpty(extentSize)) {
 			ddl.append(" EXTENTSIZE ");
-			ddl.append(tablespaceProperties.getExtentSize());
+			ddl.append(extentSize);
 			ddl.append("\r\n");
 		}
 
-		if (StringUtils.isNotEmpty(tablespaceProperties.getPrefetchSize())) {
+		if (StringUtils.isNotEmpty(properties.getPrefetchSize())) {
 			ddl.append(" PREFETCHSIZE ");
-			ddl.append(tablespaceProperties.getPrefetchSize());
+			ddl.append(properties.getPrefetchSize());
 			ddl.append("\r\n");
 		}
 
-		if (StringUtils.isNotEmpty(tablespaceProperties.getBufferPoolName())) {
+		if (StringUtils.isNotEmpty(properties.getBufferPoolName())) {
 			ddl.append(" BUFFERPOOL ");
-			ddl.append(tablespaceProperties.getBufferPoolName());
+			ddl.append(properties.getBufferPoolName());
 			ddl.append("\r\n");
 		}
 

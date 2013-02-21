@@ -1,5 +1,7 @@
 package org.insightech.er.editor.model;
 
+import org.apache.commons.lang.ArrayUtils;
+
 
 
 public abstract class ViewableModel extends AbstractModel {
@@ -23,34 +25,38 @@ public abstract class ViewableModel extends AbstractModel {
 		this.fontSize = DEFAULT_FONT_SIZE;
 	}
 
-	public int getFontSize() {
+	public final int getFontSize() {
 		return fontSize;
 	}
 
-	public void setFontSize(int fontSize) {
+	public final void setFontSize(int fontSize) {
 		this.fontSize = fontSize;
 		this.firePropertyChange(PROPERTY_CHANGE_FONT, null, null);
 	}
 
-	public String getFontName() {
+	public final String getFontName() {
 		return fontName;
 	}
 
-	public void setFontName(String fontName) {
+	public final void setFontName(String fontName) {
 		this.fontName = fontName;		
 		this.firePropertyChange(PROPERTY_CHANGE_FONT, null, null);
 	}
 
-	public void setColor(int red, int green, int blue) {
-		this.color = new int[3];
-		this.color[0] = red;
-		this.color[1] = green;
-		this.color[2] = blue;
+	public final void setColor(final int red, final int green, final int blue) {
+		this.color = new int[] { red, green, blue, };
+		
 
 		this.firePropertyChange(PROPERTY_CHANGE_COLOR, null, null);
 	}
 
-	public int[] getColor() {
+	public final void setColor(final int[] color) {
+		this.color = ArrayUtils.clone(color);
+
+		this.firePropertyChange(PROPERTY_CHANGE_COLOR, null, null);
+	}
+
+	public final int[] getColor() {
 		return this.color;
 	}
 
@@ -58,8 +64,7 @@ public abstract class ViewableModel extends AbstractModel {
 	public ViewableModel clone() {
 		ViewableModel clone = (ViewableModel) super.clone();
 		if (this.color != null) {
-			clone.color = new int[] { this.color[0], this.color[1],
-					this.color[2] };
+			clone.color = ArrayUtils.clone(this.color);
 		}
 
 		return clone;

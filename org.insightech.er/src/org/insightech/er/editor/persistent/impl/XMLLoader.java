@@ -1847,7 +1847,7 @@ public final class XMLLoader {
 			rgb[2] = getIntValue(color, "b");
 		}
 
-		model.setColor(rgb[0], rgb[1], rgb[2]);
+		model.setColor(rgb);
 	}
 
 	private static void loadDefaultColor(ERDiagram diagram, Element element) {

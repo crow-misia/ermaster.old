@@ -930,7 +930,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 			Vector<String> v = new Vector<String>();
 			try {
 				while ((line = br.readLine()) != null) {
-					v.addElement(line);
+					v.add(line);
 				}
 			} catch (IOException ex) {
 			}
@@ -953,7 +953,7 @@ public final class RowHeaderTable extends JScrollPane implements ClipboardOwner 
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					throw new ExceptionInInitializerError();
+					throw new ExceptionInInitializerError(e);
 				}
 			}
 
