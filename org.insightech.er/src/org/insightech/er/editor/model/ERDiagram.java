@@ -104,7 +104,7 @@ public class ERDiagram extends ViewableModel {
 		final Dictionary dictionary = this.getDiagramContents().getDictionary();
 		if (element instanceof TableView) {
 			for (final NormalColumn normalColumn : ((TableView) element)
-					.getNormalColumns()) {
+					.getExpandedColumns()) {
 				dictionary.add(normalColumn, false);
 			}
 		}

@@ -266,16 +266,8 @@ public class CopyManager {
 
 			Column cloneColumn = null;
 
-			if (column instanceof ColumnGroup) {
-				// グループ列の場合
-				// 複製は特にしません。
-				cloneColumn = column;
-
-			} else {
-				// 普通の列の場合
-				// 列を複製します。
-				cloneColumn = (NormalColumn) column.clone();
-			}
+			// 列を複製します。
+			cloneColumn = (Column) column.clone();
 
 			cloneColumns.add(cloneColumn);
 
