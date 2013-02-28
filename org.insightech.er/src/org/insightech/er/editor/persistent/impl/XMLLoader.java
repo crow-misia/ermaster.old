@@ -938,9 +938,6 @@ public final class XMLLoader {
 				Format.null2blank(getStringValue(element, "description")),
 				this.database);
 
-		word.getUniqueWord().setId(id);
-		dictionary.add(word.getUniqueWord());
-
 		context.wordMap.put(id, word);
 
 		return word;
@@ -1008,6 +1005,8 @@ public final class XMLLoader {
 			} else {
 				word = tmp;
 			}
+		} else {
+			word.getUniqueWord().setId(wordId);
 		}
 
 		final NormalColumn normalColumn = new NormalColumn(word,
@@ -1525,7 +1524,7 @@ public final class XMLLoader {
 			String id = getStringValue(columnElement, "id");
 			NormalColumn column = context.columnMap.get(id);
 
-			Boolean desc = new Boolean(getBooleanValue(columnElement,
+			Boolean desc = Boolean.valueOf(getBooleanValue(columnElement,
 					"desc"));
 
 			index.addColumn(column);

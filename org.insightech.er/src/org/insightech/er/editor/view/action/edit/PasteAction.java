@@ -31,7 +31,7 @@ public class PasteAction extends SelectionAction {
 	 * 
 	 * @param part
 	 */
-	public PasteAction(IWorkbenchPart part) {
+	public PasteAction(ERDiagramEditor part) {
 		super(part);
 
 		this.setText(ResourceString.getResourceString("action.title.paste"));
@@ -44,7 +44,7 @@ public class PasteAction extends SelectionAction {
 
 		this.setId(ActionFactory.PASTE.getId());
 
-		ERDiagramEditor editor = (ERDiagramEditor) part;
+		ERDiagramEditor editor = part;
 
 		this.editor = editor;
 	}

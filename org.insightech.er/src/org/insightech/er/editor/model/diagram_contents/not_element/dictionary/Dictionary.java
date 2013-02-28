@@ -40,7 +40,7 @@ public class Dictionary extends AbstractModel {
 		}
 
 		// ID割当てを行う (チェック用マップも登録する)
-		UniqueWord.setId(idMap, word.getUniqueWord());
+		UniqueWord.setId(idMap, word);
 	}
 
 	public void add(NormalColumn column, final boolean fire) {
@@ -55,9 +55,9 @@ public class Dictionary extends AbstractModel {
 		if (useColumns == null) {
 			useColumns = new HashSet<NormalColumn>();
 			this.wordMap.put(word, useColumns);
-
-			UniqueWord.setId(idMap, word.getUniqueWord());
 		}
+		UniqueWord.setId(idMap, word.getUniqueWord());
+
 		useColumns.add(column);
 
 		if (fire) {

@@ -36,6 +36,10 @@ public class UniqueWord extends Word {
 	public static void setId(final Map<UniqueWord, String> check, final UniqueWord word) {
 		// 既にIDの割当てがある場合、再利用する
 		String id = check.get(word);
+		if (id == null && word.id != null) {
+			check.put(word, word.id);
+			return;
+		}
 		if (id != null) {
 			word.id = id;
 			return;
